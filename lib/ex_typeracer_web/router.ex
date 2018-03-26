@@ -17,6 +17,7 @@ defmodule ExTyperacerWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/racer", PageController, :racer
   end
 
   # Other scopes may use custom stacks.
