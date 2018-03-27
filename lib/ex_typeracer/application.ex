@@ -17,8 +17,12 @@ defmodule ExTyperacer.Application do
       # worker(ExTyperacer.Worker, [arg1, arg2, arg3]),
     ]
 
+		# ETS for save users id
     :ets.new(:mapShared, [:named_table, :public])
     :ets.insert( :mapShared, { "users", [] } )
+
+		# ETS for save scores
+		:ets.new(:scoresGlobalMap, [:named_table, :public])
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
