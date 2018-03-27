@@ -1,1 +1,6 @@
-<div> Hola como estas</div>
+<div class="jumbotron">
+  <p id="status" class="lead">Ready</p>
+  <p id="timer" class="lead"></p>
+  <button class="btn btn-primary" id="start-timer">Start Timer</button>
+</div>
+
