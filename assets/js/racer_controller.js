@@ -32,8 +32,11 @@ export var RacerController = {
     let channelPlayer = socket.channel("players", {uuid: Math.floor((Math.random() * 10000) + 1)})
 
     channelPlayer.on("players_list", msg => {
-      console.log(msg)
-    });
+    $("#list_users").html("")
+     $.each(msg.users, function( index, value ) {
+       $("#list_users").append(`<p>username: ${value.uuid}</p>`)
+     });
+   });
 
     channelPlayer.join()
       .receive("ok", resp => {
