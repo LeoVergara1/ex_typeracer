@@ -11,7 +11,7 @@ defmodule ExTyperacerWeb.PlayersChannel do
 
   def handle_in("get_list", payload, socket) do
     [{_, users_list}] = :ets.lookup(:mapShared, "users")
-    broadcast! socket, "players_list", %{"users:" => users_list}
+    broadcast! socket, "players_list", %{"users" => users_list}
     {:noreply, socket}
   end
 
