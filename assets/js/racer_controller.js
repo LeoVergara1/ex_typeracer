@@ -30,9 +30,17 @@ export var RacerController = {
   initChannelPlayers: () => {
     console.log("Init players channel")
     let channelPlayer = socket.channel("players", {uuid: Math.floor((Math.random() * 10000) + 1)})
+
+    channelPlayer.on("players_list", msg => {
+      console.log(msg)
+    });
+
     channelPlayer.join()
-      .receive("ok", resp => { console.log("Player successfully 😎", resp) })
+      .receive("ok", resp => {
+        console.log("Player successfully 😎", resp)
+      })
       .receive("error", resp => { console.log("Unable to join", resp) })
+    channelPlayer.push('get_list', {})
   },
 
   bindEvents:function (){
