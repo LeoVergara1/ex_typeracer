@@ -51,7 +51,7 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // Finally, pass the token on connect as below. Or remove it
 // from connect if you don't care about authentication.
 
-let channel = socket.channel("lobby", {});
+let channel = socket.channel("lobby", { uuid: Math.floor((Math.random() * 10000) + 1) });
 let list    = $('#message-list');
 let message = $('#message');
 let name    = $('#name');
