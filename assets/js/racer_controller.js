@@ -13,6 +13,11 @@ export var RacerController = {
         console.log("The timer is ", msg.time)
           document.getElementById('status').innerHTML = msg.response
           document.getElementById('timer').innerHTML = msg.time
+
+          $("#start-timer").hide()
+          if (msg.time === 0){
+            $("#start-timer").show()
+          }
       });
 
     $("#start-timer").on("click" , () =>{
