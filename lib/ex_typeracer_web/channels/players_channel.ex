@@ -6,14 +6,14 @@ defmodule ExTyperacerWeb.PlayersChannel do
     [{_, users_list}] = :ets.lookup(:mapShared, "users")
     users_list = List.insert_at(users_list, length(users_list)+1, payload)
     :ets.insert(:mapShared, {"users", users_list})
-#		broadcast! socket, "players", users_list
     {:ok, socket}
   end
 
-#  def handle_in("new_message", payload, socket) do
-#    broadcast! socket, "new_message", payload
-#    {:noreply, socket}
-#  end
+  def handle_in("get_list", payload, socket) do
+    IO.puts "Aqui ando"
+    broadcast! socket, "players_list", %{"pass:" => "algo"}
+    {:noreply, socket}
+  end
 
 end
 
