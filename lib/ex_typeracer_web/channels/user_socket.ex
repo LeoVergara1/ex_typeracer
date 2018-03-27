@@ -6,6 +6,7 @@ defmodule ExTyperacerWeb.UserSocket do
   # channel "room:*", ExTyperacerWeb.RoomChannel
   channel "lobby", ExTyperacerWeb.LobbyChannel
 	channel "timer:*", ExTyperacerWeb.TimerChannel
+	channel "players", ExTyperacerWeb.PlayersChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
