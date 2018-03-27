@@ -16,6 +16,9 @@ defmodule ExTyperacer.Application do
       # worker(ExTyperacer.Worker, [arg1, arg2, arg3]),
     ]
 
+    :ets.new(:mapShared, [:named_table, :public])
+    :ets.insert( :mapShared, { "users", [] } )
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ExTyperacer.Supervisor]
