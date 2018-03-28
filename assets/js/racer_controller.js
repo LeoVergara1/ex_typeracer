@@ -29,11 +29,15 @@ export var RacerController = {
 
   initChannelPlayers: function () {
     let channelPlayer = socket.channel("players", {uuid: this.uuid})
+    let that = this
 
 			channelPlayer.on("players_list", msg => {
 				$("#list_users").html("")
 					$.each(msg.users, function( index, value ) {
-						$("#list_users").append(`<p>username: ${value.uuid} Score: %<span id='${value.uuid}'>0</span></p> `)
+            if (value == that.uuid)
+              $("#list_users").append(`<p><strong> You </strong> Score: %<span id='${value.uuid}'>0</span></p> `)
+            else
+              $("#list_users").append(`<p><strong> Guess </strong> Score: %<span id='${value.uuid}'>0</span></p> `)
 					});
 			});
 
