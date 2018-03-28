@@ -35,9 +35,9 @@ export var RacerController = {
 				$("#list_users").html("")
 					$.each(msg.users, function( index, value ) {
             if (value == that.uuid)
-              $("#list_users").append(`<p><strong> You </strong> Score: %<span id='${value.uuid}'>0</span></p> `)
+              $("#list_users").append(`<p><strong> You </strong> Score: %<span id='${value}'>0</span></p> `)
             else
-              $("#list_users").append(`<p><strong> Guess </strong> Score: %<span id='${value.uuid}'>0</span></p> `)
+              $("#list_users").append(`<p><strong> Guess </strong> Score: %<span id='${value}'>0</span></p> `)
 					});
 			});
 
@@ -67,7 +67,6 @@ export var RacerController = {
 			// Socket donde llegarán todos los scores
 			this.channelScore.on("scores:show", msg => {
         $(`#${msg.user}`).text(msg.score)
-				console.log(msg)
 			});
   },
 
