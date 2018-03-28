@@ -4,23 +4,31 @@ import { RacerController } from "./racer_controller"
 export var MatchController = {
 
   validateKeyWord: ()=>{
-    let nextWord = 1
-    let porcent = 0
+    let lastWord = 0
+    let textCurent = ""
+    let nextWord = 0
+    let score = 0
     let textArea = $("#textToValidate").text()
     $("#currentWord").text(textArea.charAt(nextWord))
+    lastWord = textArea.length
     $("#pressKey").on("keydown", (event)=>{
       if (textArea.charAt(nextWord) === " "){
         console.log("Espacio")
         $("#currentWord").text("Espacio")
+        $("#pressKey").val("")
       }
       else {
         $("#currentWord").text(textArea.charAt(nextWord))
       }
       console.log(`Presiona : ${event.key}, Numero de palabra: ${nextWord} , Letra del parrafo: ${textArea.charAt(nextWord)}`)
       if(event.key == textArea.charAt(nextWord)){
+        textCurent +=textArea.charAt(nextWord)
         nextWord +=1
-        porcent = (nextWord * 100) / (textArea.length)
-        RacerController.sendScore(porcent)
+        score = (nextWord * 100) / (textArea.length)
+        RacerController.sendScore(score)
+        console.log(`Texto actual: ${textCurent} cadena:  ${textArea.substring(nextWord)}`)
+        $("#textCurrent").text(textCurent)
+        $("#textToValidate").text(textArea.substring(nextWord))
         $("#pressKey").removeClass("error")
       } else {
         $("#pressKey").addClass("error") 
