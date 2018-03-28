@@ -1,4 +1,5 @@
 import socket from "./socket"
+import { RacerController } from "./racer_controller"
 
 export var MatchController = {
 
@@ -19,7 +20,7 @@ export var MatchController = {
       if(event.key == textArea.charAt(nextWord)){
         nextWord +=1
         porcent = (nextWord * 100) / (textArea.length)
-        console.log(porcent)
+        RacerController.sendScore(porcent)
         $("#pressKey").removeClass("error")
       } else {
         $("#pressKey").addClass("error") 
