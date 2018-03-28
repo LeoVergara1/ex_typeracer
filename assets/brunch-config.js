@@ -58,6 +58,9 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    styles: {
+      "animate.css": ['animate.css']
+    }
   }
 };
