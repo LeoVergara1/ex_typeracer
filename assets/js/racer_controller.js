@@ -1,7 +1,7 @@
 import socket from "./socket"
 
 export var RacerController = {
-  uuid: Math.floor((Math.random() * 10000) + 1), 
+  uuid: Math.floor((Math.random() * 10000) + 1),
   channelScore: null,
 
   initChannel: () =>{
