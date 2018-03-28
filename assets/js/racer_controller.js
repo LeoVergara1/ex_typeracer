@@ -33,7 +33,7 @@ export var RacerController = {
 			channelPlayer.on("players_list", msg => {
 				$("#list_users").html("")
 					$.each(msg.users, function( index, value ) {
-						$("#list_users").append(`<p>username: ${value.uuid}</p>`)
+						$("#list_users").append(`<p>username: ${value.uuid} Score: %<span id='${value.uuid}'>0</span></p> `)
 					});
 			});
 
@@ -62,6 +62,7 @@ export var RacerController = {
       .receive('ok', resp => { console.log("ok",resp) })
 			// Socket donde llegarán todos los scores
 			this.channelScore.on("scores:show", msg => {
+        $(`#${msg.user}`).text(msg.score)
 				console.log(msg)
 			});
   },
