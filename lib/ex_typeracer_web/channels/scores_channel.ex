@@ -14,5 +14,11 @@ defmodule ExTyperacerWeb.ScoresChannel do
     {:noreply, socket}
 	end
 
+	def handle_in("scores:get", payload, socket) do
+    Logger.warn " ::::::::: Scores:Get :::::::: Getting scores"
+		broadcast! socket, "scores:show", payload
+    {:noreply, socket}
+	end
+
 end
 
