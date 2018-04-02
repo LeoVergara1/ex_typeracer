@@ -13,7 +13,9 @@ class HandlebarsResolver {
   
   static testTamplate(){
     console.log("Init template ")
-    var template = Handlebars.templates['./templates/run_text.hbs'];
+    let source = $("#run_area").html();
+    let template = Handlebars.compile(source);
+    console.log(template({hola:"kaka"}))
   }
 
   get type() {

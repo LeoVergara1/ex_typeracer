@@ -1,0 +1,6 @@
+<script id="run_area" type="text/x-handlebars-template">
+  <div>
+    hola como estas
+    {{hola}}
+  </div>
+</script>

@@ -19,3 +19,5 @@
       <input type="text" id="pressKey" class="form-control" id="usr">
     </div>
 
+ <%= render "run_text.html" %>
+
