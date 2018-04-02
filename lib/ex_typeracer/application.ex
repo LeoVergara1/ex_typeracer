@@ -21,6 +21,7 @@ defmodule ExTyperacer.Application do
     :ets.new(:mapShared, [:named_table, :public])
     :ets.insert( :mapShared, { "users", %{} } )
 
+
 		# ETS for save scores
 		:ets.new(:scoresGlobalMap, [:named_table, :public])
 
