@@ -9,7 +9,6 @@ export var MatchController = {
     let textCurent = ""
     let nextWord = 0
     let score = 0
-    console.log(this.randoomText)
     let textArea = this.randoomText
     $("#currentWord").text(textArea.charAt(nextWord))
     lastWord = textArea.length
@@ -48,7 +47,6 @@ export var MatchController = {
 			.receive("ok", resp => {
         console.log("Room successfully 😎", resp)
         this.randoomText = resp.text 
-        console.log(this.randoomText)
         $("#textToValidate").text(resp.text)
         this.validateKeyWord()
 			})
