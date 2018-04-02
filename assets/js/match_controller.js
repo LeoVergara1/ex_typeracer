@@ -38,9 +38,21 @@ export var MatchController = {
 
 
   },
+
+  initChannelRoom: function () {
+    let channelRoom = socket.channel("room:new", {})
+    let that = this
+    channelRoom.join()
+			.receive("ok", resp => {
+				console.log("Room successfully 😎", resp)
+			})
+			.receive("error", resp => { console.log("Unable to join", resp) })
+
+  },
   bindEvents:function (){
     console.log("init envents from MatchControllet")
     this.validateKeyWord()
+    this.initChannelRoom()
   
   },
 
