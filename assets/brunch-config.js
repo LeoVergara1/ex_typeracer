@@ -61,6 +61,9 @@ exports.config = {
     enabled: true,
     styles: {
       "animate.css": ['animate.css']
+    },
+    globals:{
+      Handlebars:'handlebars'
     }
   }
 };
