@@ -2,13 +2,15 @@ import socket from "./socket"
 import { RacerController } from "./racer_controller"
 
 export var MatchController = {
+  randoomText: "",
 
-  validateKeyWord: ()=>{
+  validateKeyWord: function(){
     let lastWord = 0
     let textCurent = ""
     let nextWord = 0
     let score = 0
-    let textArea = $("#textToValidate").text()
+    console.log(this.randoomText)
+    let textArea = this.randoomText
     $("#currentWord").text(textArea.charAt(nextWord))
     lastWord = textArea.length
     $("#pressKey").on("keydown", (event)=>{
@@ -44,14 +46,18 @@ export var MatchController = {
     let that = this
     channelRoom.join()
 			.receive("ok", resp => {
-				console.log("Room successfully 😎", resp)
+        console.log("Room successfully 😎", resp)
+        this.randoomText = resp.text 
+        console.log(this.randoomText)
+        $("#textToValidate").text(resp.text)
+        this.validateKeyWord()
 			})
-			.receive("error", resp => { console.log("Unable to join", resp) })
+      .receive("error", resp => { console.log("Unable to join", resp) })
+      
 
   },
   bindEvents:function (){
     console.log("init envents from MatchControllet")
-    this.validateKeyWord()
     this.initChannelRoom()
   
   },
