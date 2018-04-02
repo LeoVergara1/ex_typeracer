@@ -3,7 +3,7 @@ defmodule ExTyperacerWeb.UserSocket do
 
 
   ## Channels
-  # channel "room:*", ExTyperacerWeb.RoomChannel
+  channel "room:*", ExTyperacerWeb.RoomChannel
 	channel "timer:*", ExTyperacerWeb.TimerChannel
 	channel "players", ExTyperacerWeb.PlayersChannel
 	channel "scores", ExTyperacerWeb.ScoresChannel
