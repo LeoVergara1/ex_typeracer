@@ -1,10 +1,14 @@
 import socket from "./socket"
 import { RacerController } from "./racer_controller"
+import HandlebarsResolver from "./handlebars_resolver"
 
 export var MatchController = {
   randoomText: "",
 
   validateKeyWord: function(){
+    console.log(RacerController)
+    console.log(HandlebarsResolver)
+    HandlebarsResolver.constructor.testTamplate()
     let lastWord = 0
     let textCurent = ""
     let nextWord = 0
