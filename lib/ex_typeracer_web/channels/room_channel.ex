@@ -15,14 +15,24 @@ defmodule ExTyperacerWeb.RoomChannel do
     {_,text} = File.read("lib/resources/words.txt")
     username = payload["username"]
     procees = "#{:rand.uniform(9000)}-#{username}"
+    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
+    list_rooms = List.insert_at(list_rooms, length(list_rooms), procees)
+    IO.inspect list_rooms 
+    :ets.insert(:list_rooms, { "list", list_rooms } )
     paragraphs = String.split(text,"\n\n")
     random_number = :rand.uniform(length(paragraphs)-1)
     {:reply, 
-    {:ok, %{"text" => Enum.at(paragraphs, random_number),
+    {:ok, %{"list" => list_rooms,
             "process" => procees
           }
     },
     socket}
+  end
+
+  def handle_in("get_romms", payload, socket) do
+    [{_, list_rooms}] = :ets.lookup(:list_rooms, "list")
+		broadcast! socket, "list_rooms", %{"rooms" => list_rooms}
+    {:noreply, socket}
   end
 
 end

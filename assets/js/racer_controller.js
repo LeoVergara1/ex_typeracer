@@ -11,8 +11,15 @@ export var RacerController = {
     this.channelRoom.join()
 			.receive("ok", resp => {
         console.log("Room successfully 😎", resp)
+        this.channelRoom.push("get_romms")
 			})
       .receive("error", resp => { console.log("Unable to join", resp) })
+	  this.channelRoom.on("list_rooms", msg => {
+				$("#list_users").html("")
+					$.each(msg.rooms, function( index, value ) {
+            $("#list_roms").append(`<p><strong> Sala: </strong> ${value} <span></span></p> `)
+					});
+			});
   },
   initChannel: () =>{
     var channel = socket.channel("timer:update", {})
