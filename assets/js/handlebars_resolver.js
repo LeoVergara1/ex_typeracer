@@ -4,10 +4,11 @@ class HandlebarsResolver {
     this._type = 'SingletonDefaultExportInstance';
   }
 
-  static mergeViewWithModel(templateName, model){
+  static mergeViewWithModel(templateName, model, idCointener){
     let source;
     source = $(templateName).html();
     template = Handlebars.compile(source);
+    $(`#${idCointener}`).html(template(model));
     return template(model);
   }
   

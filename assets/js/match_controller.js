@@ -8,7 +8,6 @@ export var MatchController = {
   validateKeyWord: function(){
     console.log(RacerController)
     console.log(HandlebarsResolver)
-    HandlebarsResolver.constructor.testTamplate()
     let lastWord = 0
     let textCurent = ""
     let nextWord = 0
@@ -44,23 +43,9 @@ export var MatchController = {
 
   },
 
-  initChannelRoom: function () {
-    let channelRoom = socket.channel("room:new", {})
-    let that = this
-    channelRoom.join()
-			.receive("ok", resp => {
-        console.log("Room successfully 😎", resp)
-        this.randoomText = resp.text 
-        $("#textToValidate").text(resp.text)
-        this.validateKeyWord()
-			})
-      .receive("error", resp => { console.log("Unable to join", resp) })
-      
-
-  },
   bindEvents:function (){
     console.log("init envents from MatchControllet")
-    this.initChannelRoom()
+    this.validateKeyWord()
   
   },
 

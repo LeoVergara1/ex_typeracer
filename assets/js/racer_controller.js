@@ -3,7 +3,17 @@ import socket from "./socket"
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
   channelScore: null,
+  channelRoom: null, 
 
+  initChannelRoom: function () {
+    this.channelRoom = socket.channel("room:new", {})
+    let that = this
+    this.channelRoom.join()
+			.receive("ok", resp => {
+        console.log("Room successfully 😎", resp)
+			})
+      .receive("error", resp => { console.log("Unable to join", resp) })
+  },
   initChannel: () =>{
     var channel = socket.channel("timer:update", {})
       channel.join()
@@ -56,11 +66,6 @@ export var RacerController = {
       this.channelScore.join()
       .receive("ok", resp => { console.log("Scores Channel Joined 😙 ", resp) })
       .receive("error", resp => { console.log("No se puede conectar al Scores Channel", resp) })
-			// Socket para registrar los scores por usuario
-//      channel
-//      .push('scores:set', {user:"carlogilmar", score:100})
-//      .receive('ok', resp => { console.log("Starter timer",resp) })
-//			// Socket para traer todos los scores
       this.channelScore
       .push('scores:get', { user: this.uuid })
       .receive('ok', resp => { console.log("ok",resp) })
@@ -70,6 +75,15 @@ export var RacerController = {
 			});
   },
 
+  initRom: function(){
+    let that = this
+    $("#start-room").on("click", () =>{
+      console.log("click")
+      that.uuid = $("#recipient-name").val()
+      console.log(that.uuid)
+    })
+  },
+
   sendScore: function (score) {
       this.channelScore
       .push('scores:set', {user: this.uuid, score:score})
@@ -77,9 +91,11 @@ export var RacerController = {
   },
 
   bindEvents:function (){
+    this.initRom()
     this.initChannel()
     this.initChannelPlayers()
     this.initChannelScores()
+    this.initChannelRoom()
   },
 
   start: function(){
