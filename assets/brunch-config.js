@@ -60,11 +60,14 @@ exports.config = {
   npm: {
     enabled: true,
     styles: {
-      "animate.css": ['animate.css']
+      "animate.css": ['animate.css'],
+      bootstrap: ['dist/css/bootstrap.min.css']
     },
     globals:{
       Handlebars:'handlebars',
-      Bootstrap:'bootstrap'
+      bootstrap:'bootstrap',
+      popper:"popper.js",
+      $: 'jquery'
     }
   }
 };
