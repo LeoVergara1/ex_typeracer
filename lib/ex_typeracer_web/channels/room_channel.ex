@@ -13,11 +13,16 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("init_reace", payload, socket) do
     {_,text} = File.read("lib/resources/words.txt")
-    IO.inspect text
+    username = payload["username"]
+    procees = "#{:rand.uniform(9000)}-#{username}"
     paragraphs = String.split(text,"\n\n")
     random_number = :rand.uniform(length(paragraphs)-1)
-    IO.inspect random_number
-    {:noreply, %{"text" => Enum.at(paragraphs, random_number)},socket}
+    {:reply, 
+    {:ok, %{"text" => Enum.at(paragraphs, random_number),
+            "process" => procees
+          }
+    },
+    socket}
   end
 
 end

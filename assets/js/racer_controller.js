@@ -81,6 +81,9 @@ export var RacerController = {
       console.log("click")
       that.uuid = $("#recipient-name").val()
       console.log(that.uuid)
+      this.channelRoom
+      .push('init_reace', {username: that.uuid})
+      .receive('ok', response =>{ console.log("ok", response)})
     })
   },
 
