@@ -1,5 +1,15 @@
 <script id="run_area" type="text/x-handlebars-template">
-  <div>
-    hola como estas
+<div class="container">
+  <h2>Texto para correr</h2>
+  <div class="panel panel-default">
+    <div class="panel-body"> <span id="textCurrent"></span><spanFake id="cursorText" class="animated flash">|</spanFake><span id="textToValidate">Está compuesto por un conjunto de oraciones que tienen cierta unidad tematica o que, sin tenerla, se enuncian juntas. Es un componente del texto que en su aspecto externo comienza con una mayuscula y termina en un punto y aparte. Comprende varias oraciones relacionadas sobre el mismo subtema; una de ellas expresa la idea principal.</span></div>
   </div>
+</div>
+
+<div class="container">
+    <div class="form-group">
+      <label for="usr">Letra: <span id="currentWord" class="animated"></span></label>
+      <input type="text" id="pressKey" class="form-control" id="usr">
+  </div>
+</div>
 </script>
