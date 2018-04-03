@@ -1,7 +1,17 @@
-<script id="run_area" type="text/x-handlebars-template">
+<script id="timer_area" type="text/x-handlebars-template">
 <div class="jumbotron">
+  <p id="idRoom" class="lead">Id de la Sala: {{process}}</p>
   <p id="status" class="lead">Ready</p>
   <p id="timer" class="lead"></p>
   <button class="btn btn-primary" id="start-timer">Start Timer</button>
+</div>
+ <div id="list_users">
+  <p class="lead">Lista de jugadores en esta sala: </p>
+  <ul class="list-group">
+  <li class="list-group-item justify-content-between">
+    {{user}}
+    <span class="badge badge-default badge-pill">0</span>
+  </li>
+</ul>
 </div>
 </script>

@@ -7,7 +7,7 @@ class HandlebarsResolver {
   static mergeViewWithModel(templateName, model, idCointener){
     let source;
     source = $(templateName).html();
-    template = Handlebars.compile(source);
+    let template = Handlebars.compile(source);
     $(`#${idCointener}`).html(template(model));
     return template(model);
   }

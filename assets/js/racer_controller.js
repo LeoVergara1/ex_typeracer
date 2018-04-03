@@ -1,4 +1,5 @@
 import socket from "./socket"
+import HandlebarsResolver from "./handlebars_resolver"
 
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
@@ -90,7 +91,10 @@ export var RacerController = {
       console.log(that.uuid)
       this.channelRoom
       .push('init_reace', {username: that.uuid})
-      .receive('ok', response =>{ console.log("ok", response)})
+      .receive('ok', response =>{ 
+        console.log("ok", response)
+        HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "container-header-player")
+      })
     })
   },
 

@@ -1,6 +1,5 @@
 <script id="run_area" type="text/x-handlebars-template">
- <div id="list_users">
-</div>
+
 <div class="container">
   <h2>Texto para correr</h2>
   <div class="panel panel-default">

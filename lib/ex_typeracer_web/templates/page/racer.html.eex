@@ -1,7 +1,7 @@
 <div id="container-header-player">
 <div class="jumbotron" id="initMenu">
   <button class="btn btn-primary"   data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
-  <button class="btn btn-primary" id="start-multi">Unirse a una partida</button>
+  <button class="btn btn-primary" id="start-multi" >Unirse a una partida</button>
 </div>
 </div>
 
@@ -29,7 +29,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="start-room">Iniciar</button>
+        <button type="button" class="btn btn-primary" id="start-room" data-dismiss="modal">Iniciar</button>
       </div>
     </div>
   </div>
