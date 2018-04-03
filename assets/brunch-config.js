@@ -63,7 +63,8 @@ exports.config = {
       "animate.css": ['animate.css']
     },
     globals:{
-      Handlebars:'handlebars'
+      Handlebars:'handlebars',
+      Bootstrap:'bootstrap'
     }
   }
 };
