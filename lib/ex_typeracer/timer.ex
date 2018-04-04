@@ -31,7 +31,7 @@ defmodule ExTyperacer.Timer do
 
 	def handle_info(%{event: "start_timer"}, %{timer_ref: old_timer_ref}) do
     cancel_timer(old_timer_ref)
-		duration = 30
+		duration = 3
 		timer_ref = schedule_timer 1_000
 		broadcast duration, "Started Timer!!!"
 		{:noreply, %{timer_ref: timer_ref, timer: duration}}
