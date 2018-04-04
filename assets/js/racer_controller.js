@@ -5,6 +5,7 @@ export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
   channelScore: null,
   channelRoom: null, 
+  processRoom: null,
 
   initChannelRoom: function () {
     this.channelRoom = socket.channel("room:new", {})
@@ -22,7 +23,8 @@ export var RacerController = {
 					});
 			});
   },
-  initChannel: () =>{
+  initChannel: function() {
+    let that = this 
     var channel = socket.channel("timer:update", {})
       channel.join()
       .receive("ok", resp => { console.log("Timer Channel Joined 😉", resp) })
@@ -35,14 +37,25 @@ export var RacerController = {
           $("#start-timer").hide()
           if (msg.time === 0){
             $("#start-timer").show()
+            that.showRunArea(that.uuid)
+            that.channelRoom.push("show_run_area", that.processRoom)
+            
           }
       });
 
-    $("#start-timer").on("click" , () =>{
+      $("#container-header-player").on("click", "#start-timer" , () =>{
       channel
       .push('start_timer', {})
       .receive('ok', resp => { console.log("Starter timer",resp) })
     })
+  },
+
+  showRunArea: function(nameRom) {
+    console.log("Llego a la función")
+    this.channelRoom.on(`${nameRom}`, msg => {
+      console.log(msg)
+    })
+
   },
 
   initChannelPlayers: function () {
@@ -93,6 +106,7 @@ export var RacerController = {
       .push('init_reace', {username: that.uuid})
       .receive('ok', response =>{ 
         console.log("ok", response)
+        that.processRoom = response.process;
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "container-header-player")
       })
     })
