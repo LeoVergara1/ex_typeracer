@@ -37,7 +37,7 @@ export var RacerController = {
           $("#start-timer").hide()
           if (msg.time === 0){
             $("#start-timer").show()
-            that.showRunArea(that.uuid)
+            that.showRunArea(that.processRoom)
             that.channelRoom.push("show_run_area", that.processRoom)
             
           }
