@@ -43,7 +43,7 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("show_run_area", payload, socket) do 
     IO.inspect payload
-    [{_,mi_text}] = :ets.lookup(:"${payload}","text")
+    [{_,mi_text}] = :ets.lookup(:"#{payload}","text")
     broadcast! socket, "f", %{"data" => payload}
     {:noreply, socket}
   end
