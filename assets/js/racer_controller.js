@@ -1,5 +1,6 @@
 import socket from "./socket"
 import HandlebarsResolver from "./handlebars_resolver"
+import { MatchController } from "./match_controller";
 
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
@@ -54,6 +55,8 @@ export var RacerController = {
     console.log("Llego a la función")
     this.channelRoom.on(`${nameRom}`, msg => {
       console.log(msg)
+      HandlebarsResolver.constructor.mergeViewWithModel("#run_area", msg, "container-run-area")
+      MatchController.validateKeyWord(msg.data)
     })
 
   },

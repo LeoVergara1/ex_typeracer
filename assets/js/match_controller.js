@@ -5,14 +5,15 @@ import HandlebarsResolver from "./handlebars_resolver"
 export var MatchController = {
   randoomText: "",
 
-  validateKeyWord: function(){
+  validateKeyWord: function(textRandoom){
     console.log(RacerController)
     console.log(HandlebarsResolver)
     let lastWord = 0
     let textCurent = ""
     let nextWord = 0
     let score = 0
-    let textArea = this.randoomText
+    let textArea = textRandoom
+    console.log(textRandoom)
     $("#currentWord").text(textArea.charAt(nextWord))
     lastWord = textArea.length
     $("#pressKey").on("keydown", (event)=>{
@@ -45,7 +46,6 @@ export var MatchController = {
 
   bindEvents:function (){
     console.log("init envents from MatchControllet")
-    this.validateKeyWord()
   
   },
 
