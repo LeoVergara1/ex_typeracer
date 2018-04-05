@@ -1,4 +1,6 @@
 defmodule ExTyperacerWeb.RoomChannel do
+  alias ExTyperacer.Structs.Game
+  alias ExTyperacer.Structs.Player
   use Phoenix.Channel
   require Logger
 
@@ -12,23 +14,15 @@ defmodule ExTyperacerWeb.RoomChannel do
   end
 
   def handle_in("init_reace", payload, socket) do
-    {_,text} = File.read("lib/resources/words.txt")
-    paragraphs = String.split(text,"\n\n")
-    random_number = :rand.uniform(length(paragraphs)-1)
-    textRun = Enum.at(paragraphs, random_number) 
-    IO.inspect textRun
     username = payload["username"]
-    procees = "#{:rand.uniform(9000)}-#{username}"
-    :ets.new(:"#{procees}", [:named_table, :public])
-    :ets.insert(:"#{procees}", { "users", [payload["username"]] } )
-    :ets.insert(:"#{procees}", { "text", textRun } )
+    game = Game.initGame(username)
+    :ets.new(:"#{game.uuid}", [:named_table, :public])
+    :ets.insert(:"#{game.uuid}", {"game", game} )
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
-    list_rooms = List.insert_at(list_rooms, length(list_rooms), procees)
-    IO.inspect list_rooms 
-    :ets.insert(:list_rooms, { "list", list_rooms } )
+    :ets.insert(:list_rooms, { "list", list_rooms ++ [game.uuid] } )
     {:reply, 
     {:ok, %{"list" => list_rooms,
-            "process" => procees,
+            "process" => game.uuid,
             "user" => payload["username"]
           }
     },
@@ -43,8 +37,8 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("show_run_area", payload, socket) do 
     IO.inspect payload
-    [{_,mi_text}] = :ets.lookup(:"#{payload}","text")
-    broadcast! socket, "#{payload}", %{"data" => mi_text}
+    [{_,game}] = :ets.lookup(:"#{payload}","game")
+    broadcast! socket, "#{payload}", %{"data" => game.paragraph}
     {:noreply, socket}
   end
 
