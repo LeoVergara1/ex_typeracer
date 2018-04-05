@@ -1,15 +1,17 @@
 defmodule ExTyperacerWeb.RoomChannel do
+
   alias ExTyperacer.Structs.Game
-  alias ExTyperacer.Structs.Player
-  use Phoenix.Channel
+  
   require Logger
 
-  def join("room:new", payload, socket) do
+  use Phoenix.Channel
+
+  def join("room:new", _payload, socket) do
     Logger.info ":: Room:channel:: Conexión a una sala"
     {:ok, socket}
   end
 
-  def handle_in("get_text", payload, socket) do
+  def handle_in("get_text", _payload, socket) do
     {:noreply, socket}
   end
 
@@ -29,16 +31,15 @@ defmodule ExTyperacerWeb.RoomChannel do
     socket}
   end
 
-  def handle_in("get_romms", payload, socket) do
+  def handle_in("get_romms", _payload, socket) do
     [{_, list_rooms}] = :ets.lookup(:list_rooms, "list")
     broadcast! socket, "list_rooms", %{"rooms" => list_rooms}
     {:noreply, socket}
   end
 
-  def handle_in("show_run_area", payload, socket) do 
-    IO.inspect payload
-    [{_,game}] = :ets.lookup(:"#{payload}","game")
-    broadcast! socket, "#{payload}", %{"data" => game.paragraph}
+  def handle_in("show_run_area", uuidGame, socket) do 
+    [{_,game}] = :ets.lookup(:"#{uuidGame}","game")
+    broadcast! socket, "#{uuidGame}", %{"data" => game.paragraph}
     {:noreply, socket}
   end
 
