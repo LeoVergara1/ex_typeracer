@@ -10,7 +10,6 @@ defmodule ExTyperacer.Timer do
   ## Gen server starts here!
 
   def init(_state) do
-    Logger.warn " 1 ============ Start Here! "
 		ExTyperacerWeb.Endpoint.subscribe "timer:start", []
     # Adding state
     state = %{timer_ref: nil, timer: nil}
