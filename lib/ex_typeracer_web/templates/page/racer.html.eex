@@ -1,7 +1,7 @@
 <div id="container-header-player">
 <div class="jumbotron" id="initMenu">
   <button class="btn btn-primary"   data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
-  <button class="btn btn-primary" id="start-multi" >Unirse a una partida</button>
+  <button class="btn btn-primary" data-toggle="modal" data-target="#joinMatchModal">Unirse a una partida</button>
 </div>
 </div>
 
@@ -30,6 +30,33 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" id="start-room" data-dismiss="modal">Iniciar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="joinMatchModal" tabindex="-1" role="dialog" aria-labelledby="labelModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="labelModal">Iniciar partida</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" id="username">
+            <label for="game-id" class="col-form-label">Id de partida:</label>
+            <input type="text" class="form-control" id="game-id">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="join-room" data-dismiss="modal">Iniciar</button>
       </div>
     </div>
   </div>
