@@ -31,6 +31,22 @@ defmodule ExTyperacerWeb.RoomChannel do
     socket}
   end
 
+  def handle_in("join_race", payload, socket) do
+    username = payload["username"]
+    uuidGame = payload["uuid"]
+    [{_,game}] = :ets.lookup(:"#{uuidGame}","game")
+    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
+    game = Game.addPlayer(game, username)
+    :ets.insert(:"#{game.uuid}", {"game", game} )
+    {:reply, 
+    {:ok, %{"list" => list_rooms,
+            "process" => game.uuid,
+            "user" => payload["username"]
+          }
+    },
+    socket}
+  end
+
   def handle_in("get_romms", _payload, socket) do
     [{_, list_rooms}] = :ets.lookup(:list_rooms, "list")
     broadcast! socket, "list_rooms", %{"rooms" => list_rooms}
