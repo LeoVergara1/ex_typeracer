@@ -115,6 +115,21 @@ export var RacerController = {
     })
   },
 
+  joinRom: function(){
+    let that = this
+    $("#join-room").on("click", () =>{
+      that.username = $("#username").val()
+      that.uuid = $("#game-id").val()
+      this.channelRoom
+      .push('join_race', {username: that.username, uuid: that.uuid})
+      .receive('ok', response =>{ 
+        console.log("ok", response)
+        that.processRoom = response.process;
+        HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "container-header-player")
+      })
+    })
+  },
+
   sendScore: function (score) {
       this.channelScore
       .push('scores:set', {user: this.uuid, score:score})
@@ -123,6 +138,7 @@ export var RacerController = {
 
   bindEvents:function (){
     this.initRom()
+    this.joinRom()
     this.initChannel()
     this.initChannelPlayers()
     this.initChannelScores()
