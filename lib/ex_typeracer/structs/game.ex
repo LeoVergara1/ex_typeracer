@@ -4,7 +4,7 @@ defmodule ExTyperacer.Structs.Game do
   """
 
   @enforce_keys [:paragraph]
-  defstruct players: [], paragraph: nil, scores: %{}
+  defstruct players: [], paragraph: nil
 
   alias __MODULE__
   alias ExTyperacer.Structs.Player
@@ -26,7 +26,17 @@ defmodule ExTyperacer.Structs.Game do
     %{game | players: [new_player | game.players]}
   end
 
-  def plays(_game, _username, _word) do
+  @doc """
+  Plays with one word for one player
+  """
+  def plays(game, username, word) do
+    player = Enum.find(game.players, fn %Player{username: u} -> u == username end)
+    updated_players = game.players -- [player]
+    updated_player = %Player{ player |
+      paragraph_typed: player.paragraph_typed <> word,
+      score: round(String.length(player.paragraph_typed <> word) * 100 / String.length(game.paragraph) )
+    }
+    %Game{game | players: [updated_player | updated_players] }
   end
 
 
