@@ -1,7 +1,7 @@
 defmodule ExTyperacerWeb.RoomChannel do
 
   alias ExTyperacer.Structs.Game
-  
+
   require Logger
 
   use Phoenix.Channel
@@ -17,12 +17,12 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("init_reace", payload, socket) do
     username = payload["username"]
-    game = Game.initGame(username)
+    game = Game.new |> Game.add_player(username)
     :ets.new(:"#{game.uuid}", [:named_table, :public])
     :ets.insert(:"#{game.uuid}", {"game", game} )
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
     :ets.insert(:list_rooms, { "list", list_rooms ++ [game.uuid] } )
-    {:reply, 
+    {:reply,
     {:ok, %{"list" => list_rooms,
             "process" => game.uuid,
             "user" => payload["username"]
@@ -36,9 +36,9 @@ defmodule ExTyperacerWeb.RoomChannel do
     uuidGame = payload["uuid"]
     [{_,game}] = :ets.lookup(:"#{uuidGame}","game")
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
-    game = Game.addPlayer(game, username)
+    game = Game.add_player(game, username)
     :ets.insert(:"#{game.uuid}", {"game", game} )
-    {:reply, 
+    {:reply,
     {:ok, %{"list" => list_rooms,
             "process" => game.uuid,
             "user" => payload["username"]
@@ -53,7 +53,7 @@ defmodule ExTyperacerWeb.RoomChannel do
     {:noreply, socket}
   end
 
-  def handle_in("show_run_area", uuidGame, socket) do 
+  def handle_in("show_run_area", uuidGame, socket) do
     [{_,game}] = :ets.lookup(:"#{uuidGame}","game")
     broadcast! socket, "#{uuidGame}", %{"data" => game.paragraph}
     {:noreply, socket}
