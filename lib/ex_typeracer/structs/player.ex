@@ -4,6 +4,6 @@ defmodule ExTyperacer.Structs.Player do
   """
 
   @enforce_keys [:username]
-  defstruct username: nil, paragraph_typed: ""
+  defstruct username: nil, paragraph_typed: "", score: 0
 
 end
