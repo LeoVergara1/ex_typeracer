@@ -26,7 +26,7 @@ defmodule ExTyperacer.Structs.GameTest do
     game = %{ Game.new() | paragraph: "Hello Typeracer, we're MakingDevs." }
     updated_game = Game.add_player(game, "neodevelop")
     assert updated_game.paragraph == "Hello Typeracer, we're MakingDevs."
-    updated_game = Game.plays game, "neodevelop", "Hello"
+    updated_game = Game.plays updated_game, "neodevelop", "Hello"
     player = Enum.find(updated_game.players, fn %Player{username: "neodevelop"} -> :ok end)
     assert player.paragraph_typed == "Hello"
     assert player.score == 15
