@@ -3,10 +3,10 @@ defmodule ExTyperacer.Structs.Game do
   This module handle the logic of TypeRacer Game
   """
 
-  @enforce_keys [:paragraph, :state, :uuid]
-  defstruct players: nil, paragraph: nil, state: nil, uuid: nil
+  @enforce_keys [:paragraph]
+  defstruct players: nil, paragraph: nil
 
-  alias ExTyperacer.Structs.Game
+  alias __MODULE__
   alias ExTyperacer.Structs.Player
 
   @doc """
@@ -16,9 +16,7 @@ defmodule ExTyperacer.Structs.Game do
   def new do
     %Game{
       players: [],
-      paragraph: get_a_paragraph(),
-      state: :active,
-      uuid: :rand.uniform(9000) # TODO: Remove magic numbers
+      paragraph: get_a_paragraph()
     }
   end
 
@@ -39,7 +37,7 @@ defmodule ExTyperacer.Structs.Game do
   Gets a new paragraph, at this moment is from file,
   eventually, it will be from a webservice or database
   """
-  defp get_a_paragraph do
+  def get_a_paragraph do
     {_,text} = File.read("lib/resources/words.txt")
     paragraphs = String.split(text,"\n\n")
     random_number = :rand.uniform(length(paragraphs)-1)
