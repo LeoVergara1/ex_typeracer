@@ -17,7 +17,7 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("init_reace", payload, socket) do
     username = payload["username"]
-    game = Game.new |> Game.add_player(username)
+    game = Game.new(Game.get_a_paragraph()) |> Game.add_player(username)
     :ets.new(:"#{game.uuid}", [:named_table, :public])
     :ets.insert(:"#{game.uuid}", {"game", game} )
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")

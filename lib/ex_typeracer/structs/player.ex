@@ -7,6 +7,10 @@ defmodule ExTyperacer.Structs.Player do
   @enforce_keys [:username]
   defstruct username: nil, paragraph_typed: "", score: 0
 
+  @doc """
+  The player sends a letter to the paragraph typed
+  to increase the score and try to win
+  """
   def typing_a_letter(player, letter, game_paragraph) do
     paragraph = player.paragraph_typed <> letter
     %Player{ player |

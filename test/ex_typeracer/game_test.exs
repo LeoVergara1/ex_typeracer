@@ -29,16 +29,21 @@ defmodule ExTyperacer.Structs.GameTest do
   test "add the same player twice" do
   end
 
-  test "playing the game" do
+  test "playing the game with a correct word" do
     game = Game.new("Hello MakingDevs.") |> Game.add_player("neodevelop")
     assert game.paragraph == "Hello MakingDevs."
 
-    game = "Hello" |> String.codepoints
-    |> Enum.reduce(game, fn letter, the_game -> Game.plays(the_game, "neodevelop",letter) end)
+    game = type_a_word_in_the_game_for_user("Hello", game, "neodevelop")
     player = Enum.find(game.players, fn %Player{username: "neodevelop"} -> :ok end)
     assert player.paragraph_typed == "Hello"
     assert player.score == 29
     assert Enum.count(game.players) == 1
+  end
+
+  defp type_a_word_in_the_game_for_user(word, game, user) do
+    word
+    |> String.codepoints
+    |> Enum.reduce(game, fn letter, the_game -> Game.plays(the_game, user,letter) end)
   end
 
 end
