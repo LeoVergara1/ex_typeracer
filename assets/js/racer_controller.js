@@ -7,6 +7,7 @@ export var RacerController = {
   channelScore: null,
   channelRoom: null, 
   processRoom: null,
+  username:null,
 
   initChannelRoom: function () {
     this.channelRoom = socket.channel("room:new", {})
@@ -39,12 +40,13 @@ export var RacerController = {
           if (msg.time === 0){
             $("#start-timer").show()
             that.showRunArea(that.processRoom)
+            $("#timer_run_area").hide();
             that.channelRoom.push("show_run_area", that.processRoom)
             
           }
       });
 
-      $("#container-header-player").on("click", "#start-timer" , () =>{
+      $("#timer_run_area").on("click", "#start-timer" , () =>{
       channel
       .push('start_timer', {})
       .receive('ok', resp => { console.log("Starter timer",resp) })
@@ -52,7 +54,6 @@ export var RacerController = {
   },
 
   showRunArea: function(nameRom) {
-    console.log("Llego a la función")
     this.channelRoom.on(`${nameRom}`, msg => {
       console.log(msg)
       HandlebarsResolver.constructor.mergeViewWithModel("#run_area", msg, "container-run-area")
@@ -111,10 +112,12 @@ export var RacerController = {
         console.log("ok", response)
         that.processRoom = response.process;
         that.uuid = response.process
+        that.username = response.user
         that.channelRoom.on(`updating_player_${that.uuid}`, msg =>{
-          console.log(msg.game)  
-          let userList = msg.game.players 
-          console.log("jshdughdudhj")
+          console.log(msg)  
+          let userList = msg.game.players;
+          that.username = msg.user;
+          console.log(that.username)
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", {userList}, "list_user_area")
         });
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
@@ -131,6 +134,7 @@ export var RacerController = {
       .push('join_race', {username: that.username, uuid: that.uuid})
       .receive('ok', response =>{ 
         console.log("ok", response)
+        that.username = response.user
         that.processRoom = response.process;
         if(response.process == this.uuid){
           that.channelRoom.push("updating_players", that.uuid)
@@ -142,8 +146,8 @@ export var RacerController = {
   },
 
   sendScore: function (score) {
-      this.channelScore
-      .push('scores:set', {user: this.uuid, score:score})
+    this.channelScore
+      .push('scores:set', {user: this.username, score:score, uuid: this.uuid})
 
   },
 
@@ -154,6 +158,9 @@ export var RacerController = {
     this.initChannelPlayers()
     this.initChannelScores()
     this.initChannelRoom()
+  },
+
+  testContext: function(){
   },
 
   start: function(){
