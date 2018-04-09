@@ -18,7 +18,7 @@ export var RacerController = {
 			})
       .receive("error", resp => { console.log("Unable to join", resp) })
 	  this.channelRoom.on("list_rooms", msg => {
-				$("#list_users").html("")
+				$("#list_roms").html("")
 					$.each(msg.rooms, function( index, value ) {
             $("#list_roms").append(`<p><strong> Sala: </strong> ${value} <span></span></p> `)
 					});
@@ -65,15 +65,15 @@ export var RacerController = {
     let channelPlayer = socket.channel("players", {uuid: this.uuid})
     let that = this
 
-			channelPlayer.on("players_list", msg => {
-				$("#list_users").html("")
-					$.each(msg.users, function( index, value ) {
-            if (value == that.uuid)
-              $("#list_users").append(`<p><strong> You </strong> Score: %<span id='${value}'>0</span></p> `)
-            else
-              $("#list_users").append(`<p><strong> Guess </strong> Score: %<span id='${value}'>0</span></p> `)
-					});
-			});
+//			channelPlayer.on("players_list", msg => {
+//				$("#list_users").html("")
+//					$.each(msg.users, function( index, value ) {
+//            if (value == that.uuid)
+//              $("#list_users").append(`<p><strong> You </strong> Score: %<span id='${value}'>0</span></p> `)
+//            else
+//              $("#list_users").append(`<p><strong> Guess </strong> Score: %<span id='${value}'>0</span></p> `)
+//					});
+//			});
 
 			channelPlayer.join()
 				.receive("ok", resp => {
@@ -110,7 +110,11 @@ export var RacerController = {
       .receive('ok', response =>{ 
         console.log("ok", response)
         that.processRoom = response.process;
-        HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "container-header-player")
+        that.uuid = response.process
+        that.channelRoom.on(`updating_player_${that.uuid}`, msg =>{
+          console.log(msg)  
+        });
+        HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
       })
     })
   },
@@ -125,7 +129,11 @@ export var RacerController = {
       .receive('ok', response =>{ 
         console.log("ok", response)
         that.processRoom = response.process;
-        HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "container-header-player")
+        if(response.process == this.uuid){
+          that.channelRoom.push("updating_players", that.uuid)
+          HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
+          HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
+        }
       })
     })
   },

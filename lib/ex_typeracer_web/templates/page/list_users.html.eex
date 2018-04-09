@@ -1,0 +1,13 @@
+<script id="list_users_players" type="text/x-handlebars-template">
+ <div id="list_users">
+  <p class="lead">Lista de jugadores en esta sala: </p>
+  <ul class="list-group">
+  {{#each userList}}
+  <li class="list-group-item justify-content-between">
+    {{this.username}}
+    <span class="badge badge-default badge-pill">{{this.score}}</span>
+  </li>
+  {{/each}}
+</ul>
+</div>
+</script>
