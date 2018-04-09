@@ -2,6 +2,7 @@ defmodule ExTyperacerWeb.ScoresChannel do
 
   use Phoenix.Channel
   require Logger
+  alias ExTyperacer.Structs.Player
 
   def join("scores", payload, socket) do
     Logger.warn " ::::::::: Scores Join Payload ::::::::"
@@ -11,9 +12,17 @@ defmodule ExTyperacerWeb.ScoresChannel do
 	def handle_in("scores:set", payload, socket) do
     Logger.warn " ::::::::: Scores:Set :::::::: Insert score"
     #:ets.insert(:scoresGlobalMap, { payload["user"], payload["score"] })
+    IO.inspect payload["uuid"]
+    [{_,game}] = :ets.lookup(:"#{payload["uuid"]}","game")
     IO.inspect payload
-    #[{_,game}] = :ets.lookup(:"#{payload['uuid']}","game")
-    #IO.inspect game
+   # player = for element <- game.players, element.username == payload["user"], do: element 
+    player = Enum.find(game.players, fn %Player{username: u} -> u == payload["user"] end)
+    IO.inspect player
+    IO.inspect payload["score"]
+    player = %Player{ player | score: payload["score"]}
+    players = for element <- game.players, element.username != payload["user"], do: element 
+    new_list_player = [player] ++ players
+    IO.inspect new_list_player
 		broadcast! socket, "scores:show", payload
     {:noreply, socket}
 	end
