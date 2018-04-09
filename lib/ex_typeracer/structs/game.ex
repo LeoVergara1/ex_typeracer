@@ -31,12 +31,9 @@ defmodule ExTyperacer.Structs.Game do
   """
   def plays(game, username, word) do
     player = Enum.find(game.players, fn %Player{username: u} -> u == username end)
-    updated_players = game.players -- [player]
-    updated_player = %Player{ player |
-      paragraph_typed: player.paragraph_typed <> word,
-      score: round(String.length(player.paragraph_typed <> word) * 100 / String.length(game.paragraph) )
-    }
-    %Game{game | players: [updated_player | updated_players] }
+    players = game.players -- [player]
+    player_updated = Player.typing_a_word(player, word, game.paragraph)
+    %Game{game | players: [ player_updated | players] }
   end
 
 

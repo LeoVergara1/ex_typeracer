@@ -1,8 +1,15 @@
 defmodule ExTyperacer.Structs.GameTest do
+
+  @moduledoc """
+  Those are like integration tests, because we're using
+  extra components for make it happen
+  """
+
   use ExUnit.Case
   alias ExTyperacer.Structs.Game
   alias ExTyperacer.Structs.Player
   doctest Game
+
 
   @doc """
   We must remove the dependency for obtain text
