@@ -27,12 +27,12 @@ defmodule ExTyperacer.Structs.Game do
   end
 
   @doc """
-  Plays with one word for one player
+  Plays with one letter for one player
   """
-  def plays(game, username, word) do
+  def plays(game, username, letter) do
     player = find_a_player(game, username)
     players = game.players -- [player]
-    player_updated = Player.typing_a_word(player, word, game.paragraph)
+    player_updated = Player.typing_a_letter(player, letter, game.paragraph)
     %Game{game | players: [ player_updated | players] }
   end
 
@@ -49,7 +49,7 @@ defmodule ExTyperacer.Structs.Game do
   eventually, it will be from a webservice or database
   """
   def get_a_paragraph do
-    {_,text} = File.read("lib/resources/words.txt")
+    {_,text} = File.read("lib/resources/letters.txt")
     paragraphs = String.split(text,"\n\n")
     random_number = :rand.uniform(length(paragraphs)-1)
     Enum.at(paragraphs, random_number)

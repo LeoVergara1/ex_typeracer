@@ -7,8 +7,8 @@ defmodule ExTyperacer.Structs.Player do
   @enforce_keys [:username]
   defstruct username: nil, paragraph_typed: "", score: 0
 
-  def typing_a_word(player, word, game_paragraph) do
-    paragraph = player.paragraph_typed <> word
+  def typing_a_letter(player, letter, game_paragraph) do
+    paragraph = player.paragraph_typed <> letter
     %Player{ player |
       paragraph_typed: paragraph,
       score: round(String.length(paragraph) * 100 / String.length(game_paragraph) )

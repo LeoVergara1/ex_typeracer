@@ -34,7 +34,7 @@ defmodule ExTyperacer.Structs.GameTest do
     assert game.paragraph == "Hello MakingDevs."
 
     game = "Hello" |> String.codepoints
-    |> Enum.reduce(game, fn letter, the_game -> the_game = Game.plays(the_game, "neodevelop",letter) end)
+    |> Enum.reduce(game, fn letter, the_game -> Game.plays(the_game, "neodevelop",letter) end)
     player = Enum.find(game.players, fn %Player{username: "neodevelop"} -> :ok end)
     assert player.paragraph_typed == "Hello"
     assert player.score == 29
