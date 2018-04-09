@@ -6,6 +6,13 @@
 </div>
 
 <div id="container-run-area"> 
+</div>
+
+<div id="timer_run_area">
+</div>
+<div id="list_user_area">
+</div>
+<div id="list_roms_container">
 <div id="list_roms">
   <label for="room">Lista de partidas en curso</label>
 </div>
