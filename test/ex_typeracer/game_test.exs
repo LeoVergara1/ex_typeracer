@@ -40,6 +40,17 @@ defmodule ExTyperacer.Structs.GameTest do
     assert Enum.count(game.players) == 1
   end
 
+  test "playing the game with an incorrect word" do
+    game = Game.new("Hello MakingDevs.") |> Game.add_player("neodevelop")
+    assert game.paragraph == "Hello MakingDevs."
+
+    game = type_a_word_in_the_game_for_user("He1lo", game, "neodevelop")
+    player = Enum.find(game.players, fn %Player{username: "neodevelop"} -> :ok end)
+    assert player.paragraph_typed == "He"
+    assert player.score == 6
+    assert Enum.count(game.players) == 1
+  end
+
   defp type_a_word_in_the_game_for_user(word, game, user) do
     word
     |> String.codepoints
