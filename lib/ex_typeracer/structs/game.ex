@@ -4,17 +4,17 @@ defmodule ExTyperacer.Structs.Game do
   """
 
   @enforce_keys [:paragraph]
-  defstruct players: [], paragraph: nil
+  defstruct players: [], paragraph: nil, letters: []
 
   alias __MODULE__
   alias ExTyperacer.Structs.Player
 
   @doc """
-  Creates s new game with a paragrapah to play and type.
+  Creates a new game with a paragrapah to play and type.
   This game starts with zero players.
   """
-  def new do
-    %Game{ paragraph: get_a_paragraph() }
+  def new(paragraph) do
+    %Game{ paragraph: paragraph, letters: String.codepoints(paragraph) }
   end
 
   @doc """
@@ -30,15 +30,18 @@ defmodule ExTyperacer.Structs.Game do
   Plays with one word for one player
   """
   def plays(game, username, word) do
-    player = Enum.find(game.players, fn %Player{username: u} -> u == username end)
+    player = find_a_player(game, username)
     players = game.players -- [player]
     player_updated = Player.typing_a_word(player, word, game.paragraph)
     %Game{game | players: [ player_updated | players] }
   end
 
+  def find_a_player(game, username) do
+    Enum.find(game.players, fn %Player{username: u} -> u == username end)
+  end
 
-  def new_game_with_one_player(username) do
-    new() |> add_player(username)
+  def new_game_with_one_player(paragraph, username) do
+    paragraph |> new() |> add_player(username)
   end
 
   @doc """
