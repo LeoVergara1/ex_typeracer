@@ -11,6 +11,9 @@ defmodule ExTyperacerWeb.ScoresChannel do
 	def handle_in("scores:set", payload, socket) do
     Logger.warn " ::::::::: Scores:Set :::::::: Insert score"
     #:ets.insert(:scoresGlobalMap, { payload["user"], payload["score"] })
+    IO.inspect payload
+    #[{_,game}] = :ets.lookup(:"#{payload['uuid']}","game")
+    #IO.inspect game
 		broadcast! socket, "scores:show", payload
     {:noreply, socket}
 	end
