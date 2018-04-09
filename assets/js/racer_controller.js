@@ -112,7 +112,10 @@ export var RacerController = {
         that.processRoom = response.process;
         that.uuid = response.process
         that.channelRoom.on(`updating_player_${that.uuid}`, msg =>{
-          console.log(msg)  
+          console.log(msg.game)  
+          let userList = msg.game.players 
+          console.log("jshdughdudhj")
+          HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", {userList}, "list_user_area")
         });
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
       })
