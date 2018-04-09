@@ -1,8 +1,7 @@
 defmodule ExTyperacer.Structs.GameTest do
 
   @moduledoc """
-  Those are like integration tests, because we're using
-  extra components for make it happen
+  Maybe we should move the paragraph getting to a module
   """
 
   use ExUnit.Case
@@ -18,6 +17,7 @@ defmodule ExTyperacer.Structs.GameTest do
     game = Game.new("Hello world")
     assert game.paragraph
     assert Enum.count(game.players) == 0
+    assert Enum.count(game.letters) == 11
   end
 
   test "add a new player" do
@@ -33,7 +33,12 @@ defmodule ExTyperacer.Structs.GameTest do
     game = Game.new("Hello MakingDevs.") |> Game.add_player("neodevelop")
     assert game.paragraph == "Hello MakingDevs."
 
-    game = Game.plays game, "neodevelop", "Hello"
+    #"Hello" |> String.codepoints |> Enum.each(&(Game.plays(game, "neodevelop",&1)))
+    game = Game.plays game, "neodevelop", "H"
+    game = Game.plays game, "neodevelop", "e"
+    game = Game.plays game, "neodevelop", "l"
+    game = Game.plays game, "neodevelop", "l"
+    game = Game.plays game, "neodevelop", "o"
     player = Enum.find(game.players, fn %Player{username: "neodevelop"} -> :ok end)
     assert player.paragraph_typed == "Hello"
     assert player.score == 29
