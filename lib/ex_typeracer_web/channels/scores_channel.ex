@@ -23,6 +23,7 @@ defmodule ExTyperacerWeb.ScoresChannel do
     players = for element <- game.players, element.username != payload["user"], do: element 
     new_list_player = [player] ++ players
     IO.inspect new_list_player
+    :ets.insert(:"#{game.uuid}", {"game", game} )
 		broadcast! socket, "scores:show", payload
     {:noreply, socket}
 	end
