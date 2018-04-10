@@ -13,10 +13,10 @@ defmodule ExTyperacer.Structs.Player do
   TODO: This needs a test for Player Module
   """
   def typing_a_letter(player, letter, game_paragraph) do
+    paragraph = player.paragraph_typed <> letter
     case player.counting? do
-      false -> player
+      false -> %Player{ player | paragraph_typed: paragraph }
       true ->
-        paragraph = player.paragraph_typed <> letter
         partial_paragraph = String.slice(game_paragraph, 0, String.length(paragraph))
 
         paragraph_in_letters = paragraph |> String.codepoints
