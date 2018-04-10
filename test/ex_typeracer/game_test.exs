@@ -51,6 +51,16 @@ defmodule ExTyperacer.Structs.GameTest do
     assert player.counting? == false
   end
 
+  test "a player wins the game" do
+    game = Game.new("Hello MakingDevs.") |> Game.add_player("neodevelop")
+    game = type_a_word_in_the_game_for_user("Hello MakingDevs.", game, "neodevelop")
+    [player | _tail] = game.players
+    [first | _tail] = game.positions
+    assert player.paragraph_typed == "Hello MakingDevs."
+    assert player.score == 100
+    assert first.username == "neodevelop"
+  end
+
   defp type_a_word_in_the_game_for_user(word, game, user) do
     word
     |> String.codepoints

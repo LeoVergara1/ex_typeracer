@@ -4,7 +4,7 @@ defmodule ExTyperacer.Structs.Game do
   """
 
   @enforce_keys [:paragraph]
-  defstruct players: [], paragraph: nil
+  defstruct players: [], paragraph: nil, positions: []
 
   alias __MODULE__
   alias ExTyperacer.Structs.Player
@@ -33,8 +33,12 @@ defmodule ExTyperacer.Structs.Game do
     player = find_a_player(game, username)
     players = game.players -- [player]
     player_updated = Player.typing_a_letter(player, letter, game.paragraph)
-    %Game{game | players: [ player_updated | players] }
+    new_positions = player_ends?(player_updated) ++ game.positions
+    %Game{game | players: [ player_updated | players], positions: new_positions }
   end
+
+  defp player_ends?(%Player{score: 100} = player), do: [player]
+  defp player_ends?(_), do: []
 
   def find_a_player(game, username) do
     Enum.find(game.players, fn %Player{username: u} -> u == username end)
