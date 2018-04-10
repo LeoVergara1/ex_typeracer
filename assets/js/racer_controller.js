@@ -91,12 +91,12 @@ export var RacerController = {
       this.channelScore.join()
       .receive("ok", resp => { console.log("Scores Channel Joined 😙 ", resp) })
       .receive("error", resp => { console.log("No se puede conectar al Scores Channel", resp) })
-      this.channelScore
-      .push('scores:get', { user: this.uuid })
-      .receive('ok', resp => { console.log("ok",resp) })
+//      this.channelScore
+//      .push('scores:get', { user: this.uuid })
+//      .receive('ok', resp => { console.log("ok",resp) })
 			// Socket donde llegarán todos los scores
 			this.channelScore.on("scores:show", msg => {
-        $(`#${msg.user}`).text(msg.score)
+        console.log(msg)
 			});
   },
 

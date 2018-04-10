@@ -40,4 +40,8 @@ defmodule ExTyperacer.Structs.Player do
     end
   end
 
+  def update_socere_player(player, score) do
+    %Player{ player | score: score} 
+  end
+
 end
