@@ -41,6 +41,7 @@ defmodule ExTyperacer.Structs.Player do
   end
 
   def update_socere_player(player, score) do
+    score = Float.ceil(score,2)
     %Player{ player | score: score} 
   end
 
