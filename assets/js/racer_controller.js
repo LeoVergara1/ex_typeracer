@@ -116,7 +116,6 @@ export var RacerController = {
         that.channelRoom.on(`updating_player_${that.uuid}`, msg =>{
           console.log(msg)  
           let userList = msg.game.players;
-          that.username = msg.user;
           console.log(that.username)
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", {userList}, "list_user_area")
         });
@@ -134,9 +133,9 @@ export var RacerController = {
       .push('join_race', {username: that.username, uuid: that.uuid})
       .receive('ok', response =>{ 
         console.log("ok", response)
-        that.username = response.user
-        that.processRoom = response.process;
         if(response.process == this.uuid){
+          that.username = response.user
+          that.processRoom = response.process;
           that.channelRoom.push("updating_players", that.uuid)
           HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
@@ -146,8 +145,9 @@ export var RacerController = {
   },
 
   sendScore: function (score) {
+    console.log(this.username);
     this.channelScore
-      .push('scores:set', {user: this.username, score:score, uuid: this.uuid})
+      .push('scores:set', {user: this.username, score:score, uuid: this.uuid, tes:this.username})
 
   },
 
