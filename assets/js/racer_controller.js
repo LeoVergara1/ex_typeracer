@@ -96,7 +96,10 @@ export var RacerController = {
 //      .receive('ok', resp => { console.log("ok",resp) })
 			// Socket donde llegarán todos los scores
 			this.channelScore.on("scores:show", msg => {
-        console.log(msg)
+        msg.game.forEach(element => {
+          console.log(element)
+          $(`#${element.username}`).text(element.score)
+        });
 			});
   },
 
