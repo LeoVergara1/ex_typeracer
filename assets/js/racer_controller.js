@@ -25,14 +25,14 @@ export var RacerController = {
 					});
 			});
   },
-  initChannel: function() {
+  initChannelTimer: function(uuid) {
     let that = this 
     var channel = socket.channel("timer:update", {})
       channel.join()
       .receive("ok", resp => { console.log("Timer Channel Joined 😉", resp) })
       .receive("error", resp => { console.log("No se puede conectar al Timer Channel", resp) })
 
-      channel.on("new_time", msg => {
+      channel.on(`new_time`, msg => {
           document.getElementById('status').innerHTML = msg.response
           document.getElementById('timer').innerHTML = msg.time
 
@@ -117,6 +117,7 @@ export var RacerController = {
         that.uuid = response.process
         that.username = response.user
         that.updatingPlayers(that.uuid)
+        that.initChannelTimer(that.uuid)
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
       })
     })
@@ -161,7 +162,6 @@ export var RacerController = {
   bindEvents:function (){
     this.initRom()
     this.joinRom()
-    this.initChannel()
     this.initChannelPlayers()
     this.initChannelScores()
     this.initChannelRoom()
