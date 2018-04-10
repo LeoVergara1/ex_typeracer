@@ -17,7 +17,6 @@ defmodule ExTyperacer.Structs.GameTest do
     game = Game.new("Hello world")
     assert game.paragraph
     assert Enum.count(game.players) == 0
-    assert Enum.count(game.letters) == 11
   end
 
   test "add a new player" do
