@@ -1,17 +1,32 @@
 defmodule ExTyperacer.Room do
+
+  alias ExTyperacer.Structs.Game
   
-  def greet do
+  def start(%Game{} = game) do
+    spawn ExTyperacer.Room, :handle, [game]
+  end
+
+  def add_player(game_server, username) do
+    send game_server, { self(), :add_player, "brandon" }
+  end
+
+  def handle(%Game{} = game) do
     receive do
-      { pid, x } when is_bitstring(x) -> 
-        IO.puts x
-        send pid, "Everuthing is fine"
-        greet()
+      {pid, :add_player, username} ->
+        IO.puts "Adding player"
+        game_updated = Game.add_player game, username
+        send pid, {:add_player, :ok, username}
+        handle(game_updated)
+      {pid, :show_game} ->
+        IO.puts "Showing the game"
+        send pid, {:current_game, game}
+        handle(game)
       {pid, :death, reason} ->
-        send pid, "Everuthing os wrong"
-        IO.puts "bye for #{reason}"
+        send pid, "Game Over"
+        IO.puts "Game Over #{inspect pid}"
       _ -> 
-          IO.puts "No entiendo"
-          greet()
+          IO.puts "Game Server is not understanding"
+          handle(game)
     end
   end
 
@@ -20,13 +35,13 @@ defmodule ExTyperacer.Room do
       { pid, x }  -> 
         IO.inspect x
         send pid, "Everuthing is fine"
-        greet()
+        #greet() 
       {pid, :death, reason} ->
         send pid, "Everuthing os wrong"
         IO.puts "bye for #{reason}"
-      _ -> 
+      _ ->
           IO.puts "No entiendo"
-          greet()
+          #greet()
     end
   end
 
