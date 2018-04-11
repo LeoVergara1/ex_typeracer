@@ -10,30 +10,34 @@ defmodule ExTyperacer.Timer do
   ## Gen server starts here!
 
   def init(_state) do
-		ExTyperacerWeb.Endpoint.subscribe "timer:start", []
+    ExTyperacerWeb.Endpoint.subscribe "timer:start", []
+    IO.inspect "1"
     # Adding state
     state = %{timer_ref: nil, timer: nil}
     {:ok, state}
   end
 
   def handle_info(:update, %{timer: 0}) do
+    IO.inspect "Estoy..."
     broadcast 0, %{message: "Se acabo el tiempo!"}
     {:noreply, %{timer_ref: nil, timer: 0}}
   end
 
-  def handle_info(:update, %{timer: time}) do
+  def handle_info(:update, %{timer: time, uuid: uuid}) do
     leftover = time-1
     timer_ref = schedule_timer 1_000
     broadcast leftover, %{message: "Contando..."}
-    {:noreply, %{timer_ref: timer_ref, timer: leftover}}
+    {:noreply, %{timer_ref: timer_ref, timer: leftover, uuid: uuid}}
   end
 
-	def handle_info(%{event: "start_timer"}, %{timer_ref: old_timer_ref}) do
+	def handle_info(%{event: "start_timer", payload: uuid },%{timer_ref: old_timer_ref}) do
+    IO.inspect "1"
+    IO.inspect uuid
     cancel_timer(old_timer_ref)
 		duration = 3
 		timer_ref = schedule_timer 1_000
-		broadcast duration, %{message: "Start time", uuid: 12}
-		{:noreply, %{timer_ref: timer_ref, timer: duration, uuid: 12}}
+		broadcast duration, %{message: "Start time", uuid: uuid.uuid}
+		{:noreply, %{timer_ref: timer_ref, timer: duration, uuid: uuid.uuid}}
 	end
 
   defp schedule_timer(interval) do

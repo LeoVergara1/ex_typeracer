@@ -48,7 +48,7 @@ export var RacerController = {
 
       $("#timer_run_area").on("click", "#start-timer" , () =>{
       channel
-      .push('start_timer', {})
+      .push('start_timer', {uuid})
       .receive('ok', resp => { console.log("Starter timer",resp) })
     })
   },

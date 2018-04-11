@@ -11,8 +11,9 @@ defmodule ExTyperacerWeb.TimerChannel do
     {:noreply, socket}
   end
 
-	def handle_in("start_timer", _, socket) do
-		ExTyperacerWeb.Endpoint.broadcast("timer:start", "start_timer", %{})
+  def handle_in("start_timer", payload, socket) do
+    IO.inspect payload
+		ExTyperacerWeb.Endpoint.broadcast("timer:start", "start_timer", %{uuid: payload["uuid"]})
 		{:noreply, socket}
 	end
 
