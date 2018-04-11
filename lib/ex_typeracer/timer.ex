@@ -17,16 +17,16 @@ defmodule ExTyperacer.Timer do
     {:ok, state}
   end
 
-  def handle_info(:update, %{timer: 0}) do
+  def handle_info(:update, %{timer: 0, uuid: uuid}) do
     IO.inspect "Estoy..."
-    broadcast 0, %{message: "Se acabo el tiempo!"}
+    broadcast 0, %{message: "Se acabo el tiempo!", uuid: uuid}
     {:noreply, %{timer_ref: nil, timer: 0}}
   end
 
   def handle_info(:update, %{timer: time, uuid: uuid}) do
     leftover = time-1
     timer_ref = schedule_timer 1_000
-    broadcast leftover, %{message: "Contando..."}
+    broadcast leftover, %{message: "Contando...", uuid: uuid}
     {:noreply, %{timer_ref: timer_ref, timer: leftover, uuid: uuid}}
   end
 
@@ -34,7 +34,7 @@ defmodule ExTyperacer.Timer do
     IO.inspect "1"
     IO.inspect uuid
     cancel_timer(old_timer_ref)
-		duration = 3
+		duration = 15
 		timer_ref = schedule_timer 1_000
 		broadcast duration, %{message: "Start time", uuid: uuid.uuid}
 		{:noreply, %{timer_ref: timer_ref, timer: duration, uuid: uuid.uuid}}
@@ -49,7 +49,7 @@ defmodule ExTyperacer.Timer do
 
   defp broadcast(time, response) do
     IO.inspect response
-    ExTyperacerWeb.Endpoint.broadcast! "timer:update", "new_time", %{ response: response.message, time: time}
+    ExTyperacerWeb.Endpoint.broadcast! "timer:update", "new_time_#{response.uuid}", %{ response: response.message, time: time}
   end
 
 end

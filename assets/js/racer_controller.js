@@ -32,7 +32,7 @@ export var RacerController = {
       .receive("ok", resp => { console.log("Timer Channel Joined 😉", resp) })
       .receive("error", resp => { console.log("No se puede conectar al Timer Channel", resp) })
 
-      channel.on(`new_time`, msg => {
+      channel.on(`new_time_${that.uuid}`, msg => {
           document.getElementById('status').innerHTML = msg.response
           document.getElementById('timer').innerHTML = msg.time
 
@@ -145,6 +145,7 @@ export var RacerController = {
           that.processRoom = response.process;
           that.updatingPlayers(that.uuid)
           that.channelRoom.push("updating_players", that.uuid)
+          that.initChannelTimer(that.uuid)
           HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
         }
