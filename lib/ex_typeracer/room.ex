@@ -15,13 +15,28 @@ defmodule ExTyperacer.Room do
     end
   end
 
+  def mapTest do
+    receive do
+      { pid, x }  -> 
+        IO.inspect x
+        send pid, "Everuthing is fine"
+        greet()
+      {pid, :death, reason} ->
+        send pid, "Everuthing os wrong"
+        IO.puts "bye for #{reason}"
+      _ -> 
+          IO.puts "No entiendo"
+          greet()
+    end
+  end
+
   def ping do
     receive do
       { pid, msg } ->
         IO.inspect msg
         #send pid, [ pid: self(), msg: "ping"]
         #send pid, {pid, msg}
-        #pid2 = ExTyperacer.Room, :pong, []
+        #pid2 = spawn ExTyperacer.Room, :pong, []
         send pid, { self(), "Ping"}
         ping()
       _ -> 
