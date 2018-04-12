@@ -73,3 +73,5 @@
  <%= render "timer_template.html" %>
  <%= render "list_users.html" %>
 
+<div class="scott">
+</div>

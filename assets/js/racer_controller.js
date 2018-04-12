@@ -160,6 +160,21 @@ export var RacerController = {
 
   },
 
+  animattionSprite: function () {
+    $(".scott").animateSprite({
+      fps: 12,
+      animations: {
+        walkRight: [0, 1, 2, 3, 4, 5, 6, 7],
+        walkLeft: [15, 14, 13, 12, 11, 10, 9, 8]
+      },
+      loop: true,
+      complete: function () {
+        // use complete only when yo  u set animations with 'loop: false'
+        alert("animation End");
+      }
+    });
+  },
+
   bindEvents:function (){
     this.initRom()
     this.joinRom()

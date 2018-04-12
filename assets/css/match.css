@@ -11,3 +11,9 @@
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
+
+.scott {
+  height: 240px;
+  width: 408px;
+  background-image: url("/images/assasins-sprite.jpg  ");
+}
