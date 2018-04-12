@@ -67,7 +67,8 @@ exports.config = {
       Handlebars:'handlebars',
       bootstrap:'bootstrap',
       popper:"popper.js",
-      $: 'jquery'
+      $: 'jquery',
+      animateSprite: 'animatesprite'
     }
   }
 };
