@@ -1,6 +1,7 @@
 import socket from "./socket"
 import HandlebarsResolver from "./handlebars_resolver"
 import { MatchController } from "./match_controller";
+import "./animatesprite"
 
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
@@ -181,6 +182,7 @@ export var RacerController = {
     this.initChannelPlayers()
     this.initChannelScores()
     this.initChannelRoom()
+    this.animattionSprite()
   },
 
   testContext: function(){
