@@ -73,5 +73,9 @@
  <%= render "timer_template.html" %>
  <%= render "list_users.html" %>
 
+<canvas id="canvas" width="200" height="100">
+
+</canvas>
+
 <div class="scott">
 </div>

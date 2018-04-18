@@ -63,12 +63,14 @@ exports.config = {
       "animate.css": ['animate.css'],
       bootstrap: ['dist/css/bootstrap.min.css']
     },
+    javascripts:{
+      "sprite-js": ['js/sprite.js']
+    },
     globals:{
       Handlebars:'handlebars',
       bootstrap:'bootstrap',
       popper:"popper.js",
-      $: 'jquery',
-      animateSprite: 'animatesprite'
+      $: 'jquery'
     }
   }
 };

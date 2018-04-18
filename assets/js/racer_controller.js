@@ -1,7 +1,7 @@
 import socket from "./socket"
 import HandlebarsResolver from "./handlebars_resolver"
 import { MatchController } from "./match_controller";
-import "./animatesprite"
+import "sprite-js"
 
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
@@ -162,17 +162,17 @@ export var RacerController = {
   },
 
   animattionSprite: function () {
-    $(".scott").animateSprite({
-      fps: 12,
-      animations: {
-        walkRight: [0, 1, 2, 3, 4, 5, 6, 7],
-        walkLeft: [15, 14, 13, 12, 11, 10, 9, 8]
-      },
-      loop: true,
-      complete: function () {
-        // use complete only when yo  u set animations with 'loop: false'
-        alert("animation End");
-      }
+  },
+
+  scenePlayer: function() {
+    var image = new Image()
+    image.src = '/images/pan.png'
+    var sprite = new Sprite({
+      canvas: document.getElementById('canvas'),
+      image: image,
+      rows: 4,
+      columns: 3,
+      columnFrequency: 1
     });
   },
 
@@ -182,6 +182,7 @@ export var RacerController = {
     this.initChannelPlayers()
     this.initChannelScores()
     this.initChannelRoom()
+    this.scenePlayer()
     this.animattionSprite()
   },
 
