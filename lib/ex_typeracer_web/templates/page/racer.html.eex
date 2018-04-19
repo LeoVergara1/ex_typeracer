@@ -1,11 +1,11 @@
 <div id="container-header-player">
-<div class="jumbotron" id="initMenu">
-  <button class="btn btn-primary"   data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
-  <button class="btn btn-primary" data-toggle="modal" data-target="#joinMatchModal">Unirse a una partida</button>
-</div>
+  <div class="jumbotron" id="initMenu">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#joinMatchModal">Unirse a una partida</button>
+  </div>
 </div>
 
-<div id="container-run-area"> 
+<div id="container-run-area">
 </div>
 
 <div id="timer_run_area">
@@ -13,9 +13,11 @@
 <div id="list_user_area">
 </div>
 <div id="list_roms_container">
-<div id="list_roms">
-  <label for="room">Lista de partidas en curso</label>
-</div>
+  <div class="rooms">
+    <label for="room">Lista de partidas en curso</label>
+    <div id="list_roms">
+    </div>
+  </div>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -69,10 +71,10 @@
   </div>
 </div>
 
- <%= render "run_text.html" %>
- <%= render "timer_template.html" %>
- <%= render "list_users.html" %>
+<%= render "run_text.html" %>
+  <%= render "timer_template.html" %>
+    <%= render "list_users.html" %>
 
-<canvas id="canvas" width="200" height="100">
+      <canvas id="canvas" width="200" height="100">
 
-</canvas>
+      </canvas>
