@@ -121,6 +121,7 @@ export var RacerController = {
         that.updatingPlayers(that.uuid)
         that.initChannelTimer(that.uuid)
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
+        $("#container-header-player").hide()
       })
     })
   },
