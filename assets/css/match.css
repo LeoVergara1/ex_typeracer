@@ -17,3 +17,23 @@
   width: 108px;
   background-image: url("/images/scottpilgrim.png");
 }
+
+.rooms {
+  float: right;
+  position: fixed;
+  margin-left: 45%;
+  z-index: 1000;
+  margin-top: 1%;
+  top: 270px;
+}
+
+@media (max-width: 1690px){
+  .rooms{
+    margin-left: 55%;
+  }
+}
+@media (max-width: 1300px){
+  .rooms{
+    margin-left: 60%;
+  }
+}
