@@ -6,7 +6,7 @@
   <li class="list-group-item justify-content-between imageBackgoround">
     {{this.username}}
     <span class="badge badge-default badge-pill" id="{{{this.username}}}">{{this.score}}</span>
-    <div class="scott" id="{{{this.username}}}-sprite">
+    <div class="scott" id="{{{this.username}}}-sprite" style="margin-left: {{{this.score}}}%">
     </div>
   </li>
   {{/each}}
