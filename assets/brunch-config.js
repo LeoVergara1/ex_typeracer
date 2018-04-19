@@ -61,7 +61,8 @@ exports.config = {
     enabled: true,
     styles: {
       "animate.css": ['animate.css'],
-      bootstrap: ['dist/css/bootstrap.min.css']
+      bootstrap: ['dist/css/bootstrap.min.css'],
+      "font-awesome":['css/font-awesome.min.css']
     },
     javascripts:{
       "sprite-js": ['js/sprite.js']

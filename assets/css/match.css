@@ -27,6 +27,10 @@
   top: 270px;
 }
 
+.imageBackgoround{
+  background-image: url("/images/road.jpg")
+}
+
 @media (max-width: 1690px){
   .rooms{
     margin-left: 55%;

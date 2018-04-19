@@ -23,7 +23,7 @@ export var RacerController = {
 	  this.channelRoom.on("list_rooms", msg => {
 				$("#list_roms").html("")
 					$.each(msg.rooms, function( index, value ) {
-            $("#list_roms").append(`<p><strong> Sala: </strong> ${value} <span></span></p> `)
+            $("#list_roms").append(`<p><i class="fa fa-cloud"></i><strong> Sala: </strong> ${value} <span></span></p> `)
 					});
 			});
   },
@@ -151,6 +151,7 @@ export var RacerController = {
           that.initChannelTimer(that.uuid)
           HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
+          $("#container-header-player").hide()
         }
       })
     })
