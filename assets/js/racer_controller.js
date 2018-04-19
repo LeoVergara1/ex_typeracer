@@ -88,6 +88,7 @@ export var RacerController = {
   },
 
   initChannelScores: function () {
+    let that = this
     this.channelScore = socket.channel("scores", {})
 			//Join al Channel de Scores
       this.channelScore.join()
@@ -101,10 +102,13 @@ export var RacerController = {
         msg.game.forEach(element => {
           console.log(element)
           $(`#${element.username}`).text(element.score)
+          let score = (element.score) * .83
+          console.log(score)
+          $(`#${element.username}-sprite`).css("margin-left", `${score}%`)
+          console.log($(`#${that.username}-sprite`))
         });
 			});
   },
-
   initRom: function(){
     let that = this
     $("#start-room").on("click", () =>{
@@ -121,6 +125,7 @@ export var RacerController = {
         that.updatingPlayers(that.uuid)
         that.initChannelTimer(that.uuid)
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
+        HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
         $("#container-header-player").hide()
       })
     })
