@@ -34,7 +34,7 @@ defmodule ExTyperacer.Timer do
     IO.inspect "1"
     IO.inspect uuid
     cancel_timer(old_timer_ref)
-		duration = 15
+		duration = 3
 		timer_ref = schedule_timer 1_000
 		broadcast duration, %{message: "Start time", uuid: uuid.uuid}
 		{:noreply, %{timer_ref: timer_ref, timer: duration, uuid: uuid.uuid}}

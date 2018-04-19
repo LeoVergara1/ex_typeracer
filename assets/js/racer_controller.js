@@ -44,7 +44,7 @@ export var RacerController = {
             that.showRunArea(that.processRoom)
             $("#timer_run_area").hide();
             that.channelRoom.push("show_run_area", that.processRoom)
-            
+            that.animattionSprite()
           }
       });
 
@@ -163,6 +163,7 @@ export var RacerController = {
   },
 
   animattionSprite: function () {
+    console.log("Inicia animación")
     $(".scott").animateSprite({
       fps: 12,
       animations: {
@@ -197,7 +198,6 @@ export var RacerController = {
     this.initChannelScores()
     this.initChannelRoom()
     this.scenePlayer()
-    this.animattionSprite()
   },
 
   testContext: function(){
