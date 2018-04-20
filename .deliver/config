@@ -1,12 +1,12 @@
 APP="ex_typeracer"
 
-BUILD_HOST="my-build-server.myapp.com"
+BUILD_HOST="cloud.ex_typeracer.com"
 BUILD_USER="builder"
-BUILD_AT="/tmp/edeliver/myapp/builds"
+BUILD_AT="/tmp/edeliver/ex_typeracer/builds"
 
-STAGING_HOSTS="stage.myapp.com"
-STAGING_USER="web"
-DELIVER_TO="/home/web"
+STAGING_HOSTS="ex_typeracer.com"
+STAGING_USER="brandon"
+DELIVER_TO="/home/brandon"
 
 # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
 pre_erlang_get_and_update_deps() {
