@@ -1,4 +1,7 @@
 /* This file is for your main application css. */
 .modal-title{
-  color: darkslateblue
+  color: white;
+}
+.modal-content{
+  background-color: #0c1f2d;
 }
