@@ -11,6 +11,7 @@ defmodule ExTyperacer.Mixfile do
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
       deps: deps()
+      :edeliver
     ]
   end
 
@@ -21,6 +22,8 @@ defmodule ExTyperacer.Mixfile do
     [
       mod: {ExTyperacer.Application, []},
       extra_applications: [:logger, :runtime_tools]
+      {:edeliver, "~> 1.5.0"},
+      {:distillery, "~> 1.0.0", warn_missing: false}
     ]
   end
 
