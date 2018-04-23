@@ -7,7 +7,13 @@ defmodule ExTyperacer.GameServer do
   # Client Interface
 
   def start_link(game_name) do
+    #GenServer.start_link(__MODULE__, {game_name}, name: via_tuple(game_name))
     GenServer.start_link(__MODULE__, {game_name}, name: via_tuple(game_name))
+    via_tuple(game_name)
+  end
+
+  def add_player(username) do
+    GenServer.cast(__MODULE__, {:add_player, username})
   end
 
   # Auxiliar functions
@@ -32,11 +38,14 @@ defmodule ExTyperacer.GameServer do
     {:ok, game}
   end
 
-  # def handle_call(:atom, from, state) do
-  # end
+  def handle_call({:resumen}, _from, state) do
+    {:reply, state, state}
+  end
 
-  # def handle_cast() do
-  # end
+  def handle_cast({:add_player, username}, state) do
+    game = Game.add_player(state, username)
+    {:noreply, game}
+  end
 
   # def handle_info(:timeout, state) do
   # end
