@@ -43,7 +43,7 @@ defmodule ExTyperacer.Mixfile do
       {:cowboy, "~> 1.0"},
       { :uuid, "~> 1.1" },
       {:edeliver, "~> 1.5.0"},
-      {:distillery, "~> 1.0.0", warn_missing: false}
+      {:distillery, "~> 1.4", runtime: false}
     ]
   end
 

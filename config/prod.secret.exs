@@ -14,7 +14,9 @@ config :ex_typeracer, ExTyperacerWeb.Endpoint,
 # Configure your database
 config :ex_typeracer, ExTyperacer.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "ex_typeracer_prod",
+  username: System.get_env("DATABASE_USERNAME"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  database: System.get_env("DATABASE_NAME"),
+  hostname: System.get_env("DATABASE_HOST"),
+  port:     System.get_env("DATABASE_PORT"),
   pool_size: 15

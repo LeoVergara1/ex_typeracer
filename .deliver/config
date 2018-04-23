@@ -1,19 +1,40 @@
 APP="ex_typeracer"
 
-BUILD_HOST="cloud.ex_typeracer.com"
-BUILD_USER="builder"
-BUILD_AT="/tmp/edeliver/ex_typeracer/builds"
+BUILD_HOST="35.196.160.161"
+BUILD_USER="brandon"
+BUILD_AT="/home/brandon/builds"
 
-STAGING_HOSTS="ex_typeracer.com"
+STAGING_HOSTS="35.196.160.162"
 STAGING_USER="brandon"
-DELIVER_TO="/home/brandon"
+TEST_AT=="/home/brandon/releases"
 
-# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
 pre_erlang_get_and_update_deps() {
-  local _prod_secret_path="/home/builder/prod.secret.exs"
+  local _prod_secret_path="$WORKSPACE/$APP/config/prod.secret.exs"
+
   if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    status "Copying '$_prod_secret_path' file to build host"
+    scp "$_prod_secret_path" "$BUILD_USER@$BUILD_HOST:$BUILD_AT/config/prod.secret.exs"
+
+  fi
+}
+
+pre_erlang_clean_compile() {
+  local _profile_path="$WORKSPACE/$APP/config/profile"
+
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    status "Copying '$_profile_path' file to build host"
+    scp "$_profile_path" "$BUILD_USER@$BUILD_HOST:$BUILD_AT/../.profile"
+
+    status "Preparing assets with: brunch build and phoenix.digest"
     __sync_remote "
-      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+      set -e
+      cd '$BUILD_AT/assets'
+
+      npm install
+      node_modules/brunch/bin/brunch build --production
+
+      cd '$BUILD_AT'
+      APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $BUILD_CMD phoenix.digest $SILENCE
     "
   fi
 }
