@@ -1,4 +1,4 @@
-defmodule ExTyperacer.Structs.Game do
+defmodule ExTyperacer.Logic.Game do
   @moduledoc """
   This module handle the logic of TypeRacer Game
   """
@@ -7,7 +7,7 @@ defmodule ExTyperacer.Structs.Game do
   defstruct players: [], paragraph: nil, positions: []
 
   alias __MODULE__
-  alias ExTyperacer.Structs.Player
+  alias ExTyperacer.Logic.Player
 
   @doc """
   Creates a new game with a paragrapah to play and type.
