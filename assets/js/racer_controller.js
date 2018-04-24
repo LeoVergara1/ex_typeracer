@@ -167,7 +167,7 @@ export var RacerController = {
   sendScore: function (score) {
     console.log(this.username);
     this.channelScore
-      .push('scores:set', {user: this.username, score:score, uuid: this.uuid, tes:this.username})
+      .push('scores:set', {user: this.username, score:score, name_rom: this.processRoom, tes:this.username})
 
   },
 
