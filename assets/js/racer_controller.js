@@ -10,6 +10,7 @@ export var RacerController = {
   channelRoom: null, 
   processRoom: null,
   username:null,
+  name_room: null,
 
   initChannelRoom: function () {
     this.channelRoom = socket.channel("room:new", {})
@@ -114,9 +115,10 @@ export var RacerController = {
     $("#start-room").on("click", () =>{
       console.log("click")
       that.uuid = $("#recipient-name").val()
+      that.name_room = $("#name_room_txt").val()
       console.log(that.uuid)
       this.channelRoom
-      .push('init_reace', {username: that.uuid})
+      .push('init_reace', {username: that.uuid, name_room: that.name_room})
       .receive('ok', response =>{ 
         console.log("ok", response)
         that.processRoom = response.process;
