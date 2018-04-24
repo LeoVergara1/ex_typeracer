@@ -22,6 +22,8 @@ defmodule ExTyperacerWeb.RoomChannel do
     game_server = GameServer.start_link(payload["name_room"])
     IO.inspect game_server
     GameServer.add_player game_server, payload["username"]
+    players = GameServer.players game_server 
+    IO.inspect players
     :ets.new(:"#{payload["name_room"]}", [:named_table, :public])
     :ets.insert(:"#{payload["name_room"]}", {"game", game_server} )
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
@@ -30,7 +32,7 @@ defmodule ExTyperacerWeb.RoomChannel do
     {:reply,
     {:ok, %{"list" => list_rooms,
             "process" => payload["name_room"],
-            "userList" => [],
+            "userList" => players,
             "user" => payload["username"]
           }
     },
