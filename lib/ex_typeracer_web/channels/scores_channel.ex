@@ -4,6 +4,7 @@ defmodule ExTyperacerWeb.ScoresChannel do
   require Logger
   alias ExTyperacer.Logic.Game
   alias ExTyperacer.Logic.Player
+  alias ExTyperacer.GameServer
 
   def join("scores", payload, socket) do
     Logger.warn " ::::::::: Scores Join Payload ::::::::"
@@ -12,12 +13,12 @@ defmodule ExTyperacerWeb.ScoresChannel do
 
 	def handle_in("scores:set", payload, socket) do
     Logger.warn " ::::::::: Scores:Set :::::::: Insert score"
-    [{_,game}] = :ets.lookup(:"#{payload["uuid"]}","game")
-    player = Enum.find(game.players, fn %Player{username: u} -> u == payload["user"] end)
+    [{_,game_server}] = :ets.lookup(:"#{payload["name_rom"]}","game")
+    player = GameServer.find_player game_server, payload["user"]
     player = Player.update_socere_player(player, payload["score"])
-    game = Game.update_socere_player(game, player)
-    :ets.insert(:"#{game.uuid}", {"game", game} )
-		broadcast! socket, "scores:show", %{"game" => game.players}
+    GameServer.update_socere_player game_server, player
+    players = GameServer.players game_server
+	 	broadcast! socket, "scores:show", %{"game" => players}
     {:noreply, socket}
 	end
 
