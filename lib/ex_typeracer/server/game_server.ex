@@ -12,8 +12,8 @@ defmodule ExTyperacer.GameServer do
     via_tuple(game_name)
   end
 
-  def add_player(username) do
-    GenServer.cast(__MODULE__, {:add_player, username})
+  def add_player(name, username) do
+    GenServer.cast(name, {:add_player, username})
   end
 
   # Auxiliar functions
