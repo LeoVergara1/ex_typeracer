@@ -21,7 +21,11 @@ defmodule ExTyperacer.GameServer do
   end
 
   def plays(name, username, letter) do
-    GenServer.cal name, username, letter
+    GenServer.call name, username, letter
+  end
+
+  def players(name) do
+    GenServer.call name, {:get_players} 
   end
 
   # Auxiliar functions
@@ -68,6 +72,10 @@ defmodule ExTyperacer.GameServer do
   def handle_call({:plays, username, letter}, _from, state) do
     game = Game.plays(state, username, letter)
     {:reply, game, state}
+  end
+
+  def handle_call({:get_players}, _from, state) do
+    {:reply, state.players, state}
   end
 
   # def handle_info(:timeout, state) do
