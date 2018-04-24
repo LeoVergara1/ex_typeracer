@@ -1,4 +1,4 @@
-defmodule ExTyperacer.Structs.Game do
+defmodule ExTyperacer.Logic.Game do
   @moduledoc """
   This module handle the logic of TypeRacer Game
   """
@@ -7,8 +7,7 @@ defmodule ExTyperacer.Structs.Game do
   defstruct players: [], paragraph: nil, letters: [], uuid: nil, positions: []
 
   alias __MODULE__
-  alias ExTyperacer.Structs.Player
-  alias ExTyperacer.Structs.Game
+  alias ExTyperacer.Logic.Player
 
   @doc """
   Creates a new game with a paragrapah to play and type.
@@ -54,7 +53,7 @@ defmodule ExTyperacer.Structs.Game do
   eventually, it will be from a webservice or database
   """
   def get_a_paragraph do
-    {_,text} = File.read("lib/resources/letters.txt")
+    {_,text} = File.read("lib/resources/words.txt")
     paragraphs = String.split(text,"\n\n")
     random_number = :rand.uniform(length(paragraphs)-1)
     Enum.at(paragraphs, random_number)

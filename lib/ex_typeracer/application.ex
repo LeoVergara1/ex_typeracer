@@ -15,6 +15,7 @@ defmodule ExTyperacer.Application do
 			worker(ExTyperacer.Timer, []),
       # Start your own worker by calling: ExTyperacer.Worker.start_link(arg1, arg2, arg3)
       # worker(ExTyperacer.Worker, [arg1, arg2, arg3]),
+      {Registry, keys: :unique, name: ExTyperacer.GameRegistry},
     ]
 
 		# ETS for save users id

@@ -1,6 +1,6 @@
 defmodule ExTyperacerWeb.RoomChannel do
 
-  alias ExTyperacer.Structs.Game
+  alias ExTyperacer.Logic.Game
 
   require Logger
 
