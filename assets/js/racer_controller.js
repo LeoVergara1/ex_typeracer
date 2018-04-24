@@ -154,7 +154,7 @@ export var RacerController = {
           that.username = response.user
           that.processRoom = response.process;
           that.updatingPlayers(that.uuid)
-          that.channelRoom.push("updating_players", that.uuid)
+          that.channelRoom.push("updating_players", that.processRoom)
           that.initChannelTimer(that.uuid)
           HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")

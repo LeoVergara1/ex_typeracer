@@ -35,6 +35,10 @@ defmodule ExTyperacer.GameServer do
   def update_socere_player(name, player) do
     GenServer.cast name, {:update_socere_player, player}
   end
+
+  def get_game(name) do
+    GenServer.call name, {:get_game}
+  end
   # Auxiliar functions
 
   def via_tuple(game_name) do
@@ -88,6 +92,10 @@ defmodule ExTyperacer.GameServer do
   def handle_cast({:update_socere_player, player}, state) do
     game = Game.update_socere_player(state, player)
     {:noreply, game}
+  end
+
+  def handle_call({:get_game}, state) do
+    {:reply, state, state}
   end
 
   # def handle_info(:timeout, state) do
