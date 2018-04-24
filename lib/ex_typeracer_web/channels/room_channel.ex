@@ -1,7 +1,7 @@
 defmodule ExTyperacerWeb.RoomChannel do
 
   alias ExTyperacer.Logic.Game
-
+  alias ExTyperacer.GameServer
   require Logger
 
   use Phoenix.Channel
@@ -16,17 +16,21 @@ defmodule ExTyperacerWeb.RoomChannel do
   end
 
   def handle_in("init_reace", payload, socket) do
+    IO.inspect "Estoy aquí"
     username = payload["username"]
-    game = Game.new(Game.get_a_paragraph()) |> Game.add_player(username)
-    IO.inspect game
-    :ets.new(:"#{game.uuid}", [:named_table, :public])
-    :ets.insert(:"#{game.uuid}", {"game", game} )
+    #game = Game.new(Game.get_a_paragraph()) |> Game.add_player(username)
+    game_server = GameServer.start_link(payload["name_room"])
+    IO.inspect game_server
+    GameServer.add_player game_server, payload["username"]
+    :ets.new(:"#{payload["name_room"]}", [:named_table, :public])
+    :ets.insert(:"#{payload["name_room"]}", {"game", game_server} )
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
-    :ets.insert(:list_rooms, { "list", list_rooms ++ [game.uuid] } )
+    :ets.insert(:list_rooms, { "list", list_rooms ++ [payload["name_room"]] } )
+    IO.inspect "Termino el proceso"
     {:reply,
     {:ok, %{"list" => list_rooms,
-            "process" => game.uuid,
-            "userList" => game.players,
+            "process" => payload["name_room"],
+            "userList" => [],
             "user" => payload["username"]
           }
     },
