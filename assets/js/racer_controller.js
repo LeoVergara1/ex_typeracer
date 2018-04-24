@@ -145,12 +145,12 @@ export var RacerController = {
     let that = this
     $("#join-room").on("click", () =>{
       that.username = $("#username").val()
-      that.uuid = $("#game-id").val()
+      that.processRoom = $("#game-id").val()
       this.channelRoom
-      .push('join_race', {username: that.username, uuid: that.uuid})
+      .push('join_race', {username: that.username, name_room: that.processRoom})
       .receive('ok', response =>{ 
         console.log("ok", response)
-        if(response.process == this.uuid){
+        if(response.process == this.processRoom){
           that.username = response.user
           that.processRoom = response.process;
           that.updatingPlayers(that.uuid)
