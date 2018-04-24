@@ -20,6 +20,10 @@ defmodule ExTyperacer.GameServer do
     GenServer.call name, {:find_a_player, username}
   end
 
+  def plays(name, username, letter) do
+    GenServer.cal name, username, letter
+  end
+
   # Auxiliar functions
 
   def via_tuple(game_name) do
@@ -59,6 +63,11 @@ defmodule ExTyperacer.GameServer do
   def handle_call({:find_a_player, username}, _from, state) do
     player = Game.find_a_player(state, username)
     {:reply, player, state}
+  end
+
+  def handle_call({:plays, username, letter}, _from, state) do
+    game = Game.plays(state, username, letter)
+    {:reply, game, state}
   end
 
   # def handle_info(:timeout, state) do
