@@ -67,8 +67,12 @@ defmodule ExTyperacerWeb.RoomChannel do
   end
 
   def handle_in("show_run_area", uuidGame, socket) do
-    [{_,game}] = :ets.lookup(:"#{uuidGame}","game")
-    broadcast! socket, "#{uuidGame}", %{"data" => game.paragraph}
+    IO.inspect "Aquí truena"
+    IO.inspect uuidGame
+    [{_,game_server}] = :ets.lookup(:"#{uuidGame}","game")
+    IO.inspect game_server
+    paragraph = GameServer.paragraph_of_game(game_server)
+    broadcast! socket, "#{uuidGame}", %{"data" => paragraph }
     {:noreply, socket}
   end
 
