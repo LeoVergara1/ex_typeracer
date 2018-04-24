@@ -28,6 +28,9 @@ defmodule ExTyperacer.GameServer do
     GenServer.call name, {:get_players} 
   end
 
+  def paragraph_of_game(name) do
+    GenServer.call name, {:resumen}
+  end
   # Auxiliar functions
 
   def via_tuple(game_name) do
@@ -51,7 +54,7 @@ defmodule ExTyperacer.GameServer do
   end
 
   def handle_call({:resumen}, _from, state) do
-    {:reply, state, state}
+    {:reply, state.paragraph, state}
   end
 
   def handle_cast({:add_player, username}, state) do
