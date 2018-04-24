@@ -2,8 +2,8 @@ defmodule ExTyperacerWeb.ScoresChannel do
 
   use Phoenix.Channel
   require Logger
-  alias ExTyperacer.Structs.Game
-  alias ExTyperacer.Structs.Player
+  alias ExTyperacer.Logic.Game
+  alias ExTyperacer.Logic.Player
 
   def join("scores", payload, socket) do
     Logger.warn " ::::::::: Scores Join Payload ::::::::"

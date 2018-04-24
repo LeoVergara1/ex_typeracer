@@ -1,6 +1,6 @@
 defmodule ExTyperacer.Room do
 
-  alias ExTyperacer.Structs.Game
+  alias ExTyperacer.Logic.Game
   
   def start(%Game{} = game) do
     spawn ExTyperacer.Room, :handle, [game]
