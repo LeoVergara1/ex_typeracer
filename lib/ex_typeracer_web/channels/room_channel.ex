@@ -18,7 +18,6 @@ defmodule ExTyperacerWeb.RoomChannel do
   def handle_in("init_reace", payload, socket) do
     IO.inspect "Estoy aquí"
     username = payload["username"]
-    #game = Game.new(Game.get_a_paragraph()) |> Game.add_player(username)
     game_server = GameServer.start_link(payload["name_room"])
     IO.inspect game_server
     GameServer.add_player game_server, payload["username"]
@@ -41,18 +40,21 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("join_race", payload, socket) do
     username = payload["username"]
-    uuidGame = payload["uuid"]
+    uuidGame = payload["name_room"]
     IO.inspect "Estoy aqui"
     IO.inspect uuidGame
-    [{_,game}] = :ets.lookup(:"#{uuidGame}","game")
+    [{_,game_server}] = :ets.lookup(:"#{uuidGame}","game")
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
-    game = Game.add_player(game, username)
-    IO.inspect game
-    :ets.insert(:"#{game.uuid}", {"game", game} )
+    IO.inspect game_server
+    GameServer.add_player game_server, username
+    players = GameServer.players game_server 
+ #   game = Game.add_player(game, username)
+ #   IO.inspect game
+ #   :ets.insert(:"#{game.uuid}", {"game", game} )
     {:reply,
     {:ok, %{"list" => list_rooms,
-            "process" => game.uuid,
-            "userList" => game.players,
+            "process" => payload["name_room"],
+            "userList" => players,
             "user" => payload["username"]
           }
     },
