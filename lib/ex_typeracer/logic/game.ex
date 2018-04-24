@@ -53,7 +53,7 @@ defmodule ExTyperacer.Logic.Game do
   eventually, it will be from a webservice or database
   """
   def get_a_paragraph do
-    {_,text} = File.read("lib/resources/words.txt")
+    {_,text} = File.read("lib/resources/letters.txt")
     paragraphs = String.split(text,"\n\n")
     random_number = :rand.uniform(length(paragraphs)-1)
     Enum.at(paragraphs, random_number)
