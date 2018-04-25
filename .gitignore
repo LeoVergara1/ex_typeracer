@@ -27,3 +27,4 @@ npm-debug.log
 /config/*.secret.exs
 .deliver/releases/
 /config/profile
+.deliver/.DS_Store
