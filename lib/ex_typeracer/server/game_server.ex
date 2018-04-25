@@ -94,7 +94,7 @@ defmodule ExTyperacer.GameServer do
     {:noreply, game}
   end
 
-  def handle_call({:get_game}, state) do
+  def handle_call({:get_game}, _from, state) do
     {:reply, state, state}
   end
 
