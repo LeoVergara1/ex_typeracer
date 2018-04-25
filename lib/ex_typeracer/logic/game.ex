@@ -53,10 +53,17 @@ defmodule ExTyperacer.Logic.Game do
   eventually, it will be from a webservice or database
   """
   def get_a_paragraph do
-    {_,text} = File.read("lib/resources/letters.txt")
-    paragraphs = String.split(text,"\n\n")
-    random_number = :rand.uniform(length(paragraphs)-1)
-    Enum.at(paragraphs, random_number)
+
+    case File.read("priv/resources/letters.txt") do
+      {:ok, text} ->
+        # {_,text} = File.read("lib/resources/letters.txt")
+        paragraphs = String.split(text,"\n\n")
+        random_number = :rand.uniform(length(paragraphs)-1)
+        Enum.at(paragraphs, random_number)
+      {:error, reason} ->
+        IO.puts "error reading the file: #{inspect reason}"
+        _default ->
+    end
   end
 
   def update_socere_player(game, player) do
