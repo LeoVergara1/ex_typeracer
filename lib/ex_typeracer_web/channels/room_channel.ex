@@ -80,7 +80,8 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("updating_players", uuidGame, socket) do
     [{_,game_server}] = :ets.lookup(:"#{uuidGame}","game")
-    #broadcast! socket, "updating_player_#{uuidGame}", %{"game" => game}
+    game = GameServer.get_game game_server
+    broadcast! socket, "updating_player_#{uuidGame}", %{"game" => game}
     {:noreply, socket}
   end
 
