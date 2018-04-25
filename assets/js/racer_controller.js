@@ -28,30 +28,31 @@ export var RacerController = {
 					});
 			});
   },
-  initChannelTimer: function(uuid) {
+  initChannelTimer: function(name_room) {
     let that = this 
     var channel = socket.channel("timer:update", {})
       channel.join()
       .receive("ok", resp => { console.log("Timer Channel Joined 😉", resp) })
       .receive("error", resp => { console.log("No se puede conectar al Timer Channel", resp) })
 
-      channel.on(`new_time_${that.uuid}`, msg => {
+      channel.on(`new_time_${name_room}`, msg => {
           document.getElementById('status').innerHTML = msg.response
           document.getElementById('timer').innerHTML = msg.time
 
           $("#start-timer").hide()
           if (msg.time === 0){
             $("#start-timer").show()
-            that.showRunArea(that.processRoom)
+            that.showRunArea(name_room)
             $("#timer_run_area").hide();
-            that.channelRoom.push("show_run_area", that.processRoom)
+            that.channelRoom.push("show_run_area", name_room)
             that.animattionSprite()
           }
       });
 
       $("#timer_run_area").on("click", "#start-timer" , () =>{
+        console.log(name_room)
       channel
-      .push('start_timer', {uuid})
+      .push('start_timer', {name_room})
       .receive('ok', resp => { console.log("Starter timer",resp) })
     })
   },
@@ -124,8 +125,8 @@ export var RacerController = {
         that.processRoom = response.process;
         that.uuid = response.process
         that.username = response.user
-        that.updatingPlayers(that.uuid)
-        that.initChannelTimer(that.uuid)
+        that.updatingPlayers(that.name_room)
+        that.initChannelTimer(that.name_room)
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
         HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
         $("#container-header-player").hide()
@@ -133,8 +134,9 @@ export var RacerController = {
     })
   },
 
-  updatingPlayers: function (uuid) {
-    this.channelRoom.on(`updating_player_${uuid}`, msg => {
+  updatingPlayers: function (name_room) {
+    console.log(`Reinicia lista. ${name_room}`)
+    this.channelRoom.on(`updating_player_${name_room}`, msg => {
       console.log(msg)
       let userList = msg.game.players;
       console.log(this.username)
@@ -145,17 +147,17 @@ export var RacerController = {
     let that = this
     $("#join-room").on("click", () =>{
       that.username = $("#username").val()
-      that.processRoom = $("#game-id").val()
+      that.name_room = $("#game-id").val()
       this.channelRoom
-      .push('join_race', {username: that.username, name_room: that.processRoom})
+      .push('join_race', {username: that.username, name_room: that.name_room})
       .receive('ok', response =>{ 
         console.log("ok", response)
-        if(response.process == this.processRoom){
+        if(response.process == this.name_room){
           that.username = response.user
           that.processRoom = response.process;
-          that.updatingPlayers(that.uuid)
-          that.channelRoom.push("updating_players", that.processRoom)
-          that.initChannelTimer(that.uuid)
+          that.updatingPlayers(that.name_room)
+          that.channelRoom.push("updating_players", that.name_room)
+          that.initChannelTimer(that.name_room)
           HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
           $("#container-header-player").hide()
