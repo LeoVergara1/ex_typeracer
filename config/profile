@@ -1,8 +1,6 @@
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=postgres
-export DATABASE_NAME=ex_typeracer_dev
+export DATABASE_NAME=typeracer
 # local machine
 export DATABASE_HOST=35.196.160.161
-export DATABASE_PORT=4000
-export GITHUB_CLIENT_ID=
-export GITHUB_CLIENT_SECRET=
+export DATABASE_PORT=5432
