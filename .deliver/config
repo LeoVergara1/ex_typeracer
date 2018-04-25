@@ -1,12 +1,16 @@
 APP="ex_typeracer"
 
-BUILD_HOST="35.196.160.161"
-BUILD_USER="brandon"
-BUILD_AT="/home/brandon/builds"
+BUILD_HOST="192.168.60.7"
+BUILD_USER="vagrant"
+BUILD_AT="/home/vagrant/builds"
 
-STAGING_HOSTS="35.196.160.162"
-STAGING_USER="brandon"
-TEST_AT=="/home/brandon/releases"
+STAGING_HOSTS="192.168.60.8"
+STAGING_USER="vagrant"
+TEST_AT="/home/vagrant/releases"
+
+PRODUCTION_HOSTS="35.196.160.161"
+PRODUCTION_USER="brandon"
+DELIVER_TO="/home/brandon/releases"
 
 pre_erlang_get_and_update_deps() {
   local _prod_secret_path="$WORKSPACE/$APP/config/prod.secret.exs"
