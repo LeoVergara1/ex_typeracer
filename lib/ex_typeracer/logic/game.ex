@@ -54,7 +54,7 @@ defmodule ExTyperacer.Logic.Game do
   """
   def get_a_paragraph do
 
-    case File.read("priv/resources/letters.txt") do
+    case File.read(Application.app_dir(:ex_typeracer, "priv/resources/letters.txt")) do
       {:ok, text} ->
         # {_,text} = File.read("lib/resources/letters.txt")
         paragraphs = String.split(text,"\n\n")
