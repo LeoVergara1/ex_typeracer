@@ -34,8 +34,7 @@ pre_erlang_clean_compile() {
       set -e
       cd '$BUILD_AT/assets'
 
-      nvm alias default v10.0.0
-      npm install
+      .nvm/versions/node/v10.0.0/bin/npm install
       node_modules/brunch/bin/brunch build --production
 
       cd '$BUILD_AT'
