@@ -1,8 +1,8 @@
 APP="ex_typeracer"
 
-BUILD_HOST="192.168.60.7"
-BUILD_USER="vagrant"
-BUILD_AT="/home/vagrant/builds"
+BUILD_HOST="35.196.108.175"
+BUILD_USER="brandon"
+BUILD_AT="/home/brandon/builds"
 
 STAGING_HOSTS="192.168.60.8"
 STAGING_USER="vagrant"
