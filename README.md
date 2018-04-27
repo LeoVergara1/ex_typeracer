@@ -1,3 +1,4 @@
+
 # ExTyperacer
 
 To start your Phoenix server:
@@ -82,7 +83,7 @@ pre_erlang_clean_compile() {
   export DATABASE_HOST=localhost
   export DATABASE_PORT=5432
 
-  ``` 
-  
+  ```
+
   * Finally you should running './deploy'
 
