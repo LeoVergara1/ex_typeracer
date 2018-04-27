@@ -34,7 +34,9 @@ pre_erlang_clean_compile() {
       set -e
       cd '$BUILD_AT/assets'
 
+      echo $PWD
       .nvm/versions/node/v10.0.0/bin/npm install
+
       node_modules/brunch/bin/brunch build --production
 
       cd '$BUILD_AT'
