@@ -26,5 +26,3 @@ npm-debug.log
 # variables.
 .deliver/releases/
 .deliver/.DS_Store
-/config/*.secret.exs
-/config/profile
