@@ -1,0 +1,8 @@
+#!/bin/bash
+cd ex_typeracer
+export WORKSPACE=/home/brandon/
+export APP=ex_typeracer
+mix edeliver build release
+mix edeliver stop production
+mix edeliver deploy release to production
+mix edeliver start production
