@@ -34,8 +34,6 @@ pre_erlang_clean_compile() {
       set -e
       cd '$BUILD_AT/assets'
 
-      echo $PWD
-      npm install
 
       node_modules/brunch/bin/brunch build --production
 
