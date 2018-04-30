@@ -29,6 +29,9 @@ export var MatchController = {
         nextWord +=1
         score = (nextWord * 100) / (textArea.length)
         RacerController.sendScore(score)
+        if (score > 99.6){
+          RacerController.sendPosition()
+        }
         //console.log(`Texto actual: ${textCurent} cadena:  ${textArea.substring(nextWord)}`)
         $("#textCurrent").text(textCurent)
         $("#textToValidate").text(textArea.substring(nextWord))
