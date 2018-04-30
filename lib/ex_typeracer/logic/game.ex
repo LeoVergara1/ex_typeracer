@@ -73,4 +73,8 @@ defmodule ExTyperacer.Logic.Game do
     %Game{game | players: new_list_player}
   end
 
+  def add_position_to_player(game, player ) do
+    %{game | positions: [player | game.positions]}
+  end
+
 end
