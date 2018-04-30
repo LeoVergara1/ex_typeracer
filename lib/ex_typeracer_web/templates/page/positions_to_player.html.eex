@@ -1,0 +1,13 @@
+<script id="positions_to_player" type="text/x-handlebars-template">
+ <div id="positions_to_players">
+  <p class="lead">Posiciones: </p>
+  <ul class="list-group">
+  {{#each userList}}
+  <li class="list-group-item justify-content-between imageBackgoround">
+    {{this.username}}
+    </div>
+  </li>
+  {{/each}}
+</ul>
+</div>
+</script>
