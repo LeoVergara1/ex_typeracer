@@ -172,6 +172,10 @@ export var RacerController = {
       .push('scores:set', {user: this.username, score:score, name_rom: this.processRoom, tes:this.username})
 
   },
+  sendPosition: function () {
+    this.channelScore
+      .push('scores:position', {username: this.username, name_room: this.processRoom})
+  },
 
   animattionSprite: function () {
     console.log("Inicia animación")
