@@ -28,9 +28,15 @@ defmodule ExTyperacerWeb.ScoresChannel do
     {:noreply, socket}
   end
   
-  def handle_in("scores:finesh", payload, socket) do
+  def handle_in("scores:position", payload, socket) do
     Logger.warn "::::: Winner :::::"
+    [{_,game_server}] = :ets.lookup(:"#{payload["name_room"]}","game")
+    player = GameServer.find_player game_server, payload["username"]
+    GameServer.add_player_to_position game_server, player
+    game = GameServer.get_game game_server
+    IO.inspect game
     broadcast! socket, "socore:winer_show", payload
+    {:noreply, socket}
   end
 
 end
