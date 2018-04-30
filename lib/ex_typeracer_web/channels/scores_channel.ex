@@ -34,7 +34,6 @@ defmodule ExTyperacerWeb.ScoresChannel do
     player = GameServer.find_player game_server, payload["username"]
     GameServer.add_player_to_position game_server, player
     game = GameServer.get_game game_server
-    IO.inspect game
     broadcast! socket, "socore:winer_show", payload
     {:noreply, socket}
   end
