@@ -38,8 +38,27 @@ defmodule ExTyperacer.Timer do
 		timer_ref = schedule_timer 1_000
 		broadcast duration, %{message: "Start time", uuid: uuid.uuid}
 		{:noreply, %{timer_ref: timer_ref, timer: duration, uuid: uuid.uuid}}
-	end
+  end
+  
+  def handle_cast({:test}, state) do
+    IO.puts "Estoy aquí"
+    {:noreply, "Algo"}
+  end
 
+  def handle_info({:testInfo}, state) do
+    IO.puts "Estoy aquí"
+    {:noreply,state}
+  end
+
+	def handle_info(:star_timer , %{timer_ref: old_timer_ref}) do
+    IO.inspect "1"
+    cancel_timer(old_timer_ref)
+		duration = 3
+		timer_ref = schedule_timer 1_000
+		broadcast duration, %{message: "Start time"}
+		{:noreply, %{timer_ref: timer_ref, timer: duration}}
+  end
+  
   defp schedule_timer(interval) do
     Process.send_after self(), :update, interval
   end
