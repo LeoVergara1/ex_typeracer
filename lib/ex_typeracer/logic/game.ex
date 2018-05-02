@@ -4,7 +4,7 @@ defmodule ExTyperacer.Logic.Game do
   """
 
   @enforce_keys [:paragraph]
-  defstruct players: [], paragraph: nil, letters: [], uuid: nil, positions: []
+  defstruct players: [], paragraph: nil, letters: [], uuid: nil, positions: [], timer: nil
 
   alias __MODULE__
   alias ExTyperacer.Logic.Player
@@ -14,7 +14,7 @@ defmodule ExTyperacer.Logic.Game do
   This game starts with zero players.
   """
   def new(paragraph) do
-    %Game{ paragraph: paragraph, letters: String.codepoints(paragraph), uuid: :rand.uniform(10000) }
+    %Game{ paragraph: paragraph, letters: String.codepoints(paragraph), uuid: :rand.uniform(10000), timer: ExTyperacer.Timer.start_link }
   end
 
   @doc """

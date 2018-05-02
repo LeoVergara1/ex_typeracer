@@ -11,7 +11,7 @@ defmodule ExTyperacer.Timer do
 
   def init(_state) do
     ExTyperacerWeb.Endpoint.subscribe "timer:start", []
-    IO.inspect "1"
+    IO.inspect "1est"
     # Adding state
     state = %{timer_ref: nil, timer: nil}
     {:ok, state}
