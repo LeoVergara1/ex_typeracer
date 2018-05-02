@@ -12,7 +12,7 @@ defmodule ExTyperacer.Application do
       supervisor(ExTyperacer.Repo, []),
       # Start the endpoint when the application starts
       supervisor(ExTyperacerWeb.Endpoint, []),
-			worker(ExTyperacer.Timer, []),
+			#worker(ExTyperacer.Timer, []), #init Timer server
       # Start your own worker by calling: ExTyperacer.Worker.start_link(arg1, arg2, arg3)
       # worker(ExTyperacer.Worker, [arg1, arg2, arg3]),
       {Registry, keys: :unique, name: ExTyperacer.GameRegistry},
