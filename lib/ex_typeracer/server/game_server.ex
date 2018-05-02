@@ -1,6 +1,7 @@
 defmodule ExTyperacer.GameServer do
 
   use GenServer
+  require Kernel
   require Logger
   alias ExTyperacer.Logic.{Game, Player}
 
@@ -42,6 +43,13 @@ defmodule ExTyperacer.GameServer do
 
   def add_player_to_position(name, player) do
     GenServer.cast name, {:add_player_to_position, player}
+  end
+
+  def start_timer(name) do
+    game = GenServer.call name, {:get_game}
+    IO.inspect game    
+    {:ok, timer} = game.timer
+    Kernel.send(timer , {:testInfo})
   end
   # Auxiliar functions
 
