@@ -49,7 +49,7 @@ defmodule ExTyperacer.TimerServer do
 
   defp broadcast(time, response) do
     IO.inspect response
-    ExTyperacerWeb.Endpoint.broadcast! "timer:update","new_time", %{ time: time, response: response.message}
+    ExTyperacerWeb.Endpoint.broadcast! "timer:update","new_time_#{response.uuid}", %{ time: time, response: response.message}
   end
 
 end
