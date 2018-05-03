@@ -50,8 +50,8 @@ defmodule ExTyperacer.Timer do
     {:noreply,state}
   end
 
-	def handle_info(:star_timer , %{timer_ref: old_timer_ref}) do
-    IO.inspect "1"
+	def handle_info({:start_timer} , %{timer_ref: old_timer_ref}) do
+    IO.inspect "1 empieza timer"
     cancel_timer(old_timer_ref)
 		duration = 3
 		timer_ref = schedule_timer 1_000
