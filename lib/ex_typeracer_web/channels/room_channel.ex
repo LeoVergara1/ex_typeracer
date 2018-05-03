@@ -22,6 +22,7 @@ defmodule ExTyperacerWeb.RoomChannel do
     IO.inspect game_server
     GameServer.add_player game_server, payload["username"]
     players = GameServer.players game_server 
+    game = GameServer.get_game game_server
     IO.inspect players
     :ets.new(:"#{payload["name_room"]}", [:named_table, :public])
     :ets.insert(:"#{payload["name_room"]}", {"game", game_server} )
@@ -32,7 +33,8 @@ defmodule ExTyperacerWeb.RoomChannel do
     {:ok, %{"list" => list_rooms,
             "process" => payload["name_room"],
             "userList" => players,
-            "user" => payload["username"]
+            "user" => payload["username"],
+            "uuid" => game.uuid
           }
     },
     socket}
@@ -47,6 +49,7 @@ defmodule ExTyperacerWeb.RoomChannel do
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
     IO.inspect game_server
     GameServer.add_player game_server, username
+    game = GameServer.get_game game_server
     players = GameServer.players game_server 
  #   game = Game.add_player(game, username)
  #   IO.inspect game
@@ -55,7 +58,8 @@ defmodule ExTyperacerWeb.RoomChannel do
     {:ok, %{"list" => list_rooms,
             "process" => payload["name_room"],
             "userList" => players,
-            "user" => payload["username"]
+            "user" => payload["username"],
+            "uuid" => game.uuid
           }
     },
     socket}

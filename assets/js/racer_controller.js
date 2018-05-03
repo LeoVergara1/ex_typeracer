@@ -11,6 +11,7 @@ export var RacerController = {
   processRoom: null,
   username:null,
   name_room: null,
+  uuid_game: null,
 
   initChannelRoom: function () {
     this.channelRoom = socket.channel("room:new", {})
@@ -28,14 +29,15 @@ export var RacerController = {
 					});
 			});
   },
-  initChannelTimer: function(name_room) {
+  initChannelTimer: function(name_room, uuid_game) {
     let that = this 
+    console.log(uuid_game);
     var channel = socket.channel("timer:update", {})
       channel.join()
       .receive("ok", resp => { console.log("Timer Channel Joined 😉", resp) })
       .receive("error", resp => { console.log("No se puede conectar al Timer Channel", resp) })
 
-      channel.on(`new_time_${name_room}`, msg => {
+      channel.on(`new_time`, msg => {
           document.getElementById('status').innerHTML = msg.response
           document.getElementById('timer').innerHTML = msg.time
 
@@ -50,7 +52,7 @@ export var RacerController = {
       });
 
       $("#timer_run_area").on("click", "#start-timer" , () =>{
-        console.log(name_room)
+        console.log(`Este es id ${uuid_game}`)
       channel
       .push('start_timer', {name_room})
       .receive('ok', resp => { console.log("Starter timer",resp) })
@@ -117,6 +119,7 @@ export var RacerController = {
       console.log("click")
       that.uuid = $("#recipient-name").val()
       that.name_room = $("#name_room_txt").val()
+      console.log(that.name_room)
       console.log(that.uuid)
       this.channelRoom
       .push('init_reace', {username: that.uuid, name_room: that.name_room})
@@ -125,8 +128,9 @@ export var RacerController = {
         that.processRoom = response.process;
         that.uuid = response.process
         that.username = response.user
+        that.uuid_game = response.uuid 
         that.updatingPlayers(that.name_room)
-        that.initChannelTimer(that.name_room)
+        that.initChannelTimer(that.name_room, that.uuid_game)
         HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
         HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
         $("#container-header-player").hide()

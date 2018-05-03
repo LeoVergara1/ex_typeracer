@@ -9,7 +9,8 @@ defmodule ExTyperacer.TimerServer do
   end
   
   def init(state) do
-    IO.puts "Inicia timer"
+    IO.puts "Init timer"
+    ExTyperacerWeb.Endpoint.subscribe "timer:start", []
     #timer = Process.send_after(self(), {:work, counter, uuid}, 1_000)
     {:ok, state}
   end
@@ -22,12 +23,15 @@ defmodule ExTyperacer.TimerServer do
 
   def handle_info({:work, 0, uuid}, state) do
     IO.puts "Finished proccess"
+    broadcast 0, %{message: "Counting", uuid: uuid}
     {:noreply, state}
   end
 
   def handle_info({:work, counter, uuid}, state) do
     IO.puts "Counting..."
+    IO.inspect uuid
     IO.inspect counter
+    broadcast counter, %{message: "Counting", uuid: uuid}
     counter = counter - 1
     timer = Process.send_after(self(), {:work, counter, uuid},1_000)
     {:noreply, %{timer: timer}}
@@ -35,13 +39,17 @@ defmodule ExTyperacer.TimerServer do
 
 
   def handle_info({:start_timer, counter, uuid}, state) do
-    IO.inspect "Estoy en el nuevo param"
     timer = Process.send_after(self(), {:work, counter, uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
     # So that unhanded messages don't error
   def handle_info(_, state) do
       {:ok, state}
+  end
+
+  defp broadcast(time, response) do
+    IO.inspect response
+    ExTyperacerWeb.Endpoint.broadcast! "timer:update","new_time", %{ time: time, response: response.message}
   end
 
 end
