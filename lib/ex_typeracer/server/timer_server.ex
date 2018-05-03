@@ -23,6 +23,8 @@ defmodule ExTyperacer.TimerServer do
   def handle_info({:work, counter}, state) do
     # Do the{ work, counter} you desire here
     IO.puts "Aquí"
+    IO.inspect counter
+    counter = counter - 1
     # Start the timer again
     timer = Process.send_after(self(), {:work, counter},1_000)
 
