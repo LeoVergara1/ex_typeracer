@@ -49,7 +49,7 @@ defmodule ExTyperacer.GameServer do
     game = GenServer.call name, {:get_game}
     IO.inspect game    
     {:ok, timer} = game.timer
-    Kernel.send(timer , {:start_timer, counter})
+    Kernel.send(timer , {:start_timer, counter, game.uuid})
   end
   # Auxiliar functions
 
