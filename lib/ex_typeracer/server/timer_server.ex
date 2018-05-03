@@ -20,6 +20,14 @@ defmodule ExTyperacer.TimerServer do
     {:reply, :ok, %{timer: timer}}
   end
 
+  def handle_info({:work, 0}, state) do
+    # Do the{ work, counter} you desire here
+    IO.puts "Termina proceso"
+    # Start the timer again
+   # timer = Process.send_after(self(), {:work, counter},1_000)
+    {:noreply, state}
+  end
+
   def handle_info({:work, counter}, state) do
     # Do the{ work, counter} you desire here
     IO.puts "Aquí"
@@ -30,6 +38,7 @@ defmodule ExTyperacer.TimerServer do
 
     {:noreply, %{timer: timer}}
   end
+
 
   def handle_info({:start_timer, counter}, state) do
     IO.inspect "Estoy en el nuevo param"
