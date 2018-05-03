@@ -45,11 +45,11 @@ defmodule ExTyperacer.GameServer do
     GenServer.cast name, {:add_player_to_position, player}
   end
 
-  def start_timer(name) do
+  def start_timer(name, counter) do
     game = GenServer.call name, {:get_game}
     IO.inspect game    
     {:ok, timer} = game.timer
-    Kernel.send(timer , {:testInfo})
+    Kernel.send(timer , {:start_timer, counter})
   end
   # Auxiliar functions
 
