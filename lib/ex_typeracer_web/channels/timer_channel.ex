@@ -1,6 +1,7 @@
 defmodule ExTyperacerWeb.TimerChannel do
 
   use Phoenix.Channel
+  alias ExTyperacer.GameServer
 
   def join("timer:update", _msg, socket) do
     {:ok, socket}
@@ -13,7 +14,10 @@ defmodule ExTyperacerWeb.TimerChannel do
 
   def handle_in("start_timer", payload, socket) do
     IO.inspect payload
-		ExTyperacerWeb.Endpoint.broadcast("timer:start", "start_timer", %{uuid: payload["name_room"]})
+    [{_,game_server}] = :ets.lookup(:"#{payload["name_room"]}","game")
+    IO.inspect game_server
+    GameServer.start_timer game_server, 30
+		#ExTyperacerWeb.Endpoint.broadcast("timer:start", "start_timer", %{uuid: payload["name_room"]})
 		{:noreply, socket}
 	end
 
