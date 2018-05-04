@@ -111,7 +111,11 @@ export var RacerController = {
           $(`#${element.username}-sprite`).css("margin-left", `${score}%`)
           console.log($(`#${that.username}-sprite`))
         });
-			});
+      });
+      
+      this.channelScore.on("socore:winer_show", msg => {
+        console.log(msg);
+      });
   },
   initRom: function(){
     let that = this
