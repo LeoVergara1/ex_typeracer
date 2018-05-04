@@ -115,6 +115,10 @@ export var RacerController = {
       
       this.channelScore.on("socore:winer_show", msg => {
         console.log(msg);
+        if(msg.uuid_game == that.uuid_game){
+          console.log("Estas aquí...");
+          HandlebarsResolver.constructor.mergeViewWithModel("#positions_to_player", msg, "list_positions_container")
+        }
       });
   },
   initRom: function(){
