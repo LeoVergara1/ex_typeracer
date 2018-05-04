@@ -37,6 +37,7 @@ defmodule ExTyperacerWeb.ScoresChannel do
     positions =
     game.positions
     |> Enum.uniq_by(fn(x) -> x.username end)
+    |> Enum.reverse
     broadcast! socket, "socore:winer_show", %{positions: positions, uuid_game: game.uuid}
     {:noreply, socket}
   end
