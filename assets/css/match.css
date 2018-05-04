@@ -30,6 +30,14 @@
 .imageBackgoround{
   background-image: url("/images/road.jpg")
 }
+#positions_to_players {
+  float: left;
+    position: fixed;
+    margin-left: -10%;
+    z-index: 1000;
+    margin-top: -1%;
+    top: 270px
+}
 
 @media (max-width: 1690px){
   .rooms{
