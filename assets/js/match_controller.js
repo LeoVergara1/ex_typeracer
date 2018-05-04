@@ -29,7 +29,7 @@ export var MatchController = {
         nextWord +=1
         score = (nextWord * 100) / (textArea.length)
         RacerController.sendScore(score)
-        if (score > 99.6){
+        if (score > 90.0){
           RacerController.sendPosition()
         }
         //console.log(`Texto actual: ${textCurent} cadena:  ${textArea.substring(nextWord)}`)
