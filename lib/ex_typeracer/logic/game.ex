@@ -4,7 +4,7 @@ defmodule ExTyperacer.Logic.Game do
   """
 
   @enforce_keys [:paragraph]
-  defstruct players: [], paragraph: nil, letters: [], uuid: nil, positions: [], timer: nil
+  defstruct players: [], paragraph: nil, letters: [], uuid: nil, positions: [], timer: nil, status: nil
 
   alias __MODULE__
   alias ExTyperacer.Logic.Player
