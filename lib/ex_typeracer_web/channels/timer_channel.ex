@@ -16,7 +16,7 @@ defmodule ExTyperacerWeb.TimerChannel do
     IO.inspect payload
     [{_,game_server}] = :ets.lookup(:"#{payload["name_room"]}","game")
     IO.inspect game_server
-    GameServer.start_timer game_server, 30
+    GameServer.start_timer game_server, 3
 		#ExTyperacerWeb.Endpoint.broadcast("timer:start", "start_timer", %{uuid: payload["name_room"]})
 		{:noreply, socket}
 	end
