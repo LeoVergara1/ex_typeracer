@@ -34,7 +34,10 @@ defmodule ExTyperacerWeb.ScoresChannel do
     player = GameServer.find_player game_server, payload["username"]
     GameServer.add_player_to_position game_server, player
     game = GameServer.get_game game_server
-    broadcast! socket, "socore:winer_show", payload
+    positions =
+    game.positions
+    |> Enum.uniq_by(fn(x) -> x.username end)
+    broadcast! socket, "socore:winer_show", %{positions: positions, uuid_game: game.uuid}
     {:noreply, socket}
   end
 
