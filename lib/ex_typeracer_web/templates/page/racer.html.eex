@@ -22,6 +22,8 @@
     </div>
   </div>
 </div>
+<div id="list_positions_container">
+</div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -79,6 +81,7 @@
 <%= render "run_text.html" %>
   <%= render "timer_template.html" %>
     <%= render "list_users.html" %>
+    <%= render "positions_to_player.html" %>
 
       <canvas id="canvas" width="200" height="100">
 
