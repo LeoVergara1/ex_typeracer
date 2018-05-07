@@ -12,13 +12,25 @@ defmodule ExTyperacer.TimerServer do
     IO.puts "Init timer"
     ExTyperacerWeb.Endpoint.subscribe "timer:start", []
     #timer = Process.send_after(self(), {:work, counter, uuid}, 1_000)
+    #timer = Process.send_after(self(), {:work, 30, 3989},1_000)
+    #IO.inspect timer
     {:ok, state}
   end
 
   def handle_call({:reset_timer, counter, uuid}, _from, %{timer: timer}) do
-    :timer.cancel(timer)
+    cancel_timer(timer)
     timer = Process.send_after(self(), {:work, counter, uuid}, 1_000)
     {:reply, :ok, %{timer: timer}}
+  end
+
+  def handle_call({:stop_timer}, _from, %{timer: timer}) do
+    :timer.cancel(timer)
+    {:reply, :ok, %{timer: timer}}
+  end
+
+
+  def handle_call(:get_timer_ref, _from, %{timer: timer}) do
+    {:reply, timer, %{timer: timer}}
   end
 
   def handle_info({:work, 0, uuid}, state) do
@@ -27,7 +39,7 @@ defmodule ExTyperacer.TimerServer do
     {:noreply, state}
   end
 
-  def handle_info({:work, counter, uuid}, state) do
+  def handle_info({:work, counter, uuid}, %{timer: timer}) do
     IO.puts "Counting..."
     IO.inspect uuid
     IO.inspect counter
@@ -67,6 +79,8 @@ defmodule ExTyperacer.TimerServer do
       IO.inspect "No matching any method"
       {:ok, state}
   end
+
+  defp cancel_timer(ref), do: Process.cancel_timer(ref)
 
   defp broadcast(time, response) do
     IO.inspect response
