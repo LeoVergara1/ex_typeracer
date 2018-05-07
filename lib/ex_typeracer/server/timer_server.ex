@@ -40,6 +40,7 @@ defmodule ExTyperacer.TimerServer do
   end
 
   def handle_info({:work, counter, uuid}, %{timer: timer}) do
+    cancel_timer(timer)
     IO.puts "Counting..."
     IO.inspect uuid
     IO.inspect counter
@@ -49,13 +50,13 @@ defmodule ExTyperacer.TimerServer do
     {:noreply, %{timer: timer}}
   end
 
-  def handle_info({:waiting, 0, uuid}, state) do
+  def handle_info({:waiting, 0, uuid}, %{timer: timer}) do
     IO.puts "Finished procces of waiting"
     broadcast 0, %{message: "Counting", uuid: uuid, select: "waiting_time_"}
-    {:noreply, state}
+    {:noreply, %{timer: timer}}
   end
 
-  def handle_info({:waiting, counter, uuid}, state) do
+  def handle_info({:waiting, counter, uuid}, %{timer: timer}) do
     IO.puts "waiting..."
     IO.inspect uuid
     IO.inspect counter
