@@ -14,7 +14,7 @@ defmodule ExTyperacer.Logic.Game do
   This game starts with zero players.
   """
   def new(paragraph) do
-    %Game{ paragraph: paragraph, letters: String.codepoints(paragraph), uuid: :rand.uniform(10000), timer: ExTyperacer.TimerServer.start_link }
+    %Game{ paragraph: paragraph, letters: String.codepoints(paragraph), uuid: :rand.uniform(10000), timer: ExTyperacer.TimerServer.start_link, status: "waiting" }
   end
 
   @doc """
