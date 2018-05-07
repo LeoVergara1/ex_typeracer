@@ -26,6 +26,9 @@ defmodule ExTyperacer.Logic.Game do
     %{game | players: [new_player | game.players]}
   end
 
+  def update_status(game, status) do
+    %Game{ game | status: status}
+  end
   @doc """
   Plays with one letter for one player
   """
