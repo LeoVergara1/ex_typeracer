@@ -51,6 +51,12 @@ export var RacerController = {
           }
       });
 
+      channel.on(`waiting_time_${uuid_game}`, msg => {
+        $("#container_timer_waiting").show()
+        $("#timer_waiting").text(msg.time)
+
+      });
+
       $("#timer_run_area").on("click", "#start-timer" , () =>{
         console.log(`Este es id ${uuid_game}`)
       channel
