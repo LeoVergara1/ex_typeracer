@@ -92,6 +92,11 @@ defmodule ExTyperacer.GameServer do
     {:reply, "hola"}
   end
 
+  def handle_call({:update_status, status}, _from, state) do
+    game = Game.update_status(state, status)
+    {:reply, game, game}
+  end
+
   def handle_call({:find_a_player, username}, _from, state) do
     player = Game.find_a_player(state, username)
     {:reply, player, state}
