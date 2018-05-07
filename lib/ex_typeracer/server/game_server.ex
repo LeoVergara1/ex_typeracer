@@ -50,6 +50,12 @@ defmodule ExTyperacer.GameServer do
     {:ok, timer} = game.timer
     send(timer , {:start_timer, counter, game.uuid})
   end
+
+  def start_timer_waiting(name, counter) do 
+    game = GenServer.call name, {:get_game}
+    {:ok, timer} = game.timer
+    send(timer , {:start_timer_waiting, counter, game.uuid})
+  end
   # Auxiliar functions
 
   def via_tuple(game_name) do
