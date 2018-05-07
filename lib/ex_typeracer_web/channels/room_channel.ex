@@ -28,6 +28,7 @@ defmodule ExTyperacerWeb.RoomChannel do
     :ets.insert(:"#{payload["name_room"]}", {"game", game_server} )
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
     :ets.insert(:list_rooms, { "list", list_rooms ++ [payload["name_room"]] } )
+    GameServer.start_timer_waiting(game_server, 60)
     IO.inspect "Termino el proceso"
     {:reply,
     {:ok, %{"list" => list_rooms,
