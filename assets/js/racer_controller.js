@@ -3,6 +3,7 @@ import HandlebarsResolver from "./handlebars_resolver"
 import { MatchController } from "./match_controller";
 import "sprite-js"
 import "./sprite"
+import "bootstrap-notify"
 
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
@@ -54,6 +55,9 @@ export var RacerController = {
       channel.on(`waiting_time_${uuid_game}`, msg => {
         $("#container_timer_waiting").show()
         $("#timer_waiting").text(msg.time)
+        if(msg.time == 0){
+          $("#start-timer").trigger("click")
+        }
 
       });
 
@@ -170,17 +174,29 @@ export var RacerController = {
       .push('join_race', {username: that.username, name_room: that.name_room})
       .receive('ok', response =>{ 
         console.log("ok", response)
-        if(response.process == this.name_room){
-          that.username = response.user
-          that.processRoom = response.process;
-          that.uuid_game = response.uuid;
-          console.log(`Este es el game id: ${that.uuid_game}`)
-          that.updatingPlayers(that.name_room)
-          that.channelRoom.push("updating_players", that.name_room)
-          that.initChannelTimer(that.name_room, that.uuid_game)
-          HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
-          HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
-          $("#container-header-player").hide()
+        if(response.status === "waiting"){
+          if(response.process == this.name_room){
+            that.username = response.user
+            that.processRoom = response.process;
+            that.uuid_game = response.uuid;
+            console.log(`Este es el game id: ${that.uuid_game}`)
+            that.updatingPlayers(that.name_room)
+            that.channelRoom.push("updating_players", that.name_room)
+            that.initChannelTimer(that.name_room, that.uuid_game)
+            HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
+            HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
+            $("#container-header-player").hide()
+          }
+        }
+        else {
+          console.log("La sala esta en juego o ya no")
+          $.notify({
+            // options
+            message: 'La sala esta en juego o ya no está disponible' 
+          },{
+            // settings
+            type: 'danger'
+          });
         }
       })
     })
