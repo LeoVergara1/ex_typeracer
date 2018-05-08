@@ -81,13 +81,14 @@ defmodule ExTyperacer.TimerServer do
   def handle_info({:start_timer, counter, name, game}, state) do
     GameServer.update_status_game name, "playing"
     IO.inspect "Se inicia destrucción"
-    send(self(), {:kill_timer, 380, name})
+    send(self(), {:kill_timer, 180, name})
     timer = Process.send_after(self(), {:work, counter, game.uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
 
   def handle_info({:start_timer_waiting, counter, name, game}, state) do
     GameServer.update_status_game name, "waiting"
+    send(self(), {:kill_timer, 180, name})
     timer = Process.send_after(self(), {:waiting, counter, game.uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
