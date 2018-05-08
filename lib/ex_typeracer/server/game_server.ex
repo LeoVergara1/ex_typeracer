@@ -66,6 +66,18 @@ defmodule ExTyperacer.GameServer do
     {:via, Registry, {ExTyperacer.GameRegistry, game_name}}
   end
 
+  def get_name_game_server(name) do 
+    {:via, Registry, {ExTyperacer.GameRegistry, name_server}} = name
+    name_server
+  end
+
+  def delete_game_in_ets(name) do
+    name_server = get_name_game_server(name)
+    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
+    :ets.insert(:list_rooms, { "list", list_rooms -- [name_server] } )
+    {:ok}
+  end
+
   def game_pid(game_name) do
     game_name
     |> via_tuple()
@@ -127,6 +139,18 @@ defmodule ExTyperacer.GameServer do
   def handle_cast({:add_player_to_position, player }, state) do
     game = Game.add_position_to_player state, player
     {:noreply, game}
+  end
+
+  def handle_cast({:terminate_game}, state) do
+    IO.puts "Terminará..."
+    terminate(:shutdown, state)
+    {:noreply, state}
+  end
+  
+  def terminate(reason, state) do
+    IO.puts "Termina el proceso"
+    IO.inspect state
+    :shutdown
   end
 
   # def handle_info(:timeout, state) do
