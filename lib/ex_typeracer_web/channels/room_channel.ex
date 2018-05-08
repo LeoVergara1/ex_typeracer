@@ -60,7 +60,8 @@ defmodule ExTyperacerWeb.RoomChannel do
             "process" => payload["name_room"],
             "userList" => players,
             "user" => payload["username"],
-            "uuid" => game.uuid
+            "uuid" => game.uuid,
+            "status" => game.status
           }
     },
     socket}
