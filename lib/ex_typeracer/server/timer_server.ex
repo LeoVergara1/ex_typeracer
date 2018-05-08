@@ -3,6 +3,7 @@ defmodule ExTyperacer.TimerServer do
   use GenServer
   require Kernel
   alias ExTyperacer.Logic.{Game, Player}
+  alias ExTyperacer.GameServer
   
   def start_link() do
     GenServer.start_link(__MODULE__, %{})
@@ -66,13 +67,15 @@ defmodule ExTyperacer.TimerServer do
     {:noreply, %{timer: timer}}
   end
 
-  def handle_info({:start_timer, counter, uuid}, state) do
-    timer = Process.send_after(self(), {:work, counter, uuid}, 1_000)
+  def handle_info({:start_timer, counter, name, game}, state) do
+    GameServer.update_status_game name, "playing"
+    timer = Process.send_after(self(), {:work, counter, game.uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
 
-  def handle_info({:start_timer_waiting, counter, uuid}, state) do
-    timer = Process.send_after(self(), {:waiting, counter, uuid}, 1_000)
+  def handle_info({:start_timer_waiting, counter, name, game}, state) do
+    GameServer.update_status_game name, "waiting"
+    timer = Process.send_after(self(), {:waiting, counter, game.uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
     # So that unhanded messages don't error
