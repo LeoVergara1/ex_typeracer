@@ -48,13 +48,17 @@ defmodule ExTyperacer.GameServer do
   def start_timer(name, counter) do
     game = GenServer.call name, {:get_game}
     {:ok, timer} = game.timer
-    send(timer , {:start_timer, counter, game.uuid})
+    send(timer , {:start_timer, counter, name, game})
   end
 
   def start_timer_waiting(name, counter) do 
     game = GenServer.call name, {:get_game}
     {:ok, timer} = game.timer
-    send(timer , {:start_timer_waiting, counter, game.uuid})
+    send(timer , {:start_timer_waiting, counter, name, game})
+  end
+
+  def update_status_game(name, status) do 
+    GenServer.call name, {:update_status, status}
   end
   # Auxiliar functions
 
