@@ -20,7 +20,7 @@ defmodule ExTyperacer.Mixfile do
   def application do
     [
       mod: {ExTyperacer.Application, []},
-      extra_applications: [:logger, :runtime_tools,  :edeliver],
+      extra_applications: [:logger, :runtime_tools,  :edeliver, :riak],
     ]
   end
 
@@ -43,7 +43,8 @@ defmodule ExTyperacer.Mixfile do
       {:cowboy, "~> 1.0"},
       { :uuid, "~> 1.1" },
       {:edeliver, "~> 1.5.0"},
-      {:distillery, "~> 1.4", runtime: false}
+      {:distillery, "~> 1.4", runtime: false},
+      {:riak, "~> 1.1.6"}
     ]
   end
 
