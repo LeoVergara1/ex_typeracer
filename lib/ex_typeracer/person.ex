@@ -8,6 +8,7 @@ defmodule ExTyperacer.Person do
     field :lastname, :string
     field :name, :string
     field :password, :string
+    field :username, :string
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule ExTyperacer.Person do
   @doc false
   def changeset(person, attrs) do
     person
-    |> cast(attrs, [:name, :lastname, :email, :password])
-    |> validate_required([:name, :lastname, :email, :password])
+    |> cast(attrs, [:name, :lastname, :email, :password, :username])
+    |> validate_required([:name, :lastname, :email, :password, :username])
   end
 end
