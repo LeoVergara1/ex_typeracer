@@ -11,8 +11,14 @@
         <form action="/new_user" method="post">
           <input type="hidden" name="_csrf_token" id="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>" />
           <div class="form-group">
-            <label for="user[content]">Content</label>
-            <input type="text" name="user[content]" class="form-control" />
+            <label for="person[name]">Name</label>
+            <input type="text" name="person[name]" class="form-control" />
+            <label for="person[lastname]">Lastname</label>
+            <input type="text" name="person[lastname]" class="form-control" />
+            <label for="person[email]">email</label>
+            <input type="text" name="person[email]" class="form-control" />
+            <label for="person[password]">password</label>
+            <input type="text" name="person[password]" class="form-control" />
           </div>
       </div>
       <div class="modal-footer">
