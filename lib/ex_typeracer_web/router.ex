@@ -18,6 +18,7 @@ defmodule ExTyperacerWeb.Router do
 
     get "/", PageController, :index
     get "/racer", PageController, :racer
+    post "/new_user", PageController, :new_user
   end
 
   # Other scopes may use custom stacks.
