@@ -13,10 +13,11 @@ defmodule ExTyperacer.Person do
     timestamps()
   end
 
-  @doc false
   def changeset(person, attrs) do
     person
     |> cast(attrs, [:name, :lastname, :email, :password, :username])
     |> validate_required([:name, :lastname, :email, :password, :username])
+    |> unique_constraint(:email)
+    |> unique_constraint(:username)
   end
 end
