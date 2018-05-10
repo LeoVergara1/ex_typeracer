@@ -1,4 +1,4 @@
-defmodule AuthEx.Auth.Guardian do
+defmodule ExTyperacer.Auth.Guardian do
   use Guardian, otp_app: :auth_ex
   alias AuthEx.Auth
   def subject_for_token(user, _claims) do
