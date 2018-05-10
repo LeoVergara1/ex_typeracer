@@ -44,7 +44,9 @@ defmodule ExTyperacer.Mixfile do
       { :uuid, "~> 1.1" },
       {:edeliver, "~> 1.5.0"},
       {:distillery, "~> 1.4", runtime: false},
-      {:riak, "~> 1.1.6"}
+      {:guardian, "~> 1.0-beta"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 0.12"}
     ]
   end
 
