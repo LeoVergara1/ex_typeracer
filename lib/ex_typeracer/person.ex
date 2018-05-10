@@ -17,6 +17,7 @@ defmodule ExTyperacer.Person do
     person
     |> cast(attrs, [:name, :lastname, :email, :password, :username])
     |> validate_required([:name, :lastname, :email, :password, :username])
-    |> unsafe_validate_unique([:email, :username], ExTyperacer.Repo, message: "Email or Username already registered")
+    |> unsafe_validate_unique([:email], ExTyperacer.Repo, message: "Email already registered")
+    |> unsafe_validate_unique([:username], ExTyperacer.Repo, message: "Username already registered")
   end
 end
