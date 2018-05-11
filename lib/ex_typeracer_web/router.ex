@@ -9,16 +9,25 @@ defmodule ExTyperacerWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth do
+    plug ExTyperacer.Auth.Pipeline
+  end 
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", ExTyperacerWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :auth] # Use the default browser stack
 
     get "/", PageController, :index
     get "/racer", PageController, :racer
     post "/", PageController, :login
+    post "/logout", PageController, :logout
     post "/new_user", PageController, :new_user
   end
 
