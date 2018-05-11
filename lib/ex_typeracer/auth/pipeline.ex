@@ -1,7 +1,7 @@
 defmodule ExTyperacer.Auth.Pipeline do
   use Guardian.Plug.Pipeline,
     otp_app: :ex_typeracer,
-    error_handler: AuthEx.Auth.ErrorHandler,
+    error_handler: ExTyperacer.Auth.ErrorHandler,
     module: ExTyperacer.Auth.Guardian
   # If there is a session token, validate it
   plug Guardian.Plug.VerifySession, claims: %{"typ" => "access"}
