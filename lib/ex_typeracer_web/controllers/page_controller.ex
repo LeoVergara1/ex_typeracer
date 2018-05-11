@@ -56,8 +56,7 @@ defmodule ExTyperacerWeb.PageController do
 
     struct(%Person{}, kwl)
     |> PersonRepo.save_person
-
-    render conn, "index.html"
+    redirect(conn, to: "/")
   end
 
   defp map_to_kwl(map) do
