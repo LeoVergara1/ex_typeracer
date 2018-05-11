@@ -31,4 +31,8 @@ defmodule ExTyperacer.Logic.PersonRepo do
     Repo.all(Person)
   end
 
+  def change_user(%Person{} = user) do
+    Person.changeset(user, %{})
+  end
+
 end
