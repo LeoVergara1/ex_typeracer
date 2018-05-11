@@ -25,4 +25,10 @@ defmodule ExTyperacer.Logic.PersonRepo do
     end
   end
 
+  def get_user!(id), do: Repo.get!(Person, id)
+
+  def list_users do
+    Repo.all(Person)
+  end
+
 end
