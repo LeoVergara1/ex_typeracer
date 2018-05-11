@@ -19,12 +19,15 @@ defmodule ExTyperacer.Logic.PersonRepo do
     |> List.first
   end
 
+  def check_password(nil, _), do: {:error, "Incorrect username or password"}
+  
   def check_password(person, password) do
     case Bcrypt.checkpw(password, person.password) do
       true -> {:ok, person}
       false -> {:error, "Incorrect username or password"}
     end
   end
+
 
   def get_user!(id), do: Repo.get!(Person, id)
 
