@@ -1,5 +1,5 @@
 defmodule ExTyperacer.Auth.Guardian do
-  use Guardian, otp_app: :auth_ex
+  use Guardian, otp_app: :ex_typeracer
   alias AuthEx.Auth
   def subject_for_token(user, _claims) do
     {:ok, to_string(user.id)}
