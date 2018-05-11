@@ -13,6 +13,16 @@ defmodule ExTyperacerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :maybe_browser_auth do
+    plug(Guardian.Plug.VerifySession)
+    plug(Guardian.Plug.VerifyHeader, realm: "Bearer")
+    plug(Guardian.Plug.LoadResource)
+  end
+  
+  pipeline :ensure_authed_access do
+    plug(Guardian.Plug.EnsureAuthenticated, %{"typ" => "access", handler: MyApp.HttpErrorHandler})
+  end
+
   scope "/", ExTyperacerWeb do
     pipe_through :browser # Use the default browser stack
 
