@@ -25,8 +25,9 @@ config :logger, :console,
 #Configures Guardian
 
 config :ex_typeracer, ExTyperacer.Auth.Guardian,
-  issuer: "auth_ex", # Name of your app/company/product
-  secret_key: "AVp1NjzxTCrf5467/cGIjkeRxLOkKp5k1b6z9HjkLX0L3L5f5UVHE9uf3MkxnPNE" # Replace this with the output of the mix command
+  issuer: "ex_typeracer", # Name of your app/company/product
+  secret_key: "AVp1NjzxTCrf5467/cGIjkeRxLOkKp5k1b6z9HjkLX0L3L5f5UVHE9uf3MkxnPNE", # Replace this with the output of the mix command
+  serializer: ExTyperacer.GuardianSerializer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
