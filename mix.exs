@@ -20,7 +20,7 @@ defmodule ExTyperacer.Mixfile do
   def application do
     [
       mod: {ExTyperacer.Application, []},
-      extra_applications: [:logger, :runtime_tools,  :edeliver],
+      extra_applications: [:logger, :runtime_tools,  :edeliver, :guardian],
     ]
   end
 
