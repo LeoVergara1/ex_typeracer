@@ -16,6 +16,7 @@ defmodule ExTyperacer.Logic.PersonRepo do
   def find_user_by_username(username) do
     query = from u in Person, where: u.username == ^username, select: u
     Repo.all(query)
+    |> List.first
   end
 
   def check_password(person, password) do
@@ -33,6 +34,11 @@ defmodule ExTyperacer.Logic.PersonRepo do
 
   def change_user(%Person{} = user) do
     Person.changeset(user, %{})
+  end
+
+  def authenticate_user(username, password)do
+    find_user_by_username(username)
+    |> check_password(password)
   end
 
 end
