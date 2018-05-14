@@ -49,6 +49,7 @@
 
 
 <%= render "register_modal.html" %>
+<%= render "login_modal.html" %>
 <style>
 #message-list {
   border: 1px solid #777;
