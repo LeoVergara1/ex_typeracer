@@ -11,7 +11,7 @@ defmodule ExTyperacerWeb.PageController do
     message = if maybe_user != nil do
       "Someone is logged in"
     else
-      "Ya estas registrado"
+      "Ya estas registrado ? "
     end
     conn
       |> put_flash(:info, message)
