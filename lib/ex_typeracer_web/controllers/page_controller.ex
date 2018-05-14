@@ -4,6 +4,7 @@ defmodule ExTyperacerWeb.PageController do
   alias ExTyperacer.Person
   alias ExTyperacer.Logic.PersonRepo
   alias ExTyperacer.Auth.Guardian
+  plug Ueberauth
 
   def index(conn, _params) do
     changeset = PersonRepo.change_user(%Person{})
