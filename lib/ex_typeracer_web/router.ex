@@ -31,6 +31,14 @@ defmodule ExTyperacerWeb.Router do
     post "/new_user", PageController, :new_user
   end
 
+  
+  scope "/auth", ExTyperacerWeb do
+    pipe_through [:browser, :auth] # Use the default browser stack
+    
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ExTyperacerWeb do
   #   pipe_through :api
