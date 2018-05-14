@@ -9,9 +9,9 @@ defmodule ExTyperacerWeb.PageController do
     changeset = PersonRepo.change_user(%Person{})
     maybe_user = Guardian.Plug.current_resource(conn)
     message = if maybe_user != nil do
-      IO.puts "Someone is logged in"
+      "Someone is logged in"
     else
-      IO.puts "No one is logged in"
+      "Logueate"
     end
     conn
       |> put_flash(:info, message)
