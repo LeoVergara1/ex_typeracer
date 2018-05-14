@@ -12,8 +12,54 @@
   </head>
 
   <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
     <div class="container">
-      <header class="header">
+        <a class="navbar-brand" href="#">Makingdevs</a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+            &#9776;
+        </button>
+        <div class="collapse navbar-collapse" id="exCollapsingNavbar">
+            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+                <li class="nav-item order-2 order-md-1">
+                <%= if @maybe_user == nil do %>
+                  <p class="" role="alert"><%= get_flash(@conn, :info) %></p>
+                  <li class="nav-item order-2 order-md-1"><i class="fa fa-user fa-fw fa-lg"></i></a></li>
+                   <li class="dropdown order-1">
+                    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right mt-2">
+                       <li class="px-3 py-2">
+                           <form class="form" role="form">
+                                <div class="form-group">
+                                    <input id="emailInput" placeholder="Username" class="form-control form-control-sm" type="text" required="">
+                                </div>
+                                <div class="form-group">
+                                    <input id="passwordInput" placeholder="Password" class="form-control form-control-sm" type="text" required="">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                </div>
+                                <div class="form-group text-center">
+                                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                <% else %>
+                  <p>Hello <%= @maybe_user.username%>!</p>
+                  <li>
+                  <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>
+                  </li>
+                <% end %>
+                <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+                </li>
+               
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="container">
+      <header class="header" style="margin-top: 10%;">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
           </ul>
@@ -21,8 +67,8 @@
         <span class="logo"></span>
       </header>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      
+      
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
