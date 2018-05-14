@@ -31,4 +31,15 @@ config :ex_typeracer, ExTyperacer.Auth.Guardian,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
+
+#Config to facebook
+config :ueberauth, Ueberauth,
+  providers: [
+    facebook: {Ueberauth.Strategy.Facebook, []}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+client_id: System.get_env("168776347141180"),
+client_secret: System.get_env("00fdab50f4f9263041b8d8fec7c18208")
+
 import_config "#{Mix.env}.exs"
