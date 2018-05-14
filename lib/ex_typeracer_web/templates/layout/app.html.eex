@@ -33,7 +33,7 @@
                                     <input id="username" name="person[username]" placeholder="Username" class="form-control form-control-sm" type="text" required="">
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" name="person[password]" placeholder="Password" class="form-control form-control-sm" type="text" required="">
+                                    <input id="password" name="person[password]" placeholder="Password" class="form-control form-control-sm" type="password" required="">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -56,8 +56,10 @@
                 </li>
                 <% else %>
                   <p>Hello <%= @maybe_user.username%>!</p>
-                  <li>
-                  <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>
+                 <li class="nav-item order-2 order-md-1 " style="margin: 3px;">     </li>
+                  <li class="nav-item order-2 order-md-1">
+                  <span><%= link(" ", to: page_path(@conn, :logout), method: :post, class: "fa fa-user-times") %></span>
+                  
                   </li>
                 <% end %>
                 <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
