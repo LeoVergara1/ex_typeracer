@@ -47,7 +47,16 @@ defmodule ExTyperacerWeb.PageController do
   end
 
   def racer(conn, _params) do
-    render conn, "racer.html"
+    changeset = PersonRepo.change_user(%Person{})
+    maybe_user = Guardian.Plug.current_resource(conn)
+    message = if maybe_user != nil do
+      "Someone is logged in"
+    else
+      "Ya estas registrado ? "
+    end
+    conn
+      |> put_flash(:info, message)
+      |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
   end
 
   def new_user(conn, params) do
