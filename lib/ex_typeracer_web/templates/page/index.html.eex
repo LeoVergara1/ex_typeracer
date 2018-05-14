@@ -9,12 +9,7 @@
 <div class="row h-100">
   <div class="col-lg-12">
     <div class="col-lg-6 offset-lg-3">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
-        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">Registrarse</button>
-        <a class="btn btn-block btn-social btn-facebook">
-            <span class="fa fa-facebook"></span>
-            Iniciar sesión con facebook
-          </a>
+    
         <%=button("Juego Ahora", to: "/racer", method: "get", class: "btn btn-lg btn-primary btn-block")%>
         
     </div>
