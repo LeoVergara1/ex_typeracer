@@ -39,7 +39,7 @@ config :ueberauth, Ueberauth,
   ]
 
 config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
-client_id: System.get_env("168776347141180"),
-client_secret: System.get_env("00fdab50f4f9263041b8d8fec7c18208")
+client_id: System.get_env("FACEBOOK_APP_ID"),
+client_secret: System.get_env("FACEBOOK_APP_SECRET")
 
 import_config "#{Mix.env}.exs"
