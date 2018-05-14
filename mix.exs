@@ -20,7 +20,7 @@ defmodule ExTyperacer.Mixfile do
   def application do
     [
       mod: {ExTyperacer.Application, []},
-      extra_applications: [:logger, :runtime_tools,  :edeliver, :guardian],
+      extra_applications: [:logger, :runtime_tools,  :edeliver, :guardian, :ueberauth_facebook],
     ]
   end
 
@@ -46,7 +46,8 @@ defmodule ExTyperacer.Mixfile do
       {:distillery, "~> 1.4", runtime: false},
       {:guardian, "~> 1.0-beta"},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 0.12"}
+      {:bcrypt_elixir, "~> 0.12"},
+      {:ueberauth_facebook, "~> 0.7"}
     ]
   end
 
