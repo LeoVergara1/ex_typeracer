@@ -4,6 +4,10 @@
   <div clas="col-lg-12">
     <div class="col-lg-4 offset-lg-8" id="container_timer_waiting">Tiempo de espera: <span id="timer_waiting">10</span></div>
   </div>
+  <div>
+   hola
+   <%=  @maybe_user.username %>
+  </div>
 <div id="container-header-player">
   <div class="jumbotron" id="initMenu">
     <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
@@ -39,8 +43,12 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <%= if @maybe_user == nil do %>
+              <label for="recipient-name" class="col-form-label">Nombre de Usuarios:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            <% else %>
+              <%= text_input :person, :username, value: @maybe_user.username %>
+            <% end %>
             <label for="recipient-name" class="col-form-label">Nombre de Sala:</label>
             <input type="text" class="form-control" id="name_room_txt">
           </div>

@@ -50,6 +50,7 @@ defmodule ExTyperacerWeb.PageController do
   def racer(conn, _params) do
     changeset = PersonRepo.change_user(%Person{})
     maybe_user = Guardian.Plug.current_resource(conn)
+    IO.inspect maybe_user.username
     message = if maybe_user != nil do
       "Someone is logged in"
     else
