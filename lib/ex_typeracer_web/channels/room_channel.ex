@@ -2,6 +2,7 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   alias ExTyperacer.Logic.Game
   alias ExTyperacer.GameServer
+  alias ExTyperacer.Logic.PersonRepo
   require Logger
 
   use Phoenix.Channel
@@ -94,6 +95,16 @@ defmodule ExTyperacerWeb.RoomChannel do
   #  }
     broadcast! socket, "updating_player_#{uuidGame}", %{"game" => %{players: game.players} }
     {:noreply, socket}
+  end
+
+  def handle_in("exist_username", username, socket) do
+    existed = PersonRepo.find_user_by_username username
+    if existed do 
+      existed = true
+    else
+      existed = false
+    end
+    {:reply, {:ok, %{existed: existed}}, socket}
   end
 
 end
