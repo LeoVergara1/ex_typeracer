@@ -30,6 +30,21 @@ export var RacerController = {
 					});
 			});
   },
+  knowExistUsername: function (username) {
+    this.channelRoom.push("exist_username", username)
+      .receive('ok', resp => { console.log(resp) })
+  },
+
+  listnenKeyBoeard: function(){
+    let that = this
+    console.log("Inicia teclado")
+    $("#validUsername").on("keyup", () => {
+      console.log("Tecla.")
+      let username = $("#validUsername").val() 
+      console.log(username)
+      that.knowExistUsername(username)
+    }) 
+  },
   initChannelTimer: function(name_room, uuid_game) {
     let that = this 
     console.log(uuid_game);
@@ -249,6 +264,7 @@ export var RacerController = {
     this.initChannelScores()
     this.initChannelRoom()
     this.scenePlayer()
+    this.listnenKeyBoeard()
   },
 
   testContext: function(){
