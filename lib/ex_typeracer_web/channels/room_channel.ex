@@ -16,7 +16,6 @@ defmodule ExTyperacerWeb.RoomChannel do
   end
 
   def handle_in("init_reace", payload, socket) do
-    IO.inspect "Estoy aquí"
     username = payload["username"]
     game_server = GameServer.start_link(payload["name_room"])
     IO.inspect game_server
