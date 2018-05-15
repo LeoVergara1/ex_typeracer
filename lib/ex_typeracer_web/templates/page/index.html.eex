@@ -17,6 +17,9 @@
   </div>
 </div>
 </div>
+      <canvas id="canvas" width="200" height="100">
+
+      </canvas>
 
 
 <%= render "register_modal.html" %>
