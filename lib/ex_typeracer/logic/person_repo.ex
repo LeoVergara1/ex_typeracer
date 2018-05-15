@@ -19,6 +19,12 @@ defmodule ExTyperacer.Logic.PersonRepo do
     |> List.first
   end
 
+  def find_user_by_email(email) do
+    query = from u in Person, where: u.email == ^email, select: u
+    Repo.all(query)
+    |> List.first
+  end
+
   def check_password(nil, _), do: {:error, "Incorrect username or password"}
   
   def check_password(person, password) do
