@@ -32,17 +32,42 @@ export var RacerController = {
   },
   knowExistUsername: function (username) {
     this.channelRoom.push("exist_username", username)
-      .receive('ok', resp => { console.log(resp) })
+      .receive('ok', resp => { console.log(resp)
+        if (resp.existed){
+          $("#icon_check").hide()
+          $("#icon_warning").show()
+        }
+        else {
+          $("#icon_check").show()
+          $("#icon_warning").hide()
+        }
+      })
   },
 
+  knowExistEmail: function (email) {
+    this.channelRoom.push("exist_email", email)
+      .receive('ok', resp => { console.log(resp)
+        if (resp.existed){
+          $("#icon_check_eamil").hide()
+          $("#icon_warning_email").show()
+        }
+        else {
+          $("#icon_check_email").show()
+          $("#icon_warning_email").hide()
+        }
+      })
+  },
   listnenKeyBoeard: function(){
     let that = this
-    console.log("Inicia teclado")
     $("#validUsername").on("keyup", () => {
       console.log("Tecla.")
       let username = $("#validUsername").val() 
       console.log(username)
       that.knowExistUsername(username)
+    });
+    $("#validEmail").on("keyup", () => {
+      let email = $("#validEmail").val()
+      that.knowExistEmail(email)
     }) 
   },
   initChannelTimer: function(name_room, uuid_game) {
