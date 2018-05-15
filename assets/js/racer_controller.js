@@ -135,7 +135,7 @@ export var RacerController = {
     let that = this
     $("#start-room").on("click", () =>{
       console.log("click")
-      that.uuid = $("#recipient-name").val()
+      that.uuid = $("#recipient_name").val()
       that.name_room = $("#name_room_txt").val()
       console.log(that.name_room)
       console.log(that.uuid)
@@ -168,7 +168,7 @@ export var RacerController = {
   joinRom: function(){
     let that = this
     $("#join-room").on("click", () =>{
-      that.username = $("#username").val()
+      that.username = $("#username_join").val()
       that.name_room = $("#game-id").val()
       this.channelRoom
       .push('join_race', {username: that.username, name_room: that.name_room})
