@@ -97,8 +97,27 @@ defmodule ExTyperacerWeb.RoomChannel do
     {:noreply, socket}
   end
 
+  def handle_in("exist_username", %{}, socket) do
+    {:noreply, socket}
+  end
+
   def handle_in("exist_username", username, socket) do
     existed = PersonRepo.find_user_by_username username
+    if existed do 
+      existed = true
+    else
+      existed = false
+    end
+    {:reply, {:ok, %{existed: existed}}, socket}
+  end
+
+
+  def handle_in("exist_email", %{}, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_in("exist_email", email, socket) do
+    existed = PersonRepo.find_user_by_email email
     if existed do 
       existed = true
     else
