@@ -43,9 +43,9 @@
           <div class="form-group">
             <%= if @maybe_user == nil do %>
               <label for="recipient-name" class="col-form-label">Nombre de Usuarios:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <input type="text" class="form-control" id="recipient_name">
             <% else %>
-              <%= text_input :person, :username, value: @maybe_user.username %>
+              <%= text_input :recipient, :name, value: @maybe_user.username, type: "hidden" %>
             <% end %>
             <label for="recipient-name" class="col-form-label">Nombre de Sala:</label>
             <input type="text" class="form-control" id="name_room_txt">
@@ -72,8 +72,12 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="username">
+            <%= if @maybe_user == nil do %>
+              <label for="recipient-name" class="col-form-label">Nombre:</label>
+              <input type="text" class="form-control" id="username_join">
+            <% else %>
+              <%= text_input :username, :join, value: @maybe_user.username, type: "hidden" %>
+            <% end %>
             <label for="game-id" class="col-form-label">Id de partida:</label>
             <input type="text" class="form-control" id="game-id">
           </div>
