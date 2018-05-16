@@ -98,7 +98,15 @@ export var RacerController = {
         if(msg.time == 0){
           $("#start-timer").trigger("click")
         }
+      });
 
+      channel.on(`playing_time_${uuid_game}`, msg => {
+        $("#container_timer_waiting").hide()
+        $("#container_timer_playing").show()
+        $("#timer_playing").text(msg.time)
+        if(msg.time == 0){
+          console.log("Juego terminado")
+        }
       });
 
       $("#timer_run_area").on("click", "#start-timer" , () =>{
