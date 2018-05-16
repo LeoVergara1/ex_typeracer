@@ -80,6 +80,10 @@ defmodule ExTyperacer.GameServer do
     {:ok}
   end
 
+  def save_score_by_paragraph(name, game) do
+    GenServer.call name, {:save_score_by_paragraph, game}
+  end
+
   def game_pid(game_name) do
     game_name
     |> via_tuple()
@@ -144,7 +148,8 @@ defmodule ExTyperacer.GameServer do
   end
 
   def handle_call({:save_score_by_paragraph, game}, _from, state) do
-    score = %Score{ paragraph: game.paragraph, game: "#{game.uuid}", score: "10", person: "vergara1", positios: ["2","2"] }
+    positions = for n <- game.positions, do: n.username
+    score = %Score{ paragraph: game.paragraph, game: "#{game.uuid}", score: "10", person: List.first(positions), positios: positions }
     status = Scores.save_score score
     {:reply, status, state}
   end
