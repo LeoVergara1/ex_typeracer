@@ -3,6 +3,7 @@
 <div id='stars3'></div>
   <div clas="col-lg-12">
     <div class="col-lg-4 offset-lg-8" id="container_timer_waiting">Tiempo de espera: <span id="timer_waiting">10</span></div>
+    <div class="col-lg-4 offset-lg-8" id="container_timer_playing" style="display: none">Tiempo para terminar el juego: <span id="timer_playing">0</span></div>
   </div>
   <div>
   </div>
