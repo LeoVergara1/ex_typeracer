@@ -4,6 +4,8 @@ defmodule ExTyperacer.GameServer do
   require Kernel
   require Logger
   alias ExTyperacer.Logic.{Game, Player}
+  alias ExTyperacer.Logic.Scores
+  alias ExTyperacer.Score
 
   # Client Interface
 
@@ -139,6 +141,12 @@ defmodule ExTyperacer.GameServer do
   def handle_cast({:add_player_to_position, player }, state) do
     game = Game.add_position_to_player state, player
     {:noreply, game}
+  end
+
+  def handle_call({:save_score_by_paragraph, game}, _from, state) do
+    score = %Score{ paragraph: game.paragraph, game: "#{game.uuid}", score: "10", person: "vergara1", positios: ["2","2"] }
+    status = Scores.save_score score
+    {:reply, status, state}
   end
 
   def handle_cast({:terminate_game}, state) do
