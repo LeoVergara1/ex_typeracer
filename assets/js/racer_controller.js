@@ -282,6 +282,19 @@ export var RacerController = {
     });
   },
 
+  validateFormRegister: function (){
+    $("#submit_button_register").on("click", () => {
+      console.log("hgh")
+      if ($("#icon_check").is(":visible") && $("#icon_check_email").is(":visible")){
+        $("#register_form").submit()
+      }
+      else {
+        $("#submit_button_register").append("Revisa")
+      }
+      
+    })
+  },
+
   bindEvents:function (){
     this.initRom()
     this.joinRom()
@@ -290,6 +303,7 @@ export var RacerController = {
     this.initChannelRoom()
     this.scenePlayer()
     this.listnenKeyBoeard()
+    this.validateFormRegister()
   },
 
   testContext: function(){
