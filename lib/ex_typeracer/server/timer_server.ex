@@ -66,29 +66,32 @@ defmodule ExTyperacer.TimerServer do
     {:noreply, %{timer: timer}}
   end
 
-  def handle_info({:kill_timer, 0, name}, %{timer: timer}) do
+  def handle_info({:kill_timer, 0, name, game}, %{timer: timer}) do
     GameServer.delete_game_in_ets(name)
     {:noreply, %{timer: timer}}
   end
 
-  def handle_info({:kill_timer, counter, name}, %{timer: timer}) do
+  def handle_info({:kill_timer, counter, name, game}, %{timer: timer}) do
     counter = counter - 1
+    if counter < 120 do 
+      broadcast counter, %{message: "playing", uuid: game.uuid, select: "playing_time_"} 
+    end
     IO.inspect "Kill second: #{counter}"
-    timer = Process.send_after(self(), {:kill_timer, counter, name}, 1_000)
+    timer = Process.send_after(self(), {:kill_timer, counter, name, game}, 1_000)
     {:noreply, %{timer: timer}}
   end
 
   def handle_info({:start_timer, counter, name, game}, state) do
     GameServer.update_status_game name, "playing"
     IO.inspect "Se inicia destrucción"
-    send(self(), {:kill_timer, 180, name})
+    send(self(), {:kill_timer, 180, name, game})
     timer = Process.send_after(self(), {:work, counter, game.uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
 
   def handle_info({:start_timer_waiting, counter, name, game}, state) do
     GameServer.update_status_game name, "waiting"
-    send(self(), {:kill_timer, 180, name})
+    send(self(), {:kill_timer, 180, name, game})
     timer = Process.send_after(self(), {:waiting, counter, game.uuid}, 1_000)
     {:noreply, %{timer: timer}}
   end
