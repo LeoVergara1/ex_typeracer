@@ -96,6 +96,8 @@
   <%= render "timer_template.html" %>
     <%= render "list_users.html" %>
     <%= render "positions_to_player.html" %>
+    <%= render "finish_modal_racer.html" %>
+
 
       <canvas id="canvas" width="200" height="100">
 
