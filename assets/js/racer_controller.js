@@ -26,7 +26,7 @@ export var RacerController = {
 	  this.channelRoom.on("list_rooms", msg => {
 				$("#list_roms").html("")
 					$.each(msg.rooms, function( index, value ) {
-            $("#list_roms").append(`<p><i class="fa fa-cloud "></i><strong class="room_ref"> Sala: </strong> ${value} <span></span></p> `)
+            $("#list_roms").append(`<p><i class="fa fa-cloud "></i><strong > Sala: </strong> <span class="room_ref"> ${value} </span></p> `)
 					});
 			});
   },
