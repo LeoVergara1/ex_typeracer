@@ -305,6 +305,10 @@ export var RacerController = {
     })
   },
 
+  listenFromListRooms: function(){
+
+  },
+
   bindEvents:function (){
     this.initRom()
     this.joinRom()
