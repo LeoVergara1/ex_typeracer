@@ -26,7 +26,7 @@ export var RacerController = {
 	  this.channelRoom.on("list_rooms", msg => {
 				$("#list_roms").html("")
 					$.each(msg.rooms, function( index, value ) {
-            $("#list_roms").append(`<p><i class="fa fa-cloud "></i><strong > Sala: </strong> <span class="pointer room_ref"> ${value} </span></p> `)
+            $("#list_roms").append(`<p><i class="fa fa-cloud "></i><strong > Sala: </strong> <span class="pointer room_ref">${value}</span></p> `)
 					});
 			});
   },
@@ -306,8 +306,40 @@ export var RacerController = {
   },
 
   listenFromListRooms: function(){
+    let that = this
     $("#list_roms").on("click", ".room_ref" ,(e) => {
-      console.log(e)
+      console.log($(e.currentTarget).text())
+      that.username = "brandon"
+      that.name_room = $(e.currentTarget).text()
+      this.channelRoom
+      .push('join_race', {username: that.username, name_room: that.name_room})
+      .receive('ok', response =>{ 
+        console.log("ok", response)
+        if(response.status === "waiting"){
+          if(response.process == this.name_room){
+            that.username = response.user
+            that.processRoom = response.process;
+            that.uuid_game = response.uuid;
+            console.log(`Este es el game id: ${that.uuid_game}`)
+            that.updatingPlayers(that.name_room)
+            that.channelRoom.push("updating_players", that.name_room)
+            that.initChannelTimer(that.name_room, that.uuid_game)
+            HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
+            HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
+            $("#container-header-player").hide()
+          }
+        }
+        else {
+          console.log("La sala esta en juego o ya no")
+          $.notify({
+            // options
+            message: 'La sala esta en juego o ya no está disponible' 
+          },{
+            // settings
+            type: 'danger'
+          });
+        }
+      })
     });
   },
 
