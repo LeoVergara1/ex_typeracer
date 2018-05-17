@@ -25,6 +25,7 @@
       </div>
       </form>
       <div class="modal-footer">
+        <div id="warning_register" style="display: none">Revisar tus datos</div>
         <button id="submit_button_register" class="btn btn-primary">Save</button>
       </div>
     </div>

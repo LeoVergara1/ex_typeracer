@@ -299,7 +299,7 @@ export var RacerController = {
         $("#register_form").submit()
       }
       else {
-        $("#submit_button_register").append("Revisa")
+        $("#warning_register").show()
       }
       
     })
