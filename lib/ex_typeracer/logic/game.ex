@@ -80,4 +80,8 @@ defmodule ExTyperacer.Logic.Game do
     %{game | positions: [player | game.positions]}
   end
 
+  def get_list_positions(game) do
+    for elem <- game.positions,do: elem.username
+  end
+
 end
