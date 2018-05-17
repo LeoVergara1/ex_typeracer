@@ -105,6 +105,7 @@ export var RacerController = {
         $("#container_timer_playing").show()
         $("#timer_playing").text(msg.time)
         if(msg.time == 0){
+          $('#modalWiner').modal('show');
           console.log("Juego terminado")
         }
       });
