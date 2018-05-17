@@ -67,6 +67,7 @@ defmodule ExTyperacer.TimerServer do
   end
 
   def handle_info({:kill_timer, 0, name, game}, %{timer: timer}) do
+    GameServer.save_score_by_paragraph name, game
     GameServer.delete_game_in_ets(name)
     {:noreply, %{timer: timer}}
   end
