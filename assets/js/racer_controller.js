@@ -220,8 +220,14 @@ export var RacerController = {
     $("#join-room").on("click", () =>{
       that.username = $("#username_join").val()
       that.name_room = $("#game-id").val()
+      that.callJoinActive(that.username, that.name_room)
+    })
+  },
+
+  callJoinActive: function (username, name_room){
+    let that = this
       this.channelRoom
-      .push('join_race', {username: that.username, name_room: that.name_room})
+      .push('join_race', {username: username, name_room: name_room})
       .receive('ok', response =>{ 
         console.log("ok", response)
         if(response.status === "waiting"){
@@ -249,7 +255,6 @@ export var RacerController = {
           });
         }
       })
-    })
   },
 
   sendScore: function (score) {
@@ -314,35 +319,7 @@ export var RacerController = {
         that.username = `Guess${Math.floor((Math.random() * 100) + 1)}`
       }
       that.name_room = $(e.currentTarget).text()
-      this.channelRoom
-      .push('join_race', {username: that.username, name_room: that.name_room})
-      .receive('ok', response =>{ 
-        console.log("ok", response)
-        if(response.status === "waiting"){
-          if(response.process == this.name_room){
-            that.username = response.user
-            that.processRoom = response.process;
-            that.uuid_game = response.uuid;
-            console.log(`Este es el game id: ${that.uuid_game}`)
-            that.updatingPlayers(that.name_room)
-            that.channelRoom.push("updating_players", that.name_room)
-            that.initChannelTimer(that.name_room, that.uuid_game)
-            HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
-            HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
-            $("#container-header-player").hide()
-          }
-        }
-        else {
-          console.log("La sala esta en juego o ya no")
-          $.notify({
-            // options
-            message: 'La sala esta en juego o ya no está disponible' 
-          },{
-            // settings
-            type: 'danger'
-          });
-        }
-      })
+      that.callJoinActive( that.username, that.name_room)
     });
   },
 
