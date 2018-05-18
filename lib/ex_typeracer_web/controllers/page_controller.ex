@@ -47,6 +47,21 @@ defmodule ExTyperacerWeb.PageController do
     render(conn, "secret.html")
   end
 
+  def racer(conn, %{"user" => user, "uuid" => uuid}) do
+    IO.inspect user
+    IO.inspect uuid 
+    changeset = PersonRepo.change_user(%Person{})
+    maybe_user = Guardian.Plug.current_resource(conn)
+    message = if maybe_user != nil do
+      "Someone is logged in"
+    else
+      "Ya estas registrado ? "
+    end
+    conn
+      |> put_flash(:info, message)
+      |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
+  end
+
   def racer(conn, _params) do
     changeset = PersonRepo.change_user(%Person{})
     maybe_user = Guardian.Plug.current_resource(conn)
@@ -68,6 +83,7 @@ defmodule ExTyperacerWeb.PageController do
     |> PersonRepo.save_person
     redirect(conn, to: "/")
   end
+
 
   defp map_to_kwl(map) do
     for {k, v} <- map, do: {String.to_atom(k), v}
