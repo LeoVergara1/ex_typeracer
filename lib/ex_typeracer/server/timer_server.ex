@@ -67,7 +67,8 @@ defmodule ExTyperacer.TimerServer do
   end
 
   def handle_info({:kill_timer, 0, name, game}, %{timer: timer}) do
-    GameServer.save_score_by_paragraph name, game
+    response = GameServer.save_score_by_paragraph name, game
+    IO.inspect response
     GameServer.delete_game_in_ets(name)
     broadcast(0, %{message: "playing", uuid: game.uuid, select: "playing_time_" }, Game.get_list_positions(game) ) 
     {:noreply, %{timer: timer}}
