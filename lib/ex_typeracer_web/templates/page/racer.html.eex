@@ -7,11 +7,18 @@
   </div>
   <div>
   </div>
+
 <div id="container-header-player">
+<%= if @name_room != nil do %>
+  <div class="jumbotron" id="initMenu">
+    <button class="btn btn-primary" id="playing_now">Jugar Ahora</button>
+  </div>
+<% else %>
   <div class="jumbotron" id="initMenu">
     <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
     <button class="btn btn-primary" data-toggle="modal" data-target="#joinMatchModal">Unirse a una partida</button>
   </div>
+<% end %>
 </div>
 
 <div id="list_user_area">
@@ -91,6 +98,8 @@
     </div>
   </div>
 </div>
+
+<%= hidden_input :url, :url, value: @name_room %>
 
 <%= render "run_text.html" %>
   <%= render "timer_template.html" %>

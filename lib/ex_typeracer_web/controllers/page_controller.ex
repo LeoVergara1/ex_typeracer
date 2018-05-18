@@ -47,9 +47,7 @@ defmodule ExTyperacerWeb.PageController do
     render(conn, "secret.html")
   end
 
-  def racer(conn, %{"user" => user, "uuid" => uuid}) do
-    IO.inspect user
-    IO.inspect uuid 
+  def racer(conn, %{"name_rom" => name_rom}) do
     changeset = PersonRepo.change_user(%Person{})
     maybe_user = Guardian.Plug.current_resource(conn)
     message = if maybe_user != nil do
@@ -59,7 +57,7 @@ defmodule ExTyperacerWeb.PageController do
     end
     conn
       |> put_flash(:info, message)
-      |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
+      |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user, name_room: name_rom)
   end
 
   def racer(conn, _params) do
@@ -72,7 +70,7 @@ defmodule ExTyperacerWeb.PageController do
     end
     conn
       |> put_flash(:info, message)
-      |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
+      |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user,  name_room: nil)
   end
 
   def new_user(conn, params) do

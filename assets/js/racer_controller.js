@@ -323,6 +323,23 @@ export var RacerController = {
     });
   },
 
+  joinGameFromUrl(){
+    let that = this
+    that.name_room = $("#url_url").val()
+    that.username = $("#username_join").val() 
+    if (that.name_room){
+      console.log("Viene desde url")
+      console.log(that.name_room)
+      if(!that.username){
+        that.username = `Guess${Math.floor((Math.random() * 100) + 1)}`
+      }
+      that.callJoinActive( that.username, that.name_room)
+      $("#playing_now").on("click", () => {
+        that.callJoinActive( that.username, that.name_room)
+      });
+    }
+  },
+
   bindEvents:function (){
     this.initRom()
     this.joinRom()
@@ -333,6 +350,7 @@ export var RacerController = {
     this.listnenKeyBoeard()
     this.validateFormRegister()
     this.listenFromListRooms()
+    this.joinGameFromUrl()
   },
 
   testContext: function(){

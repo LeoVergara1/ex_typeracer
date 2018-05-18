@@ -25,7 +25,7 @@ defmodule ExTyperacerWeb.Router do
     pipe_through [:browser, :auth] # Use the default browser stack
 
     get "/", PageController, :index
-    get "/racer/:uuid/:user", PageController, :racer
+    get "/racer/:name_rom", PageController, :racer
     get "/racer", PageController, :racer
     post "/", PageController, :login
     post "/logout", PageController, :logout
