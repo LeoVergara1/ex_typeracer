@@ -16,7 +16,7 @@ defmodule ExTyperacer.Score do
   def changeset(person, attrs) do
     person
     |> cast(attrs, [:paragraph, :game, :score, :person, :positios])
-    |> validate_required([:paragraph, :game, :score, :person, :positios])
+    |> validate_required([:paragraph, :game, :score, :positios])
   end
 
 end
