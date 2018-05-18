@@ -309,7 +309,10 @@ export var RacerController = {
     let that = this
     $("#list_roms").on("click", ".room_ref" ,(e) => {
       console.log($(e.currentTarget).text())
-      that.username = "brandon"
+      that.username = $("#username_join").val() 
+      if(!that.username){
+        that.username = `Guess${Math.floor((Math.random() * 100) + 1)}`
+      }
       that.name_room = $(e.currentTarget).text()
       this.channelRoom
       .push('join_race', {username: that.username, name_room: that.name_room})
