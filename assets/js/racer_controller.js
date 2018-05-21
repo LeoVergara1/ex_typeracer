@@ -339,6 +339,29 @@ export var RacerController = {
       });
     }
   },
+  showingPass: function() {
+    $("#icon_showing_pass").on("mousedown", ()=> {
+      $("#registerPass").prop("type", "text")
+    })
+    $("#icon_showing_pass").on("mouseup", ()=> {
+      $("#registerPass").prop("type", "password")
+    })
+  },
+  recoveryPass: function() {
+    $("#recovery_button").on("click", ()=> {
+      let email = $("#validEmail_pass").val()
+      console.log(email)
+      this.channelRoom.push("recovery_pass", email)
+        .receive('ok', resp => { console.log(resp)
+          if (resp.existed){
+            $.notify({message: 'Datos enviados' },{type: 'danger'});
+          }
+          else {
+            $.notify({message: 'El correo no existe' },{type: 'danger'});
+          }
+        })
+    })
+  },
 
   bindEvents:function (){
     this.initRom()
@@ -351,6 +374,8 @@ export var RacerController = {
     this.validateFormRegister()
     this.listenFromListRooms()
     this.joinGameFromUrl()
+    this.showingPass()
+    this.recoveryPass()
   },
 
   testContext: function(){
