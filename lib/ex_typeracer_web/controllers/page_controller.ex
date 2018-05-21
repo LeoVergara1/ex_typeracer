@@ -79,6 +79,7 @@ defmodule ExTyperacerWeb.PageController do
 
     struct(%Person{}, kwl)
     |> PersonRepo.save_person
+    |> PersonRepo.send_email_register(kwl[:password])
     redirect(conn, to: "/")
   end
 

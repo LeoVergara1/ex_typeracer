@@ -4,6 +4,8 @@ defmodule ExTyperacer.Logic.PersonRepo do
   alias ExTyperacer.Person
   import Ecto.Query, only: [from: 2]
   alias Comeonin.Bcrypt
+  alias ExTyperacer.Mail.Email
+  alias ExTyperacer.Mail.Mailer
 
   def save_person(person) do
     changeset = Person.changeset( %Person{}, Map.from_struct(person))
@@ -11,6 +13,10 @@ defmodule ExTyperacer.Logic.PersonRepo do
       true -> Repo.insert changeset
       false -> changeset.errors
     end
+  end
+
+  def send_email_register({:ok, person}, password) do
+    Email.send_email_register(person.email, password) |> Mailer.deliver_now
   end
 
   def find_user_by_username(username) do
