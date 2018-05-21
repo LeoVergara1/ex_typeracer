@@ -126,4 +126,15 @@ defmodule ExTyperacerWeb.RoomChannel do
     {:reply, {:ok, %{existed: existed}}, socket}
   end
 
+  def handle_in("recovery_pass", email, socket) do
+    existed = PersonRepo.find_user_by_email email
+    if existed do 
+      IO.inspect existed
+      existed = true
+    else
+      existed = false
+    end
+    {:reply, {:ok, %{existed: existed}}, socket}
+  end
+
 end
