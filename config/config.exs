@@ -45,7 +45,7 @@ client_secret: System.get_env("FACEBOOK_APP_SECRET")
 
 #Config adapter email
 
-config :ex_typeracer, ExTyperacer.Service.Mailer,
+config :ex_typeracer, ExTyperacer.Mail.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: "smtp.gmail.com",
   port: 587,

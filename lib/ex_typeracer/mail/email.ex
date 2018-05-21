@@ -1,4 +1,4 @@
-defmodule ExTyperacer.Service.Email do
+defmodule ExTyperacer.Mail.Email do
   import Bamboo.Email
   import Bamboo.Phoenix
 
