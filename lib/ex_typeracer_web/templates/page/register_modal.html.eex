@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,7 +20,7 @@
             <label for="person[email]">email <i class="fa fa-check" id="icon_check_email"></i> <i class="fa fa-exclamation-triangle" id="icon_warning_email"></i></label>
             <input type="text" name="person[email]" class="form-control" id="validEmail" />
             <label for="person[password]">password</label>
-            <input type="text" name="person[password]" class="form-control" />
+            <input type="password" name="person[password]" class="form-control" />
           </div>
       </div>
       </form>

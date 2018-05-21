@@ -23,7 +23,7 @@
                 <li class="nav-item order-2 order-md-1">
                 <%= if @maybe_user == nil do %>
                   <p class="" role="alert"><%= get_flash(@conn, :info) %></p>
-                  <li class="nav-item order-2 order-md-1"><a href="#" data-toggle="modal" data-target="#exampleModal" class="nav-link" title="settings"><i class="fa fa-user fa-fw fa-lg"></i></a></li>
+                  <li class="nav-item order-2 order-md-1"><a href="#" data-toggle="modal" data-target="#registerModal" class="nav-link" title="settings"><i class="fa fa-user fa-fw fa-lg"></i></a></li>
                    <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
