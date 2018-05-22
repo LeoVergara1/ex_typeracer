@@ -8,9 +8,26 @@
     <meta name="author" content="">
 
     <title>Hello ExTyperacer!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/recovery.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 </head>
 <body>
   
+    <div class="container">
+        <h2>Nueva contraseña</h2>
+        <form action="/restore_pass" method="post" id="restore_form">
+          <div class="form-group">
+            <input type="hidden" name="_csrf_token" id="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>" />
+            <label for="new_pass">New Password:</label>
+            <input type="password" class="form-control" id="email" placeholder="Enter password" name="email">
+          </div>
+          <div class="form-group">
+            <label for="new_pass_rep">Repeat Password:</label>
+            <input type="password" class="form-control" id="new_password" placeholder="Enter password" name="new_password">
+            <%= hidden_input :id, :id, value: @id %>
+          </div>
+          <button type="submit" class="btn btn-primary">Cambiar</button>
+        </form>
+      </div> 
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </body>
 </html>

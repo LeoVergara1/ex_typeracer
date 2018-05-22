@@ -85,7 +85,7 @@ defmodule ExTyperacerWeb.PageController do
 
   def recovery(conn, %{"token" => token, "username" => username}) do
     user_id = 0
-    case Phoenix.Token.verify(ExTyperacerWeb.Endpoint, username, token, max_age: 900) do
+    case Phoenix.Token.verify(ExTyperacerWeb.Endpoint, username, token, max_age: 90000) do
       {:ok, user_id} ->
         IO.puts "Validao"
         user_id = user_id
@@ -98,7 +98,8 @@ defmodule ExTyperacerWeb.PageController do
   end
 
   def restore_pass(conn, %{"id" => id, "new_password" => new_password} ) do
-    
+    person = PersonRepo.find_user_by_id(String.to_integer(id["id"]))
+    IO.inspect person
     redirect(conn, to: "/")
   end
 
