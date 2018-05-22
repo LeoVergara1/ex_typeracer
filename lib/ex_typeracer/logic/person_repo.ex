@@ -15,6 +15,12 @@ defmodule ExTyperacer.Logic.PersonRepo do
     end
   end
 
+  def update_person(person, password) do
+    changeset = Person.changeset( person, %{ password: password}) 
+    IO.inspect changeset
+    Repo.update changeset
+  end
+
   def send_email_register({:ok, person}, password) do
     Email.send_email_register(person.email, password) |> Mailer.deliver_now
   end
@@ -38,7 +44,11 @@ defmodule ExTyperacer.Logic.PersonRepo do
   end
 
   def find_user_by_id(id) do
-    Repo.get Person, id
+    person = Repo.get Person, id
+    case person do 
+      nil -> {:not, ""}
+      _ -> {:ok, person}
+    end
   end
 
   def check_password(nil, _), do: {:error, "Incorrect username or password"}

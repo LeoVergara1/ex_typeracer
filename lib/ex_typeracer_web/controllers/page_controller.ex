@@ -98,8 +98,15 @@ defmodule ExTyperacerWeb.PageController do
   end
 
   def restore_pass(conn, %{"id" => id, "new_password" => new_password} ) do
-    person = PersonRepo.find_user_by_id(String.to_integer(id["id"]))
-    IO.inspect person
+    response = PersonRepo.find_user_by_id(String.to_integer(id["id"]))
+    case response do
+      {:ok, person} -> 
+        res = PersonRepo.update_person person, new_password
+        IO.inspect "Esta es la respuesta"
+        IO.inspect res
+      _ ->
+        "No found"
+    end
     redirect(conn, to: "/")
   end
 
