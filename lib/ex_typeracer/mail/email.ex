@@ -26,7 +26,7 @@ defmodule ExTyperacer.Mail.Email do
     |> to(email)
     |> subject("Recuperación de contraseña")
     |> put_header("Reply-To", "someone@example.com")
-    |> html_body("<strong>Link para restaurar contraseña: #{ExTyperacerWeb.Endpoint.url}/#{token}/#{username}</strong>")
+    |> html_body("<strong>Link para restaurar contraseña: #{ExTyperacerWeb.Endpoint.url}/recovery/#{token}/#{username}</strong>")
     |> text_body("Welcome esta es tu contraseña")
   end
 
