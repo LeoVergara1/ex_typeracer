@@ -12,5 +12,9 @@ defmodule ExTyperacer.Logic.Scores do
     end
   end
 
+  def get_all do
+    Repo.all Score
+  end
+
 
 end

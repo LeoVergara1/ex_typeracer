@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Tabla de posiciones</h2>
+  <p>Orden de los juegos ganados así como sus participantes</p>            
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Juego</th>
+        <th>Parrafo</th>
+        <th>Ganador</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Enum.each([1,2,3], fn(n) -> %>
+      <span><%= n %> hh</span>
+      <% end) %>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
