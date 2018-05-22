@@ -34,7 +34,20 @@ defmodule ExTyperacerWeb.Router do
     post "/restore_pass", PageController, :restore_pass
   end
 
+  scope "/ranking", ExTyperacerWeb do
+    pipe_through [:browser, :auth] # Use the default browser stack
+    
+    get "/", RankingController, :index
+  end
   
+
+  scope "/auth", ExTyperacerWeb do
+    pipe_through [:browser, :auth] # Use the default browser stack
+    
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
+
   scope "/auth", ExTyperacerWeb do
     pipe_through [:browser, :auth] # Use the default browser stack
     
