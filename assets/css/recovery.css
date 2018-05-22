@@ -1,0 +1,12 @@
+
+/* This file is for your main application css. */
+body{
+  background-color: #25b15f
+}
+.modal-title{
+  color: white;
+}
+.modal-content{
+  background-color: #25b15f;
+}
+.pointer {cursor: pointer;}
