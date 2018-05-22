@@ -10,6 +10,7 @@ defmodule ExTyperacer.Person do
     field :name, :string
     field :password, :string
     field :username, :string
+    field :token, :string
 
     timestamps()
   end
