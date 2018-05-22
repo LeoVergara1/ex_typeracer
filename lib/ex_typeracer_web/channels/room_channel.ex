@@ -129,7 +129,8 @@ defmodule ExTyperacerWeb.RoomChannel do
   def handle_in("recovery_pass", email, socket) do
     existed = PersonRepo.find_user_by_email email
     if existed do 
-      IO.inspect existed
+      IO.inspect existed.id
+      PersonRepo.send_email_token_recovery existed
       existed = true
     else
       existed = false
