@@ -19,6 +19,12 @@ defmodule ExTyperacer.Logic.PersonRepo do
     Email.send_email_register(person.email, password) |> Mailer.deliver_now
   end
 
+  def send_email_token_recovery(person) do
+    token = Phoenix.Token.sign(ExTyperacerWeb.Endpoint, person.username, person.id)
+    IO.inspect token
+    Email.send_email_recovery(person.email, token, person.username) |> Mailer.deliver_now
+  end
+
   def find_user_by_username(username) do
     query = from u in Person, where: u.username == ^username, select: u
     Repo.all(query)
