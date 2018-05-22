@@ -83,6 +83,11 @@ defmodule ExTyperacerWeb.PageController do
     redirect(conn, to: "/")
   end
 
+  def recovery(conn, %{"token" => token, "username" => username}) do
+    
+    redirect(conn, to: "/")
+  end
+
 
   defp map_to_kwl(map) do
     for {k, v} <- map, do: {String.to_atom(k), v}
