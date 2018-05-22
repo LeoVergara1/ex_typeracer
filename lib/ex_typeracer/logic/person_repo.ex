@@ -37,6 +37,10 @@ defmodule ExTyperacer.Logic.PersonRepo do
     |> List.first
   end
 
+  def find_user_by_id(id) do
+    Repo.get Person, id
+  end
+
   def check_password(nil, _), do: {:error, "Incorrect username or password"}
   
   def check_password(person, password) do
