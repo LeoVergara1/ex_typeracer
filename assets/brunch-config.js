@@ -20,10 +20,8 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: {
-        'css/app.css': "css/global/",
-        'css/recovery.css': "css/recovery.css",
-      }
+      joinTo: "css/app.css",
+
     },
     templates: {
       joinTo: "js/app.js"
@@ -34,7 +32,8 @@ exports.config = {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(static)/
+    assets: /^(static)/,
+    ignored: [ "" ]
   },
 
   // Phoenix paths configuration
@@ -56,7 +55,7 @@ exports.config = {
   modules: {
     autoRequire: {
       "js/app.js": ["js/app"],
-      "js/racer_controller.js": ["js/racer_controller.js"]
+      "js/racer_controller.js": ["js/racer_controller"]
     }
   },
 
