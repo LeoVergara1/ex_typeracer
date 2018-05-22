@@ -30,6 +30,7 @@ defmodule ExTyperacerWeb.Router do
     post "/", PageController, :login
     post "/logout", PageController, :logout
     post "/new_user", PageController, :new_user
+    get "/recovery/:token/:username", PageController, :recovery
   end
 
   
