@@ -14,6 +14,7 @@
             <canvas id="canvas" width="200" height="100">
 
       </canvas>
+    <%= if @token == true do %>
     <div class="container">
         <h2>Nueva contraseña</h2>
         <form action="/restore_pass" method="post" id="restore_form">
@@ -30,6 +31,11 @@
         </form>
           <button type="submit" id="change_button"class="btn btn-primary">Cambiar</button>
       </div> 
+      <% else %>
+      <div class="container">
+        <h2>Token invalido o ha expirado</h2>
+      </div>
+      <% end %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 
 </body>
