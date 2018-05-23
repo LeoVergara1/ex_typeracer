@@ -3,7 +3,7 @@ defmodule ExTyperacer.Person do
   import Ecto.Changeset
   alias Comeonin.Bcrypt
 
-
+  @derive [Poison.Encoder]
   schema "persons" do
     field :email, :string
     field :lastname, :string
