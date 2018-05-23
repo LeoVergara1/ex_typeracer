@@ -10,14 +10,17 @@
       </tr>
     </thead>
     <tbody>
-      <% Enum.each([1,2,3], fn(n) -> %>
-      <span><%= n %> hh</span>
-      <% end) %>
+      <%= for score <- @list_scores do %>
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+        <td><%= score.game %></td>
+        <td>
+          <%= score.paragraph %>
+        </td>
+        <td>
+          <%= score.person %>
+        </td>
       </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
