@@ -85,15 +85,15 @@ defmodule ExTyperacerWeb.PageController do
 
   def recovery(conn, %{"token" => token, "username" => username}) do
     user_id = 0
-    view_token = "hide"
-    case Phoenix.Token.verify(ExTyperacerWeb.Endpoint, username, token, max_age: 6600) do
+    view_token =
+    case Phoenix.Token.verify(ExTyperacerWeb.Endpoint, username, token, max_age: 66000) do
       {:ok, user_id} ->
         IO.puts "Validao"
         user_id = user_id
-        view_token = "showing"
-        IO.inspect "Validao #{view_token} token"
+        true
       {:error, _} -> 
         IO.puts "El token expiro"
+        false
     end
 
     conn = put_layout conn, false

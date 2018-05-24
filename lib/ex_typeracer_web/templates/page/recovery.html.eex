@@ -14,8 +14,7 @@
             <canvas id="canvas" width="200" height="100">
 
       </canvas>
-    <%= @token %>
-    <%= if @token == "showing" do %>
+    <%= if @token == true do %>
     <div class="container">
         <h2>Nueva contraseña</h2>
         <form action="/restore_pass" method="post" id="restore_form">
