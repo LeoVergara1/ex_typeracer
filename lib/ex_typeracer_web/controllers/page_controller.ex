@@ -101,6 +101,7 @@ defmodule ExTyperacerWeb.PageController do
   end
 
   def restore_pass(conn, %{"id" => id, "new_password" => new_password} ) do
+    IO.puts "Entro aquí"
     response = PersonRepo.find_user_by_id(String.to_integer(id["id"]))
     case response do
       {:ok, person} -> 
@@ -112,7 +113,8 @@ defmodule ExTyperacerWeb.PageController do
     end
     redirect(conn, to: "/")
   end
-
+      uyfdyetrgjfhxrfw7uytfgvkyutgfvutyhgc tedgcuuu<xzas id="canvas" width="200" height="100">
+      </canvas>
 
   defp map_to_kwl(map) do
     for {k, v} <- map, do: {String.to_atom(k), v}
