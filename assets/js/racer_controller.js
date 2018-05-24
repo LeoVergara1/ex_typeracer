@@ -377,6 +377,11 @@ export var RacerController = {
       }
     });
   },
+  buttonFacebook: function () {
+    $(".btn-facebook").on("click", () => {
+      
+    })
+  },
 
   bindEvents:function (){
     this.initRom()
