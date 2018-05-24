@@ -16,7 +16,7 @@
             <label for="person[lastname]">Lastname</label>
             <input type="text" name="person[lastname]" class="form-control" />
             <label for="person[lastname]">username <i class="fa fa-check" id="icon_check"></i> <i class="fa fa-exclamation-triangle" id="icon_warning"></i></label>
-            <input type="text" name="person[username]" id="validUsername" class="form-control" />
+            <input type="text" name="person[username]" id="validUsername" class="form-control"  pattern="[^\s]+"  title="please dont use the white space :)" />
             <label for="person[email]">email <i class="fa fa-check" id="icon_check_email"></i> <i class="fa fa-exclamation-triangle" id="icon_warning_email"></i></label>
             <input type="text" name="person[email]" class="form-control" id="validEmail" />
             <label for="person[password]">password <i class="fa fa-eye" id="icon_showing_pass"></i></label>
