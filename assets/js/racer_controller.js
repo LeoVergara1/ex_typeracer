@@ -15,6 +15,7 @@ export var RacerController = {
   uuid_game: null,
 
   initChannelRoom: function () {
+    $("#container_timer_waiting").hide()
     this.channelRoom = socket.channel("room:new", {})
     let that = this
     this.channelRoom.join()
@@ -364,6 +365,18 @@ export var RacerController = {
         })
     })
   },
+  validateNamesRoom: function() {
+    $(".valid_word").on("keyup", (e) =>{
+      let name_room = $("#name_room_txt").val()
+      let game_id = $("#game-id").val()
+      if(e.originalEvent.keyCode == 32){
+        name_room = name_room.replace(/\s/g, '');
+        game_id = game_id.replace(/\s/g, '');
+        $("#name_room_txt").val(name_room)
+        $("#game-id").val(game_id)
+      }
+    });
+  },
 
   bindEvents:function (){
     this.initRom()
@@ -378,6 +391,7 @@ export var RacerController = {
     this.joinGameFromUrl()
     this.showingPass()
     this.recoveryPass()
+    this.validateNamesRoom()
   },
 
   testContext: function(){
