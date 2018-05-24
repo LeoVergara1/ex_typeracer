@@ -84,16 +84,16 @@ defmodule ExTyperacerWeb.PageController do
   end
 
   def recovery(conn, %{"token" => token, "username" => username}) do
-    user_id = 0
-    view_token =
+    {user_id, view_token} =
     case Phoenix.Token.verify(ExTyperacerWeb.Endpoint, username, token, max_age: 7200) do
       {:ok, user_id} ->
         IO.puts "Validao"
         user_id = user_id
-        true
+        {user_id, true}
       {:error, _} -> 
         IO.puts "El token expiro"
         false
+        {0, false}
     end
 
     conn = put_layout conn, false
@@ -103,6 +103,7 @@ defmodule ExTyperacerWeb.PageController do
   def restore_pass(conn, %{"id" => id, "new_password" => new_password} ) do
     IO.puts "Entro aquí"
     response = PersonRepo.find_user_by_id(String.to_integer(id["id"]))
+    IO.inspect response
     case response do
       {:ok, person} -> 
         res = PersonRepo.update_person person, new_password
