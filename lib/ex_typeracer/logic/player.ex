@@ -41,8 +41,12 @@ defmodule ExTyperacer.Logic.Player do
   end
 
   def update_socere_player(player, score) do
-    score = Float.ceil(score,2)
+    score =
+    empty_number?(score)
     %Player{ player | score: score} 
   end
+
+  def empty_number?(score) when is_integer(score), do: score
+  def empty_number?(score) when is_float(score), do: Float.ceil(score,2) 
 
 end
