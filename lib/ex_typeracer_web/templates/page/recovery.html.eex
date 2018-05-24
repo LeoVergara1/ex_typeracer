@@ -11,9 +11,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 </head>
 <body>
-            <canvas id="canvas" width="200" height="100">
 
-      </canvas>
     <%= if @token == true do %>
     <div class="container">
         <h2>Nueva contraseña</h2>
@@ -39,4 +37,6 @@
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 
 </body>
+      <canvas id="canvas" width="200" height="100">
+      </canvas>
 </html>
