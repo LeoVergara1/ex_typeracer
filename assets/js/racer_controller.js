@@ -59,11 +59,13 @@ export var RacerController = {
   },
   listnenKeyBoeard: function(){
     let that = this
-    $("#validUsername").on("keyup", () => {
-      console.log("Tecla.")
+    $("#validUsername").on("keyup", (e) => {
       let username = $("#validUsername").val() 
-      console.log(username)
       that.knowExistUsername(username)
+      if(e.originalEvent.keyCode == 32){
+        username = username.replace(/\s/g, '');
+        $("#validUsername").val(username)
+      }
     });
     $("#validEmail").on("keyup", () => {
       let email = $("#validEmail").val()
