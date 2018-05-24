@@ -56,7 +56,7 @@
               <%= text_input :recipient, :name, value: @maybe_user.username, type: "hidden" %>
             <% end %>
             <label for="recipient-name" class="col-form-label">Nombre de Sala:</label>
-            <input type="text" class="form-control" id="name_room_txt">
+            <input type="text" class="form-control valid_word" id="name_room_txt">
           </div>
         </form>
       </div>
@@ -87,7 +87,7 @@
               <%= text_input :username, :join, value: @maybe_user.username, type: "hidden" %>
             <% end %>
             <label for="game-id" class="col-form-label">Id de partida:</label>
-            <input type="text" class="form-control" id="game-id">
+            <input type="text" class="form-control valid_word" id="game-id">
           </div>
         </form>
       </div>
