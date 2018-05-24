@@ -12,12 +12,12 @@ defmodule ExTyperacer.Mail.Email do
     )
   end
 
-  def send_email_register(email, password) do
+  def send_email_register(person, password) do
     base_email
-    |> to(email)
+    |> to(person.email)
     |> subject("Welcome!!!")
     |> put_header("Reply-To", "someone@example.com")
-    |> html_body("<strong>bienvenido esta es tu contraseña: #{password}</strong>")
+    |> html_body("<strong>bienvenido #{person.name} esta es tu contraseña: #{password}</strong><br/><strong>Username: #{person.username}</strong>")
     |> text_body("Welcome esta es tu contraseña: #{password}")
   end
 
@@ -26,7 +26,7 @@ defmodule ExTyperacer.Mail.Email do
     |> to(email)
     |> subject("Recuperación de contraseña")
     |> put_header("Reply-To", "someone@example.com")
-    |> html_body("<strong>Link para restaurar contraseña: #{Application.get_env(:ex_typeracer, ExTyperacerWeb.Endpoint)[:base_url]}recovery/#{token}/#{username}</strong>")
+    |> html_body("<strong>Link para restaurar contraseña: #{Application.get_env(:ex_typeracer, ExTyperacerWeb.Endpoint)[:base_url]}recovery/#{token}/#{username}</strong><br/><strong>Username: #{username}</strong>")
     |> text_body("Welcome esta es tu contraseña")
   end
 
