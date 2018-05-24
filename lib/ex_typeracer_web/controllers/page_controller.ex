@@ -113,8 +113,6 @@ defmodule ExTyperacerWeb.PageController do
     end
     redirect(conn, to: "/")
   end
-      uyfdyetrgjfhxrfw7uytfgvkyutgfvutyhgc tedgcuuu<xzas id="canvas" width="200" height="100">
-      </canvas>
 
   defp map_to_kwl(map) do
     for {k, v} <- map, do: {String.to_atom(k), v}
