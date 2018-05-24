@@ -148,7 +148,7 @@ defmodule ExTyperacer.GameServer do
   end
 
   def handle_call({:save_score_by_paragraph, game}, _from, state) do
-    positions = for n <- game.positions, do: n.username
+    positions = for n <- state.positions, do: n.username
     score = %Score{ paragraph: game.paragraph, game: "#{game.uuid}", score: "10", person: List.first(positions), positios: positions }
     status = Scores.save_score score
     {:reply, status, state}
