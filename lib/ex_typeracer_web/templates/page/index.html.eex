@@ -9,11 +9,16 @@
 <div class="row h-100">
   <div class="col-lg-12">
     <div class="col-lg-6 offset-lg-3">
-    
         <%=button("Juego Ahora", to: "/racer", method: "get", class: "btn btn-lg btn-primary btn-block")%>
-        
     </div>
-
+  </div>
+</div>
+<br/>
+<div class="row h-100">
+  <div class="col-lg-12">
+    <div class="col-lg-6 offset-lg-3">
+        <%=button("Ver ranking", to: "/ranking", method: "get", class: "btn btn-lg btn-primary btn-block")%>
+    </div>
   </div>
 </div>
 </div>
