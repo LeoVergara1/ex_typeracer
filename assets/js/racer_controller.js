@@ -111,6 +111,7 @@ export var RacerController = {
           $('#modalWiner').modal('show');
           console.log(msg.positions)
           console.log("Juego terminado")
+          $("#name_winer").text(msg.positions[0])
         }
       });
 
