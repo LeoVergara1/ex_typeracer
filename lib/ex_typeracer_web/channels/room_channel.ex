@@ -32,16 +32,9 @@ defmodule ExTyperacerWeb.RoomChannel do
   end
 
   def handle_in("join_race", payload, socket) do
-    username = payload["username"]
-    uuidGame = payload["name_room"]
+    
     IO.inspect "Estoy aqui"
-    IO.inspect uuidGame
-    [{_,game_server}] = :ets.lookup(:"#{uuidGame}","game")
-    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
-    IO.inspect game_server
-    GameServer.add_player game_server, username
-    game = GameServer.get_game game_server
-    players = GameServer.players game_server 
+    [game_server, game, players, list_rooms] = join_game(payload)
  #   game = Game.add_player(game, username)
  #   IO.inspect game
  #   :ets.insert(:"#{game.uuid}", {"game", game} )
@@ -146,6 +139,18 @@ defmodule ExTyperacerWeb.RoomChannel do
     :ets.insert(:list_rooms, { "list", list_rooms ++ [payload["name_room"]] } )
     GameServer.start_timer_waiting(game_server, 60)
     [game_server, players, game, list_rooms]
+  end
+
+  defp join_game(payload) do
+    username = payload["username"]
+    uuidGame = payload["name_room"]
+    [{_,game_server}] = :ets.lookup(:"#{uuidGame}","game")
+    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
+    IO.inspect game_server
+    GameServer.add_player game_server, username
+    game = GameServer.get_game game_server
+    players = GameServer.players game_server 
+    [game_server, game, players, list_rooms]
   end
 
 end
