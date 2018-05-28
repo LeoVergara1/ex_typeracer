@@ -378,6 +378,13 @@ export var RacerController = {
       }
     });
   },
+  playingAgain: function (){
+    $("#button_playin_again").on("click", () => {
+      this.channelRoom.push("playing_again", "aldo")
+        .receive('ok', resp => { console.log(resp)
+        })
+    })  
+  },
   buttonFacebook: function () {
     $(".btn-facebook").on("click", () => {
       
@@ -398,6 +405,7 @@ export var RacerController = {
     this.showingPass()
     this.recoveryPass()
     this.validateNamesRoom()
+    this.playingAgain()
   },
 
   testContext: function(){
