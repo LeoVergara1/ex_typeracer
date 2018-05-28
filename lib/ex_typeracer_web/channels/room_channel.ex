@@ -18,17 +18,7 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("init_reace", payload, socket) do
     username = payload["username"]
-    game_server = GameServer.start_link(payload["name_room"])
-    IO.inspect game_server
-    GameServer.add_player game_server, payload["username"]
-    players = GameServer.players game_server 
-    game = GameServer.get_game game_server
-    IO.inspect players
-    :ets.new(:"#{payload["name_room"]}", [:named_table, :public])
-    :ets.insert(:"#{payload["name_room"]}", {"game", game_server} )
-    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
-    :ets.insert(:list_rooms, { "list", list_rooms ++ [payload["name_room"]] } )
-    GameServer.start_timer_waiting(game_server, 60)
+    [game_server, players, game, list_rooms] = init_game(payload)
     IO.inspect "Termino el proceso"
     {:reply,
     {:ok, %{"list" => list_rooms,
@@ -136,6 +126,26 @@ defmodule ExTyperacerWeb.RoomChannel do
       existed = false
     end
     {:reply, {:ok, %{existed: existed}}, socket}
+  end
+
+  def handle_in("playing_again", payload, socket) do
+    IO.inspect "Reinicia juego"
+    {:reply, {:ok, %{}}, socket}
+  end
+
+  defp init_game(payload) do
+    game_server = GameServer.start_link(payload["name_room"])
+    IO.inspect game_server
+    GameServer.add_player game_server, payload["username"]
+    players = GameServer.players game_server 
+    game = GameServer.get_game game_server
+    IO.inspect players
+    :ets.new(:"#{payload["name_room"]}", [:named_table, :public])
+    :ets.insert(:"#{payload["name_room"]}", {"game", game_server} )
+    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
+    :ets.insert(:list_rooms, { "list", list_rooms ++ [payload["name_room"]] } )
+    GameServer.start_timer_waiting(game_server, 60)
+    [game_server, players, game, list_rooms]
   end
 
 end
