@@ -379,8 +379,9 @@ export var RacerController = {
     });
   },
   playingAgain: function (){
+    let that = this 
     $("#button_playin_again").on("click", () => {
-      this.channelRoom.push("playing_again", "aldo")
+      this.channelRoom.push("playing_again", {name_room: that.name_room, username: that.username})
         .receive('ok', resp => { console.log(resp)
         })
     })  
