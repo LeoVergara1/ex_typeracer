@@ -75,6 +75,7 @@ defmodule ExTyperacer.GameServer do
 
   def delete_game_in_ets(name) do
     name_server = get_name_game_server(name)
+    :ets.delete(:"#{name_server}")
     [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
     :ets.insert(:list_rooms, { "list", list_rooms -- [name_server] } )
     {:ok}
