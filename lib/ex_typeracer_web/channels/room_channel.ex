@@ -125,13 +125,21 @@ defmodule ExTyperacerWeb.RoomChannel do
     IO.inspect "Reinicia juego"
     if checking_game(payload["name_room"]) do
       IO.inspect " Te unes al juego "
-      join_game(payload)
+      [game_server, game, players, list_rooms] = join_game(payload)
     else
       IO.inspect "Inicia juego "
       IO.inspect payload
-      init_game(payload)
+      [game_server, players, game, list_rooms] = init_game(payload)
     end
-    {:reply, {:ok, %{}}, socket}
+    {:reply, {:ok, %{
+            "list" => list_rooms,
+            "process" => payload["name_room"],
+            "userList" => players,
+            "user" => payload["username"],
+            "uuid" => game.uuid,
+            "status" => game.status
+
+    }}, socket}
   end
 
   defp init_game(payload) do
@@ -162,14 +170,8 @@ defmodule ExTyperacerWeb.RoomChannel do
   end
 
   defp checking_game(name_game) do
-    case :ets.lookup(:"#{name_game}","game") do
-      [{_,game_server}] ->
-        IO.inspect "Tiene algo"
-        true
-      _ -> 
-        IO.inspect "vacio"
-        false
-      end
+    [{"list", list_rooms}] = :ets.lookup(:list_rooms, "list")
+    Enum.member?(list_rooms, name_game)
   end
 
 
