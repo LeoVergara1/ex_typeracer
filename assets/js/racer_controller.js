@@ -84,6 +84,7 @@ export var RacerController = {
       channel.on(`new_time_${uuid_game}`, msg => {
           document.getElementById('status').innerHTML = msg.response
           document.getElementById('timer').innerHTML = msg.time
+          console.log("Se lanza")
 
           $("#start-timer").hide()
           if (msg.time === 0){
@@ -382,7 +383,18 @@ export var RacerController = {
     let that = this 
     $("#button_playin_again").on("click", () => {
       this.channelRoom.push("playing_again", {name_room: that.name_room, username: that.username})
-        .receive('ok', resp => { console.log(resp)
+        .receive('ok', response => { console.log(response)
+          console.log("ok", response)
+          that.processRoom = response.process;
+          that.uuid = response.process
+          that.username = response.user
+          that.uuid_game = response.uuid 
+          that.updatingPlayers(that.name_room)
+          that.initChannelTimer(that.name_room, that.uuid_game)
+          HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
+          HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
+          $("#timer_run_area").show()
+          $("#container-header-player").hide()
         })
     })  
   },
