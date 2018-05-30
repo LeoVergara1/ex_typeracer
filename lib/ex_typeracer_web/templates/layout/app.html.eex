@@ -6,81 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Hello ExTyperacer!</title>
+    <title>. : Keyboard Heroes : .</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-
   <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-    <div class="container">
-        <a class="navbar-brand" href="/">Makingdevs</a>
-        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-            &#9776;
-        </button>
-        <div class="collapse navbar-collapse" id="exCollapsingNavbar">
-            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                <li class="nav-item order-2 order-md-1">
-                <%= if @maybe_user == nil do %>
-                  <p class="" role="alert"><%= get_flash(@conn, :info) %></p>
-                  <li class="nav-item order-2 order-md-1"><a href="#" data-toggle="modal" data-target="#registerModal" class="nav-link" title="settings"><i class="fa fa-user fa-fw fa-lg"></i></a></li>
-                   <li class="dropdown order-1">
-                    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-right mt-2">
-                       <li class="px-3 py-2">
-                            <%= form_for @changeset, @action, fn f -> %>
-                                <div class="form-group">
-                                    <input id="username" name="person[username]" placeholder="Username" class="form-control form-control-sm" type="text" required="">
-                                </div>
-                                <div class="form-group">
-                                    <input id="password" name="person[password]" placeholder="Password" class="form-control form-control-sm" type="password" required="">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
-                                </div>
-                                <div class="form-group text-center">
-                                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
-                                </div>
-                                <div class="form-group">
-                                    <a href="auth/facebook" class="btn btn-block btn-social btn-facebook">
-                                    <span class="fa fa-facebook"></span>
-                                    <df style="
-                                    margin: 30px;">
-                                        Iniciar sesión con facebook
-                                    </df>
-                                    </a>
-                                </div>
-                            <% end %>
-                        </li>
-                    </ul>
-                </li>
-                <% else %>
-                  <p>Hello <%= @maybe_user.username%>!</p>
-                 <li class="nav-item order-2 order-md-1 " style="margin: 3px;">     </li>
-                  <li class="nav-item order-2 order-md-1">
-                  <span><%= link(" ", to: page_path(@conn, :logout), method: :post, class: "fa fa-user-times") %></span>
 
-                  </li>
-                <% end %>
-                <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-                </li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Keyboard Heroes</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            </ul>
-        </div>
-    </div>
-</nav>
-    <div class="container">
-      <header class="header" style="margin-top: 10%;">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-    </div> <!-- /container -->
+      <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+          <!--li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li-->
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <%=link("Global ranking", to: "/ranking", method: "get", class: "nav-link")%>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+    <%= render @view_module, @view_template, assigns %>
+
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
