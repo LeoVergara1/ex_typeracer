@@ -385,6 +385,7 @@ export var RacerController = {
       this.channelRoom.push("playing_again", {name_room: that.name_room, username: that.username})
         .receive('ok', response => { console.log(response)
           console.log("ok", response)
+          $("#list_users").children(".list-group").children().remove()
           that.processRoom = response.process;
           that.uuid = response.process
           that.username = response.user
@@ -393,6 +394,7 @@ export var RacerController = {
           that.initChannelTimer(that.name_room, that.uuid_game)
           HandlebarsResolver.constructor.mergeViewWithModel("#timer_area", response, "timer_run_area")
           HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", response, "list_user_area")
+          $("#container-run-area").hide()
           $("#timer_run_area").show()
           $("#container-header-player").hide()
         })
