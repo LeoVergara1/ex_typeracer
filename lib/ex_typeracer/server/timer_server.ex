@@ -71,6 +71,7 @@ defmodule ExTyperacer.TimerServer do
     game = GameServer.get_game name
     IO.inspect response
     GameServer.delete_game_in_ets(name)
+    GenServer.stop name
     broadcast(0, %{message: "playing", uuid: game.uuid, select: "playing_time_" }, Game.get_list_positions(game) ) 
     {:noreply, %{timer: timer}}
   end
