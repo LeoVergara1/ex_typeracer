@@ -70,7 +70,7 @@ exports.config = {
     enabled: true,
     styles: {
       "animate.css": ['animate.css'],
-      bootstrap: ['dist/css/bootstrap.min.css'],
+      bootswatch: ['dist/slate/bootstrap.min.css'],
       "font-awesome":['css/font-awesome.min.css'],
       "bootstrap-social":['bootstrap-social.css']
     },
