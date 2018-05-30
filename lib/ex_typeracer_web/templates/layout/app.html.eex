@@ -59,12 +59,12 @@
                  <li class="nav-item order-2 order-md-1 " style="margin: 3px;">     </li>
                   <li class="nav-item order-2 order-md-1">
                   <span><%= link(" ", to: page_path(@conn, :logout), method: :post, class: "fa fa-user-times") %></span>
-                  
+
                   </li>
                 <% end %>
                 <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
                 </li>
-               
+
             </ul>
         </div>
     </div>
@@ -77,16 +77,10 @@
         </nav>
         <span class="logo"></span>
       </header>
-
-      
-      
-
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
-
     </div> <!-- /container -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
