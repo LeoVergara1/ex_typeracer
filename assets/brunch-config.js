@@ -1,5 +1,4 @@
 exports.config = {
-  // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
       joinTo: {
@@ -35,22 +34,15 @@ exports.config = {
   },
 
   conventions: {
-    // This option sets where we should place non-css and non-js assets in.
-    // By default, we set this to "/assets/static". Files in this directory
-    // will be copied to `paths.public`, which is "priv/static" by default.
     assets: /^(static)/,
     ignored: [ "" ]
   },
 
-  // Phoenix paths configuration
   paths: {
-    // Dependencies and current project directories to watch
     watched: ["static", "css", "js", "vendor"],
-    // Where to compile files to
     public: "../priv/static"
   },
 
-  // Configure your plugins
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
@@ -69,10 +61,10 @@ exports.config = {
   npm: {
     enabled: true,
     styles: {
-      "animate.css": ['animate.css'],
-      bootswatch: ['dist/slate/bootstrap.min.css'],
-      "font-awesome":['css/font-awesome.min.css'],
-      "bootstrap-social":['bootstrap-social.css']
+      "font-awesome":['css/font-awesome.css'],
+      "bootswatch": ['dist/slate/bootstrap.css'],
+      "bootstrap-social":['bootstrap-social.css'],
+      "animate.css": ['animate.css']
     },
     javascripts:{
       "sprite-js": ['js/sprite.js']
