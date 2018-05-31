@@ -4,7 +4,7 @@ exports.config = {
     javascripts: {
       joinTo: {
         "js/app.js": /^(js\/global|node_modules)/,
-        "js/racer.js": /^(js\/racer|node_modules)/
+        "js/recovery.js": /^(js\/recovery|node_modules)/
       }
 
       // To use a separate vendor.js bundle, specify two files path
@@ -58,7 +58,7 @@ exports.config = {
   modules: {
     autoRequire: {
       "js/app.js": ["js/global/app"],
-      "js/racer.js": ["js/racer/racer"],
+      "js/recovery.js": ["js/recovery/recovery"],
       "js/racer_controller.js": ["js/racer_controller"]
     }
   },
