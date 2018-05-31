@@ -8,6 +8,7 @@
     <meta name="author" content="">
 
     <title>Hello ExTyperacer!</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/recovery.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 </head>
 <body>
