@@ -23,7 +23,10 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css",
+      joinTo: {
+        "css/app.css": /^(css\/global|node_modules)/,
+        "css/recovery.css":  /^(css\/recovery|node_modules)/,
+      }
 
     },
     templates: {
