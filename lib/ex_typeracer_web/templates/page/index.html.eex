@@ -2,11 +2,11 @@
   <div class="col-lg-12">
     <div class="bs-component">
       <div class="jumbotron">
-        <h1 class="display-3">Welcome Hero!</h1>
+        <h1 class="display-3">Welcome Hero! <i class="fa fa-keyboard-o"></i></h1>
         <p class="lead">Grow your finger skills and defeat the bad guys!</p>
         <p>Really, this a little project to challenge you to write accuracily and get fun with your friends.</p>
         <p class="lead">
-        <%=button("Play now !!!", to: "/racer", method: "get", class: "btn btn-primary btn-lg")%>
+        <%=button("Play now", to: "/racer", method: "get", class: "btn btn-primary btn-lg")%>
         </p>
       </div>
     </div>
@@ -17,39 +17,41 @@
   <div class="row">
     <div class="col-lg-4">
       <div class="bs-component">
-        <h1>Heading 1</h1>
-        <h2>Heading 2</h2>
-        <h3>Heading 3</h3>
-        <h4>Heading 4</h4>
-        <h5>Heading 5</h5>
-        <h6>Heading 6</h6>
-        <h3>
-          Heading
-          <small class="text-muted">with muted text</small>
-        </h3>
-        <p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+        <h1>History behind</h1>
+        <p class="lead">
+          Everything began inside a team. <i class="fa fa-group"></i>
+        </p>
+        <p> We started to apply Elixir language, and we wanted to know how powerful it is, we decide to make a game where a lot of people interact between them.</p>
+        <p> The idea was there from the beginning of MakingDevs, but it's today when we have as a team the ability to build it.</p>
+        <p class="text-success">To be a keyboard hero you need a team.</p>
+      </div>
     </div>
     <div class="col-lg-4">
       <div class="bs-component">
-        <h2>Example body text</h2>
-        <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
-        <p><small>This line of text is meant to be treated as fine print.</small></p>
-        <p>The following is <strong>rendered as bold text</strong>.</p>
-        <p>The following is <em>rendered as italicized text</em>.</p>
-        <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+        <h2>Your mission</h2>
+        <p class="lead">
+          Be a hero! <i class="fa fa-rocket"></i>
+        </p>
+        <p>Visualize yourself as the best typewriter, and with that power defeat the bad guys. </p>
+        <p>You must grow up your skills and get powerful with the keyboard.</p>
       </div>
 
     </div>
     <div class="col-lg-4">
       <div class="bs-component">
-        <h2>Emphasis classes</h2>
-        <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
-        <p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
-        <p class="text-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-        <p class="text-info">Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <h2>The strategy...</h2>
+        <p class="lead">
+          ... is practice, every single day of your life.
+        </p>
+        <p>
+          In our roadmap we want to add:
+          <ul>
+            <li>Progressive lessons</li>
+            <li>More animations</li>
+            <li>Terminal mode</li>
+          </ul>
+        </p>
+        <p class="text-info">  We want to provide more fun ways to dominate your keyboard. <i class="fas fa-keyboard"></i> </p>
       </div>
 
     </div>
