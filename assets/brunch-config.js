@@ -2,7 +2,10 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: {
+        "js/app.js": /^(js\/global|node_modules)/,
+        "js/racer.js": /^(js\/racer|node_modules)/
+      }
 
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
@@ -54,7 +57,8 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/app"],
+      "js/app.js": ["js/global/app"],
+      "js/racer.js": ["js/racer/racer"],
       "js/racer_controller.js": ["js/racer_controller"]
     }
   },
