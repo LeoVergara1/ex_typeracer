@@ -36,7 +36,7 @@
       <% end %>
       <canvas id="canvas" width="200" height="100">
       </canvas>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/recovery.js") %>"></script>
 
 </body>
 </html>

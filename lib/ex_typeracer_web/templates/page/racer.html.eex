@@ -113,4 +113,3 @@
       <canvas id="canvas" width="200" height="100">
 
       </canvas>
-    <script src="<%= static_path(@conn, "/js/racer.js") %>"></script>
