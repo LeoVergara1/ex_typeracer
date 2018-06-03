@@ -7,40 +7,7 @@ defmodule ExTyperacerWeb.PageController do
   plug Ueberauth
 
   def index(conn, _params) do
-    changeset = PersonRepo.change_user(%Person{})
-    maybe_user = Guardian.Plug.current_resource(conn)
-    message = if maybe_user != nil do
-      "Someone is logged in"
-    else
-      "Ya estas registrado ? "
-    end
-    conn
-      |> put_flash(:info, message)
-      |> render("index.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
-  end
-
-  def login(conn, %{"person" => %{"username" => username, "password" => password}}) do
-    PersonRepo.authenticate_user(username, password)
-    |> login_reply(conn)
-  end
-
-  defp login_reply({:error, error}, conn) do
-    conn
-    |> put_flash(:error, error)
-    |> redirect(to: "/")
-  end
-
-  defp login_reply({:ok, person}, conn) do
-    conn
-    |> put_flash(:success, "Welcome back!")
-    |> Guardian.Plug.sign_in(person)
-    |> redirect(to: "/")
-  end
-
-  def logout(conn, _) do
-    conn
-    |> Guardian.Plug.sign_out()
-    |> redirect(to: page_path(conn, :login))
+    render(conn, "index.html")
   end
 
   def secret(conn, _params) do
@@ -90,7 +57,7 @@ defmodule ExTyperacerWeb.PageController do
         IO.puts "Validao"
         user_id = user_id
         {user_id, true}
-      {:error, _} -> 
+      {:error, _} ->
         IO.puts "El token expiro"
         false
         {0, false}
@@ -105,7 +72,7 @@ defmodule ExTyperacerWeb.PageController do
     response = PersonRepo.find_user_by_id(String.to_integer(id["id"]))
     IO.inspect response
     case response do
-      {:ok, person} -> 
+      {:ok, person} ->
         res = PersonRepo.update_person person, new_password
         IO.inspect "Esta es la respuesta"
         IO.inspect res

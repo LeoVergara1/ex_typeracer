@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/login.css") %>">
   </head>
-  <body>
+  <body style="background-image: url('http://www.techcredo.com/wp-content/uploads/2012/11/retro-8-bit-pixelart-wallpapers-19.jpg')">
 
     <%= render @view_module, @view_template, assigns %>
 
