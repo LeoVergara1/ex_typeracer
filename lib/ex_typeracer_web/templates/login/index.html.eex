@@ -1,18 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form class="form-signin">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <%= form_for @changeset, login_path(@conn, :login), [class: "form-signin"], fn f -> %>
+        <h1 class="h2 mb-3 font-weight-normal">Who are you?</h1>
+        <%= if @maybe_user != nil do %>
+          <div class="alert alert-dismissible alert-primary">
+            <p>Hello <%= @maybe_user.username%>!</p>
+            <%= link(" ", to: page_path(@conn, :logout), method: :post, class: "fa fa-user-times") %>
+            <strong>Heads up!</strong> Your hero already exists!
+          </div>
+        <% end %>
+        <%= if get_flash(@conn, :error) do %>
+          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <% end %>
         <input type="hidden" name="_csrf_token" id="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>" />
-        <label for="inputEmail" class="sr-only">Email or username</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email or username" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <label for="inputEmail" class="sr-only">Email or heroname</label>
+        <input id="username" name="person[username]" placeholder="Email or heroname" class="form-control" type="text" required="">
+        <label for="inputPassword" class="sr-only">Secret phrase</label>
+        <input id="password" name="person[password]" placeholder="Secret phrase" class="form-control" type="password" required="">
         <div class="checkbox mb-3">
+          Don't worry your secret is save with us!
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Go ahead!</button>
+        <!-- small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small-->
+      <% end %>
     </div>
   </div>
   <p class="mt-5 mb-3 text-muted text-center">© MakingDevs 2017-2018</p>
