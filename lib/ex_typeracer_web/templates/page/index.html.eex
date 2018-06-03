@@ -13,6 +13,8 @@
             </p>
           </div>
           <div class="col">
+          </div>
+          <div class="col">
             <div class="card mb-3" style="max-width: 30rem;">
               <div class="card-body">
                 <form action="/new_user" method="post" id="register_form">
