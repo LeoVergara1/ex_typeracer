@@ -9,7 +9,8 @@ exports.config = {
     stylesheets: {
       joinTo: {
         "css/app.css": /^(css\/global|node_modules)/,
-        "css/recovery.css":  /^(css\/recovery|node_modules)/
+        "css/recovery.css":  /^(css\/recovery|node_modules)/,
+        "css/login.css":  /^(css\/login|node_modules)/
       }
     },
     templates: {

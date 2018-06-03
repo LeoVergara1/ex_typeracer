@@ -11,7 +11,7 @@ defmodule ExTyperacerWeb.Router do
 
   pipeline :auth do
     plug ExTyperacer.Auth.Pipeline
-  end 
+  end
 
   pipeline :ensure_auth do
     plug Guardian.Plug.EnsureAuthenticated
@@ -36,23 +36,28 @@ defmodule ExTyperacerWeb.Router do
 
   scope "/ranking", ExTyperacerWeb do
     pipe_through [:browser, :auth] # Use the default browser stack
-    
+
     get "/", RankingController, :index
   end
-  
+
 
   scope "/auth", ExTyperacerWeb do
     pipe_through [:browser, :auth] # Use the default browser stack
-    
+
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end
 
   scope "/auth", ExTyperacerWeb do
     pipe_through [:browser, :auth] # Use the default browser stack
-    
+
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
+  end
+
+  scope "/login", ExTyperacerWeb do
+    pipe_through [:browser, :auth] # Use the default browser stack
+    get "/", LoginController, :index
   end
 
   # Other scopes may use custom stacks.
