@@ -1,13 +1,46 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="bs-component">
-      <div class="jumbotron">
-        <h1 class="display-3">Welcome Hero!</h1>
-        <p class="lead">Grow your finger skills and defeat the bad guys!</p>
-        <p>Really, this a little project to challenge you to write accuracily and get fun with your friends.</p>
-        <p class="lead">
-        <%=button("Play now !!!", to: "/racer", method: "get", class: "btn btn-primary btn-lg")%>
-        </p>
+      <div class="jumbotron" style="background-image: url('http://futurestuffs.com/wp-content/uploads/2018/03/8-Bit-Wallpapers-Backgrounds-Images-209872.jpg')">
+        <div class="row">
+          <div class="col">
+            <h1 class="display-3">Welcome Hero!</h1>
+            <p class="lead">Grow your finger skills and defeat the bad guys!</p>
+            <p>Really, this a little project to challenge you to write accuracily and get fun with your friends.</p>
+            <p class="lead">
+            <%=button("Just play...", to: "/racer", method: "get", class: "btn btn-primary btn-lg")%>
+            <%=button("Use your hero!", to: "/login", method: "get", class: "btn btn-secondary btn-lg")%>
+            </p>
+          </div>
+          <div class="col">
+            <div class="card mb-3" style="max-width: 30rem;">
+              <div class="card-body">
+                <form action="/new_user" method="post" id="register_form">
+                  <h1 class="h3 mb-3 font-weight-normal">Be an autentic hero!</h1>
+                  <input type="hidden" name="_csrf_token" id="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>" />
+                  <%= if get_flash(@conn, :error) do %>
+                    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+                  <% end %>
+                  <label for="person[username]" class="sr-only">
+                    Heroname<i class="fa fa-check" id="icon_check"></i> <i class="fa fa-exclamation-triangle" id="icon_warning"></i>
+                  </label>
+                  <input type="text" name="person[username]" id="validUsername" class="form-control" placeholder="Heroname" pattern="[^\s]+" title="Please dont use the white space :)" />
+                  <label for="person[email]" class="sr-only">E-mail <i class="fa fa-check" id="icon_check_email"></i> <i class="fa fa-exclamation-triangle" id="icon_warning_email"></i></label>
+                  <input type="text" name="person[email]" class="form-control" placeholder="E-mail" id="validEmail" />
+                  <label for="person[password]" class="sr-only">Super secret password <i class="fa fa-eye" id="icon_showing_pass"></i></label>
+                  <input type="password" name="person[password]" class="form-control" placeholder="Super secret password" id="registerPass"/>
+                  <div class="checkbox mb-3">
+                  </div>
+                  <button class="btn btn-lg btn-success btn-block" type="submit">Start the adventure!</button>
+                  <!--a href="auth/facebook" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span>
+                    <df style=" margin: 30px;">Be a hero with Facebook</df>
+                  </a-->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
