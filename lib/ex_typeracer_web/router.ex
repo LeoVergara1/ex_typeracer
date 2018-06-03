@@ -58,6 +58,7 @@ defmodule ExTyperacerWeb.Router do
   scope "/login", ExTyperacerWeb do
     pipe_through [:browser, :auth] # Use the default browser stack
     get "/", LoginController, :index
+    post "/", LoginController, :login
   end
 
   # Other scopes may use custom stacks.
