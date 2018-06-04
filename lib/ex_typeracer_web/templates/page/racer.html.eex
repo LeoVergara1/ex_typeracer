@@ -1,33 +1,23 @@
-<div id='stars'></div>
-<div id='stars2'></div>
-<div id='stars3'></div>
-  <div clas="col-lg-12">
-    <div class="col-lg-4 offset-lg-8" id="container_timer_waiting">Tiempo de espera: <span id="timer_waiting">10</span></div>
-    <div class="col-lg-4 offset-lg-8" id="container_timer_playing" style="display: none">Tiempo para terminar el juego: <span id="timer_playing">0</span></div>
-  </div>
-  <div>
-  </div>
+<div clas="col-lg-12">
+  <div class="col-lg-4 offset-lg-8" id="container_timer_waiting">Tiempo de espera: <span id="timer_waiting">10</span></div>
+  <div class="col-lg-4 offset-lg-8" id="container_timer_playing" style="display: none">Tiempo para terminar el juego: <span id="timer_playing">0</span></div>
+</div>
 
 <div id="container-header-player">
-<%= if @name_room != nil do %>
   <div class="jumbotron" id="initMenu">
-    <button class="btn btn-primary" id="playing_now">Jugar Ahora</button>
+    <%= if @name_room != nil do %>
+      <button class="btn btn-success" id="playing_now">Jugar Ahora</button>
+    <% else %>
+      <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Save the world!</button>
+      <button class="btn btn-secondary" data-toggle="modal" data-target="#joinMatchModal">Join me with a team</button>
+    <% end %>
   </div>
-<% else %>
-  <div class="jumbotron" id="initMenu">
-    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Iniciar una partida</button>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#joinMatchModal">Unirse a una partida</button>
-  </div>
-<% end %>
 </div>
 
-<div id="list_user_area">
-</div>
-<div id="container-run-area">
-</div>
+<div id="list_user_area"> </div>
+<div id="container-run-area"> </div>
+<div id="timer_run_area"> </div>
 
-<div id="timer_run_area">
-</div>
 <div id="list_roms_container">
   <div class="rooms">
     <label for="room">Lista de partidas en curso</label>
@@ -35,8 +25,10 @@
     </div>
   </div>
 </div>
+
 <div id="list_positions_container">
 </div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -102,14 +94,11 @@
 <%= hidden_input :url, :url, value: @name_room %>
 
 <%= render "run_text.html" %>
-  <%= render "timer_template.html" %>
-    <%= render "list_users.html" %>
-    <%= render "positions_to_player.html" %>
-    <%= render "finish_modal_racer.html" %>
+<%= render "timer_template.html" %>
+<%= render "list_users.html" %>
+<%= render "positions_to_player.html" %>
+<%= render "finish_modal_racer.html" %>
 <%= render "register_modal.html" %>
 <%= render "login_modal.html" %>
 
-
-      <canvas id="canvas" width="200" height="100">
-
-      </canvas>
+<canvas id="canvas" width="200" height="100"></canvas>

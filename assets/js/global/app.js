@@ -22,8 +22,6 @@ import "phoenix_html"
 import socket from "./socket"
 import { RacerController } from "./racer_controller.js"
 import { MatchController } from "./match_controller.js"
-import { RecoveryController } from "./recovery";
 
 RacerController.start()
 MatchController.start()
-RecoveryController.start()

@@ -8,6 +8,7 @@
     <meta name="author" content="">
 
     <title>Hello ExTyperacer!</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/recovery.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 </head>
 <body>
@@ -34,9 +35,7 @@
         <h2>Token invalido o ha expirado</h2>
       </div>
       <% end %>
-      <canvas id="canvas" width="200" height="100">
-      </canvas>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/recovery.js") %>"></script>
 
 </body>
 </html>
