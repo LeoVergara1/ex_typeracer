@@ -18,7 +18,7 @@ defmodule ExTyperacer.Person do
   def changeset(person, attrs) do
     person
     |> cast(attrs, [:name, :lastname, :email, :password, :username])
-    |> validate_required([:name, :lastname, :email, :password, :username])
+    |> validate_required([:email, :password, :username])
     |> unsafe_validate_unique([:email], ExTyperacer.Repo, message: "Email already registered")
     |> unsafe_validate_unique([:username], ExTyperacer.Repo, message: "Username already registered")
     |> put_pass_hash() 
