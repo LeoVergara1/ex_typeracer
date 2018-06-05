@@ -7,7 +7,10 @@ defmodule ExTyperacerWeb.PageController do
   plug Ueberauth
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    [changeset, maybe_user, message] = chack_session conn
+    conn
+      |> put_flash(:info, message)
+      |> render("index.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
   end
 
   def secret(conn, _params) do
@@ -15,13 +18,7 @@ defmodule ExTyperacerWeb.PageController do
   end
 
   def racer(conn, %{"name_rom" => name_rom}) do
-    changeset = PersonRepo.change_user(%Person{})
-    maybe_user = Guardian.Plug.current_resource(conn)
-    message = if maybe_user != nil do
-      "Someone is logged in"
-    else
-      "Ya estas registrado ? "
-    end
+    [changeset, maybe_user, message] = chack_session conn
     conn
       |> put_flash(:info, message)
       |> render("racer.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user, name_room: name_rom)
@@ -84,5 +81,16 @@ defmodule ExTyperacerWeb.PageController do
 
   defp map_to_kwl(map) do
     for {k, v} <- map, do: {String.to_atom(k), v}
+  end
+
+  defp chack_session(conn) do
+    changeset = PersonRepo.change_user(%Person{})
+    maybe_user = Guardian.Plug.current_resource(conn)
+    message = if maybe_user != nil do
+      "Someone is logged in"
+    else
+      "Ya estas registrado ? "
+    end
+    [changeset, maybe_user, message]
   end
 end
