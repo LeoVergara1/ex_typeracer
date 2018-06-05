@@ -35,28 +35,27 @@ export var RacerController = {
     this.channelRoom.push("exist_username", username)
       .receive('ok', resp => { console.log(resp)
         if (resp.existed){
-          $("#icon_check").hide()
-          $("#icon_warning").show()
+          $("#validUsername").addClass("is-invalid")
         }
         else {
-          $("#icon_check").show()
-          $("#icon_warning").hide()
+          $("#validUsername").removeClass("is-invalid")
         }
       })
   },
 
   knowExistEmail: function (email) {
+    let hasExisted = false
     this.channelRoom.push("exist_email", email)
       .receive('ok', resp => { console.log(resp)
         if (resp.existed){
-          $("#icon_check_eamil").hide()
-          $("#icon_warning_email").show()
+          $("#validEmail").addClass("is-invalid")
+          hasExisted = true;
         }
         else {
-          $("#icon_check_email").show()
-          $("#icon_warning_email").hide()
+          $("#validEmail").removeClass("is-invalid")
         }
       })
+      return hasExisted
   },
   listnenKeyBoeard: function(){
     let that = this
@@ -303,15 +302,14 @@ export var RacerController = {
   },
 
   validateFormRegister: function (){
+    let that = this
     $("#submit_button_register").on("click", () => {
       console.log("hgh")
-      if ($("#icon_check").is(":visible") && $("#icon_check_email").is(":visible")){
+      let email = $("#validEmail").val()
+      let username = $("#validUsername").val()
+      if ( !$(".invalid-feedback").is(":visible") ){
         $("#register_form").submit()
       }
-      else {
-        $("#warning_register").show()
-      }
-      
     })
   },
 
