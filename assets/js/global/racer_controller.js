@@ -171,10 +171,11 @@ export var RacerController = {
         msg.game.forEach(element => {
           console.log(element)
           $(`#${element.username}`).text(element.score)
-          let score = (element.score) * .83
+          let score = (element.score) * 1 // Porcent of div in case of be more little
           console.log(score)
           $(`#${element.username}-sprite`).css("margin-left", `${score}%`)
-          console.log($(`#${that.username}-sprite`))
+          $(`#${element.username}-bar`).css("width", `${score}%`)
+          console.log($(`#${that.username}-bar`))
         });
       });
       
