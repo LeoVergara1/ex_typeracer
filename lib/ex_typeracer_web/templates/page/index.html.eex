@@ -17,6 +17,9 @@
           <div class="col">
             <div class="card mb-3" style="max-width: 30rem;">
               <div class="card-body">
+                <%= if @maybe_user do %>
+                    Estas login
+                <% else %>
                 <form action="/new_user" method="post" id="register_form">
                   <h1 class="h3 mb-3 font-weight-normal">Be an autentic hero!</h1>
                   <input type="hidden" name="_csrf_token" id="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>" />
@@ -56,6 +59,8 @@
                   </a-->
                 </form>
                   <button class="btn btn-lg btn-success btn-block" id="submit_button_register">Start the adventure!</button>
+                <% end %>
+              
               </div>
             </div>
           </div>
