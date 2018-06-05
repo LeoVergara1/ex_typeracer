@@ -412,7 +412,7 @@ export var RacerController = {
     this.initChannelPlayers()
     this.initChannelScores()
     this.initChannelRoom()
-    this.scenePlayer()
+    //this.scenePlayer()
     this.listnenKeyBoeard()
     this.validateFormRegister()
     this.listenFromListRooms()
