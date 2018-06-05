@@ -4,6 +4,7 @@ import { MatchController } from "./match_controller";
 import "sprite-js"
 import "./sprite"
 import "bootstrap-notify"
+import "jquery-validation"
 
 export var RacerController = {
   uuid: Math.floor((Math.random() * 10000) + 1),
@@ -403,6 +404,24 @@ export var RacerController = {
       
     })
   },
+  initValidationsForms: function () {
+    $("#register_form").validate({
+      rules: {
+        'person[username]': {
+          required: true,
+          normalizer: function(value) {
+            return $.trim(value);
+          }
+        },
+        'person[email]': {
+          required: true,
+        },
+        'person[password]': {
+          required: true
+        }
+      }
+    });
+  },
 
   bindEvents:function (){
     this.initRom()
@@ -419,6 +438,7 @@ export var RacerController = {
     this.recoveryPass()
     this.validateNamesRoom()
     this.playingAgain()
+    this.initValidationsForms()
   },
 
   testContext: function(){
