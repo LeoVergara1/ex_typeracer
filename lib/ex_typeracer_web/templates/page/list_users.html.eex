@@ -1,4 +1,6 @@
 <script id="list_users_players" type="text/x-handlebars-template">
+<div id="link_shared_room">
+</div>
  <div id="list_users">
   <p class="lead">Lista de jugadores en esta sala: </p>
   <ul class="list-group">
