@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col">
+            <%= link(" ", to: login_path(@conn, :logout), method: :post, class: "fa fa-user-times") %>
       <%= form_for @changeset, login_path(@conn, :login), [class: "form-signin"], fn f -> %>
         <h1 class="h2 mb-3 font-weight-normal">Who are you?</h1>
         <%= if @maybe_user != nil do %>
           <div class="alert alert-dismissible alert-primary">
             <p>Hello <%= @maybe_user.username%>!</p>
-            <%= link(" ", to: login_path(@conn, :logout), method: :post, class: "fa fa-user-times") %>
             <strong>Heads up!</strong> Your hero already exists!
           </div>
         <% end %>

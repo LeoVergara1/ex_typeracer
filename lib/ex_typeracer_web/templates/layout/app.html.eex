@@ -28,6 +28,11 @@
         </ul>
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
+            <%= link(" ", to: login_path(@conn, :logout), method: :post, class: "fa fa-user-times") %>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
             <%=link("Global ranking", to: "/ranking", method: "get", class: "nav-link")%>
           </li>
         </ul>
