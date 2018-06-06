@@ -21,6 +21,9 @@
         <div class="checkbox mb-3">
           Don't worry your secret is save with us!
         </div>
+        <div class="checkbox mb-3">
+          Recovery your passwod?
+        </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Go ahead!</button>
         <!-- small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small-->
       <% end %>
