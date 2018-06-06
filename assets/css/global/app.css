@@ -1,4 +1,19 @@
 /* This file is for your main application css. */
-.gren-bar{
+.green-bar{
+  background-color: green
+}
+.blue-bar{
+  background-color: blue
+}
+.yellow-bar{
+  background-color: yellow
+}
+.red-bar{
+  background-color: red
+}
+.orange-bar{
+  background-color: orange
+}
+.brown-bar{
   background-color: brown
 }
