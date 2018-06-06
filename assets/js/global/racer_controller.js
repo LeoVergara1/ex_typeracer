@@ -458,6 +458,7 @@ export var RacerController = {
     $temp.val(text).select();
     document.execCommand("copy");
     $temp.remove();
+    $.notify({message: 'Link copied' },{ type: 'info'});
   },
   sharedLink: function(){
     let that = this
