@@ -227,14 +227,11 @@ export var RacerController = {
     playersList.forEach(function(val,index) { 
       if(val.username == that.username){
         currentPlayer = val
-        debugger;
      }
    })
    let index = playersList.indexOf(currentPlayer)
    playersList.splice(index, 1)  
    playersList.unshift(currentPlayer)
-   console.log(playersList)
-
   }, 
   updatingPlayers: function (name_room) {
     let that = this
@@ -243,9 +240,6 @@ export var RacerController = {
       console.log(msg)
       let userList = msg.game.players;
       that.removeCurrentPlayer(userList)
-      debugger;
-      console.log(this.username)
-      console.log("Este es el que quiero")
       HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", { userList }, "list_user_area")
       that.assigmentColors()
     });
@@ -458,6 +452,20 @@ export var RacerController = {
       $( this ).addClass(that.colors_bar[index]);
     });
   },
+  copyToClipboard: function (text) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(text).select();
+    document.execCommand("copy");
+    $temp.remove();
+  },
+  sharedLink: function(){
+    let that = this
+    $("#timer_run_area").on("click", "#link_to_shared",() => {
+      console.log($("#link_input").val())
+      that.copyToClipboard($("#link_input").val())
+    })
+  },
 
   bindEvents:function (){
     this.initRom()
@@ -475,6 +483,7 @@ export var RacerController = {
     this.validateNamesRoom()
     this.playingAgain()
     this.initValidationsForms()
+    this.sharedLink()
   },
 
   testContext: function(){
