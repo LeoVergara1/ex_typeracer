@@ -3,7 +3,8 @@ exports.config = {
     javascripts: {
       joinTo: {
         "js/app.js": /^(js\/global|node_modules)/,
-        "js/recovery.js": /^(js\/recovery|node_modules)/
+        "js/recovery.js": /^(js\/recovery|node_modules)/,
+        "js/login.js": /^(js\/login|node_modules)/
       }
     },
     stylesheets: {
@@ -39,6 +40,7 @@ exports.config = {
     autoRequire: {
       "js/app.js": ["js/global/app"],
       "js/recovery.js": ["js/recovery/recovery"],
+      "js/login.js": ["js/login/login"],
       "js/racer_controller.js": ["js/racer_controller"]
     }
   },

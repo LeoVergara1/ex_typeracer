@@ -22,7 +22,7 @@
           Don't worry your secret is save with us!
         </div>
         <div class="checkbox mb-3">
-          Recovery your passwod?
+          <a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Go ahead!</button>
         <!-- small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small-->
@@ -32,3 +32,7 @@
   <p class="mt-5 mb-3 text-muted text-center">© MakingDevs 2017-2018</p>
 </div>
 
+
+<%= render "login_modal.html" %>
+
+<script src="<%= static_path(@conn, "/js/login.js") %>"></script>

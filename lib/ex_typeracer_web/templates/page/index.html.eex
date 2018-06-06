@@ -116,4 +116,3 @@
 </div>
 
 <%= render "register_modal.html" %>
-<%= render "login_modal.html" %>
