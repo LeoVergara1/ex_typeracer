@@ -14,6 +14,15 @@ export var RacerController = {
   username:null,
   name_room: null,
   uuid_game: null,
+  colors_bar: {
+    0: "black-bar",
+    1: "green-bar",
+    2: "blue-bar",
+    3: "yellow-bar",
+    4: "red-bar",
+    5: "orange-bar",
+    6: "brown-bar"
+  },
 
   initChannelRoom: function () {
     $("#container_timer_waiting").hide()
@@ -168,11 +177,12 @@ export var RacerController = {
 //      .receive('ok', resp => { console.log("ok",resp) })
 			// Socket donde llegarán todos los scores
 			this.channelScore.on("scores:show", msg => {
-        msg.game.forEach(element => {
+        msg.game.forEach((element, index) => {
           console.log(element)
           $(`#${element.username}`).text(element.score)
           let score = (element.score) * 1 // Porcent of div in case of be more little
-          console.log(score)
+          console.log("Lo que buscas")
+          console.log(element)
           $(`#${element.username}-sprite`).css("margin-left", `${score}%`)
           $(`#${element.username}-bar`).css("width", `${score}%`)
           console.log($(`#${that.username}-bar`))
@@ -213,12 +223,14 @@ export var RacerController = {
   },
 
   updatingPlayers: function (name_room) {
+    let that = this
     console.log(`Reinicia lista. ${name_room}`)
     this.channelRoom.on(`updating_player_${name_room}`, msg => {
       console.log(msg)
       let userList = msg.game.players;
       console.log(this.username)
       HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", { userList }, "list_user_area")
+      that.assigmentColors()
     });
   },
   joinRom: function(){
@@ -421,6 +433,12 @@ export var RacerController = {
           required: true
         }
       }
+    });
+  },
+  assigmentColors: function(){
+    let that = this
+    $( ".progress-bar" ).each(function(index) {
+      $( this ).addClass(that.colors_bar[index]);
     });
   },
 
