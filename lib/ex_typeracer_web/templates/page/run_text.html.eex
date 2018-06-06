@@ -1,7 +1,7 @@
 <script id="run_area" type="text/x-handlebars-template">
 
 <div class="container">
-  <h2>Texto para correr</h2>
+  <h2>Texto para correr</i></h2>
   <div class="panel panel-default">
     <div class="panel-body"> <span id="textCurrent"></span><spanFake id="cursorText" class="animated flash">|</spanFake><span id="textToValidate">{{data}}</span></div>
   </div>
