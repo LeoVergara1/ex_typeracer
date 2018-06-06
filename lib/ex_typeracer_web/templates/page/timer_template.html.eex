@@ -4,5 +4,7 @@
   <p id="status" class="lead">Ready</p>
   <p id="timer" class="lead"></p>
   <button class="btn btn-primary" id="start-timer">Start Timer</button>
+  <input type="hidden" value="{{{link_to_shared}}}" id="link_input">
+  <button class="btn btn-primary" id="link_to_shared">Shared <i class="fa fa-share-alt-square"></i></button>
 </div>
 </script>
