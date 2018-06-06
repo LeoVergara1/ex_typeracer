@@ -221,14 +221,31 @@ export var RacerController = {
       })
     })
   },
+  removeCurrentPlayer: function(playersList){
+    let currentPlayer
+    let that = this
+    playersList.forEach(function(val,index) { 
+      if(val.username == that.username){
+        currentPlayer = val
+        debugger;
+     }
+   })
+   let index = playersList.indexOf(currentPlayer)
+   playersList.splice(index, 1)  
+   playersList.unshift(currentPlayer)
+   console.log(playersList)
 
+  }, 
   updatingPlayers: function (name_room) {
     let that = this
     console.log(`Reinicia lista. ${name_room}`)
     this.channelRoom.on(`updating_player_${name_room}`, msg => {
       console.log(msg)
       let userList = msg.game.players;
+      that.removeCurrentPlayer(userList)
+      debugger;
       console.log(this.username)
+      console.log("Este es el que quiero")
       HandlebarsResolver.constructor.mergeViewWithModel("#list_users_players", { userList }, "list_user_area")
       that.assigmentColors()
     });
