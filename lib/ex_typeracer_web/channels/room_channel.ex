@@ -124,13 +124,14 @@ defmodule ExTyperacerWeb.RoomChannel do
 
   def handle_in("playing_again", payload, socket) do
     IO.inspect "Reinicia juego"
+    [game_server, game, players, list_rooms] = 
     if checking_game(payload["name_room"]) do
       IO.inspect " Te unes al juego "
-      [game_server, game, players, list_rooms] = join_game(payload)
+      join_game(payload)
     else
       IO.inspect "Inicia juego "
       IO.inspect payload
-      [game_server, players, game, list_rooms] = init_game(payload)
+      init_game(payload)
     end
     {:reply, {:ok, %{
             "list" => list_rooms,
