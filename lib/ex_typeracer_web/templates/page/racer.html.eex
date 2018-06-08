@@ -107,6 +107,5 @@
 <%= render "positions_to_player.html" %>
 <%= render "finish_modal_racer.html" %>
 <%= render "register_modal.html" %>
-<%= render "login_modal.html" %>
 
 <canvas id="canvas" width="200" height="100"></canvas>
