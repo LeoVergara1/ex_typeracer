@@ -37,7 +37,8 @@ export var RacerController = {
 	  this.channelRoom.on("list_rooms", msg => {
 				$("#list_roms").html("")
 					$.each(msg.rooms, function( index, value ) {
-            $("#list_roms").append(`<p><i class="fa fa-cloud "></i><strong > Sala: </strong> <span class="pointer room_ref">${value}</span></p> `)
+            console.log(value)
+            $("#list_roms").append(`<tr class="table-info pointer room_ref"><th scope="row">Sala</th><td name="room">${value}</td><td>Esperando</td>hola</tr> `)
 					});
 			});
   },
@@ -347,7 +348,8 @@ export var RacerController = {
       if(!that.username){
         that.username = `Guess${Math.floor((Math.random() * 100) + 1)}`
       }
-      that.name_room = $(e.currentTarget).text()
+      that.name_room = $(e.currentTarget).children("td[name='room']").text()
+      $("#link_to_shared").show()
       that.callJoinActive( that.username, that.name_room)
     });
   },

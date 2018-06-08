@@ -1,5 +1,7 @@
 <script id="timer_area" type="text/x-handlebars-template">
 <div class="jumbotron">
+  <p id="idRoom" class="lead"></p>
+  <p id="status" class="lead"></p>
   <p id="timer" class="lead"></p>
   <button class="btn btn-primary" id="start-timer">Start Timer</button>
   <input type="hidden" value="{{{link_to_shared}}}" id="link_input">
