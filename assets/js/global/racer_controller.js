@@ -201,6 +201,7 @@ export var RacerController = {
   initRom: function(){
     let that = this
     $("#start-room").on("click", () =>{
+      $("#list_roms_container").hide()
       console.log("click")
       $("#link_to_shared").show()
       that.uuid = $("#recipient_name").val()
