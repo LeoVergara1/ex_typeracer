@@ -375,21 +375,6 @@ export var RacerController = {
       $("#registerPass").prop("type", "password")
     })
   },
-  recoveryPass: function() {
-    $("#recovery_button").on("click", ()=> {
-      let email = $("#validEmail_pass").val()
-      console.log(email)
-      this.channelRoom.push("recovery_pass", email)
-        .receive('ok', resp => { console.log(resp)
-          if (resp.existed){
-            $.notify({message: 'Datos enviados' },{type: 'danger'});
-          }
-          else {
-            $.notify({message: 'El correo no existe' },{type: 'danger'});
-          }
-        })
-    })
-  },
   validateNamesRoom: function() {
     $(".valid_word").on("keyup", (e) =>{
       let name_room = $("#name_room_txt").val()
