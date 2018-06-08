@@ -4,7 +4,7 @@ exports.config = {
       joinTo: {
         "js/app.js": /^(js\/global|node_modules)/,
         "js/recovery.js": /^(js\/recovery|node_modules)/,
-        "js/login.js": /^(js\/login|node_modules)/
+        "js/login.js": /^(js\/login|node_modules|js\/global)/
       }
     },
     stylesheets: {
