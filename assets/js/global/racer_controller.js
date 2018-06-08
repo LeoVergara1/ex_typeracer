@@ -201,6 +201,7 @@ export var RacerController = {
     let that = this
     $("#start-room").on("click", () =>{
       console.log("click")
+      $("#link_to_shared").show()
       that.uuid = $("#recipient_name").val()
       that.name_room = $("#name_room_txt").val()
       console.log(that.name_room)
@@ -447,7 +448,7 @@ export var RacerController = {
   },
   sharedLink: function(){
     let that = this
-    $("#timer_run_area").on("click", "#link_to_shared",() => {
+    $("#link_to_shared").on("click",() => {
       console.log($("#link_input").val())
       that.copyToClipboard($("#link_input").val())
     })
