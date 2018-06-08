@@ -3,7 +3,7 @@
   <p id="idRoom" class="lead"></p>
   <p id="status" class="lead"></p>
   <p id="timer" class="lead"></p>
-  <button class="btn btn-primary" id="start-timer">Start Timer</button>
+  <button class="btn btn-primary" id="start-timer" style="margin-left: 40%">Start Timer</button>
   <input type="hidden" value="{{{link_to_shared}}}" id="link_input">
 </div>
 </script>
