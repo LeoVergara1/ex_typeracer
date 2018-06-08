@@ -17,3 +17,11 @@
 .brown-bar{
   background-color: brown
 }
+
+.text-font {
+  font-size: 20px;
+}
+
+#textCurrent {
+  color: #5bc0de
+}
