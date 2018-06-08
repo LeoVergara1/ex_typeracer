@@ -17,6 +17,11 @@ defmodule ExTyperacerWeb.LoginController do
     |> login_reply(conn)
   end
 
+  def login(username, conn, password) do
+    PersonRepo.authenticate_user(username, password)
+    |> login_reply(conn)
+  end
+
   defp login_reply({:error, error}, conn) do
     conn
     |> put_flash(:error, error)

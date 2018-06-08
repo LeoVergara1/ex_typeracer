@@ -4,6 +4,7 @@ defmodule ExTyperacerWeb.PageController do
   alias ExTyperacer.Person
   alias ExTyperacer.Logic.PersonRepo
   alias ExTyperacer.Auth.Guardian
+  alias ExTyperacerWeb.LoginController
   plug Ueberauth
 
   def index(conn, _params) do
@@ -44,6 +45,7 @@ defmodule ExTyperacerWeb.PageController do
     struct(%Person{}, kwl)
     |> PersonRepo.save_person
     |> PersonRepo.send_email_register(kwl[:password])
+    |> LoginController.login(conn, kwl[:password])
     redirect(conn, to: "/")
   end
 

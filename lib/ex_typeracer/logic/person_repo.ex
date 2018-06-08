@@ -23,6 +23,7 @@ defmodule ExTyperacer.Logic.PersonRepo do
 
   def send_email_register({:ok, person}, password) do
     Email.send_email_register(person, password) |> Mailer.deliver_now
+    person.username
   end
 
   def send_email_token_recovery(person) do
