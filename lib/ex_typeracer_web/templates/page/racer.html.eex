@@ -41,13 +41,18 @@
   </div>
 
 </div>
+<div class="container">
 
+<div class="row">
 <div id="list_roms_container">
   <div class="rooms">
     <label for="room">Lista de partidas en curso</label>
     <div id="list_roms">
     </div>
   </div>
+</div>
+
+</div>
 </div>
 
 <div id="list_positions_container">
