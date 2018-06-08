@@ -1,15 +1,31 @@
+<br/>
 <div clas="col-lg-12">
-  <div class="col-lg-4 offset-lg-8" id="container_timer_waiting">Tiempo de espera: <span id="timer_waiting">10</span></div>
-  <div class="col-lg-4 offset-lg-8" id="container_timer_playing" style="display: none">Tiempo para terminar el juego: <span id="timer_playing">0</span></div>
+  <div class="row">
+  <div class="col-lg-1 offset-lg-5">
+    <button class="btn btn-primary" id="link_to_shared"  style="display: none">Shared <i class="fa fa-share-alt-square"></i></button>
+    </div>
+     <div class="col-lg-1" id="container_timer_waiting" >
+       <h4>
+         <span id="timer_waiting">10</span> 
+        </h4>
+    </div>
+   <div class="col-lg-1" id="container_timer_playing" style="display: none">
+      <h4><span id="timer_playing">0</span></h4>
+    </div>
+  </div>
+  
 </div>
 
+<br/>
 <div id="container-header-player">
   <div class="jumbotron" id="initMenu">
     <%= if @name_room != nil do %>
       <button class="btn btn-success" id="playing_now">Jugar Ahora</button>
     <% else %>
+    <div class="col-lg-6 offset-lg-4">
       <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Save the world!</button>
       <button class="btn btn-secondary" data-toggle="modal" data-target="#joinMatchModal">Join me with a team</button>
+    </div>
     <% end %>
   </div>
 </div>
