@@ -465,7 +465,6 @@ export var RacerController = {
     this.listenFromListRooms()
     this.joinGameFromUrl()
     this.showingPass()
-    this.recoveryPass()
     this.validateNamesRoom()
     this.playingAgain()
     this.initValidationsForms()
