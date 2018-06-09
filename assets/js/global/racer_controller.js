@@ -102,7 +102,7 @@ export var RacerController = {
             that.showRunArea(name_room)
             $("#timer_run_area").hide();
             that.channelRoom.push("show_run_area", name_room)
-            that.animattionSprite()
+            //that.animattionSprite()
           }
       });
 
