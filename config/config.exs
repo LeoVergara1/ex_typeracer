@@ -47,13 +47,13 @@ client_secret: System.get_env("FACEBOOK_APP_SECRET")
 
 config :ex_typeracer, ExTyperacer.Mail.Mailer,
   adapter: Bamboo.SMTPAdapter,
-  server: "email-smtp.us-east-1.amazonaws.com",
-  port: 25,
-  username: System.get_env("ACOUNT"),
-  password: System.get_env("ACOUNT_PASS"),
+  server: System.get_env("SES_SERVER"),
+  port:  System.get_env("SES_PORT"),
+  username: System.get_env("SMTP_USERNAME"),
+  password: System.get_env("SMTP_PASSWORD"),
   tls: :if_available, # can be `:always` or `:never`
   allowed_tls_versions: [:"tlsv1", :"tlsv1.1", :"tlsv1.2"], # or {":system", ALLOWED_TLS_VERSIONS"} w/ comma seprated values (e.g. "tlsv1.1,tlsv1.2")
-  ssl: false, # can be `true`
+  ssl: true, # can be `true`
   retries: 1
 
 import_config "#{Mix.env}.exs"
