@@ -34,3 +34,4 @@ HELP.md
 /src/main/resources/static/third-party/
 /bin/src/main/resources/static/third-party/
 /bin/main/static/
+/bin/*
