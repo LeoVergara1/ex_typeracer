@@ -13,7 +13,7 @@ class AdministrarionController {
    @RequestMapping("/")
    @ResponseBody
    public ModelAndView home() {
-		 	ModelAndView model = new ModelAndView("home");
+		 	ModelAndView model = new ModelAndView("administration/home");
 			model.addObject("title", "Baeldung");
 			return model
    }
