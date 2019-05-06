@@ -1,0 +1,8 @@
+{
+  "name": "comisiones-li",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:ebcdesarrollo/comisiones-li.git",
+  "author": "Brandon Vergara <brandon@makingdevs.com>",
+  "license": "MIT"
+}
