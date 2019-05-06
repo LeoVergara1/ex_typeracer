@@ -1,0 +1,6 @@
+security:
+  cas:
+    server:
+      base-url: https://apr-test.ebc.edu.mx/casad
+    service:
+      base-url: http://localhost:8080
