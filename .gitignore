@@ -30,3 +30,7 @@ HELP.md
 .vscode/
 ### YARN ###
 /src/resources/third-party/
+/src/main/resources/third-party/
+/src/main/resources/static/third-party/
+/bin/src/main/resources/static/third-party/
+/bin/main/static/
