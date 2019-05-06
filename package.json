@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@bitbucket.org:ebcdesarrollo/comisiones-li.git",
   "author": "Brandon Vergara <brandon@makingdevs.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.3.1"
+  }
 }
