@@ -10,3 +10,9 @@ spring:
     driver-class-name: oracle.jdbc.OracleDriver
     username: pgocomis
     password: l4bboc1
+db2:
+  datasource:
+    url: jdbc:oracle:thin:@10.31.23.34:1521:TEST8
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: admseg
+    password: j4n1t0r3es
