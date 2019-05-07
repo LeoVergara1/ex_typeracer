@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 
 @Configuration
-//@EnableJpaRepositories(basePackageClasses = CampusRepository.class,
-//		entityManagerFactoryRef = "secondEntityManagerFactory")
+@EnableJpaRepositories(basePackages = ["mx.edu.ebc.comisiones.seguridad.repo"],
+		entityManagerFactoryRef = "secondEntityManagerFactory")
 public class SeguridadConfig {
 
 }

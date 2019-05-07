@@ -2,7 +2,7 @@ package mx.edu.ebc.comisiones.comision.data
 
 import javax.persistence.*
 
-@Entity
+//@Entity
 class AdminDeComisiones {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
