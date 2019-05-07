@@ -7,7 +7,8 @@ import javax.persistence.*
 class Campus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer nidbitacora
+	@Column(name = "NIDBITACORA")
+	Integer id
 	Integer nnumeroempleado
 	Date dfecha
 	String vnombreusuario
