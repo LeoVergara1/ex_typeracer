@@ -39,6 +39,15 @@ class AdministrarionController {
   public ModelAndView administrationShow() {
 		ModelAndView model = new ModelAndView("administration/show");
 		model.addObject("comisionesList", administrationService.findAllComission());
+		model.addObject("comissionEjecutiva", administrationService.findAllComission().first().comisionEjecutivo);
+		model.addObject("comissionCordinacion", administrationService.findAllComission().first().comisionCoordinacion);
+		return model
+  }
+
+  @RequestMapping("administration/association")
+  @ResponseBody
+  public ModelAndView association() {
+		ModelAndView model = new ModelAndView("administration/association");
 		return model
   }
 }
