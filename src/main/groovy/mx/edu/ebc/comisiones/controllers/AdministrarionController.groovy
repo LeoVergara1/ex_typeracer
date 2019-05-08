@@ -29,11 +29,16 @@ class AdministrarionController {
   public ModelAndView home() {
 		ModelAndView model = new ModelAndView("administration/home");
 		//def list = adminDeComisionesRepository.findAll()
-		administrationService.anyfunction()
-		def list = campusRepository.findAll()
-		println list.dump()
 		model.addObject("title", "Baeldung");
 		model.addObject("any", "Hola mundo");
+		return model
+  }
+
+  @RequestMapping("administration/show")
+  @ResponseBody
+  public ModelAndView administrationShow() {
+		ModelAndView model = new ModelAndView("administration/show");
+		model.addObject("comisionesList", administrationService.findAllComission());
 		return model
   }
 }
