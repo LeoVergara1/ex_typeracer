@@ -594,3 +594,7 @@ table#unidades td>a span{
 	 background-color:rgb(98,98,98);
 	 color: white !important;
 }
+.btn-primary {
+	background-color: #337ab7;
+  border-color: #2e6da4;
+}
