@@ -39,6 +39,37 @@
 				</form>
 	</div>
 </div>
+<hr>
+<div class="row">
+	<div class="col-lg-12">
+			<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Nombre Promotor</th>
+							<th scope="col">ID Promotor</th>
+							<th scope="col">Puesto</th>
+							<th scope="col">Clave de empleado</th>
+							<th scope="col">Campus</th>
+							<th scope="col">ID Coordinador</th>
+							<th scope="col">Nombre Coordinador</th>
+							<th scope="col">Clave de empleado</th>
+							<th scope="col">Habilitado</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#listAssociation}}
+						<tr>
+							<th scope="row">{{campusDesc}}</th>
+							<td>{{comisionCoordinacion}}</td>
+							<td>{{cuotaFija}}</td>
+							<td><a name="" id="" class="btn btn-primary" href="#" role="button">Actualizar</a></td>
+						</tr>
+						{{/listAssociation}}
+					</tbody>
+				</table>
+	</div>
+</div>
 </div>
 
 {{> footer}}
