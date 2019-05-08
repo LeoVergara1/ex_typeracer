@@ -1,5 +1,5 @@
 
-package mx.edu.ebc.comisiones.seguridad.data
+package mx.edu.ebc.comisiones.seguridad.domain
 
 import javax.persistence.*
 

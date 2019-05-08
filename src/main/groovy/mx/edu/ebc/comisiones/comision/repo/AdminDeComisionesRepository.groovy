@@ -1,6 +1,6 @@
 package mx.edu.ebc.comisiones.comision.repo
 
-import mx.edu.ebc.comisiones.comision.data.AdminDeComisiones;
+import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository
 

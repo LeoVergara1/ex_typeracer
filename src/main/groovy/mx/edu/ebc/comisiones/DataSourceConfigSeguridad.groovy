@@ -40,7 +40,7 @@ public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder
 			.dataSource(secondDataSource())
-			.packages("mx.edu.ebc.comisiones.seguridad.data")
+			.packages("mx.edu.ebc.comisiones.seguridad.domain")
 			.persistenceUnit("second")
 			.build();
 }

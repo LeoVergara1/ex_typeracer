@@ -1,4 +1,4 @@
-package mx.edu.ebc.comisiones.comision.data
+package mx.edu.ebc.comisiones.comision.domain
 
 import javax.persistence.*
 

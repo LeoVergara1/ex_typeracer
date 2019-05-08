@@ -37,7 +37,7 @@ public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder
 			.dataSource(firstDataSource())
-			.packages("mx.edu.ebc.comisiones.comision.data")
+			.packages("mx.edu.ebc.comisiones.comision.domain")
 			.persistenceUnit("first")
 			.build();
 }
