@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import org.springframework.context.ApplicationContext
+import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 
 @Controller
 class AdministrarionController {
@@ -17,16 +19,21 @@ class AdministrarionController {
 	AdministrationService administrationService
 	@Autowired
 	ApplicationContext applicationContext
+	@Autowired
+	CampusRepository campusRepository
+	@Autowired
+	AdminDeComisionesRepository adminDeComisionesRepository
 
   @RequestMapping("/")
   @ResponseBody
   public ModelAndView home() {
 		ModelAndView model = new ModelAndView("administration/home");
-		//def list = adminDeComisionesRepository.getAll()
+		def list = adminDeComisionesRepository.findAll()
+		println list.dump()
 		administrationService.anyfunction()
+		//def list = campusRepository.findAll()
 		model.addObject("title", "Baeldung");
 		model.addObject("any", "Hola mundo");
-		println applicationContext.dump()
 		return model
   }
 }

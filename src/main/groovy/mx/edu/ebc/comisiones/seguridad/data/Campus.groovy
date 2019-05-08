@@ -4,16 +4,11 @@ package mx.edu.ebc.comisiones.seguridad.data
 import javax.persistence.*
 
 @Entity
+@Table(name = "CAMPUS")
 class Campus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "NIDBITACORA")
 	Integer id
-	Integer nnumeroempleado
-	Date dfecha
-	String vnombreusuario
-	String vtipo
-	String vdescripcion
-	String vnombreportal
+	String campusCode
 
 }

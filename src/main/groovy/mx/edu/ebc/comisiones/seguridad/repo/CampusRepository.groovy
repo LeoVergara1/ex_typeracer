@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 public interface CampusRepository extends JpaRepository<Campus,Integer> {
-
+	List<Campus> findAll()
 }

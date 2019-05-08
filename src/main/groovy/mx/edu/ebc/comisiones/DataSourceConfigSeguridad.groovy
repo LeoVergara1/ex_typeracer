@@ -17,31 +17,33 @@ import com.zaxxer.hikari.HikariDataSource
 import org.apache.commons.dbcp.BasicDataSource
 
 @Configuration
-public class DataSourceConfig {
+public class DataSourceConfigSeguridad {
 
-//@Bean
-//@ConfigurationProperties("spring.datasource")
-//public DataSourceProperties firstDataSourceProperties() {
-//	return new DataSourceProperties();
-//}
-//
-//@Bean
-//@ConfigurationProperties("spring.datasource.configuration")
-//public BasicDataSource firstDataSource() {
-//	return firstDataSourceProperties().initializeDataSourceBuilder()
-//			.type(BasicDataSource.class).build();
-//}
-//
-//@Bean
-//public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
-//		EntityManagerFactoryBuilder builder) {
-//	return builder
-//			.dataSource(firstDataSource())
-//			.packages("mx.edu.ebc.comisiones.comision.data")
-//			.persistenceUnit("first")
-//			.build();
-//}
+@Bean
+@Primary
+@ConfigurationProperties("db2.datasource")
+public DataSourceProperties secondDataSourceProperties() {
+	return new DataSourceProperties();
+}
 
+@Bean
+@Primary
+@ConfigurationProperties("db2.datasource.configuration")
+public BasicDataSource secondDataSource() {
+	return secondDataSourceProperties().initializeDataSourceBuilder()
+			.type(BasicDataSource.class).build();
+}
+
+@Bean
+@Primary
+public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
+		EntityManagerFactoryBuilder builder) {
+	return builder
+			.dataSource(secondDataSource())
+			.packages("mx.edu.ebc.comisiones.seguridad.data")
+			.persistenceUnit("second")
+			.build();
+}
 
 
 }
