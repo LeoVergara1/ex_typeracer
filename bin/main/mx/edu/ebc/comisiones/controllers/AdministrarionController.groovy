@@ -48,7 +48,7 @@ class AdministrarionController {
   @ResponseBody
   public ModelAndView association() {
 		ModelAndView model = new ModelAndView("administration/association");
-		model.addObject("listAssociation", [])
+		model.addObject("listAssociation", administrationService.findAllPromoters())
 		return model
   }
 }
