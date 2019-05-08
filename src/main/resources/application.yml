@@ -16,9 +16,11 @@ spring:
       maximum-pool-size: 30
 db2:
   datasource:
-    jdbc-url: jdbc:oracle:thin:@10.31.23.34:1521:TEST8
+    url: jdbc:oracle:thin:@10.31.23.34:1521:TEST8
     driver-class-name: oracle.jdbc.OracleDriver
     username: admseg
     password: j4n1t0r3es
     jpa:
       database-platform: org.hibernate.dialect.Oracle9iDialect
+    configuration:
+      maximum-pool-size: 30

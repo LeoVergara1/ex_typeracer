@@ -28,10 +28,10 @@ class AdministrarionController {
   @ResponseBody
   public ModelAndView home() {
 		ModelAndView model = new ModelAndView("administration/home");
-		def list = adminDeComisionesRepository.findAll()
-		println list.dump()
+		//def list = adminDeComisionesRepository.findAll()
 		administrationService.anyfunction()
-		//def list = campusRepository.findAll()
+		def list = campusRepository.findAll()
+		println list.dump()
 		model.addObject("title", "Baeldung");
 		model.addObject("any", "Hola mundo");
 		return model

@@ -9,6 +9,7 @@ class Campus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id
+	@Column(name = "CAMPUS_CODE")
 	String campusCode
 
 }
