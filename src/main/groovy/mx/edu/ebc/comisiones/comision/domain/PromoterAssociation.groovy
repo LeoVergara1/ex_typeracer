@@ -8,13 +8,18 @@ class PromoterAssociation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id
-	String campus
+	@Column(name = "CAMPUS_CODE")
+	String campusCode
+	@Column(name = "CAMPUS_DESC")
+	String campusDesc
 	@Column(name = "ID_PROMOTOR")
 	String idPromoter
 	@Column(name = "NOMBRE_PROMOTOR")
 	String promoterName
-	@Column(name = "PUESTO")
+	@Column(name = "PUESTO_PROMOTOR")
 	String job
+	@Column(name = "CLAVE_EMP_PROMOTOR")
+	String clavePromoter
 	@Column(name = "ID_ALUMNO")
 	String idStudent
 	@Column(name = "NOMBRE_ALUMNO")
@@ -43,6 +48,8 @@ class PromoterAssociation {
 	BigDecimal cordinaterComission
 	@Column(name="FECHA_AUTORIZADO")
 	Date authorizeDate
+	@Column(name="CLAVE_EMP_COORDINADOR")
+	String claveCoordinater
 	@Column(name="USUARIO")
 	String user
 
