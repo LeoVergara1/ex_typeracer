@@ -41,6 +41,7 @@ class AdministrarionController {
 		model.addObject("comisionesList", administrationService.findAllComission());
 		model.addObject("comissionEjecutiva", administrationService.findAllComission().first().comisionEjecutivo);
 		model.addObject("comissionCordinacion", administrationService.findAllComission().first().comisionCoordinacion);
+		model.addObject("message", "Hola mundo");
 		return model
   }
 
