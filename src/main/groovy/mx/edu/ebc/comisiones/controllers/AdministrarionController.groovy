@@ -61,6 +61,7 @@ class AdministrarionController {
   @ResponseBody
   public Map getInfoAssociation() {
 		println campus
+		println "j"
 		Map data = [
 			campus: campus,
 			listAssociation: administrationService.findAllPromoters()
