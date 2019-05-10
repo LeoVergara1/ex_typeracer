@@ -7,74 +7,16 @@
 		</div>
 	</div>
 	<hr>
-<div class="row">
-	<div class="col-lg-12">
-			<h5 class="">Selecciona los parametros de búsqueda</h3>
-	</div>
-	<div class="col-lg-12">
-			<form>
-					<div class="form-row align-items-center">
-						<div class="col-auto">
-							<label class="sr-only" for="inlineFormInputGroup">ID Cordinador</label>
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
-								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Cordinador">
-							</div>
-						</div>
-						<div class="col-auto">
-							<label class="sr-only" for="inlineFormInputGroup">ID Promotor</label>
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
-								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Promotor">
-							</div>
-						</div>
-						<div class="col-auto">
-							<button type="submit" class="btn btn-primary mb-2">Buscar</button>
-						</div>
-					</div>
-				</form>
-	</div>
-</div>
+<div id="app">
+	<template-search></template-search>
 <hr>
-<div class="row">
-	<div class="col-lg-12">
-			<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col">Nombre Promotor</th>
-							<th scope="col">ID Promotor</th>
-							<th scope="col">Puesto</th>
-							<th scope="col">Clave de empleado</th>
-							<th scope="col">Campus</th>
-							<th scope="col">ID Coordinador</th>
-							<th scope="col">Nombre Coordinador</th>
-							<th scope="col">Clave de empleado</th>
-							<th scope="col">Habilitado</th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#listAssociation}}
-						<tr>
-							<th scope="row">{{promoterName}}</th>
-							<td>{{idPromoter}}</td>
-							<td>job</td>
-							<td>clave</td>
-							<td>{{campus}}</td>
-							<td>{{idCordinater}}</td>
-							<td>{{cordinaterName}}</td>
-							<td>clave</td>
-							<td><a name="" id="" class="btn btn-primary" href="#" role="button">Actualizar</a></td>
-						</tr>
-						{{/listAssociation}}
-					</tbody>
-				</table>
-	</div>
+	<template-promoter></template-promoter>
 </div>
 </div>
 
+
+
+<script src="/js/promoter/searchComponent.js"></script>
+<script src="/js/promoter/promoterComponent.js"></script>
+<script src="/js/promoter/index.js"></script>
 {{> footer}}

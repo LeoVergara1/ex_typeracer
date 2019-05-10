@@ -11,6 +11,7 @@ import mx.edu.ebc.comisiones.services.AdministrationService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
+import org.springframework.beans.factory.annotation.Value
 
 @Controller
 class AdministrarionController {
@@ -23,6 +24,8 @@ class AdministrarionController {
 	CampusRepository campusRepository
 	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
+	@Value('#{${campus}}')
+	Map<String, String> campus
 
   @RequestMapping("/")
   @ResponseBody
@@ -48,8 +51,20 @@ class AdministrarionController {
   @RequestMapping("administration/association")
   @ResponseBody
   public ModelAndView association() {
+		println campus
 		ModelAndView model = new ModelAndView("administration/association");
 		model.addObject("listAssociation", administrationService.findAllPromoters())
 		return model
+  }
+
+  @RequestMapping("administration/data/association")
+  @ResponseBody
+  public Map getInfoAssociation() {
+		println campus
+		Map data = [
+			campus: campus,
+			listAssociation: administrationService.findAllPromoters()
+		]
+		return data
   }
 }
