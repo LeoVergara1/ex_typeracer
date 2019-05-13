@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 public interface AdminDeComisionesRepository extends JpaRepository<AdminDeComisiones,Integer> {
 	List<AdminDeComisiones> findAll()
+	AdminDeComisiones findById(Integer id)
 }
