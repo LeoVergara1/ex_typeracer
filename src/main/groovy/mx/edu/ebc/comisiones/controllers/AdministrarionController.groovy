@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.servlet.view.RedirectView
+import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
 class AdministrarionController {
@@ -79,6 +82,17 @@ class AdministrarionController {
   @RequestMapping("administration/data/association")
   @ResponseBody
   public Map getInfoAssociation() {
+		Map data = [
+			campus: campus,
+			listAssociation: administrationService.findAllPromoters()
+		]
+		return data
+  }
+
+	@RequestMapping(path = "administration/search/association", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public Map getInfoAssociationCoordinater(def searchData) {
+		println searchData.dump()
+		println searchData.properties
 		Map data = [
 			campus: campus,
 			listAssociation: administrationService.findAllPromoters()
