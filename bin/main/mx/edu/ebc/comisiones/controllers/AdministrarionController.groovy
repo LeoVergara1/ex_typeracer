@@ -68,12 +68,17 @@ class AdministrarionController {
 		return new RedirectView("/administration/show");
   }
 
+	@GetMapping("administration/updateComission")
+  @ResponseBody
+  public RedirectView updateComission(@RequestParam(name = "comissionEjecutiva") String comissionEjecutiva, @RequestParam(name = "comissionCordinacion") String comissionCordinacion) {
+		administrationService.updateComissions(comissionEjecutiva, comissionCordinacion)
+		return new RedirectView("/administration/show");
+  }
+
 
   @RequestMapping("administration/data/association")
   @ResponseBody
   public Map getInfoAssociation() {
-		println campus
-		println "j"
 		Map data = [
 			campus: campus,
 			listAssociation: administrationService.findAllPromoters()

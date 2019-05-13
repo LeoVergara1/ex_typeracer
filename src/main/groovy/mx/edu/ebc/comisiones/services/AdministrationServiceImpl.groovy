@@ -33,4 +33,14 @@ public class AdministrationServiceImpl implements AdministrationService {
 		comissionToUpdate.cuotaFija = cuotaFija.toInteger()
 		adminDeComisionesRepository.save(comissionToUpdate)
 	}
+
+	@Override
+	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion){
+		List<AdminDeComisiones> adminDeComisionesList = adminDeComisionesRepository.findAll()
+		adminDeComisionesList.each{ admin ->
+			admin.comisionCoordinacion = comissionCordinacion.toInteger()
+			admin.comisionEjecutivo = comissionEjecutiva.toInteger()
+			adminDeComisionesRepository.save(admin)
+		}
+	}
 }

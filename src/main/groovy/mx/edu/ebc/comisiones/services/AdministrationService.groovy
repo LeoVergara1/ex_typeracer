@@ -7,4 +7,5 @@ public interface AdministrationService {
 	List<AdminDeComisiones> findAllComission()
 	List<PromoterAssociation> findAllPromoters()
 	AdminDeComisiones updateCuotaFijaToComission(String id, String cuotaFija)
+	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion)
 }

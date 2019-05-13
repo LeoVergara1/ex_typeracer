@@ -9,17 +9,17 @@
 
 </div>
 <hr>
+<form action="/administration/updateComission" method="get">
 <div class="row">
 	<div class="col-lg-6">
 			<div class="input-group input-group-sm mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroup-sizing-sm">Porcentaje de comisión promotor Coord. de Mercadotecnia</span>
 					</div>
-					<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{comissionEjecutiva}}">
+					<input type="number" pattern="[0-9]" name="comissionEjecutiva" min="0" max="99" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{comissionEjecutiva}}">
 				</div>
 	</div>
 	<div class="col-lg-6">
-			<button type="submit" class="btn btn-primary" role="button">Actualizar</button>
 	</div>
 </div>
 <div class="row">
@@ -28,13 +28,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroup-sizing-sm">Porcentaje de comisión promotor</span>
 					</div>
-					<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{comissionCordinacion}}">
+					<input type="number" pattern="[0-9]" name="comissionCordinacion" min="0" max="99" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{comissionCordinacion}}">
 				</div>
 	</div>
 	<div class="col-lg-6">
 			<button type="submit" class="btn btn-primary" role="button">Actualizar</button>
 	</div>
 </div>
+</form>
 <div class="row">
 
 	<div class="col-lg-12">
