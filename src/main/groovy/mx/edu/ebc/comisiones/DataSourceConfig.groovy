@@ -15,6 +15,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import com.zaxxer.hikari.HikariDataSource
 import org.apache.commons.dbcp.BasicDataSource
+import org.springframework.orm.jpa.JpaTransactionManager
 
 @Configuration
 public class DataSourceConfig {
@@ -40,6 +41,11 @@ public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
 			.packages("mx.edu.ebc.comisiones.comision.domain")
 			.persistenceUnit("first")
 			.build();
+}
+
+@Bean
+JpaTransactionManager transactionManager(){
+	new JpaTransactionManager(firstEntityManagerFactory().getObject())
 }
 
 
