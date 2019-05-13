@@ -12,6 +12,10 @@ import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.servlet.view.RedirectView
 
 @Controller
 class AdministrarionController {
@@ -56,6 +60,14 @@ class AdministrarionController {
 		model.addObject("listAssociation", administrationService.findAllPromoters())
 		return model
   }
+
+	@GetMapping("administration/updateCuotaFija")
+  @ResponseBody
+  public RedirectView updateCuotaFija(@RequestParam(name = "id") String id, @RequestParam(name = "cuotaFija") String cuotaFija) {
+		administrationService.updateCuotaFijaToComission(id, cuotaFija)
+		return new RedirectView("/administration/show");
+  }
+
 
   @RequestMapping("administration/data/association")
   @ResponseBody
