@@ -18,6 +18,9 @@
 					<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{comissionEjecutiva}}">
 				</div>
 	</div>
+	<div class="col-lg-6">
+			<button type="submit" class="btn btn-primary" role="button">Actualizar</button>
+	</div>
 </div>
 <div class="row">
 	<div class="col-lg-6">
@@ -28,6 +31,9 @@
 					<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{comissionCordinacion}}">
 				</div>
 	</div>
+	<div class="col-lg-6">
+			<button type="submit" class="btn btn-primary" role="button">Actualizar</button>
+	</div>
 </div>
 <div class="row">
 
@@ -36,19 +42,24 @@
 					<thead>
 						<tr>
 							<th scope="col">Campus</th>
-							<th scope="col">Comision</th>
 							<th scope="col">Cuota Fija</th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
 						{{#comisionesList}}
-						<tr>
-							<th scope="row">{{campusDesc}}</th>
-							<td>{{comisionCoordinacion}}</td>
-							<td>{{cuotaFija}}</td>
-							<td><button name="" id="" class="btn btn-primary" role="button" @click="update({{cuotaFija}})">Actualizar</button></td>
-						</tr>
+						<form action="/administration/updateCuotaFija" method="get">
+							<tr>
+								<th scope="row">{{campusDesc}}</th>
+								<td>
+									<input type="number" name="cuotaFija" value="{{cuotaFija}}" class="form-control" id="cuotaFija">
+								</td>
+								<td>
+									<input id="id" value="{{id}}" name="id" type="hidden">
+									<button type="submit" class="btn btn-primary" role="button">Actualizar</button>
+								</td>
+							</tr>
+						</form>
 						{{/comisionesList}}
 					</tbody>
 				</table>
