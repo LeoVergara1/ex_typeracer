@@ -89,8 +89,10 @@ class AdministrarionController {
 		return data
   }
 
-	@RequestMapping(path = "administration/search/association", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public Map getInfoAssociationCoordinater(def searchData) {
+	//@RequestMapping(path = "administration/search/association", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping("administration/search/association")
+  @ResponseBody
+  public Map getInfoAssociationCoordinater(@RequestBody Map searchData) {
 		println searchData.dump()
 		println searchData.properties
 		Map data = [
