@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service
 import wslite.http.HTTPClientException
 import wslite.rest.RESTClient
+import groovy.json.*
 
 @Service
 class RestConnectionServiceImpl implements RestConnectionService {

@@ -8,5 +8,5 @@ public interface AdministrationService {
 	List<PromoterAssociation> findAllPromoters()
 	AdminDeComisiones updateCuotaFijaToComission(String id, String cuotaFija)
 	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion)
-	Map findPerson(String promoterId, String coordinater)
+	Map findPerson(String user)
 }

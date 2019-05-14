@@ -4,8 +4,7 @@ Vue.component('template-search', {
     return {
 			count: 0,
 			searchData: {
-				promoter: "",
-				coordinater: ""
+				user: ""
 			}
     }
 	},
@@ -41,11 +40,18 @@ Vue.component('template-search', {
 								<div class="input-group-prepend">
 									<div class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Usuario" v-model="searchData.coordinater">
+								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Usuario" v-model="searchData.user">
 							</div>
 						</div>
 						<div class="col-auto">
 							<button @click="association()" class="btn btn-primary mb-2">Buscar</button>
+						</div>
+						<div class="col-auto">
+							<div style="margin-bottom: 30px;padding-left: 40px;">
+								<h4 class="block orange"><i class="fa fa-user" aria-hidden="true"></i></h4>
+								<h4 class="block orange" style="margin-top:30px;">MARTINEZ GARCIA RODRIGO</h4>
+								<h4 class="block blue">ID: M00021214</h4>
+							</div>
 						</div>
 					</div>
 	</div>

@@ -1,5 +1,8 @@
 package mx.edu.ebc.comisiones.services
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.PromoterAssociationRepository
@@ -8,9 +11,13 @@ import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
 import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
+import wslite.json.JSONObject
+
 
 @Service
 public class AdministrationServiceImpl implements AdministrationService {
+
+	Logger logger = LoggerFactory.getLogger(RestConnectionServiceImpl.class)
 
 	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
@@ -18,6 +25,10 @@ public class AdministrationServiceImpl implements AdministrationService {
 	PromoterAssociationRepository promoterAssociationRepository
 	@Autowired
 	PersonRepository personRepository
+	@Autowired
+	RestConnectionService restConnectionService
+	@Value('${url.apibannercomisiones}')
+	String clientApiBannerComissions
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -48,10 +59,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	@Override
-	Map findPerson(String promoter, String coordinater){
-		println "*"*100
-		def personas = personRepository.findByIdBanner("M00000087")
-		println personas.dump()
-		[:]
+	Map findPerson(String user){
+		def person = restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${user}")
 	}
 }

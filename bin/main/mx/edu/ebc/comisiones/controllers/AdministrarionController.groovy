@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.servlet.view.RedirectView
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.RequestMethod
+import mx.edu.ebc.comisiones.util.Transform
 
 @Controller
 class AdministrarionController {
@@ -93,13 +94,7 @@ class AdministrarionController {
 	@PostMapping("administration/search/association")
   @ResponseBody
   public Map getInfoAssociationCoordinater(@RequestBody Map searchData) {
-		println searchData.dump()
-		administrationService.findPerson(searchData.promoter, searchData.coordinater)
-		println "Paso"
-		Map data = [
-			campus: campus,
-			listAssociation: administrationService.findAllPromoters()
-		]
-		return data
+		Map person = Transform.mapFromBodyJson(administrationService.findPerson(searchData.user))
+    return person
   }
 }
