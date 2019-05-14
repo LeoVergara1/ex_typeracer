@@ -24,3 +24,13 @@ db2:
       database-platform: org.hibernate.dialect.Oracle9iDialect
     configuration:
       maximum-pool-size: 30
+banner:
+  datasource:
+    url: jdbc:oracle:thin:@10.31.23.34:1521:DEVL8
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: apibanner
+    password: ap1b4nn3rd3vl8
+    jpa:
+      database-platform: org.hibernate.dialect.Oracle9iDialect
+    configuration:
+      maximum-pool-size: 30

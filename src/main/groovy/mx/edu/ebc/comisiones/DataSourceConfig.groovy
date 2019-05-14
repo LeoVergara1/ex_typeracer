@@ -48,6 +48,28 @@ JpaTransactionManager transactionManager(){
 	new JpaTransactionManager(firstEntityManagerFactory().getObject())
 }
 
+@Bean
+@ConfigurationProperties("banner.datasource")
+public DataSourceProperties bannerDataSourceProperties() {
+	return new DataSourceProperties();
+}
+
+@Bean
+@ConfigurationProperties("banner.datasource.configuration")
+public BasicDataSource bannerDataSource() {
+	return bannerDataSourceProperties().initializeDataSourceBuilder()
+			.type(BasicDataSource.class).build();
+}
+
+@Bean
+public LocalContainerEntityManagerFactoryBean bannerEntityManagerFactory(
+		EntityManagerFactoryBuilder builder) {
+	return builder
+			.dataSource(bannerDataSource())
+			.packages("mx.edu.ebc.comisiones.banner.domain")
+			.persistenceUnit("banner")
+			.build();
+}
 
 
 }
