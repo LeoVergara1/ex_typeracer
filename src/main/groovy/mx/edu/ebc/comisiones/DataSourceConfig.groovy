@@ -68,7 +68,7 @@ public LocalContainerEntityManagerFactoryBean bannerEntityManagerFactory(
 			.dataSource(bannerDataSource())
 			.packages("mx.edu.ebc.comisiones.banner.domain")
 			.persistenceUnit("banner")
-			.build();
+			.build()
 }
 
 

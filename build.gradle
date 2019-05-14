@@ -21,6 +21,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.github.groovy-wslite:groovy-wslite:1.1.2'
 	runtime group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
   compile "commons-dbcp:commons-dbcp:1.4"
   compile 'commons-pool:commons-pool:1.6'

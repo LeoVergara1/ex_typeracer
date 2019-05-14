@@ -31,26 +31,17 @@ Vue.component('template-search', {
 	template: `
 	<div class="row">
 	<div class="col-lg-12">
-			<h5 class="">Selecciona los parametros de búsqueda</h5>
+			<h5 class="">Registro</h5>
 	</div>
 	<div class="col-lg-12">
 					<div class="form-row align-items-center">
 						<div class="col-auto">
-							<label class="sr-only" for="inlineFormInputGroup">ID Cordinador</label>
+							<label class="sr-only" for="inlineFormInputGroup">ID Usuario</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Cordinador" v-model="searchData.coordinater">
-							</div>
-						</div>
-						<div class="col-auto">
-							<label class="sr-only" for="inlineFormInputGroup">ID Promotor</label>
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
-								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Promotor" v-model="searchData.promoter">
+								<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ID Usuario" v-model="searchData.coordinater">
 							</div>
 						</div>
 						<div class="col-auto">
@@ -59,5 +50,6 @@ Vue.component('template-search', {
 					</div>
 	</div>
 </div>
+
 	`
 })
