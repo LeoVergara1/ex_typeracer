@@ -94,7 +94,8 @@ class AdministrarionController {
   @ResponseBody
   public Map getInfoAssociationCoordinater(@RequestBody Map searchData) {
 		println searchData.dump()
-		println searchData.properties
+		administrationService.findPerson(searchData.promoter, searchData.coordinater)
+		println "Paso"
 		Map data = [
 			campus: campus,
 			listAssociation: administrationService.findAllPromoters()

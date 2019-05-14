@@ -3,6 +3,7 @@ package mx.edu.ebc.comisiones.services
 import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.PromoterAssociationRepository
+import mx.edu.ebc.comisiones.comision.repo.PersonRepository
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
 import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation;
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,6 +16,8 @@ public class AdministrationServiceImpl implements AdministrationService {
 	AdminDeComisionesRepository adminDeComisionesRepository
 	@Autowired
 	PromoterAssociationRepository promoterAssociationRepository
+	@Autowired
+	PersonRepository personRepository
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -42,5 +45,13 @@ public class AdministrationServiceImpl implements AdministrationService {
 			admin.comisionEjecutivo = comissionEjecutiva.toInteger()
 			adminDeComisionesRepository.save(admin)
 		}
+	}
+
+	@Override
+	Map findPerson(String promoter, String coordinater){
+		println "*"*100
+		def personas = personRepository.findByIdBanner("M00000087")
+		println personas.dump()
+		[:]
 	}
 }
