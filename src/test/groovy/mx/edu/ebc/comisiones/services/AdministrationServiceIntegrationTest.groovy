@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.TestPropertySource
 import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
+import mx.edu.ebc.comisiones.pojos.*
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
@@ -48,9 +49,20 @@ public class AdministrationServiceIntegrationTest {
 
 	@Test
 	public void searchUser() {
-	    // given
+	    // given a username
+			String username = "r.martinez026"
 	    // when
-			def person = administrationService.findPerson("r.martinez026")
+			def person = administrationService.findPerson(username)
+			println person.dump()
+	    // then
+			assertThat(person).isNotNull()
+	}
+
+	@Test
+	public void setProfile() {
+	    // given a person
+			Person person = administrationService.findPerson(username)
+	    // when
 			println person.dump()
 	    // then
 			assertThat(person).isNotNull()

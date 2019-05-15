@@ -11,7 +11,7 @@ import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
 import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
-import mx.edu.ebc.comisiones.commands.*
+import mx.edu.ebc.comisiones.pojos.*
 import wslite.json.JSONObject
 
 
@@ -60,14 +60,14 @@ public class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	@Override
-	Map findPerson(String user){
+	Person findPerson(String user){
 		println "Hola mundo "
-		def person = restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${user}")
+		Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${user}"))
 	}
 
 	@Override
-  PersonCommand setProfile(PersonCommand person, String username, String portalName){
-    //List<ProfileCommand> profiles= profileService.findPersonByUsernameAndPortalName(username, portalName)
+  Person setProfile(Person person, String username, String portalName){
+    //List<Profile> profiles= profileService.findPersonByUsernameAndPortalName(username, portalName)
     //profiles.each{ profile ->
     //  person.profiles << profile
     //}
@@ -75,7 +75,7 @@ public class AdministrationServiceImpl implements AdministrationService {
   }
 
   @Override
-  PersonCommand setCampuses(PersonCommand person){
+  Person setCampuses(Person person){
    // List<UserCampus> campuses= userCampusService.getAllCampusesforUser("FutureCampus",person.userName)
    // campuses?.each{ campus ->
    //   person.campuses << campus

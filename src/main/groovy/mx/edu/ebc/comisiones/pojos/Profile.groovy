@@ -1,6 +1,6 @@
-package mx.edu.ebc.comisiones.commands
+package mx.edu.ebc.comisiones.pojos
 
-class ProfileCommand {
+class Profile {
   Long id
   String description
   String enrollment

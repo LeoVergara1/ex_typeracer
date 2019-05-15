@@ -1,15 +1,15 @@
-package mx.edu.ebc.comisiones.commands
+package mx.edu.ebc.comisiones.pojos
 
 import groovy.transform.ToString
 import wslite.json.JSONObject
 
 @ToString
-class CampusCommand {
+class Campus {
   String code
   String description
 
-  static CampusCommand fromJsonObject(JSONObject jsonObject) {
-    new CampusCommand(
+  static Campus fromJsonObject(JSONObject jsonObject) {
+    new Campus(
             code: jsonObject.isNull("code") ? null : jsonObject.code,
             description: jsonObject.isNull("description") ? null : jsonObject.description
     )

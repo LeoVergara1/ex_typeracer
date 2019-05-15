@@ -2,7 +2,7 @@ package mx.edu.ebc.comisiones.services
 
 import groovy.util.logging.Log4j
 import groovy.transform.Memoized
-import mx.edu.ebc.comisiones.commands.CampusCommand
+import mx.edu.ebc.comisiones.pojos.Campus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
@@ -21,14 +21,14 @@ class CampusServiceImpl implements CampusService {
   }
 
   @Memoized
-  List<CampusCommand> list() {
+  List<Campus> list() {
     findAll().collect {
-      CampusCommand.fromJsonObject(it)
+      Campus.fromJsonObject(it)
     }
   }
 
   @Override
-  List<CampusCommand> filteredListByPropertiesConf() {
+  List<Campus> filteredListByPropertiesConf() {
     List<String> excludedCampus = properties.getProperty("excludedCampus").split(',')
     list().inject([]){ list, campus ->
       if (!excludedCampus.contains(campus.code))

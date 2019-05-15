@@ -1,10 +1,10 @@
-package mx.edu.ebc.comisiones.commands
+package mx.edu.ebc.comisiones.pojos
 
 import groovy.transform.ToString
 import wslite.json.JSONObject
 
 @ToString
-class PersonCommand {
+class Person {
   String lastName
   String firstName
   Long pidm
@@ -13,8 +13,8 @@ class PersonCommand {
   String middleName
   String userName
   String email
-  List<ProfileCommand> profiles = []
-  List<UserCampusCommand> campuses = []
+  List<Profile> profiles = []
+  List<UserCampus> campuses = []
 
   String getBannerName(){
     "${firstName ?: ''} ${middleName ? "$middleName " : ""}${lastName ?: ""}"
@@ -33,8 +33,8 @@ class PersonCommand {
     }.join(' ')
   }
 
-	static PersonCommand fromJsonObject(JSONObject jsonObject) {
-    new PersonCommand(
+	static Person fromJsonObject(JSONObject jsonObject) {
+    new Person(
             lastName:jsonObject?.lastName,
             firstName:jsonObject?.firstName,
             pidm:jsonObject?.pidm,

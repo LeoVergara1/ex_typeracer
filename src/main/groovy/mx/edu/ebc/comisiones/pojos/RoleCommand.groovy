@@ -1,4 +1,4 @@
-package mx.edu.ebc.comisiones.commands
+package mx.edu.ebc.comisiones.pojos
 
 import wslite.json.JSONObject
 

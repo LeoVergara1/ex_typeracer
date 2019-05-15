@@ -1,11 +1,11 @@
-package mx.edu.ebc.comisiones.commands
+package mx.edu.ebc.comisiones.pojos
 
 import groovy.transform.ToString
 import mx.edu.ebc.api.pojo.*
 import wslite.json.JSONObject
 
 @ToString
-class UserCampusCommand {
+class UserCampus {
     Long pidm
     String campusCode
     String userName
@@ -14,8 +14,8 @@ class UserCampusCommand {
     String description
 
 
-  static UserCampusCommand fromJsonObject(JSONObject jsonObject, String description) {
-    new UserCampusCommand(
+  static UserCampus fromJsonObject(JSONObject jsonObject, String description) {
+    new UserCampus(
                     pidm:jsonObject?.pidm,
                     campusCode:jsonObject?.campusCode,
                     userName:jsonObject?.userName,
