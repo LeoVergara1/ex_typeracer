@@ -95,6 +95,10 @@ class AdministrarionController {
   @ResponseBody
   public Map getInfoAssociationCoordinater(@RequestBody Map searchData) {
 		Map person = Transform.mapFromBodyJson(administrationService.findPerson(searchData.user))
+		//if(person.userName){
+  //  	person = personService.setProfile(person,person.userName, "Web-comisiones")
+  //  	person = personService.setCampuses(person)
+  //  }
     return person
   }
 }

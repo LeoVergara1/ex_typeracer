@@ -61,6 +61,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 
 	@Override
 	Map findPerson(String user){
+		println "Hola mundo "
 		def person = restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${user}")
 	}
 
