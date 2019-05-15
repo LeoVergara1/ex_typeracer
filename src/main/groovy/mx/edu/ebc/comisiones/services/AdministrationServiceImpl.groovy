@@ -30,6 +30,8 @@ public class AdministrationServiceImpl implements AdministrationService {
 	RestConnectionService restConnectionService
 	@Value('${url.apibannercomisiones}')
 	String clientApiBannerComissions
+	@Autowired
+	PersonService personService
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -61,8 +63,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 
 	@Override
 	Person findPerson(String user){
-		println "Hola mundo "
-		Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${user}"))
+		personService.findPersonByUsername(user)
 	}
 
 	@Override

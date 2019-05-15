@@ -1,12 +1,12 @@
-package mx.edu.ebc.comisiones.service
+package mx.edu.ebc.comisiones.services
 
-import mx.edu.ebc.api.pojo.Person
-import mx.edu.ebc.api.command.RoleCommand
+import mx.edu.ebc.comisiones.pojos.Person
+import mx.edu.ebc.comisiones.pojos.RoleCommand
 import wslite.json.JSONObject
 
 interface PersonService {
 //  JSONObject findByUsername(String username)
-//  Person findPersonByUsername(String username)
+		Person findPersonByUsername(String username)
 //  Person setProfile(Person person, String username, String portalName)
 //  Person setCampuses(Person person)
 //  List<RoleCommand> getRoles(String portalName)

@@ -32,12 +32,19 @@ public class AdministrationServiceIntegrationTest {
         public RestConnectionService restConnectionService() {
             return new RestConnectionServiceImpl();
         }
+
+				@Bean
+        public PersonService personService() {
+            return new PersonServiceImpl();
+        }
     }
 
 	@Autowired
 	AdministrationService administrationService
 	@Autowired
 	RestConnectionService restConnectionService
+	@Autowired
+	PersonService personService
 
 	@MockBean
 	AdminDeComisionesRepository adminDeComisionesRepository
@@ -61,7 +68,7 @@ public class AdministrationServiceIntegrationTest {
 	@Test
 	public void setProfile() {
 	    // given a person
-			Person person = administrationService.findPerson(username)
+			Person person = administrationService.findPerson("r.martinez026")
 	    // when
 			println person.dump()
 	    // then

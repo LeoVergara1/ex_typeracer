@@ -1,17 +1,17 @@
-package mx.edu.ebc.comisiones.service
+package mx.edu.ebc.comisiones.services
 
 import groovy.util.logging.Log4j
-import mx.edu.ebc.api.command.Person
-import mx.edu.ebc.api.command.RoleCommand
-import mx.edu.ebc.api.pojo.*
-import mx.edu.ebc.api.service.ManagerService
-import mx.edu.ebc.api.service.PromoterAsignmentService
-import mx.edu.ebc.api.service.PromoterService
-import mx.edu.ebc.api.service.RestConnectionService
-import mx.edu.ebc.api.service.PersonService
-import mx.edu.ebc.api.service.ProfileService
-import mx.edu.ebc.api.service.SecurityApiService
-import mx.edu.ebc.api.service.UserCampusService
+import mx.edu.ebc.comisiones.pojos.RoleCommand
+import mx.edu.ebc.comisiones.pojos.*
+import org.springframework.beans.factory.annotation.Value
+//import mx.edu.ebc.api.service.ManagerService
+//import mx.edu.ebc.api.service.PromoterAsignmentService
+//import mx.edu.ebc.api.service.PromoterService
+//import mx.edu.ebc.api.service.RestConnectionService
+//import mx.edu.ebc.api.service.PersonService
+//import mx.edu.ebc.api.service.ProfileService
+//import mx.edu.ebc.api.service.SecurityApiService
+//import mx.edu.ebc.api.service.UserCampusService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
@@ -19,8 +19,12 @@ import wslite.json.JSONObject
 @Service
 class PersonServiceImpl implements PersonService {
 
- // @Autowired
- // RestConnectionService restConnectionService
+ 		@Autowired
+ 		 RestConnectionService restConnectionService
+		@Value('${url.apibannercomisiones}')
+		String clientApiBannerComissions
+		@Value('${url.apibannerseguridad}')
+		String clientApiBannerSeguridad
  // @Autowired
  // Properties properties
  // @Autowired
@@ -43,17 +47,11 @@ class PersonServiceImpl implements PersonService {
  // }
 
  // @Override
- // Person findPersonByUsername(String username) {
- //   log.debug "CONSULTA DE USUARIO SEGURIDAD $username"
- //   JSONObject jsonObject = restConnectionService.get(properties.getProperty("core.url.apibannercomisiones"), "/v1/api/person/${username}"setProfile)
- //   Person Person = Person.fromJsonObject(jsonObject)
- //   Person person = Person.getPerson()
- //   log.debug 'CONVERSIÓN de Person a Person'
- //   log.debug person.dump()
- //   person
- // }
+  Person findPersonByUsername(String username) {
+		Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${username}"))
+  }
 
- // @Override
+ //@Override
  // Person setProfile(Person person, String username, String portalName){
  //   List<Profile> profiles= profileService.findPersonByUsernameAndPortalName(username, portalName)
  //   profiles.each{ profile ->
@@ -144,5 +142,15 @@ class PersonServiceImpl implements PersonService {
  //   }
  //   mapRol
  // }
+
+  @Override
+  List<Profile> findPersonByUsernameAndPortalName(String userName, String portalName){
+    List<JSONObject> jsonObject = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/role/${userName}/${portalName}")
+    jsonObject?.each{ profile ->
+      ProfileCommand profileCommand = ProfileCommand.fromJsonObject(profile)
+      profiles << profileCommand.getProfile()
+    }
+    profiles
+  }
 
 }
