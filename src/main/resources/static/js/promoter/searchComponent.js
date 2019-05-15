@@ -5,6 +5,17 @@ Vue.component('template-search', {
 			count: 0,
 			searchData: {
 				user: ""
+			},
+			user: {
+				lastName: "",
+				firstName: "",
+				pidm: "",
+				adminId: "",
+				middleName: "",
+				userName: ""
+			},
+			responses: {
+				foundInBanner: false
 			}
     }
 	},
@@ -15,13 +26,10 @@ Vue.component('template-search', {
 		association: function(){
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
 				// get body data
-				this.someData = response.body;
+				this.user = response.body;
 				console.log(response.body);
-				this.listAssociation = response.body.listAssociation
-				console.log(response)
-				console.log("regreso")
 			}, response => {
-				console.log("regreso mal")
+				console.log("Fail")
 				console.log(response)
 				// error callback
 			})
@@ -49,7 +57,7 @@ Vue.component('template-search', {
 						<div class="col-auto">
 							<div style="margin-bottom: 30px;padding-left: 40px;">
 								<h4 class="block orange"><i class="fa fa-user" aria-hidden="true"></i></h4>
-								<h4 class="block orange" style="margin-top:30px;">MARTINEZ GARCIA RODRIGO</h4>
+								<h4 class="block orange" style="margin-top:30px;">{{user.lastName}} {{user.firstName}}</h4>
 								<h4 class="block blue">ID: M00021214</h4>
 							</div>
 						</div>
