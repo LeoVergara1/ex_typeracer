@@ -1,8 +1,8 @@
 // Define a new component called button-counter
 Vue.component('template-search', {
+	props:  ['notifyOptions'],
   data: function () {
     return {
-			count: 0,
 			searchData: {
 				user: ""
 			},
@@ -28,6 +28,13 @@ Vue.component('template-search', {
 				// get body data
 				this.user = response.body;
 				console.log(response.body);
+				if(response.body.userName){
+					this.responses.foundInBanner = true
+				}
+				else {
+					this.responses.foundInBanner = false
+					this.$snotify.warning('Usuario no encontrado', 'Advertencia', this.notifyOptions);
+				}
 			}, response => {
 				console.log("Fail")
 				console.log(response)
@@ -54,11 +61,11 @@ Vue.component('template-search', {
 						<div class="col-auto">
 							<button @click="association()" class="btn btn-primary mb-2">Buscar</button>
 						</div>
-						<div class="col-auto">
+						<div class="col-auto" v-if="responses.foundInBanner">
 							<div style="margin-bottom: 30px;padding-left: 40px;">
 								<h4 class="block orange"><i class="fa fa-user" aria-hidden="true"></i></h4>
 								<h4 class="block orange" style="margin-top:30px;">{{user.lastName}} {{user.firstName}}</h4>
-								<h4 class="block blue">ID: M00021214</h4>
+								<h4 class="block blue">ID: {{user.enrollment}}</h4>
 							</div>
 						</div>
 					</div>

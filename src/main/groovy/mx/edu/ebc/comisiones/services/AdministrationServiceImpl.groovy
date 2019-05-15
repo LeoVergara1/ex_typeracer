@@ -11,6 +11,7 @@ import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
 import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
+import mx.edu.ebc.comisiones.commands.*
 import wslite.json.JSONObject
 
 
@@ -62,4 +63,32 @@ public class AdministrationServiceImpl implements AdministrationService {
 	Map findPerson(String user){
 		def person = restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${user}")
 	}
+
+	@Override
+  PersonCommand setProfile(PersonCommand person, String username, String portalName){
+    //List<ProfileCommand> profiles= profileService.findPersonByUsernameAndPortalName(username, portalName)
+    //profiles.each{ profile ->
+    //  person.profiles << profile
+    //}
+    person
+  }
+
+  @Override
+  PersonCommand setCampuses(PersonCommand person){
+   // List<UserCampus> campuses= userCampusService.getAllCampusesforUser("FutureCampus",person.userName)
+   // campuses?.each{ campus ->
+   //   person.campuses << campus
+   // }
+    person
+  }
+
+  @Override
+  List<RoleCommand> getRoles(String portalName){
+   // List<RoleCommand> roles = []
+   // List<JSONObject> jsonObject = restConnectionService.get(properties.getProperty("core.url.apibannerseguridad"), "/v2/api/application/roles/${portalName}")
+   // jsonObject?.each{role ->
+   //   roles << RoleCommand.convertJSONtoRoles(role)
+   // }
+   // roles
+  }
 }
