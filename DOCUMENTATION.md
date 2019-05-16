@@ -11,7 +11,7 @@ La aplicación de comisiones presenciales contempla los siguientes módulos:
 
 1) Administración
 
-- Alta de usuarios
+[- Alta de usuarios](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/7209f8ecd82521c2606923dfe088af56c736e78c/alta-usuarios.md)
 
 2) Comisiones
 
