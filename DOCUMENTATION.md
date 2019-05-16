@@ -25,12 +25,11 @@ La aplicación de comisiones presenciales contempla los siguientes módulos:
 
 6) SICOSS
 
-- Procesar
-- Consultar
+[- Procesar](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/cc8786596e340ad410ebeef678a140b5d3154a4e/procesamiento-sicoss.md?at=feature%2FCP-12)
+[- Consultar](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/cc8786596e340ad410ebeef678a140b5d3154a4e/consultar-sicoss.md?at=feature%2FCP-12)
 
-6) Consulta de comisiones 
 
-7) Reportes
+7) Consulta de comisiones
 
 [8) Cálculo de comisiones corrientes](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/21878ba853b00b38b272f75d899ea505c33ce776/calculo-comisiones-corrientes.md)
 

@@ -6,7 +6,7 @@
 
 Como Administrador
 quiero dar de alta a usuarios
-de tal forma que puedan utilizar la aplicación de comisiones 
+de tal forma que puedan utilizar la aplicación de comisiones con un rol dado 
 
 ###Criterios de aceptación
 
@@ -20,6 +20,7 @@ de tal forma que puedan utilizar la aplicación de comisiones
 	- Director de campus: Autorización, consulta y reportes de comisiones
 	- Administrador SICOSS: SICOSS
 	- Coordinador: Encargado de la coordinación de promotores dentro del campus al que pertenece, y por lo que recibe una comisión.
+		-Sólo se puede asignar un usuario con el rol de coordinador por campus, EXCEPTO EN EL CAMPUS CMX 
 	- Promotor: Encargado del trato con los alumnos para su inscripción, y por lo que recibe una comisión 
 		- **Este rol sólo se puede sigan a usuarios que tengan un código (ID) de promotor válido y que están en la forma de Banner SORAROL**
 		- **Si el usuario no está registrado como promotor y/o el código no es válido, se debe mostrar un mensaje con la leyenda “El usuario no cumple la precondición en Banner para este rol”**
@@ -37,6 +38,21 @@ de tal forma que puedan utilizar la aplicación de comisiones
 	- Tabla: PROMOTER
 	- Entidad:  PIDM, USER_NAME, RECR_CODE
 
+**Reglas para dar de alta a un usuario:***
+
+- Válida si es promotor  o manager (coordinador) 
+- Válida registro de promotor (Va a banner y verifica el código para los dos casos)
+- Válida registra el rol en la aplicación de seguridad
+- Verifica el username exista en seguridad 
+- Verifica si el username se encuentra en banner
+- Intenta crear el usuario en la aplicación de seguridad
+- Asigna el rol al usuario en la aplicación de seguridad
+- Verifica el código de rol para crear un manager o un promotor
+- Si es promotor valida que sea candidato para registro con recrCode
+- Valida que el usuario se encuntre en seguridad
+- Validad que se pueda crear el usuario en seguridad
+- Valida promotersRadmCode=EMRECR
+
 ##CP-5 Disponibilidad de asociación 
 
 ###Función
@@ -48,7 +64,7 @@ de tal forma que el usuario se pueda asociar a un coordinador (jefe de programa)
 
 ###Criterios de aceptación
 
-- Sólo se pueden asociar promotores a usuarios con el rol de Jefe de Programa CE
+- Sólo se pueden asociar promotores a usuarios con el rol de Coordinador
 	- Si el usuario encontrado en la búsqueda, tiene asignado el rol de Jefe de Programa CE, aparecerá un botón con el nombre “Asociar”
 
 
@@ -73,13 +89,13 @@ de tal forma que los coordinadores y promotores puedan cobrar su porcentaje de c
 		- Nombre completo del coordinador: Por nombres y apellidos
 		- ID: Matrícula de banner
 		- Campus: Campus del coordinador
-		- Rol: Jefe de Programa CE (Coordinador)
+		- Rol: Coordinador
 - Sólo se pueden asociar promotores a usuarios con el rol de coordinador. Los promotores que se asocien deben ser del mismo campus que el coordinador.
 - Es necesario conocer el estatus de los promotores que se quiere asociar: 
 	- “Asociado” si ya está asociado a otro coordinador del mismo campus
 	- “Sin asociar” si no ha sido asociado a ningún coordinador
 	- “Asociado” (color en verde), si ya fue asociado al promotor consultado
-- **Si el promotor ya fue asignado a otro jefe de programa, no se puede asociar y debe mostrar el nombre de usuario del jefe de programa al que ya fue asociado**
+- **Si el promotor ya fue asignado a otro coordinador, no se puede asociar y debe mostrar el nombre de usuario del jefe de programa al que ya fue asociado**
 - En la vista para asociación, aparecerá la siguiente información de los promotores disponibles en el mismo campus del coordinador:
 	- Usuario: Nombre de usuario de banner
 	- Nombre: Nombre completo del promotor, por nombres y apellidos
@@ -102,3 +118,32 @@ de tal forma que los coordinadores y promotores puedan cobrar su porcentaje de c
 	- Tabla: PROGRAM_MANAGER
 	- Entidad:  PIDM, USER_NAME, RECR_CODE
 
+
+##CP-24 Búsqueda de usuarios registrados
+
+###Función
+
+Como Administrador
+quiero buscar usuarios registrados
+de tal forma que pueda ver su información y poder eliminarlo o asociarlo
+
+###Criterios de aceptación 
+
+Para la búsqueda del usuario, se deben de considerar los siguientes criterios de búsqueda obligatorios: 
+
+- Usuario: Nombre de usuario de banner 
+- Campus: Mostrando nombre y código del campus
+- Rol: Nombre del rol asignado:
+	- Administrador comisiones: Asignar roles, asignar comisiones fijas, campañas, asignar comisiones crecientes, consulta y reportes de comisiones, SICOSS.
+	- Director de campus: Autorización, consulta y reportes de comisiones
+	- Administrador SICOSS: SICOSS
+	- Coordinador: Encargado de la coordinación de promotores dentro del campus al que pertenece, y por lo que recibe una comisión.
+	- Promotor: Encargado del trato con los alumnos para su inscripción, y por lo que recibe una comisión
+
+Una vez que encuentra al usuario, se debe mostrar la siguiente información sobre éste en una tabla: 
+- Usuario: Nombre de usuario de banner 
+- Nombre: Nombre completo del usuario, empezando por nombre, apellido paterno y apellido materno 
+- Campus: Mostrando nombre del campus
+- Rol: Nombre del rol asignado
+- Eliminar: Botón para dar de baja al usuario buscado 
+- Asociar: Este botón sólo se muestra si el usuario buscado es un coordinador

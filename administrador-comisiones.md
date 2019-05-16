@@ -43,6 +43,7 @@ de tal forma que incremente la inscripción de alumnos.
 	- El valor no puede ser mayor o igual 100.
 	- Los valores son del 0 al 99
 	- No se permite ingresar números con decimales 
+	***- En el caso del campus CMX, el porcentaje se asigna a dos coordinadores***
 - Se mostrará un botón de “Actualizar” que permitirá modificar este porcentaje y guardarlo.
 
 ###Especificaciones técnicas 
