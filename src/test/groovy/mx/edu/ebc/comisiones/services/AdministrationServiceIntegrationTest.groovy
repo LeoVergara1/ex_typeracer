@@ -34,6 +34,11 @@ public class AdministrationServiceIntegrationTest {
         }
 
 				@Bean
+        public CampusService campusService() {
+            return new CampusServiceImpl();
+        }
+
+				@Bean
         public PersonService personService() {
             return new PersonServiceImpl();
         }
@@ -45,6 +50,8 @@ public class AdministrationServiceIntegrationTest {
 	RestConnectionService restConnectionService
 	@Autowired
 	PersonService personService
+	@Autowired
+ 	CampusService campusService
 
 	@MockBean
 	AdminDeComisionesRepository adminDeComisionesRepository
@@ -68,10 +75,11 @@ public class AdministrationServiceIntegrationTest {
 	@Test
 	public void setProfile() {
 	    // given a person
-			Person person = administrationService.findPerson("r.martinez026")
 	    // when
-			println person.dump()
+			Map mapResponse  = administrationService.getPersonWithValidations("r.martinez026")
+			println "++"*100
+			println mapResponse.person.campuses.dump()
 	    // then
-			assertThat(person).isNotNull()
+			assertThat(mapResponse).isNotNull()
 	}
 }
