@@ -53,11 +53,7 @@ class PersonServiceImpl implements PersonService {
 @Override
  Person setProfile(Person person, String username, String portalName){
 	 def p = findPersonByUsernameAndPortalName(username, portalName)
-	 println "H"*100
-	 println p
 	 person.profiles =  findPersonByUsernameAndPortalName(username, portalName)
-	 println "R"*100
-	 println person.profiles
    person
  }
 
@@ -147,8 +143,6 @@ class PersonServiceImpl implements PersonService {
   @Override
   List<Profile> findPersonByUsernameAndPortalName(String userName, String portalName){
     List<JSONObject> jsonObject = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/role/${userName}/${portalName}")
-		println "*"*100
-		println jsonObject
     jsonObject?.collect{ profile ->
       Profile.fromJsonObject(profile)
     }

@@ -26,7 +26,7 @@ Vue.component('template-search', {
 		association: function(){
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
 				// get body data
-				this.user = response.body;
+				this.user = response.body.person;
 				console.log(response.body);
 				if(response.body.userName){
 					this.responses.foundInBanner = true

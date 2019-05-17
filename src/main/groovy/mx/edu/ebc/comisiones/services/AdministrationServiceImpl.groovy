@@ -90,9 +90,6 @@ public class AdministrationServiceImpl implements AdministrationService {
     [person:person,
     	mapRol: roles,
      	managerRoleId: managerRoleId]
-		[
-			person: person
-		]
 	}
 
   @Override
