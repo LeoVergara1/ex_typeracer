@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value
 //import mx.edu.ebc.api.service.PersonService
 //import mx.edu.ebc.api.service.ProfileService
 //import mx.edu.ebc.api.service.SecurityApiService
-//import mx.edu.ebc.api.service.UserCampusService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
@@ -20,7 +19,7 @@ import wslite.json.JSONObject
 class PersonServiceImpl implements PersonService {
 
  		@Autowired
- 		 RestConnectionService restConnectionService
+ 		RestConnectionService restConnectionService
 		@Value('${url.apibannercomisiones}')
 		String clientApiBannerComissions
 		@Value('${url.apibannerseguridad}')
@@ -29,8 +28,8 @@ class PersonServiceImpl implements PersonService {
  // Properties properties
  // @Autowired
  // ProfileService profileService
- // @Autowired
- // UserCampusService userCampusService
+ 		@Autowired
+ 		CampusService campusService
  // @Autowired
  // SecurityApiService securityApiService
  // @Autowired
@@ -51,23 +50,25 @@ class PersonServiceImpl implements PersonService {
 		Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${username}"))
   }
 
- //@Override
- // Person setProfile(Person person, String username, String portalName){
- //   List<Profile> profiles= profileService.findPersonByUsernameAndPortalName(username, portalName)
- //   profiles.each{ profile ->
- //     person.profiles << profile
- //   }
- //   person
- // }
+@Override
+ Person setProfile(Person person, String username, String portalName){
+	 def p = findPersonByUsernameAndPortalName(username, portalName)
+	 println "H"*100
+	 println p
+	 person.profiles =  findPersonByUsernameAndPortalName(username, portalName)
+	 println "R"*100
+	 println person.profiles
+   person
+ }
 
- // @Override
- // Person setCampuses(Person person){
- //   List<UserCampus> campuses= userCampusService.getAllCampusesforUser("FutureCampus",person.userName)
- //   campuses?.each{ campus ->
- //     person.campuses << campus
- //   }
- //   person
- // }
+  @Override
+  Person setCampuses(Person person){
+   	List<UserCampus> campuses= campusService.getAllCampusesforUser("FutureCampus",person.userName)
+    campuses?.each{ campus ->
+      person.campuses << campus
+    }
+    person
+  }
 
  // @Override
  // List<RoleCommand> getRoles(String portalName){
@@ -146,11 +147,11 @@ class PersonServiceImpl implements PersonService {
   @Override
   List<Profile> findPersonByUsernameAndPortalName(String userName, String portalName){
     List<JSONObject> jsonObject = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/role/${userName}/${portalName}")
-    jsonObject?.each{ profile ->
-      ProfileCommand profileCommand = ProfileCommand.fromJsonObject(profile)
-      profiles << profileCommand.getProfile()
+		println "*"*100
+		println jsonObject
+    jsonObject?.collect{ profile ->
+      Profile.fromJsonObject(profile)
     }
-    profiles
   }
 
 }
