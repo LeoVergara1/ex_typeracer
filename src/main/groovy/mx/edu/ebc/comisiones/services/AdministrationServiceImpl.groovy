@@ -30,6 +30,10 @@ public class AdministrationServiceImpl implements AdministrationService {
 	RestConnectionService restConnectionService
 	@Value('${url.apibannercomisiones}')
 	String clientApiBannerComissions
+	@Value('${managerRoleID}')
+	String managerRoleId
+	@Value('#{${roles}}')
+	Map<String, String> roles
 	@Autowired
 	PersonService personService
 
@@ -74,6 +78,22 @@ public class AdministrationServiceImpl implements AdministrationService {
     //}
     person
   }
+
+	@Override
+	Map getPersonWithValidations(String username){
+			Person person = personService.findPersonByUsername(username)
+    if(person.userName){
+    	person = personService.setProfile(person,person.userName, "Web-comisiones")
+    	person = personService.setCampuses(person)
+    }
+    //Map mapRol = personService.getRolesFromProperties()
+    [person:person,
+    	mapRol: roles,
+     	managerRoleId: managerRoleId]
+		[
+			person: person
+		]
+	}
 
   @Override
   Person setCampuses(Person person){

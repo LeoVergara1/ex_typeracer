@@ -12,5 +12,6 @@ public interface AdministrationService {
 	Person findPerson(String user)
 	Person setProfile(Person person, String username, String portalName)
 	Person setCampuses(Person person)
+	Map getPersonWithValidations(String username)
 	List<RoleCommand> getRoles(String portalName)
 }
