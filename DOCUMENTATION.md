@@ -32,7 +32,7 @@ La aplicación de comisiones presenciales contempla los siguientes módulos:
 
 7) Reportes
 
-8) Cálculo de comisiones corrientes
+[8) Cálculo de comisiones corrientes](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/21878ba853b00b38b272f75d899ea505c33ce776/calculo-comisiones-corrientes.md)
 
 9) Cálculo de comisiones crecientes 
 
