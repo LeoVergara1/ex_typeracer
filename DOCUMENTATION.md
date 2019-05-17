@@ -15,7 +15,7 @@ La aplicación de comisiones presenciales contempla los siguientes módulos:
 
 2) Comisiones
 
-- Administrador de comisiones
+[- Administrador de comisiones](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/1c5d8df1e00577fd811422d42692a9a3ff4d5930/administrador-comisiones.md)
 
 3) Creación de campañas 
 
