@@ -54,6 +54,7 @@ class PersonServiceImpl implements PersonService {
  Person setProfile(Person person, String username, String portalName){
 	 def p = findPersonByUsernameAndPortalName(username, portalName)
 	 person.profiles =  findPersonByUsernameAndPortalName(username, portalName)
+   (!person.profiles) ? (person.profiles = []) : "Nothing"
    person
  }
 

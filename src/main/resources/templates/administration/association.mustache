@@ -8,9 +8,12 @@
 	</div>
 	<hr>
 <div id="app">
+	<pulse-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></pulse-loader>
 	<vue-snotify></vue-snotify	>
-	<template-search :notify-options="notifyOptions" :user="user"></template-search>
-	<template-register :user="user" :campus="campus"></template-register>
+	<div v-show="!loader.loading">
+		<template-search :notify-options="notifyOptions" :user="user" :loader="loader"></template-search>
+		<template-register :notify-options="notifyOptions" :user="user" :campus="campus" v-if="user.person.userName"></template-register>
+	</div>
 <hr>
 	<template-promoter :campus="campus"></template-promoter>
 </div>

@@ -2,22 +2,53 @@
 Vue.component('template-register', {
 	props:  {
 		user: Object,
-		campus: Object
+		campus: Object,
+		notifyOptions: Object
 	},
   data: function () {
     return {
 			campusSelected: {},
+			roleCode: 557,
+			alert: {
+				message: "",
+				user: false,
+				show: false
+			}
     }
 	},
 	created: function (){
 		console.log("Instancia creada de componente registro")
 		console.log(this.campus)
 	},
+	watch: {
+		'user.person.username': 	function(){
+			console.log("Hola...")
+		}
+	},
+	computed: {
+		alertData: function() {
+			if(this.user.person.profiles.length>0 && this.user.person.campuses.length > 0){
+				this.$snotify.warning("El usuario ya fue registrado con los permisos", 'Advertencia', this.notifyOptions);
+				return {message: "El usuario ya fue registrado con los permisos", user: false, 	show: false}
+			}
+			else if(this.user.person.profiles.length == 0 && this.user.person.campuses.length > 0){
+				return {message: "", user: true, 	show: false}
+			}
+			else if(this.user.person.profiles.length > 0 && this.user.person.campuses.length == 0){
+				return {message: "", user: true, 	show: false}
+			}
+			else {
+				return {message: "", user: true, 	show: false}
+			}
+		}
+	},
 	methods: {
-
+		deleteRol: function() {
+			console.log("Deleting role")
+		}
 	},
 	template: `
-	<div class="row">
+	<div class="row" v-if="alertData.user && !alertData.show">
 		<div class="col-lg-2">
 				<label for="selectCampus">Campus</label>
 				<div id="filter-campus">
@@ -32,7 +63,7 @@ Vue.component('template-register', {
 		<div class="col-lg-2">
 			<label for="selectRoles">Rol</label>
 			<div id="filter-roles">
-			<select class="form-control filtersRolAndCampus" id="roleCode">
+			<select class="form-control filtersRolAndCampus" v-model="roleCode">
 				<option disabled="disabled">Seleccione un rol</option>
 				<option value="555">Administrador de Personal</option>
 				<option value="556">Administrador-Comisiones</option>
@@ -41,6 +72,47 @@ Vue.component('template-register', {
 				<option value="558">Promotor-Comisiones</option>
 			</select>
 		</div>
+		</div>
+		<div class="col-lg-2" id="recrCodeDiv" v-if="roleCode == 557 || roleCode == 558">
+			<label for="recrCodeInput">Código de Promotor</label>
+			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" value="">
+		</div>
+		<div class="col-md-2 col-lg-2">
+			<button id="saveRoleButton" style="margin-top:35px;" class="btn btn-sm btn-success btn-block" disabled="disabled"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrar</button>
+		</div>
+	</div>
+	<div class="row" v-else-if="!alertData.user && !alertData.show">
+		<div class="col-lg-12">
+		<table class="table">
+			<thead>
+				<tr>
+						<th>Usuario</th>
+						<th>Nombre</th>
+						<th>Campus</th>
+						<th>Rol</th>
+						<th></th>
+						<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td scope="row">{{user.person.userName}}</td>
+					<td>{{user.person.firstName}} {{user.person.lastName}}</td>
+					<td>{{user.person.campuses[0].description}}</td>
+					<td>{{user.person.profiles[0].description}}</td>
+					<td></td>
+					<td>
+							<button class="btn btn-danger btn-xs btn-block buttonTable" @click="deleteRol()" id="buttonTable"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		</div>
+	</div>
+	<div class="row" v-else>
+		<div class="col-lg-12">
+			<b-alert variant="warning" show>Success Alert</b-alert>
 		</div>
 	</div>
 	`

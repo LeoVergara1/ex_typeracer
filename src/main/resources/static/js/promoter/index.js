@@ -12,12 +12,21 @@ var app = new Vue({
     },
     listAssociation: [],
     notifyOptions: {
-      timeout: 3000,
+      timeout: 9000,
       showProgressBar: true,
       closeOnClick: false,
       pauseOnHover: true,
       position: 'rightTop'
     },
+    loader:{
+      color: '#0b93d1',
+      height: '15px',
+      width: '5px',
+      margin: '2px',
+      radius: '2px',
+      loading: false,
+      size: "95px"
+    }
 	},
 	created: function (){
 
@@ -26,5 +35,8 @@ var app = new Vue({
     update: function (numero) {
       console.log(numero)
     }
+  },
+  components: {
+    PulseLoader: VueSpinner.PulseLoader
   }
 })

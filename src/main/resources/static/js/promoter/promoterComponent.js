@@ -45,7 +45,6 @@ Vue.component('template-promoter', {
 									<th scope="col">Nombre Coordinador</th>
 									<th scope="col">Clave de empleado</th>
 									<th scope="col">Habilitado</th>
-									<th scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -59,7 +58,6 @@ Vue.component('template-promoter', {
 									<td>{{association.coordinaterName}}</td>
 									<td>{{association.claveCoordinater}}</td>
 									<td>{{association.relationActive}}</td>
-									<td><a name="" id="" class="btn btn-primary" href="#" role="button">Actualizar</a></td>
 								</tr>
 							</tbody>
 						</table>

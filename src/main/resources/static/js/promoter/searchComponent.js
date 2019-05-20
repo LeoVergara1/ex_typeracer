@@ -2,7 +2,8 @@
 Vue.component('template-search', {
 	props: {
 		notifyOptions: Object,
-		user: Object
+		user: Object,
+		loader: Object
 	},
   data: function () {
     return {
@@ -21,8 +22,10 @@ Vue.component('template-search', {
 	},
 	methods: {
 		association: function(){
+			this.loader.loading = true
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
 				// get body data
+				this.loader.loading = false
 				this.user2 = response.body.person;
 				this.user.person = response.body.person;
 				this.user.managerRoleId = response.body.managerRoleId;
@@ -41,20 +44,6 @@ Vue.component('template-search', {
 				// error callback
 			})
 		},
-		validateUser: function () {
-			if(this.user.profiles.length>0 && this.user.campuses.length > 0){
-
-			}
-			else if(this.user.profiles.length == 0 && this.user.campuses.length > 0) {
-
-			}
-			else if(this.user.profiles.length > 0 && this.campuses.length == 0) {
-
-			}
-			else if(this.user.profiles.length > 0 && this.user.campuses.length == 0){
-
-			}
-		}
 	},
 	template: `
 	<div class="row">
