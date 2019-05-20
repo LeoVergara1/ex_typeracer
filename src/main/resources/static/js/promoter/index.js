@@ -1,7 +1,15 @@
 var app = new Vue({
   el: '#app',
   data: {
-		message: 'Hello Vue!',
+    message: 'Hello Vue!',
+    user: {
+      person: {},
+      managerRoleId: 0,
+      mapRol: {}
+    },
+    campus: {
+      list: {}
+    },
     listAssociation: [],
     notifyOptions: {
       timeout: 3000,

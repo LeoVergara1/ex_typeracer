@@ -3,7 +3,7 @@ security:
     server:
       base-url: https://apr-test.ebc.edu.mx/casad
     service:
-      base-url: http://localhost:8080
+      base-url: http://localhost:8090
 spring:
   datasource:
     url: jdbc:oracle:thin:@10.31.23.34:1521:DEVL8

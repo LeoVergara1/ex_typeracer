@@ -1,18 +1,15 @@
 // Define a new component called button-counter
 Vue.component('template-search', {
-	props:  ['notifyOptions'],
+	props: {
+		notifyOptions: Object,
+		user: Object
+	},
   data: function () {
     return {
 			searchData: {
 				user: ""
 			},
-			user: {
-				lastName: "",
-				firstName: "",
-				pidm: "",
-				adminId: "",
-				middleName: "",
-				userName: ""
+			alertModel:{
 			},
 			responses: {
 				foundInBanner: false
@@ -26,9 +23,12 @@ Vue.component('template-search', {
 		association: function(){
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
 				// get body data
-				this.user = response.body.person;
+				this.user2 = response.body.person;
+				this.user.person = response.body.person;
+				this.user.managerRoleId = response.body.managerRoleId;
+				this.user.mapRol = response.body.mapRol;
 				console.log(response.body);
-				if(response.body.userName){
+				if(response.body.person.userName){
 					this.responses.foundInBanner = true
 				}
 				else {
@@ -40,6 +40,20 @@ Vue.component('template-search', {
 				console.log(response)
 				// error callback
 			})
+		},
+		validateUser: function () {
+			if(this.user.profiles.length>0 && this.user.campuses.length > 0){
+
+			}
+			else if(this.user.profiles.length == 0 && this.user.campuses.length > 0) {
+
+			}
+			else if(this.user.profiles.length > 0 && this.campuses.length == 0) {
+
+			}
+			else if(this.user.profiles.length > 0 && this.user.campuses.length == 0){
+
+			}
 		}
 	},
 	template: `
@@ -64,13 +78,12 @@ Vue.component('template-search', {
 						<div class="col-auto" v-if="responses.foundInBanner">
 							<div style="margin-bottom: 30px;padding-left: 40px;">
 								<h4 class="block orange"><i class="fa fa-user" aria-hidden="true"></i></h4>
-								<h4 class="block orange" style="margin-top:30px;">{{user.lastName}} {{user.firstName}}</h4>
-								<h4 class="block blue">ID: {{user.enrollment}}</h4>
+								<h4 class="block orange" style="margin-top:30px;">{{user.person.lastName}} {{user.person.firstName}}</h4>
+								<h4 class="block blue">ID: {{user.person.enrollment}}</h4>
 							</div>
 						</div>
 					</div>
 	</div>
 </div>
-
 	`
 })

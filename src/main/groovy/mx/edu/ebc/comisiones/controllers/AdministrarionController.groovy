@@ -97,4 +97,5 @@ class AdministrarionController {
 		Map infoPerson = administrationService.getPersonWithValidations(searchData.user)
     return infoPerson
   }
+
 }

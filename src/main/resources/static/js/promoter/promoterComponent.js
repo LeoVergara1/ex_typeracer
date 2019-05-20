@@ -1,5 +1,8 @@
 // Define a new component called button-counter
 Vue.component('template-promoter', {
+	props: {
+			campus: Object
+	},
   data: function () {
     return {
 			count: 0,
@@ -12,6 +15,7 @@ Vue.component('template-promoter', {
 			// get body data
 			this.someData = response.body;
 			console.log(response.body);
+			this.campus.list = response.body.campus
 			this.listAssociation = response.body.listAssociation
 			console.log(response)
 			console.log("regreso")

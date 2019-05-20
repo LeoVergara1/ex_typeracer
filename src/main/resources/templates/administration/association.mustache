@@ -9,9 +9,10 @@
 	<hr>
 <div id="app">
 	<vue-snotify></vue-snotify	>
-	<template-search :notify-options="notifyOptions"></template-search>
+	<template-search :notify-options="notifyOptions" :user="user"></template-search>
+	<template-register :user="user" :campus="campus"></template-register>
 <hr>
-	<template-promoter></template-promoter>
+	<template-promoter :campus="campus"></template-promoter>
 </div>
 </div>
 
@@ -19,5 +20,6 @@
 
 <script src="/js/promoter/searchComponent.js"></script>
 <script src="/js/promoter/promoterComponent.js"></script>
+<script src="/js/promoter/registerComponent.js"></script>
 <script src="/js/promoter/index.js"></script>
 {{> footer}}
