@@ -1,5 +1,7 @@
 package mx.edu.ebc.comisiones.pojos
 
+import wslite.json.JSONObject
+
 class SecurityUser {
   Long id
   String name
@@ -8,6 +10,7 @@ class SecurityUser {
   String userName
   String administrator
   String enrollment
+	JSONObject securityUserJSON
 
   @Override
   String toString(){
@@ -21,8 +24,14 @@ class SecurityUser {
             "enrollment: $enrollment"
   }
 
-	  SecurityUser fromJSONObjectToSecurityUser(){
-     new SecurityUser(
+	SecurityUser(){}
+
+	SecurityUser(JSONObject securityUserJSON) {
+    this.securityUserJSON = securityUserJSON
+  }
+
+	SecurityUser fromJSONObjectToSecurityUser(){
+    new SecurityUser(
             id: securityUserJSON?.id,
             name: securityUserJSON?.name,
             dateCreated: new Date(securityUserJSON?.dateCreated),

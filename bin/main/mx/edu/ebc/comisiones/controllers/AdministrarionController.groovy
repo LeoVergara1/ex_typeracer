@@ -109,13 +109,14 @@ class AdministrarionController {
 	@PostMapping("administration/saveRolToPerson")
 	@ResponseBody
   Map saveRolToPerson(@RequestBody Map user){
-
 		println user.dump()
-		println user.roleCode
-		println user.rcreCode
+		println "Despues"
+		println user.person.userName
+		println user.campus
+		def result = administrationService.saveRolAndCampus(user.person.userName, user.campus, user.roleCode, user.rcreCode)
     //def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
    // log.info result.dump()
-	 [hello: "hola"]
+	 [result: result]
   }
 
 }

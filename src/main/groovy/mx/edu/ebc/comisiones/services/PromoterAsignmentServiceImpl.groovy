@@ -4,6 +4,7 @@ import mx.edu.ebc.comisiones.pojos.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
+import org.springframework.beans.factory.annotation.Value
 
 @Service
 class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
@@ -16,8 +17,10 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
   PersonService personService
   @Autowired
   PromoterService promoterService
-  @Autowired
-  Map rolesMap
+	@Value('#{${roles}}')
+	Map<String, String> rolesMap
+	@Value('${promotersRadmCode}')
+	String promotersRadmCode
   @Autowired
   CampusService campusService
 
@@ -226,7 +229,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
   @Override
   Boolean isValidRadmCode(Long promoterPidm){
     findAllPromotersFromBannerByRadmCode(
-            properties.getProperty("promotersRadmCode")
+            promotersRadmCode
     ).find { promoterBanner ->
       promoterBanner.pidm == promoterPidm
     } ? true : {

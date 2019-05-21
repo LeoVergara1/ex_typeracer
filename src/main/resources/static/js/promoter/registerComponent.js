@@ -62,6 +62,7 @@ Vue.component('template-register', {
 		},
 		saveRole: function () {
 			let objectToSend = Object.assign(this.user, this.register)
+			console.log(objectToSend)
 			this.$http.post('/administration/saveRolToPerson', objectToSend).then(response => {
 				console.log("Response ")
 				console.log(response)

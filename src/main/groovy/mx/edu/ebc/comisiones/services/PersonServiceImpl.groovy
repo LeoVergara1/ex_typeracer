@@ -19,7 +19,7 @@ import wslite.json.JSONObject
 @Service
 class PersonServiceImpl implements PersonService {
 
-	  Logger logger = LoggerFactory.getLogger(RestConnectionServiceImpl.class)
+	  Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class)
 
  		@Autowired
  		RestConnectionService restConnectionService
@@ -37,8 +37,8 @@ class PersonServiceImpl implements PersonService {
  // ProfileService profileService
  		@Autowired
  		CampusService campusService
- // @Autowired
- // SecurityApiService securityApiService
+    @Autowired
+    SecurityApiService securityApiService
  // @Autowired
  // PromoterAsignmentService promoterAsignmentService
  // @Autowired

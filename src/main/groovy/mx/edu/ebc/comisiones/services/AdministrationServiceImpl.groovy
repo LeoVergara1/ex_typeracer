@@ -110,4 +110,8 @@ public class AdministrationServiceImpl implements AdministrationService {
    // }
    // roles
   }
+	@Override
+	def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
+		personService.saveRolAndCampus(username, codeCampus, roleCode, recrCode)
+	}
 }
