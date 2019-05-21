@@ -106,4 +106,16 @@ class AdministrarionController {
    // log.info result.dump()
   }
 
+	@PostMapping("administration/saveRolToPerson")
+	@ResponseBody
+  Map saveRolToPerson(@RequestBody Map user){
+
+		println user.dump()
+		println user.roleCode
+		println user.rcreCode
+    //def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
+   // log.info result.dump()
+	 [hello: "hola"]
+  }
+
 }

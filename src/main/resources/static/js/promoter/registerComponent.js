@@ -13,6 +13,11 @@ Vue.component('template-register', {
 				message: "",
 				user: false,
 				show: false
+			},
+			register: {
+				campus: "",
+				roleCode: "",
+				rcreCode: ""
 			}
     }
 	},
@@ -26,6 +31,14 @@ Vue.component('template-register', {
 		}
 	},
 	computed: {
+		disabledRegister: function(){
+			if(this.register.campus && this.register.roleCode){
+				return false
+			}
+			else {
+				return true
+			}
+		},
 		alertData: function() {
 			if(this.user.person.profiles.length>0 && this.user.person.campuses.length > 0){
 				this.$snotify.warning("El usuario ya fue registrado con los permisos", 'Advertencia', this.notifyOptions);
@@ -45,6 +58,15 @@ Vue.component('template-register', {
 	methods: {
 		deleteRol: function() {
 			console.log("Deleting role")
+			return false
+		},
+		saveRole: function () {
+			let objectToSend = Object.assign(this.user, this.register)
+			this.$http.post('/administration/saveRolToPerson', objectToSend).then(response => {
+				console.log("Response ")
+				console.log(response)
+				}, response => {
+			})
 		}
 	},
 	template: `
@@ -52,7 +74,7 @@ Vue.component('template-register', {
 		<div class="col-lg-2">
 				<label for="selectCampus">Campus</label>
 				<div id="filter-campus">
-					<select v-model="campusSelected" class="form-control">
+					<select v-model="register.campus" class="form-control">
 						<!-- inline object literal -->
 						<option v-for="(k, v) in campus.list" v-bind:value="v">
 							{{ k }}
@@ -63,7 +85,7 @@ Vue.component('template-register', {
 		<div class="col-lg-2">
 			<label for="selectRoles">Rol</label>
 			<div id="filter-roles">
-			<select class="form-control filtersRolAndCampus" v-model="roleCode">
+			<select class="form-control filtersRolAndCampus" v-model="register.roleCode">
 				<option disabled="disabled">Seleccione un rol</option>
 				<option value="555">Administrador de Personal</option>
 				<option value="556">Administrador-Comisiones</option>
@@ -73,12 +95,12 @@ Vue.component('template-register', {
 			</select>
 		</div>
 		</div>
-		<div class="col-lg-2" id="recrCodeDiv" v-if="roleCode == 557 || roleCode == 558">
+		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == 557 || register.roleCode == 558">
 			<label for="recrCodeInput">Código de Promotor</label>
-			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" value="">
+			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="register.rcreCode">
 		</div>
 		<div class="col-md-2 col-lg-2">
-			<button id="saveRoleButton" style="margin-top:35px;" class="btn btn-sm btn-success btn-block" disabled="disabled"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrar</button>
+			<button id="saveRoleButton" style="margin-top:35px;" class="btn btn-sm btn-success btn-block" :disabled="disabledRegister" @click="saveRole()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrar</button>
 		</div>
 	</div>
 	<div class="row" v-else-if="!alertData.user && !alertData.show">
