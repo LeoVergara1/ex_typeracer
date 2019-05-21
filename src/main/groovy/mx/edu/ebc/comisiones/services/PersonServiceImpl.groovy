@@ -1,9 +1,10 @@
 package mx.edu.ebc.comisiones.services
 
-import groovy.util.logging.Log4j
 import mx.edu.ebc.comisiones.pojos.RoleCommand
 import mx.edu.ebc.comisiones.pojos.*
 import org.springframework.beans.factory.annotation.Value
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import mx.edu.ebc.api.service.ManagerService
 //import mx.edu.ebc.api.service.PromoterAsignmentService
 //import mx.edu.ebc.api.service.PromoterService
@@ -18,12 +19,18 @@ import wslite.json.JSONObject
 @Service
 class PersonServiceImpl implements PersonService {
 
+	  Logger logger = LoggerFactory.getLogger(RestConnectionServiceImpl.class)
+
  		@Autowired
  		RestConnectionService restConnectionService
 		@Value('${url.apibannercomisiones}')
 		String clientApiBannerComissions
 		@Value('${url.apibannerseguridad}')
 		String clientApiBannerSeguridad
+		@Value('${managerRoleID}')
+		String managerRoleID
+		@Value('${promoterRoleId}')
+		String promoterRoleId
  // @Autowired
  // Properties properties
  // @Autowired
@@ -77,53 +84,53 @@ class PersonServiceImpl implements PersonService {
  //   roles
  // }
 
- // @Override
- // def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
- //   recrCode = recrCode.toUpperCase()
- //   log.info "Inicia Proceso para asignar el rol"
- //   Long pidm = findPersonByUsername(username).pidm
- //   Long roleId = Long.valueOf(roleCode)
- //   Integer statusRole
- //   Integer validation
- //   if (roleCode == properties.getProperty("promoterRoleId") || roleCode == properties.getProperty("managerRoleID")){
- //     log.info "Promoter/Manager Role found, validation in Banner starts"
- //     validation = promoterAsignmentService.isPromoterPidmAndRecrCodeValidForRegistration(pidm, recrCode)
- //     if (validation != 200){
- //       log.info "Promoter or manager not valid in banner... aborting user creation"
- //       return [statusRole: validation]
- //     }
- //   }
- //   Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
- //   if (securityRoleAssignment){
- //     def statusCampus = restConnectionService.post(properties.getProperty("core.url.apicomisiones"),"/v1/api/user/", [campus_code: codeCampus, user_name:username, pidm:pidm])
- //     if (statusCampus.statusCode == 201) {
- //       if (roleCode == properties.getProperty("managerRoleID"))
- //         managerService.createManager(username, pidm, recrCode)
- //       else if(roleCode == properties.getProperty("promoterRoleId"))
- //         promoterService.createPromoter(username, pidm, recrCode)
- //       statusRole = 201
- //     }else
- //       statusRole = 404
- //   }else{
- //     log.error "Ha ocurrido un error"
- //     statusRole = 412
- //   }
+  @Override
+  def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
+    recrCode = recrCode.toUpperCase()
+    logger.info "Inicia Proceso para asignar el rol"
+    Long pidm = findPersonByUsername(username).pidm
+    Long roleId = Long.valueOf(roleCode)
+    Integer statusRole
+    Integer validation
+    if (roleCode == promoterRoleId || roleCode == managerRoleID){
+      logger.info "Promoter/Manager Role found, validation in Banner starts"
+      validation = promoterAsignmentService.isPromoterPidmAndRecrCodeValidForRegistration(pidm, recrCode)
+      if (validation != 200){
+        logger.info "Promoter or manager not valid in banner... aborting user creation"
+        return [statusRole: validation]
+      }
+    }
+    Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
+    if (securityRoleAssignment){
+      def statusCampus = restConnectionService.post(clientApiBannerComissions,"/v1/api/user/", [campus_code: codeCampus, user_name:username, pidm:pidm])
+      if (statusCampus.statusCode == 201) {
+        if (roleCode == managerRoleID)
+          managerService.createManager(username, pidm, recrCode)
+        else if(roleCode == promoterRoleId)
+          promoterService.createPromoter(username, pidm, recrCode)
+        statusRole = 201
+      }else
+        statusRole = 404
+    }else{
+      logger.error "Ha ocurrido un error"
+      statusRole = 412
+    }
 
- //   [statusRole:statusRole]
- // }
+    [statusRole:statusRole]
+  }
 
  // @Override
  // Map deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
- //   log.info "Deleting user: $username"
- //  def statusCampus =  restConnectionService.delete(properties.getProperty("core.url.apicomisiones"),"/v1/api/user/", [code_campus: codeCampus, user_name:username])
+ //   logger.info "Deleting user: $username"
+ //  def statusCampus =  restConnectionService.delete(clientApiBannerComissions,"/v1/api/user/", [code_campus: codeCampus, user_name:username])
 
  //   def statusRole =  restConnectionService.delete(properties.getProperty("core.url.apibannerseguridad"),"/v2/api/user/role/", [user_name: username, role_id: roleCode])
  //   if(roleCode==properties.getProperty("managerRoleID")){
- //     log.info "Manager Role detected, deleting..."
- //     log.info managerService.deleteManager(username) ? "Success" : "Error"
+ //     logger.info "Manager Role detected, deleting..."
+ //     logger.info managerService.deleteManager(username) ? "Success" : "Error"
  //   }else if(roleCode==properties.getProperty("promoterRoleId")){
- //     log.info "Promoter role detected, deleting..."
- //     log.info promoterService.deletePromoter(username) ? "Success" : "Error"
+ //     logger.info "Promoter role detected, deleting..."
+ //     logger.info promoterService.deletePromoter(username) ? "Success" : "Error"
  //   }
 
  //  [statusRole:statusRole?.statusCode,
