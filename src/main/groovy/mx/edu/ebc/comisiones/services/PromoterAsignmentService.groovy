@@ -27,5 +27,5 @@ interface PromoterAsignmentService {
   Integer isPromoterPidmAndRecrCodeValidForRegistration(Long promoterPidm, String recrCode)
   Boolean isValidRadmCode(Long promoterPidm)
   Boolean isValidRecrCode(String recrCode)
-  //List<PromoterCode> findAllPromotersFromBannerByRadmCode(String radmCode)
+  List<PromoterCode> findAllPromotersFromBannerByRadmCode(String radmCode)
 }

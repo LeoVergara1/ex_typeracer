@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @Service
 class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
+
+  Logger logger = LoggerFactory.getLogger(PromoterAsignmentServiceImpl.class)
 
   @Autowired
   RestConnectionService restConnectionService
@@ -23,10 +27,12 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
 	String promotersRadmCode
   @Autowired
   CampusService campusService
+  @Value('${url.apibannercomisiones}')
+	String clientApiBannerComission
 
   //@Override
   //List<AssignablePromoter> findAllPromotersByCampus(String campusCode) {
-  //  log.info "Consultando todos los promotores por campus en API-COMISIONES"
+  //  logger.info "Consultando todos los promotores por campus en API-COMISIONES"
   //  Long roleId = Long.valueOf(properties.getProperty('promoterRoleId'))
   //  List<UserCampus> userCampusList = getAllUsersByCampusCode(campusCode)
   //  List<SecurityUser> securityUserList = getAllUsersByRoleId(roleId)
@@ -53,7 +59,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
 
   //@Override
   //List<UserCampus> getAllUsersByCampusCode(String campusCode) {
-  //  log.info "Consultando todos los usuarios por campus en API-COMISIONES"
+  //  logger.info "Consultando todos los usuarios por campus en API-COMISIONES"
   //  List<UserCampus> userCampusList = new ArrayList<UserCampus>()
   //  List<CampusCommand> listCampuses = campusService.list()
   //  List<JSONObject> jsonObjects = restConnectionService.get(
@@ -68,7 +74,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
 
   //@Override
   //List<SecurityUser> getAllUsersByRoleId(Long roleId) {
-  //  log.info "Consultando todos los usuarios por rol en API-SEGURIDAD"
+  //  logger.info "Consultando todos los usuarios por rol en API-SEGURIDAD"
   //  List<SecurityUser> securityUserArrayList = new ArrayList<SecurityUser>()
   //  List<JSONObject> jsonObject = restConnectionService.get(
   //          properties.getProperty("core.url.apibannerseguridad"), "/v2/api/users/role/${roleId}")
@@ -81,7 +87,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
  // @Override
  // List<Promoter> findPromotersByUserNames(List<String> userNamesList) {
  //   String userNameJoin = userNamesList.join(',')
- //   log.info "Consultando lista de promotores: $userNameJoin"
+ //   logger.info "Consultando lista de promotores: $userNameJoin"
  //   List<Promoter> promoters = new ArrayList<Promoter>()
  //   List<JSONObject> jsonObjects = restConnectionService.get(
  //           properties.getProperty("core.url.apicomisiones"),
@@ -114,7 +120,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
   //      promoter.pidm = Long.valueOf(formParameters["pidm[$match]"]?:0L)
   //      promoter.check = formParameters["check[$match]"] ? true : false
   //      assignablePromoters << promoter
-  //      log.info promoter
+  //      logger.info promoter
   //    }
   //  }
   //  [manager: manager, promoters: assignablePromoters]
@@ -130,36 +136,36 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
 
   //@Override
   //boolean newManagerPromoterRelation(PromoterManagerAssociation promoterManagerAssociation) {
-  //  log.info "Saving new relation with manager: $promoterManagerAssociation.managerUserName and promoter $promoterManagerAssociation.promoterUserName"
+  //  logger.info "Saving new relation with manager: $promoterManagerAssociation.managerUserName and promoter $promoterManagerAssociation.promoterUserName"
   //  def postStatus = restConnectionService.put(
   //          properties.getProperty("core.url.apicomisiones"),
   //          "/v1/api/promoter/assign",
   //          [promoter_user_name: promoterManagerAssociation.promoterUserName,
   //           manager_user_name: promoterManagerAssociation.managerUserName])
   //  postStatus.statusCode == 200 ? {
-  //    log.info "Successfully assigned..."
+  //    logger.info "Successfully assigned..."
   //    true
   //  }() : {
-  //    log.error("ERROR saving new realtion for manager: $promoterManagerAssociation.managerUserName and promoter: $promoterManagerAssociation.promoterUserName - statusCode: $postStatus.statusCode")
+  //    logger.error("ERROR saving new realtion for manager: $promoterManagerAssociation.managerUserName and promoter: $promoterManagerAssociation.promoterUserName - statusCode: $postStatus.statusCode")
   //    false
   //  }()
   //}
 
   //@Override
   //boolean deleteManagerPromoterRelation(PromoterManagerAssociation promoterManagerAssociation) {
-  //  log.info "Deleting relation with manager: $promoterManagerAssociation.managerUserName and promoter $promoterManagerAssociation.promoterUserName"
+  //  logger.info "Deleting relation with manager: $promoterManagerAssociation.managerUserName and promoter $promoterManagerAssociation.promoterUserName"
   //  def postStatus = restConnectionService.put(
   //          properties.getProperty("core.url.apicomisiones"),
   //          "/v1/api/promoter/unassign",
   //          [promoter_user_name: promoterManagerAssociation.promoterUserName,
   //           manager_user_name: promoterManagerAssociation.managerUserName])
   //  if (postStatus.statusCode == 200){
-  //    log.info "Correctly deleted"
+  //    logger.info "Correctly deleted"
   //    return true
   //  }else if (postStatus.statusCode == 404)
-  //    log.error "Error deleting manager: $promoterManagerAssociation.managerUserName does not exists - ServiceStatus: $postStatus.statusCode"
+  //    logger.error "Error deleting manager: $promoterManagerAssociation.managerUserName does not exists - ServiceStatus: $postStatus.statusCode"
   //  else if (postStatus.statusCode == 409)
-  //    log.error "Error deleting manager: $promoterManagerAssociation.managerUserName api-comisiones error - ServiceStatus: $postStatus.statusCode"
+  //    logger.error "Error deleting manager: $promoterManagerAssociation.managerUserName api-comisiones error - ServiceStatus: $postStatus.statusCode"
   //  false
   //}
 
@@ -202,8 +208,8 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
   //void asignListOfPromotersToManager(List<PromoterManagerAssociation> promoterManagerAssociations) {
   //  promoterManagerAssociations.each { promoterManagerAssociation ->
   //    newManagerPromoterRelation(promoterManagerAssociation) ?
-  //            log.info("Manager-Promoter realtion created: $promoterManagerAssociation.managerUserName-$promoterManagerAssociation.promoterUserName") :
-  //            log.error("Manager-Promoter NOT CREATED $promoterManagerAssociation.managerUserName-$promoterManagerAssociation.promoterUserName")
+  //            logger.info("Manager-Promoter realtion created: $promoterManagerAssociation.managerUserName-$promoterManagerAssociation.promoterUserName") :
+  //            logger.error("Manager-Promoter NOT CREATED $promoterManagerAssociation.managerUserName-$promoterManagerAssociation.promoterUserName")
   //  }
   //}
 
@@ -222,7 +228,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
 
   @Override
   Integer isPromoterPidmAndRecrCodeValidForRegistration(Long promoterPidm, String recrCode) {
-    log.info "Validating pidm: $promoterPidm and recrCode: $recrCode"
+    logger.info "Validating pidm: $promoterPidm and recrCode: $recrCode"
     isValidRadmCode(promoterPidm) ? isValidRecrCode(recrCode) ? 200 : 401 : 400
   }
 
@@ -233,7 +239,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
     ).find { promoterBanner ->
       promoterBanner.pidm == promoterPidm
     } ? true : {
-      log.info "Error, not valid EMRECR code"
+      logger.info "Error, not valid EMRECR code"
       false
     }()
   }
@@ -243,21 +249,21 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
     (promoterService.getRecrCodeCatalogue().find { promoterCode ->
       promoterCode.recrCode == recrCode
     } ? true : {
-      log.info "Error, not in STVRECR catalogue"
+      logger.info "Error, not in STVRECR catalogue"
       false
     }()) && !(promoterService.isRecruiterCodeAlreadyInUse(recrCode))
   }
 
-  //@Override
-  //List<PromoterCode> findAllPromotersFromBannerByRadmCode(String radmCode) {
-  //  log.info "Finding all promoters in banner for radmCode: $radmCode"
-  //  restConnectionService.get(
-  //          properties.getProperty("core.url.apibannercomisiones"),
-  //          "/v1/api/promoters/$radmCode"
-  //  )?.collect{ jsonObject ->
-  //    PromoterCommand.createPromoterBannerForRadmCodeFromJSONObject(jsonObject)
-  //  } ?: []
-  //}
+  @Override
+  List<PromoterCode> findAllPromotersFromBannerByRadmCode(String radmCode) {
+    logger.info "Finding all promoters in banner for radmCode: $radmCode"
+    restConnectionService.get(
+            clientApiBannerComission,
+            "/v1/api/promoters/$radmCode"
+    )?.collect{ jsonObject ->
+      Promoter.createPromoterBannerForRadmCodeFromJSONObject(jsonObject)
+    } ?: []
+  }
 
 
 }
