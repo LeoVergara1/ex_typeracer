@@ -38,7 +38,8 @@ class AdministrarionController {
   @RequestMapping("/")
   @ResponseBody
   public ModelAndView home() {
-		ModelAndView model = new ModelAndView("administration/home");
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "home");
 		//def list = adminDeComisionesRepository.findAll()
 		model.addObject("title", "Baeldung");
 		model.addObject("any", "Hola mundo");
@@ -48,7 +49,8 @@ class AdministrarionController {
   @RequestMapping("administration/show")
   @ResponseBody
   public ModelAndView administrationShow() {
-		ModelAndView model = new ModelAndView("administration/show");
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "show");
 		model.addObject("comisionesList", administrationService.findAllComission());
 		model.addObject("comissionEjecutiva", administrationService.findAllComission().first().comisionEjecutivo);
 		model.addObject("comissionCordinacion", administrationService.findAllComission().first().comisionCoordinacion);
