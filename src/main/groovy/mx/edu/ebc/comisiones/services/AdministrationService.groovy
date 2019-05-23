@@ -15,4 +15,5 @@ public interface AdministrationService {
 	Map getPersonWithValidations(String username)
 	List<RoleCommand> getRoles(String portalName)
 	def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode)
+	def deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode)
 }

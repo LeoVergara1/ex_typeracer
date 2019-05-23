@@ -114,4 +114,9 @@ public class AdministrationServiceImpl implements AdministrationService {
 	def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
 		personService.saveRolAndCampus(username, codeCampus, roleCode, recrCode)
 	}
+
+	@Override
+	def deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
+		personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
+	}
 }
