@@ -59,6 +59,8 @@ public class AdministrationServiceIntegrationTest {
 	PromoterAssociationRepository promoterAssociationRepositor
 	@MockBean
 	PersonRepository personRepository
+	@MockBean
+	SecurityApiService securityApiService
 
 
 	@Test
