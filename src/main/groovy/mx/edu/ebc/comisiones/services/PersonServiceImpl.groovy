@@ -39,8 +39,8 @@ class PersonServiceImpl implements PersonService {
  		CampusService campusService
     @Autowired
     SecurityApiService securityApiService
- // @Autowired
- // PromoterAsignmentService promoterAsignmentService
+    @Autowired
+    PromoterAsignmentService promoterAsignmentService
  // @Autowired
  // PromoterService promoterService
  // @Autowired
@@ -92,12 +92,13 @@ class PersonServiceImpl implements PersonService {
     Long roleId = Long.valueOf(roleCode)
     Integer statusRole
     Integer validation
+    String message
     if (roleCode == promoterRoleId || roleCode == managerRoleID){
       logger.info "Promoter/Manager Role found, validation in Banner starts"
       validation = promoterAsignmentService.isPromoterPidmAndRecrCodeValidForRegistration(pidm, recrCode)
       if (validation != 200){
         logger.info "Promoter or manager not valid in banner... aborting user creation"
-        return [statusRole: validation]
+        return [statusRole: validation, message: "Promoter or manager not valid in banner... aborting user creation"]
       }
     }
     Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
@@ -116,26 +117,26 @@ class PersonServiceImpl implements PersonService {
       statusRole = 412
     }
 
-    [statusRole:statusRole]
+    [statusRole:statusRole, message: message]
   }
 
- // @Override
- // Map deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
- //   logger.info "Deleting user: $username"
- //  def statusCampus =  restConnectionService.delete(clientApiBannerComissions,"/v1/api/user/", [code_campus: codeCampus, user_name:username])
+  @Override
+  Map deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
+    logger.info "Deleting user: $username"
+   def statusCampus =  restConnectionService.delete(clientApiBannerComissions,"/v1/api/user/", [code_campus: codeCampus, user_name:username])
 
- //   def statusRole =  restConnectionService.delete(properties.getProperty("core.url.apibannerseguridad"),"/v2/api/user/role/", [user_name: username, role_id: roleCode])
- //   if(roleCode==properties.getProperty("managerRoleID")){
- //     logger.info "Manager Role detected, deleting..."
- //     logger.info managerService.deleteManager(username) ? "Success" : "Error"
- //   }else if(roleCode==properties.getProperty("promoterRoleId")){
- //     logger.info "Promoter role detected, deleting..."
- //     logger.info promoterService.deletePromoter(username) ? "Success" : "Error"
- //   }
+    def statusRole =  restConnectionService.delete(properties.getProperty("core.url.apibannerseguridad"),"/v2/api/user/role/", [user_name: username, role_id: roleCode])
+    if(roleCode==properties.getProperty("managerRoleID")){
+      logger.info "Manager Role detected, deleting..."
+      logger.info managerService.deleteManager(username) ? "Success" : "Error"
+    }else if(roleCode==properties.getProperty("promoterRoleId")){
+      logger.info "Promoter role detected, deleting..."
+      logger.info promoterService.deletePromoter(username) ? "Success" : "Error"
+    }
 
- //  [statusRole:statusRole?.statusCode,
- //  statusCampus: statusCampus?.statusCode]
- // }
+   [statusRole:statusRole?.statusCode,
+   statusCampus: statusCampus?.statusCode]
+  }
 
 
  // Map getRolesFromProperties(){
