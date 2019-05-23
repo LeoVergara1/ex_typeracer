@@ -61,6 +61,8 @@ public class AdministrationServiceIntegrationTest {
 	PersonRepository personRepository
 	@MockBean
 	SecurityApiService securityApiService
+	@MockBean
+	PromoterAsignmentService promoterAsignmentService
 
 
 	@Test

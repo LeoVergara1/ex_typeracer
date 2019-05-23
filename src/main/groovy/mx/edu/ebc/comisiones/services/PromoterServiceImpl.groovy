@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @Service
 class PromoterServiceImpl implements PromoterService{
+
+  Logger logger = LoggerFactory.getLogger(PromoterServiceImpl.class)
 
   @Autowired
   RestConnectionService restConnectionService
@@ -20,7 +24,7 @@ class PromoterServiceImpl implements PromoterService{
 
   @Override
   Boolean createPromoter(String userName, Long pidm, String recrCode) {
-    log.info "Saving new promoter: $userName"
+    logger.info "Saving new promoter: $userName"
     def postStatus = restConnectionService.post(
             clientComissions,
             "/v1/api/promoter/",
@@ -29,15 +33,15 @@ class PromoterServiceImpl implements PromoterService{
              promoter_recr_code: recrCode])
     switch (postStatus?.statusCode) {
       case 201:
-        log.info "Successfully saved..."
+        logger.info "Successfully saved..."
         true
         break
       case 412:
-        log.error "ERROR, This promoter already exists"
+        logger.error "ERROR, This promoter already exists"
         false
         break
       case 428:
-        log.error "ERROR, Recruiter code already in use"
+        logger.error "ERROR, Recruiter code already in use"
         false
         break
       default:
@@ -47,23 +51,23 @@ class PromoterServiceImpl implements PromoterService{
 
   @Override
   Boolean deletePromoter(String userName) {
-    log.info "Deleting promoter: $userName"
+    logger.info "Deleting promoter: $userName"
     def postStatus = restConnectionService.delete(
             clientComissions,
             "/v1/api/promoter/",
             [promoter_user_name: userName])
     postStatus?.statusCode == 200 ? {
-      log.info "Successfully deleted..."
+      logger.info "Successfully deleted..."
       true
     }() : {
-      log.error("ERROR deleting promoter: $userName, statusCode: ${postStatus?.statusCode}")
+      logger.error("ERROR deleting promoter: $userName, statusCode: ${postStatus?.statusCode}")
       false
     }()
   }
 
   @Memoized
   List<PromoterCode> getRecrCodeCatalogue() {
-    log.info "Retrieving all Promoters in stvrecr catalogue"
+    logger.info "Retrieving all Promoters in stvrecr catalogue"
     List<JSONObject> response = restConnectionService.get(
             properties.getProperty("core.url.apibannercomisiones"),
             "/v1/api/promoters/recr_code_catalogue"
@@ -76,11 +80,11 @@ class PromoterServiceImpl implements PromoterService{
 
   @Override
   Boolean isRecruiterCodeAlreadyInUse(String recrCode) {
-    log.info "Verifying recrCode in api-comisiones: $recrCode"
+    logger.info "Verifying recrCode in api-comisiones: $recrCode"
     JSONObject response = restConnectionService.get(
             clientComissions,
             "/v1/api/promoter/recruiter_code/occupied/$recrCode")
-    log.info response
+    logger.info response
     response ?
             new Boolean(response?.isValid)
             : null
