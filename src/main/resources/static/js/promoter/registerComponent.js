@@ -58,6 +58,11 @@ Vue.component('template-register', {
 	methods: {
 		deleteRol: function() {
 			console.log("Deleting role")
+			this.$http.post('/administration/delete/roleAndCampus', this.user ).then(response => {
+				console.log("Response ")
+				console.log(response)
+				}, response => {
+			})
 			return false
 		},
 		saveRole: function () {

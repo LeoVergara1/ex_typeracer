@@ -20,9 +20,13 @@ import org.springframework.web.servlet.view.RedirectView
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.RequestMethod
 import mx.edu.ebc.comisiones.util.Transform
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @Controller
 class AdministrarionController {
+
+	Logger logger = LoggerFactory.getLogger(AdministrarionController.class)
 
 	@Autowired
 	AdministrationService administrationService
@@ -104,8 +108,8 @@ class AdministrarionController {
 	@PostMapping("administration/delete/roleAndCampus")
 	@ResponseBody
   Map deleteCampusAndRolToPerson(@RequestBody Map data){
-    log.info "Eliminar Campus y rol de una persona"
-    def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
+    logger.info "Eliminar Campus y rol de una persona"
+    def result = administrationService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
    // log.info result.dump()
   }
 
