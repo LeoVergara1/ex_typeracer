@@ -33,4 +33,32 @@
       </div>
     </div>
     </form>
+    <div class="row">
+
+      <div class="col-lg-12">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Campus</th>
+                  <th scope="col">Cuota Fija</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <form action="/administration/updateCuotaFija" method="get" th:each="comission: ${comisionesList}">
+                  <tr>
+                    <th scope="row" th:text="${comission.campusDesc}"></th>
+                    <td>
+                      <input type="number"  pattern="[0-9]" min="0" max="99999" name="cuotaFija" th:value="${comission.cuotaFija}" class="form-control" id="cuotaFija">
+                    </td>
+                    <td>
+                      <input id="id" th:value="${comission.id}" name="id" type="hidden">
+                      <button type="submit" class="btn btn-primary" role="button">Actualizar</button>
+                    </td>
+                  </tr>
+                </form>
+              </tbody>
+            </table>
+      </div>
+    </div>
 </div>

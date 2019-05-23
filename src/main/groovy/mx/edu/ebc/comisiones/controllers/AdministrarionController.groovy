@@ -62,7 +62,8 @@ class AdministrarionController {
   @ResponseBody
   public ModelAndView association() {
 		println campus
-		ModelAndView model = new ModelAndView("administration/association");
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "association");
 		model.addObject("listAssociation", administrationService.findAllPromoters())
 		return model
   }
