@@ -126,10 +126,10 @@ class PersonServiceImpl implements PersonService {
    def statusCampus =  restConnectionService.delete(clientApiBannerComissions,"/v1/api/user/", [code_campus: codeCampus, user_name:username])
 
     def statusRole =  restConnectionService.delete(clientApiBannerSeguridad,"/v2/api/user/role/", [user_name: username, role_id: roleCode])
-    if(roleCode==properties.getProperty("managerRoleID")){
+    if(roleCode==managerRoleID){
       logger.info "Manager Role detected, deleting..."
       logger.info managerService.deleteManager(username) ? "Success" : "Error"
-    }else if(roleCode==properties.getProperty("promoterRoleId")){
+    }else if(roleCode==promoterRoleId){
       logger.info "Promoter role detected, deleting..."
       logger.info promoterService.deletePromoter(username) ? "Success" : "Error"
     }

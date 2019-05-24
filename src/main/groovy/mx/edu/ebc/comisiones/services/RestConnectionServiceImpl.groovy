@@ -20,8 +20,6 @@ class RestConnectionServiceImpl implements RestConnectionService {
       def response = client.get(path:endpoint, query:query, headers:["Accept":"application/json; charset=utf-8"])
       response.json
     }catch (HTTPClientException e) {
-      println e
-      logger.error endpoint
       logger.error "query ${query}"
     }
   }
@@ -72,8 +70,7 @@ class RestConnectionServiceImpl implements RestConnectionService {
       def response = client.delete(path:endpoint, query:query, headers:["Accept":"application/json; charset=utf-8"])
       response
     }catch (HTTPClientException e) {
-      logger.error e
-      logger.error endpoint
+      logger.error "${e}"
       logger.error "query ${query}"
       e.response
     }
