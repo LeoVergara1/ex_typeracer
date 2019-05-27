@@ -3,7 +3,8 @@ Vue.component('template-register', {
 	props:  {
 		user: Object,
 		campus: Object,
-		notifyOptions: Object
+		notifyOptions: Object,
+		loader: Object
 	},
   data: function () {
     return {
@@ -18,6 +19,9 @@ Vue.component('template-register', {
 				campus: "",
 				roleCode: "",
 				rcreCode: ""
+			},
+			response: {
+				register: false
 			}
     }
 	},
@@ -41,7 +45,8 @@ Vue.component('template-register', {
 		},
 		alertData: function() {
 			if(this.user.person.profiles.length>0 && this.user.person.campuses.length > 0){
-				this.$snotify.warning("El usuario ya fue registrado con los permisos", 'Advertencia', this.notifyOptions);
+				this.helperToNotificationInWatch("El usuario ya fue registrado con los permisos")
+				this.notifyOptions.helperNotificationCycle = false;
 				return {message: "El usuario ya fue registrado con los permisos", user: false, 	show: false}
 			}
 			else if(this.user.person.profiles.length == 0 && this.user.person.campuses.length > 0){
@@ -58,25 +63,48 @@ Vue.component('template-register', {
 	methods: {
 		deleteRol: function() {
 			console.log("Deleting role")
+			this.loader.loading = true
 			this.$http.post('/administration/delete/roleAndCampus', this.user ).then(response => {
 				console.log("Response ")
 				console.log(response)
+				console.log(response.body.statusRole)
+				this.validatingSatatusResponse("Borrado Exitoso", response.body.statusRole)
+				this.loader.loading = false
+				this.user.person.userName = null
 				}, response => {
 			})
 			return false
 		},
+		validatingSatatusResponse: function(message, response) {
+			let map = {
+				200: () => {this.$snotify.info(message, this.notifyOptions)},
+				201: () => {this.$snotify.info(message, this.notifyOptions)},
+				400: () => {this.$snotify.info("Hubo Un error en el proceso", this.notifyOptions)},
+				404: () => {this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions)}
+			}
+			map[response]()
+		},
+		helperToNotificationInWatch : function(message, cycle){
+			if(this.notifyOptions.helperNotificationCycle){
+				this.$snotify.warning(message, this.notifyOptions);
+			}
+		},
 		saveRole: function () {
 			let objectToSend = Object.assign(this.user, this.register)
 			console.log(objectToSend)
+			this.loader.loading = true
 			this.$http.post('/administration/saveRolToPerson', objectToSend).then(response => {
 				console.log("Response ")
 				console.log(response)
+				this.validatingSatatusResponse("Guardado Exitoso", response.body.result.statusRole)
+				this.loader.loading = false
+				this.response.register = true
 				}, response => {
 			})
 		}
 	},
 	template: `
-	<div class="row" v-if="alertData.user && !alertData.show">
+	<div class="row" v-if="alertData.user && !alertData.show && !response.register">
 		<div class="col-lg-2">
 				<label for="selectCampus">Campus</label>
 				<div id="filter-campus">
@@ -140,7 +168,7 @@ Vue.component('template-register', {
 	</div>
 	<div class="row" v-else>
 		<div class="col-lg-12">
-			<b-alert variant="warning" show>Success Alert</b-alert>
+			<b-alert variant="warning" show>El usuario ha quedado con el rol guardado</b-alert>
 		</div>
 	</div>
 	`

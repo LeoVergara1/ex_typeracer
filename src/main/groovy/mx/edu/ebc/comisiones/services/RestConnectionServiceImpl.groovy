@@ -56,8 +56,8 @@ class RestConnectionServiceImpl implements RestConnectionService {
       def response = client.put(path:endpoint, query:query, headers:["Accept":"application/json; charset=utf-8"])
       response
     }catch (HTTPClientException e) {
-      logger.error e
-      logger.error endpoint
+      logger.error "${e}"
+      logger.error "${endpoint}"
       logger.error "query ${query}"
       e.response
     }

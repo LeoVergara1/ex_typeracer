@@ -43,8 +43,10 @@ class PersonServiceImpl implements PersonService {
     SecurityApiService securityApiService
     @Autowired
     PromoterAsignmentService promoterAsignmentService
- // @Autowired
- // PromoterService promoterService
+    @Autowired
+    ManagerService managerService
+    @Autowired
+    PromoterService promoterService
  // @Autowired
  // ManagerService managerService
  // @Autowired

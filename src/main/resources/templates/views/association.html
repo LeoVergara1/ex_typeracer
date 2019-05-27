@@ -12,7 +12,7 @@
 	<vue-snotify></vue-snotify	>
 	<div v-show="!loader.loading">
 		<template-search :notify-options="notifyOptions" :user="user" :loader="loader"></template-search>
-		<template-register :notify-options="notifyOptions" :user="user" :campus="campus" v-if="user.person.userName"></template-register>
+		<template-register :notify-options="notifyOptions" :user="user" :campus="campus" :loader="loader" v-if="user.person.userName"></template-register>
 	</div>
 <hr>
 	<template-promoter :campus="campus"></template-promoter>

@@ -26,10 +26,10 @@ Vue.component('template-search', {
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
 				// get body data
 				this.loader.loading = false
-				this.user2 = response.body.person;
 				this.user.person = response.body.person;
 				this.user.managerRoleId = response.body.managerRoleId;
 				this.user.mapRol = response.body.mapRol;
+				this.notifyOptions.helperNotificationCycle = true
 				console.log(response.body);
 				if(response.body.person.userName){
 					this.responses.foundInBanner = true

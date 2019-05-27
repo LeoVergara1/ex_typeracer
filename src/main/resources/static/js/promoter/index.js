@@ -16,7 +16,8 @@ var app = new Vue({
       showProgressBar: true,
       closeOnClick: false,
       pauseOnHover: true,
-      position: 'rightTop'
+      position: 'rightTop',
+      helperNotificationCycle: true
     },
     loader:{
       color: '#0b93d1',
@@ -25,8 +26,9 @@ var app = new Vue({
       margin: '2px',
       radius: '2px',
       loading: false,
-      size: "95px"
-    }
+      size: "95px",
+    },
+    helperNotificationCycle: true
 	},
 	created: function (){
 

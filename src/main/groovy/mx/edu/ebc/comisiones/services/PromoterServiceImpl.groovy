@@ -21,6 +21,8 @@ class PromoterServiceImpl implements PromoterService{
   Properties properties
 	@Value('${url.apicomisiones}')
 	String clientComissions
+  @Value('${url.apibannercomisiones}')
+  String clientApiBannerComission
 
   @Override
   Boolean createPromoter(String userName, Long pidm, String recrCode) {
@@ -69,11 +71,11 @@ class PromoterServiceImpl implements PromoterService{
   List<PromoterCode> getRecrCodeCatalogue() {
     logger.info "Retrieving all Promoters in stvrecr catalogue"
     List<JSONObject> response = restConnectionService.get(
-            properties.getProperty("core.url.apibannercomisiones"),
+            clientApiBannerComission,
             "/v1/api/promoters/recr_code_catalogue"
     )
     response.inject([]) { listOfPromoterBanner, jsonObject ->
-      listOfPromoterBanner << PromoterCommand.createPromoterBannerForRecrCodeFromJSONObject(jsonObject)
+      listOfPromoterBanner << Promoter.createPromoterBannerForRecrCodeFromJSONObject(jsonObject)
       listOfPromoterBanner
     }
   }
@@ -84,7 +86,7 @@ class PromoterServiceImpl implements PromoterService{
     JSONObject response = restConnectionService.get(
             clientComissions,
             "/v1/api/promoter/recruiter_code/occupied/$recrCode")
-    logger.info response
+    logger.info "${response}"
     response ?
             new Boolean(response?.isValid)
             : null
