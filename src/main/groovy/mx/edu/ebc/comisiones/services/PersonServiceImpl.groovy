@@ -27,6 +27,8 @@ class PersonServiceImpl implements PersonService {
 		String clientApiBannerComissions
 		@Value('${url.apibannerseguridad}')
 		String clientApiBannerSeguridad
+    @Value('${url.apicomisiones}')
+	  String clientComissions
 		@Value('${managerRoleID}')
 		String managerRoleID
 		@Value('${promoterRoleId}')
@@ -103,7 +105,7 @@ class PersonServiceImpl implements PersonService {
     }
     Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
     if (securityRoleAssignment){
-      def statusCampus = restConnectionService.post(clientApiBannerComissions,"/v1/api/user/", [campus_code: codeCampus, user_name:username, pidm:pidm])
+      def statusCampus = restConnectionService.post(clientComissions,"/v1/api/user/", [campus_code: codeCampus, user_name:username, pidm:pidm])
       if (statusCampus.statusCode == 201) {
         if (roleCode == managerRoleID)
           managerService.createManager(username, pidm, recrCode)
