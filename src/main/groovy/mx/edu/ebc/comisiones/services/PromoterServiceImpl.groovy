@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
+import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
 
 
 @Service
@@ -37,6 +38,8 @@ class PromoterServiceImpl implements PromoterService{
   PromoterRepository promoterRepository
   @Autowired
   ProgramManagerService programManagerService
+  @Autowired
+  ProgramManagerRepository programManagerRepository
 
   @Override
   Map createPromoter(String userName, Long pidm, String recrCode) {
@@ -109,6 +112,12 @@ class PromoterServiceImpl implements PromoterService{
     response.collect{ promoter ->
       new Promoter(promoter)
     }
+  }
+
+  Boolean isAPromoterSavedWithRecrCode(String recrCode) {
+    logger.info "Validating recrCode: $recrCode"
+    (promoterRepository.findOneById_RecrCode(recrCode) ? true : false) ||
+    (programManagerRepository.findOneById_RecrCode(recrCode) ? true : false)
   }
 
 }

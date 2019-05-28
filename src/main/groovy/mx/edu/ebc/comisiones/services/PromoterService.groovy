@@ -7,4 +7,5 @@ interface PromoterService {
   Map createPromoter(String userName, Long pidm, String recrCode)
   List<PromoterCode> getRecrCodeCatalogue()
   Boolean isRecruiterCodeAlreadyInUse(String recrCode)
+  Boolean isAPromoterSavedWithRecrCode(String recrCode)
 }
