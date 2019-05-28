@@ -4,7 +4,7 @@ import groovy.transform.ToString
 import wslite.json.JSONObject
 
 @ToString
-class Promoter {
+class PromoterCommand {
 
   Long pidm
   String userName
@@ -14,20 +14,20 @@ class Promoter {
   String managerRecrCode
   JSONObject promoterJSONObject
 
-  Promoter(){}
+  PromoterCommand(){}
 
-  Promoter(JSONObject promoterJSONObject){
+  PromoterCommand(JSONObject promoterJSONObject){
     this.promoterJSONObject = promoterJSONObject
   }
 
-  Promoter(Long pidm, String userName, Boolean check) {
+  PromoterCommand(Long pidm, String userName, Boolean check) {
     this.pidm = pidm
     this.userName = userName
     this.check = check
   }
 
-  Promoter createPromoterFromJSONObject(){
-    new Promoter(
+  PromoterCommand createPromoterFromJSONObject(){
+    new PromoterCommand(
             pidm: Long.valueOf(promoterJSONObject?.pidm?:-1L),
             userName: promoterJSONObject?.userName,
             managerPidm: Long.valueOf(promoterJSONObject?.managerPidm?:-1L),
