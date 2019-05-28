@@ -2,7 +2,7 @@ package mx.edu.ebc.comisiones.services
 
 import mx.edu.ebc.comisiones.pojos.AssignablePromoter
 import mx.edu.ebc.comisiones.pojos.Person
-import mx.edu.ebc.comisiones.pojos.Promoter
+import mx.edu.ebc.comisiones.pojos.PromoterCommand
 import mx.edu.ebc.comisiones.pojos.PromoterCode
 //import mx.edu.ebc.comisiones.pojos.PromoterManagerAssociation
 import mx.edu.ebc.comisiones.pojos.SecurityUser

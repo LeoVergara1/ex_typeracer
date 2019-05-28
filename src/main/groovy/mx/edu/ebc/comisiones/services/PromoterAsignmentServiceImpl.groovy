@@ -261,7 +261,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
             clientApiBannerComission,
             "/v1/api/promoters/$radmCode"
     )?.collect{ jsonObject ->
-      Promoter.createPromoterBannerForRadmCodeFromJSONObject(jsonObject)
+      PromoterCommand.createPromoterBannerForRadmCodeFromJSONObject(jsonObject)
     } ?: []
   }
 

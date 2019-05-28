@@ -2,6 +2,7 @@ package mx.edu.ebc.comisiones.services
 
 import groovy.transform.Memoized
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import mx.edu.ebc.comisiones.pojos.PromoterCommand
 import mx.edu.ebc.comisiones.comision.domain.PidmAndUserNamePK
 import mx.edu.ebc.comisiones.pojos.PromoterCode
 import org.springframework.beans.factory.annotation.Autowired
@@ -89,7 +90,7 @@ class PromoterServiceImpl implements PromoterService{
             "/v1/api/promoters/recr_code_catalogue"
     )
     response.inject([]) { listOfPromoterBanner, jsonObject ->
-      listOfPromoterBanner << Promoter.createPromoterBannerForRecrCodeFromJSONObject(jsonObject)
+      listOfPromoterBanner << PromoterCommand.createPromoterBannerForRecrCodeFromJSONObject(jsonObject)
       listOfPromoterBanner
     }
   }
