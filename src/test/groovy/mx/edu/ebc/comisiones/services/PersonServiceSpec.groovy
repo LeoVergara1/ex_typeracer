@@ -8,6 +8,7 @@ import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import spock.lang.Specification
+import spock.lang.Unroll
 
 @SpringBootTest
 @ContextConfiguration
@@ -25,16 +26,21 @@ class PersonServiceSpec extends Specification{
     assert personService
   }
 
-	def "create a person with rol manager"(){
+	@Unroll
+	def "create a person with rol manager with satatus 401"(){
 		given: "Username, codeCampus,  "
-			String username = "ja.cortes002"
-			String codeCampus = "CMX"
-			String roleCode = "558"
-			String recCred = "000"
+			String username = _username
+			String codeCampus = _codeCampus
+			String roleCode = _roleCode
+			String recCred = _recCred
 		when: "is created"
 			def result = personService.saveRolAndCampus(username, codeCampus, roleCode, recCred)
+			println result
 		then: "created"
-			assert result
+			assert result.statusRole == _statusRole
+    where:
+    _username  			|   _codeCampus  | _roleCode | _recCred  || _statusRole
+    "ja.cortes002"  |   "CMX"        | "558"     | '000'     ||  401
 	}
 
 	//def "create a person with rol promoter"(){
