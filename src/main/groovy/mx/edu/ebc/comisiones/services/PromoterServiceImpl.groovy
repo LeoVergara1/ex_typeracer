@@ -1,7 +1,7 @@
 package mx.edu.ebc.comisiones.services
 
 import groovy.transform.Memoized
-import mx.edu.ebc.comisiones.pojos.Promoter
+import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.pojos.PromoterCode
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -9,6 +9,7 @@ import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 
 @Service
 class PromoterServiceImpl implements PromoterService{
@@ -23,6 +24,8 @@ class PromoterServiceImpl implements PromoterService{
 	String clientComissions
   @Value('${url.apibannercomisiones}')
   String clientApiBannerComission
+  @Autowired
+  PromoterRepository promoterRepository
 
   @Override
   Boolean createPromoter(String userName, Long pidm, String recrCode) {
