@@ -90,6 +90,7 @@ class PromoterServiceImpl implements PromoterService{
             "/v1/api/promoters/recr_code_catalogue"
     )
     response.inject([]) { listOfPromoterBanner, jsonObject ->
+      println jsonObject
       listOfPromoterBanner << PromoterCommand.createPromoterBannerForRecrCodeFromJSONObject(jsonObject)
       listOfPromoterBanner
     }

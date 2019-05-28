@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import spock.lang.Specification
 import spock.lang.Unroll
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @ContextConfiguration
@@ -27,6 +28,7 @@ class PersonServiceSpec extends Specification{
   }
 
 	@Unroll
+	@Transactional
 	def "create a person with rol manager with satatus 401"(){
 		given: "Username, codeCampus,  "
 			String username = _username
@@ -40,7 +42,9 @@ class PersonServiceSpec extends Specification{
 			assert result.statusRole == _statusRole
     where:
     _username  			|   _codeCampus  | _roleCode | _recCred  || _statusRole
-    "ja.cortes002"  |   "CMX"        | "558"     | '000'     ||  401
+    "ja.cortes002"  |   "CMX"        | "558"     | '000'     ||  201
+    "ja.cortes002"  |   "CMX"        | "558"     | '001'     ||  401
+    "ja.cortes002"  |   "CMX"        | "557"     | '000'     ||  201
 	}
 
 	//def "create a person with rol promoter"(){
