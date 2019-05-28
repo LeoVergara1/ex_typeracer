@@ -8,6 +8,8 @@ import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import spock.lang.Specification
+import spock.lang.Ignore
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @ContextConfiguration
@@ -25,26 +27,28 @@ class PromoterServiceSpec extends Specification{
     assert promoterService
   }
 
+	@Transactional
 	def "Create create Promoter"(){
 		given: "User Campus to create promoter"
 			String username = "r.martinez026"
 			Long pidm = 289
-			String recrCode = "SUGHS"
+			String recrCode = "SUG"
 		when: "is created"
-			def result = promoterService.createPromoter("")
+			def result = promoterService.createPromoter(username, pidm, recrCode)
 		then: "created"
-			assert result
+			assert result.message == "Successfuly created..."
 	}
 
+	@Ignore
 	def "ERROR, This promoter already exists"(){
 		given: "User Campus to create promoter"
 			String username = "r.martinez026"
 			Long pidm = 289
-			String recrCode = "SUGHS"
+			String recrCode = "SUGH"
 		when: "is created"
-			def result = promoterService.createPromoter("")
+			def result = promoterService.createPromoter(username, pidm, recrCode)
 		then: "created"
-			assert result
+			assert result.message == "ERROR, This promoter already exists"
 	}
 
 	def "RROR, Recruiter code already in use"(){

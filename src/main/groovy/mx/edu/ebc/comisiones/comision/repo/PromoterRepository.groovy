@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository
 @Repository
 public interface PromoterRepository extends JpaRepository<Promoter,PidmAndUserNamePK> {
 
+	Promoter findOneById_UserName(String userName)
+  Promoter findOneById_Pidm(Long pidm)
+  Promoter findOneById_UserNameAndProgramManagerIdUserName(String promoterUserName, String managerUserName)
+  Promoter findOneById_RecrCode(String recrCode)
+
 }

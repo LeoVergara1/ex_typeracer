@@ -2,6 +2,7 @@ package mx.edu.ebc.comisiones.services
 
 import groovy.transform.Memoized
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import mx.edu.ebc.comisiones.comision.domain.PidmAndUserNamePK
 import mx.edu.ebc.comisiones.pojos.PromoterCode
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -11,10 +12,18 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 
+
 @Service
 class PromoterServiceImpl implements PromoterService{
 
   Logger logger = LoggerFactory.getLogger(PromoterServiceImpl.class)
+  private static String ALREADY_EXISTS = "ERROR, this relation already exists"
+  private static String RECR_CODE = "ERROR, this recruiter code already exists"
+  private static String NOT_FOUND = "ERROR, this promoter does not exists"
+  private static String MANAGER_NOT_FOUND = "ERROR, this manager does not exists"
+  private static String DB_ERROR = "ERROR, data base error"
+  private static String SUCCESS = "Operation succesfully achieved..."
+
 
   @Autowired
   RestConnectionService restConnectionService
@@ -26,32 +35,31 @@ class PromoterServiceImpl implements PromoterService{
   String clientApiBannerComission
   @Autowired
   PromoterRepository promoterRepository
+  @Autowired
+  ProgramManagerService programManagerService
 
   @Override
-  Boolean createPromoter(String userName, Long pidm, String recrCode) {
+  Map createPromoter(String userName, Long pidm, String recrCode) {
     logger.info "Saving new promoter: $userName"
-    def postStatus = restConnectionService.post(
-            clientComissions,
-            "/v1/api/promoter/",
-            [promoter_user_name: userName,
-             promoter_pidm: pidm,
-             promoter_recr_code: recrCode])
-    switch (postStatus?.statusCode) {
-      case 201:
-        logger.info "Successfully saved..."
-        true
-        break
-      case 412:
-        logger.error "ERROR, This promoter already exists"
-        false
-        break
-      case 428:
-        logger.error "ERROR, Recruiter code already in use"
-        false
-        break
-      default:
-        false
+    if(promoterRepository.findOneById_RecrCode(recrCode) || programManagerService.findOneById_RecrCode(recrCode)){
+      logger.info RECR_CODE
+      return [message: RECR_CODE, created: false]
     }
+    if (promoterRepository.findOneById_UserName(userName)){
+      logger.info ALREADY_EXISTS
+      return [message: ALREADY_EXISTS, created: false]
+    }
+
+    PidmAndUserNamePK id = new PidmAndUserNamePK(userName: userName, pidm: pidm, recrCode: recrCode)
+    Promoter promoter = new Promoter(id: id)
+    promoter = promoterRepository.save(promoter)
+    promoter ? {
+      logger.info "Successfuly created..."
+      [message: "Successfuly created...", created: true]
+    }() : {
+      logger.info DB_ERROR
+      [message: DB_ERROR, created: false]
+    }()
   }
 
   @Override
