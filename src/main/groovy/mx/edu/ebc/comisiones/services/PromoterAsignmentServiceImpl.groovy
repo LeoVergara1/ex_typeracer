@@ -251,7 +251,7 @@ class PromoterAsignmentServiceImpl implements PromoterAsignmentService{
     } ? true : {
       logger.info "Error, not in STVRECR catalogue"
       false
-    }()) && !(promoterService.isRecruiterCodeAlreadyInUse(recrCode))
+    }()) && !(promoterService.isAPromoterSavedWithRecrCode(recrCode))
   }
 
   @Override
