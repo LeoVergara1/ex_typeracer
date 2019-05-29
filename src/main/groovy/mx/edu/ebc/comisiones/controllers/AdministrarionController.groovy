@@ -8,6 +8,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
+import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
@@ -23,6 +24,7 @@ import mx.edu.ebc.comisiones.util.Transform
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PathVariable
+import mx.edu.ebc.comisiones.comision.domain.Promoter
 
 @Controller
 class AdministrarionController {
@@ -37,6 +39,8 @@ class AdministrarionController {
 	CampusRepository campusRepository
 	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
+	@Autowired
+	PromoterService promoterService
 	@Value('#{${campus}}')
 	Map<String, String> campus
 
@@ -97,6 +101,11 @@ class AdministrarionController {
 		return new RedirectView("/administration/show");
   }
 
+	@GetMapping("administration/coordinators")
+  @ResponseBody
+  List<Map> getCoordinator() {
+		promoterService.getCoordinates()
+  }
 
   @RequestMapping("administration/data/association")
   @ResponseBody

@@ -17,6 +17,7 @@ var app = new Vue({
       console.log(response)
       // error callback
     })
+    this.getCoordinators()
   },
   methods:{
     update: function (numero) {
@@ -28,6 +29,16 @@ var app = new Vue({
     },
     closedModal: function(){
       this.$bvModal.hide("modal-1")
+    },
+    getCoordinators: function(){
+      this.$http.get('/administration/coordinators').then(response => {
+        // get body data
+        console.log(response.body);
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+        // error callback
+      })
     }
   }
 })
