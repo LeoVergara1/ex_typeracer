@@ -7,6 +7,7 @@ import org.springframework.test.context.TestPropertySource
 import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
+import  mx.edu.ebc.comisiones.pojos.Person
 import spock.lang.Specification
 import spock.lang.Unroll
 import org.springframework.transaction.annotation.Transactional
@@ -37,7 +38,6 @@ class PersonServiceSpec extends Specification{
 			String recCred = _recCred
 		when: "is created"
 			def result = personService.saveRolAndCampus(username, codeCampus, roleCode, recCred)
-			println result
 		then: "created"
 			assert result.statusRole == _statusRole
     where:
@@ -46,6 +46,36 @@ class PersonServiceSpec extends Specification{
     "ja.cortes002"  |   "CMX"        | "558"     | '001'     ||  401
     "ja.cortes002"  |   "CMX"        | "557"     | '000'     ||  201
 	}
+
+	def "Find a username for this portal name"(){
+		given: "a username"
+			String username = "ja.cortes002"
+		when: "Is found"
+			def result = personService.findPersonByUsername(username)
+		then:
+			result
+	}
+
+	def "Find a profiles and campus for this portal name"(){
+		given: "a username"
+			String username = "ja.cortes002"
+			Person person = personService.findPersonByUsername(username)
+			println person
+		when: "Is found"
+			def result = personService.setProfile(person, "comisiones-li")
+			def resultCampus = personService.setCampuses(person)
+			println "Campus"
+			println resultCampus
+		then:
+			result
+			resultCampus
+	}
+
+//	def "Deleting a username"(){
+//		given: "a username"
+//		when: "Is deleted"
+//		then:
+//	}
 
 	//def "create a person with rol promoter"(){
 	//	given: "by username"

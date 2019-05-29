@@ -39,4 +39,8 @@ class UserCampusServiceImpl implements UserCampusService{
     //if(userCampus)
     //userCampusRepository.delete(userCampus)
   }
+
+  List<UserCampus> findByUserCampusPK_UserName(String userName){
+    userCampusRepository.findByUserCampusPK_UserName(userName)
+  }
 }
