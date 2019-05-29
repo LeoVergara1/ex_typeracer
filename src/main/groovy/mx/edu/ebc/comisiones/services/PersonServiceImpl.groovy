@@ -47,6 +47,8 @@ class PersonServiceImpl implements PersonService {
     ManagerService managerService
     @Autowired
     PromoterService promoterService
+    @Autowired
+    UserCampusService userCampusService
  // @Autowired
  // ManagerService managerService
  // @Autowired
@@ -103,8 +105,8 @@ Person findPersonByUsername(String username) {
     }
     Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
     if (securityRoleAssignment){
-      def statusCampus = restConnectionService.post(clientComissions,"/v1/api/user/", [campus_code: codeCampus, user_name:username, pidm:pidm])
-      if (statusCampus.statusCode == 201) {
+      def userCampus = userCampusService.created(codeCampus, username, pidm)
+      if (userCampus) {
         if (roleCode == managerRoleID)
           managerService.createManager(username, pidm, recrCode)
         else if(roleCode == promoterRoleId)
