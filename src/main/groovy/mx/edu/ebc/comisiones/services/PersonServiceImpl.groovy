@@ -125,7 +125,7 @@ Person findPersonByUsername(String username) {
   @Override
   Map deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
     logger.info "Deleting user: $username"
-   def statusCampus =  restConnectionService.delete(clientApiBannerComissions,"/v1/api/user/", [code_campus: codeCampus, user_name:username])
+   def statusCampus =  userCampusService.deleteByCodeCampusAndUserName(codeCampus, username)
 
     def statusRole =  restConnectionService.delete(clientApiBannerSeguridad,"/v2/api/user/role/", [user_name: username, role_id: roleCode])
     if(roleCode==managerRoleID){

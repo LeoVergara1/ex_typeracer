@@ -56,11 +56,11 @@ class ManagerServiceImpl implements ManagerService {
   @Override
   boolean deleteManager(String userName) {
     logger.info "Deleting manager: $userName"
-    def postStatus = restConnectionService.delete(
-            clientComissions,
-            "/v1/api/manager/program/",
-            [user_name: userName])
-    if (postStatus?.statusCode != 200) logger.error("ERROR deleting manager: $userName)")
-    postStatus?.statusCode == 200 ? true : false
+    def manager = programManagerRepository.findOneById_UserName(userName)
+    if(manager){
+      programManagerRepository.delete(manager)
+      return true
+    }
+    false
   }
 }

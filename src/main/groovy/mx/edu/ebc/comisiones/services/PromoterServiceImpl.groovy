@@ -69,17 +69,12 @@ class PromoterServiceImpl implements PromoterService{
   @Override
   Boolean deletePromoter(String userName) {
     logger.info "Deleting promoter: $userName"
-    def postStatus = restConnectionService.delete(
-            clientComissions,
-            "/v1/api/promoter/",
-            [promoter_user_name: userName])
-    postStatus?.statusCode == 200 ? {
-      logger.info "Successfully deleted..."
-      true
-    }() : {
-      logger.error("ERROR deleting promoter: $userName, statusCode: ${postStatus?.statusCode}")
-      false
-    }()
+    def promoter = promoterRepository.findOneById_UserName(userName)
+    if(promoter){
+      promoterRepository.delete(promoter)
+      return true
+    }
+    false
   }
 
   @Memoized
