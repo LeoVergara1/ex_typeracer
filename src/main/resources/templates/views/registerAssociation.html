@@ -1,0 +1,83 @@
+<div th:fragment="registerAssociation">
+	<br>
+	<input type="hidden" id="username" th:value="${username}">
+	<div class="row">
+		<div class="col-lg-12">
+			<h3 class="blue margin0">Asociación</h3>
+		</div>
+	</div>
+	<hr>
+	<div id="app">
+		<div class="row">
+		<div class="col-md-5 col-lg-5" v-if="person.profiles">
+			<h4 class="block orange">{{person.bannerName}}</h4>
+			<br>
+			<h4 class="block blue">ID: {{person.enrollment}}</h4>
+			<br>
+			<h4 class="block margin0">{{person.campuses[0].description}}</h4>
+			<br>
+			<h4 class="block margin0">{{person.profiles[0].description}}</h4>
+		</div>
+
+		</div>
+		<hr>
+		<div class="row">
+				<div class="col-lg-12">
+            <table class="table table-bordered table-striped">
+             <tbody><tr>
+                 <th>Usuario</th>
+                 <th>Nombre</th>
+                 <th>Campus</th>
+                 <th>Rol</th>
+                 <th></th>
+                 <th class="text-center">Asociar</th>
+             </tr>
+              <tr>
+                  <td>va.sanchez003</td>
+                  <td>Victor Alfonso Sanchéz García</td>
+                  <td>Reforma</td>
+                  <td>Promotor</td>
+                  <td><center><span class="label label-success">Asociado</span></center></td>
+                  <td><center><input type="checkbox" value="" checked=""></center></td>
+              </tr>
+              <tr>
+                  <td>j.gonzalez022</td>
+                  <td>Joel González Rodríguez</td>
+                  <td>Reforma</td>
+                  <td>Promotor</td>
+                  <td><center><span class="label label-warning">Sin asociar</span></center></td>
+                  <td><center><input type="checkbox" value=""></center></td>
+              </tr>
+              <tr>
+                  <td>ej.carino</td>
+                  <td>Edith Jazmin Cariño</td>
+                  <td>Reforma</td>
+                  <td>Promotor</td>
+                  <td><center><span class="label label-warning">Asociado</span></center></td>
+                  <td><center>j.gonzalez</center></td>
+              </tr>
+            </tbody></table>
+        </div>
+		</div>
+		<hr>
+		<div class="row">
+				<div class="col-md-9 col-lg-9"></div>
+				<div class="col-md-3 col-lg-3">
+            <button class="btn btn-success btn-block btn-sm" @click="sendAssociation"><i class="fa fa-check" aria-hidden="true"></i> Guardar</button>
+        </div>
+		</div>
+		<b-modal id="modal-1" title="Usuarios asociados" :header-bg-variant="headerBgVariant" :header-text-variant="headerTextVariant">
+				<h1 class="margin0 text-success text-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i></h1>
+				<h4 class="text-center">Usuarios asociados:</h4>
+				<h4 class="text-center"><span class="text-success">va.sanchez003</span></h4>
+				<h4 class="text-center"><span class="text-success">va.sanchez003</span></h4>
+				<div slot="modal-footer" class="w-100">
+						<b-button variant="primary" size="sm" class="float-right" @click="closedModal">
+							Cerrar
+						</b-button>
+		</b-modal>
+	</div>
+</div>
+<div th:fragment="js">
+	<script src="/js/association/index.js"></script>
+</div>
