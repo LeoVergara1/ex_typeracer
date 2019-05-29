@@ -83,7 +83,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 	Map getPersonWithValidations(String username){
 			Person person = personService.findPersonByUsername(username)
     if(person.userName){
-    	person = personService.setProfile(person,person.userName, "Web-comisiones")
+    	person = personService.setProfile(person, "Web-comisiones")
     	person = personService.setCampuses(person)
     }
     //Map mapRol = personService.getRolesFromProperties()
