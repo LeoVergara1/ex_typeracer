@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 public interface UserCampusRepository extends JpaRepository<UserCampus,UserCampusComposite> {
-
+	List<UserCampus> findByUserCampusPK_UserName(String userName)
 }
