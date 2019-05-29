@@ -8,6 +8,7 @@ import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import spock.lang.Specification
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @ContextConfiguration
@@ -36,6 +37,7 @@ class UserCampusServiceSpec extends Specification{
 			assert result
 	}
 
+	@Transactional
 	def "User campus by code campus and username"(){
 		given: "Code campus and username"
 			String username = "r.martinez026"
