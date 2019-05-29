@@ -43,4 +43,8 @@ class UserCampusServiceImpl implements UserCampusService{
   List<UserCampus> findByUserCampusPK_UserName(String userName){
     userCampusRepository.findByUserCampusPK_UserName(userName)
   }
+
+  UserCampus findByCampusCodeAndUserName(String codeCampus, String userName){
+    userCampusRepository.findByCampusCodeAndUserName(codeCampus, userName)
+  }
 }
