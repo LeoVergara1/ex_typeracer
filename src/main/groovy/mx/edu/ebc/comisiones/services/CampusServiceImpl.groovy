@@ -3,7 +3,7 @@ package mx.edu.ebc.comisiones.services
 import groovy.util.logging.Log4j
 import groovy.transform.Memoized
 import mx.edu.ebc.comisiones.pojos.Campus
-import mx.edu.ebc.comisiones.pojos.UserCampus
+import mx.edu.ebc.comisiones.pojos.UserCampusCommand
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
@@ -18,6 +18,8 @@ class CampusServiceImpl implements CampusService {
 	String clientApiBannerComissions
   @Value('${url.apicomisiones}')
 	String clientComissions
+  @Autowired
+  UserCampusService userCampusService
 
   @Override
   List<JSONObject> findAll() {
@@ -42,14 +44,12 @@ class CampusServiceImpl implements CampusService {
   }
 
   @Override
-  List<UserCampus> getAllCampusesforUser(String campusCode, String username){
-    List<UserCampus> campuses = []
+  List<UserCampusCommand> getAllCampusesforUser(String campusCode, String username){
     List<Campus> listCampuses = list()
-    List<JSONObject> jsonObject = restConnectionService.get(clientComissions, "/v1/api/users/${username}")
-    jsonObject?.each{ campus ->
-      String description = listCampuses?.findAll{ code -> code.code == campus.campusCode }.description.join()
-      campuses << UserCampus.fromJsonObject(campus, description)
+    def jsonObject = userCampusService.findByUserCampusPK_UserName(username)
+    jsonObject?.collect{ campus ->
+      String description = listCampuses?.findAll{ code -> code.code == campus.userCampusPK.campusCode }.description.join()
+      UserCampusCommand userCampus = UserCampusCommand.fromJsonObject(campus, description)
     }
-    campuses
   }
 }

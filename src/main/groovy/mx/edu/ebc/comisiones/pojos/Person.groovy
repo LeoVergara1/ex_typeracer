@@ -14,7 +14,7 @@ class Person {
   String userName
   String email
   List<Profile> profiles = []
-  List<UserCampus> campuses = []
+  List<UserCampusCommand> campuses = []
 
   String getBannerName(){
     "${firstName ?: ''} ${middleName ? "$middleName " : ""}${lastName ?: ""}"

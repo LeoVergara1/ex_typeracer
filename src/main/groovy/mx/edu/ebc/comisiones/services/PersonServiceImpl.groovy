@@ -57,24 +57,20 @@ class PersonServiceImpl implements PersonService {
  // }
 
  // @Override
-  Person findPersonByUsername(String username) {
-		Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${username}"))
-  }
+Person findPersonByUsername(String username) {
+	Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${username}"))
+}
 
 @Override
- Person setProfile(Person person, String username, String portalName){
-	 def p = findPersonByUsernameAndPortalName(username, portalName)
-	 person.profiles =  findPersonByUsernameAndPortalName(username, portalName)
+ Person setProfile(Person person, String portalName){
+	 person.profiles =  findPersonByUsernameAndPortalName(person.userName, portalName)
    (!person.profiles) ? (person.profiles = []) : "Nothing"
    person
  }
 
   @Override
   Person setCampuses(Person person){
-   	List<UserCampus> campuses= campusService.getAllCampusesforUser("FutureCampus",person.userName)
-    campuses?.each{ campus ->
-      person.campuses << campus
-    }
+    person.campuses = campusService.getAllCampusesforUser("FutureCampus",person.userName)
     person
   }
 
