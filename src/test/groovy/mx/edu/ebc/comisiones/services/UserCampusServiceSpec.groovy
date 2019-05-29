@@ -36,4 +36,14 @@ class UserCampusServiceSpec extends Specification{
 			assert result
 	}
 
+	def "User campus by code campus and username"(){
+		given: "Code campus and username"
+			String username = "r.martinez026"
+			String codeCampus = "CMX"
+		when: "get user campus"
+			def result = userCampusService.findByCampusCodeAndUserName(codeCampus, username)
+		then:
+			result
+	}
+
 }
