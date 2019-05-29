@@ -6,7 +6,7 @@ import mx.edu.ebc.comisiones.pojos.PromoterCommand
 import mx.edu.ebc.comisiones.pojos.PromoterCode
 //import mx.edu.ebc.comisiones.pojos.PromoterManagerAssociation
 import mx.edu.ebc.comisiones.pojos.SecurityUser
-import mx.edu.ebc.comisiones.pojos.UserCampus
+import mx.edu.ebc.comisiones.pojos.UserCampusCommand
 
 interface PromoterAsignmentService {
   //List<AssignablePromoter> findAllPromotersByCampus(String campusCode)
