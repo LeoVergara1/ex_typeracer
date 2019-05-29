@@ -51,13 +51,14 @@ class PromoterServiceSpec extends Specification{
 			assert result.message == "ERROR, This promoter already exists"
 	}
 
+	@Transactional
 	def "RROR, Recruiter code already in use"(){
 		given: "User Campus to create promoter"
 			String username = "r.martinez026"
 			Long pidm = 289
 			String recrCode = "SUGHS"
 		when: "is created"
-			def result = promoterService.createPromoter("")
+			def result = promoterService.createPromoter(username, pidm, recrCode)
 		then: "created"
 			assert result
 	}

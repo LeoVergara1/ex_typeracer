@@ -42,6 +42,15 @@ public class AdministrationServiceIntegrationTest {
         public PersonService personService() {
             return new PersonServiceImpl();
         }
+				@Bean
+        public ManagerService managerService() {
+            return new ManagerServiceImpl();
+        }
+				@Bean
+        public UserCampusService userCampusService() {
+            return new UserCampusServiceImpl();
+        }
+
     }
 
 	@Autowired
@@ -60,9 +69,15 @@ public class AdministrationServiceIntegrationTest {
 	@MockBean
 	PersonRepository personRepository
 	@MockBean
+	UserCampusRepository userCampusRepository
+	@MockBean
+	ProgramManagerRepository programManagerRepository
+	@MockBean
 	SecurityApiService securityApiService
 	@MockBean
 	PromoterAsignmentService promoterAsignmentService
+	@MockBean
+	PromoterService promoterService
 
 
 	@Test

@@ -59,7 +59,7 @@ class PersonServiceSpec extends Specification{
 	def "Find a profiles and campus for this portal name"(){
 		given: "a username"
 			String username = "ja.cortes002"
-			Person person = ja.cortes002
+			Person person = personService.findPersonByUsername(username)
 			println person
 		when: "Is found"
 			def result = personService.setProfile(person, "comisiones-li")
@@ -73,11 +73,12 @@ class PersonServiceSpec extends Specification{
 
 	def "Deleting a username"(){
 		given: "A username with profiles"
-			String username = "ja.cortes002"
-			String codeCampus = ""
-			String roleCode = ""
+			String username = "r.martinez026"
+			String codeCampus = "CMX"
+			String roleCode = "558"
 		when: "Deleting"
-			def result = personService.deleteCampusAndRolToPerson("ja.cortes002")
+			def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
+			println result
 		then:
 			result
 	}
