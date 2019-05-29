@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import mx.edu.ebc.comisiones.util.Transform
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
 class AdministrarionController {
@@ -69,6 +70,16 @@ class AdministrarionController {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "association");
 		model.addObject("listAssociation", administrationService.findAllPromoters())
+		return model
+  }
+
+  @RequestMapping("administration/association/{username}")
+  @ResponseBody
+  public ModelAndView association(@PathVariable(value="username") String username) {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "registerAssociation");
+		model.addObject("username", username);
+		model.addObject("person", administrationService.getPersonWithValidations(username));
 		return model
   }
 
