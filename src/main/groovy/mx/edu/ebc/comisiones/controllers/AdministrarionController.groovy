@@ -125,6 +125,15 @@ class AdministrarionController {
     return infoPerson
   }
 
+	@PostMapping("administration/save/association")
+  @ResponseBody
+  public Map saveAssociation(@RequestBody Map associationData) {
+		println associationData
+		Map infoPerson = administrationService.saveAssociation(associationData.listPromoterToUser, associationData.person)
+    return infoPerson
+  }
+
+
 	@PostMapping("administration/delete/roleAndCampus")
 	@ResponseBody
   Map deleteCampusAndRolToPerson(@RequestBody Map data){
