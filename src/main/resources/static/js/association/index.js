@@ -5,7 +5,12 @@ var app = new Vue({
     username: document.getElementById("username").value,
     person: Object,
     headerBgVariant: "white",
-    headerTextVariant: 'dark'
+    headerTextVariant: 'dark',
+    promoters: Array,
+    listPromoterToUser: []
+  },
+  computed: {
+
   },
   created: function() {
     this.$http.post('/administration/search/association', {user: this.username}).then(response => {
@@ -16,7 +21,7 @@ var app = new Vue({
       console.log("Fail")
       console.log(response)
       // error callback
-    })
+    });
     this.getCoordinators()
   },
   methods:{
@@ -34,6 +39,11 @@ var app = new Vue({
       this.$http.get('/administration/coordinators').then(response => {
         // get body data
         console.log(response.body);
+        this.promoters = response.body
+        this.listPromoterToUser = this.promoters.filter((element, index, array)=>{
+          element.associate = false
+          return (element.campuses[0].code == this.person.campuses[0].campusCode)
+        })
       }, response => {
         console.log("Fail")
         console.log(response)
