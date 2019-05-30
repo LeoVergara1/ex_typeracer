@@ -10,7 +10,6 @@ var app = new Vue({
     listPromoterToUser: []
   },
   computed: {
-
   },
   created: function() {
     this.$http.post('/administration/search/association', {user: this.username}).then(response => {
@@ -30,6 +29,11 @@ var app = new Vue({
     },
     sendAssociation: function() {
       console.log("Click")
+      this.$http.post('/administration/save/association', { listPromoterToUser: this.listPromoterToUser, person: this.person } ).then( response =>{
+        console.log(response)
+      }, response => {
+        console.log(response)
+      })
       this.$bvModal.show("modal-1")
     },
     closedModal: function(){
@@ -37,18 +41,29 @@ var app = new Vue({
     },
     getCoordinators: function(){
       this.$http.get('/administration/coordinators').then(response => {
-        // get body data
         console.log(response.body);
         this.promoters = response.body
         this.listPromoterToUser = this.promoters.filter((element, index, array)=>{
-          element.associate = false
           return (element.campuses[0].code == this.person.campuses[0].campusCode)
         })
       }, response => {
         console.log("Fail")
         console.log(response)
-        // error callback
       })
+    },
+    validateAssociation: function(promoter){
+      console.log(promoter)
+      let username = promoter.promoter.programManager.userName
+      if(!username){
+       return "notAssociate"
+      }
+      else if(username != this.person.userName){
+        console.log(this.person)
+        return "associateHer"
+      }
+      else{
+        return "associateYou"
+      }
     }
   }
 })
