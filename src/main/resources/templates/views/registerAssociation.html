@@ -32,13 +32,15 @@
                  <th></th>
                  <th class="text-center">Asociar</th>
              </tr>
-              <tr>
-                  <td>va.sanchez003</td>
-                  <td>Victor Alfonso Sanchéz García</td>
-                  <td>Reforma</td>
+              <tr v-for="promoter in listPromoterToUser">
+                  <td>{{promoter.person.userName}}</td>
+                  <td>{{promoter.person.bannerName}}</td>
+                  <td>{{promoter.campuses[0].description}}</td>
                   <td>Promotor</td>
-                  <td><center><span class="label label-success">Asociado</span></center></td>
-                  <td><center><input type="checkbox" value="" checked=""></center></td>
+                  <td v-if="!promoter.programManager"><center><span class="label label-success">Sin Asociar</span></center></td>
+                  <td v-else><center><span class="label label-success">Sin Asociar</span></center></td>
+                  <td v-if="!promoter.programManager"><center><input type="checkbox" v-model="promoter.associate"></center></td>
+                  <td v-else><center>{{promoter.programManager.userName}}</center></td>
               </tr>
               <tr>
                   <td>j.gonzalez022</td>
