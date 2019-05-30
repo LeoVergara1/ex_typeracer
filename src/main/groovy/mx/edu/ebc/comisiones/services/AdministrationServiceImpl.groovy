@@ -8,11 +8,15 @@ import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.PromoterAssociationRepository
 import mx.edu.ebc.comisiones.comision.repo.PersonRepository
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
+import mx.edu.ebc.comisiones.comision.domain.ProgramManager;
 import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 import mx.edu.ebc.comisiones.pojos.*
 import wslite.json.JSONObject
+import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
+import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
+import mx.edu.ebc.comisiones.comision.domain.Promoter
 
 
 @Service
@@ -36,6 +40,12 @@ public class AdministrationServiceImpl implements AdministrationService {
 	Map<String, String> roles
 	@Autowired
 	PersonService personService
+	@Autowired
+  PromoterRepository promoterRepository
+	@Autowired
+	ProgramManagerService programManagerService
+	@Autowired
+	ProgramManagerRepository programManagerRepository
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -113,6 +123,27 @@ public class AdministrationServiceImpl implements AdministrationService {
 	@Override
 	def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
 		personService.saveRolAndCampus(username, codeCampus, roleCode, recrCode)
+	}
+
+	def saveAssociation(def listAssociations, def person){
+		ProgramManager program = programManagerService.findOneById_UserName(person.userName)
+		println program
+		listAssociations.each(){ association ->
+			Promoter promoter = promoterRepository.findOneById_UserName(association.promoter.id.userName)
+			(association.associate) ? addPromoterToProgram(promoter, program) : removePromoterFromProgram(promoter, program)
+			println promoter
+		}
+		[:]
+	}
+
+	def addPromoterToProgram (Promoter promoter, ProgramManager program){
+		promoter.programManager = program
+		promoterRepository.save(promoter)
+	}
+
+	def removePromoterFromProgram(Promoter promoter, ProgramManager program){
+		promoter.programManager = null
+		promoterRepository.save(promoter)
 	}
 
 	@Override
