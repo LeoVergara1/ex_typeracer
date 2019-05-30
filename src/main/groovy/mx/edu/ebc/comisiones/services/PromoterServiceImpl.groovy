@@ -2,6 +2,7 @@ package mx.edu.ebc.comisiones.services
 
 import groovy.transform.Memoized
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import mx.edu.ebc.comisiones.pojos.PromoterCommand
 import mx.edu.ebc.comisiones.comision.domain.PidmAndUserNamePK
 import mx.edu.ebc.comisiones.pojos.PromoterCode
@@ -44,6 +45,10 @@ class PromoterServiceImpl implements PromoterService{
   ProgramManagerRepository programManagerRepository
   @Autowired
   UserCampusRepository userCampusRepository
+  @Autowired
+  PersonService personService
+  @Value('#{${campus}}')
+	Map<String, String> campus
 
   @Override
   Map createPromoter(String userName, Long pidm, String recrCode) {
@@ -121,8 +126,16 @@ class PromoterServiceImpl implements PromoterService{
 
   List<Map> getCoordinates(){
     promoterRepository.findAll().collect(){ promoter ->
-      [promoter: promoter, campuses: userCampusRepository.findByUserCampusPK_UserName(promoter.id.userName)]
+      [
+        promoter: promoter,
+        campuses: listOfCampuses(userCampusRepository.findByUserCampusPK_UserName(promoter.id.userName)),
+        person: personService.findPersonByUsername(promoter.id.userName)
+      ]
     }
+  }
+
+  def listOfCampuses(List<UserCampus> listCampus){
+    listCampus?.collect(){ [code: it.userCampusPK.campusCode, description: campus["${it.userCampusPK.campusCode}"]]}
   }
 
 }
