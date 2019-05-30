@@ -36,27 +36,13 @@
                   <td>{{promoter.person.userName}}</td>
                   <td>{{promoter.person.bannerName}}</td>
                   <td>{{promoter.campuses[0].description}}</td>
-                  <td>Promotor</td>
-                  <td v-if="!promoter.programManager"><center><span class="label label-success">Sin Asociar</span></center></td>
-                  <td v-else><center><span class="label label-success">Sin Asociar</span></center></td>
-                  <td v-if="!promoter.programManager"><center><input type="checkbox" v-model="promoter.associate"></center></td>
-                  <td v-else><center>{{promoter.programManager.userName}}</center></td>
-              </tr>
-              <tr>
-                  <td>j.gonzalez022</td>
-                  <td>Joel González Rodríguez</td>
-                  <td>Reforma</td>
-                  <td>Promotor</td>
-                  <td><center><span class="label label-warning">Sin asociar</span></center></td>
-                  <td><center><input type="checkbox" value=""></center></td>
-              </tr>
-              <tr>
-                  <td>ej.carino</td>
-                  <td>Edith Jazmin Cariño</td>
-                  <td>Reforma</td>
-                  <td>Promotor</td>
-                  <td><center><span class="label label-warning">Asociado</span></center></td>
-                  <td><center>j.gonzalez</center></td>
+				  <td>Promotor</td>
+                  <td v-if="validateAssociation(promoter) === 'associateYou'"><center><span class="label label-success">Asociado</span></center></td>
+                  <td v-else-if ="validateAssociation(promoter) === 'associateHer'"><center><span class="label label-warning">Asociado</span></center></td>
+                  <td v-else><center><span class="label label-warning">Sin Asociar</span></center></td>
+                  <td v-if="validateAssociation(promoter) === 'associateYou'"><center><input type="checkbox" v-model="promoter.associate"></center></td>
+                  <td v-else-if ="validateAssociation(promoter) === 'associateHer'">{{promoter.promoter.programManager.userName}}</td>
+                  <td v-else><center><input type="checkbox" v-model="promoter.associate"></center></td>
               </tr>
             </tbody></table>
         </div>
@@ -71,8 +57,9 @@
 		<b-modal id="modal-1" title="Usuarios asociados" :header-bg-variant="headerBgVariant" :header-text-variant="headerTextVariant">
 				<h1 class="margin0 text-success text-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i></h1>
 				<h4 class="text-center">Usuarios asociados:</h4>
-				<h4 class="text-center"><span class="text-success">va.sanchez003</span></h4>
-				<h4 class="text-center"><span class="text-success">va.sanchez003</span></h4>
+				<h4 v-for="promoter in listPromoterToUser" class="text-center">
+					<span class="text-success" v-if="promoter.associate">{{promoter.person.userName}}</span>
+				</h4>
 				<div slot="modal-footer" class="w-100">
 						<b-button variant="primary" size="sm" class="float-right" @click="closedModal">
 							Cerrar
