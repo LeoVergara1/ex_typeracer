@@ -127,13 +127,11 @@ public class AdministrationServiceImpl implements AdministrationService {
 
 	def saveAssociation(def listAssociations, def person){
 		ProgramManager program = programManagerService.findOneById_UserName(person.userName)
-		println program
 		listAssociations.each(){ association ->
 			Promoter promoter = promoterRepository.findOneById_UserName(association.promoter.id.userName)
 			(association.associate) ? addPromoterToProgram(promoter, program) : removePromoterFromProgram(promoter, program)
-			println promoter
 		}
-		[:]
+		[status: 200]
 	}
 
 	def addPromoterToProgram (Promoter promoter, ProgramManager program){
@@ -142,8 +140,10 @@ public class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	def removePromoterFromProgram(Promoter promoter, ProgramManager program){
-		promoter.programManager = null
-		promoterRepository.save(promoter)
+		if(promoter.programManager?.id?.userName == program.id.userName){
+			promoter.programManager = null
+			promoterRepository.save(promoter)
+		}
 	}
 
 	@Override
