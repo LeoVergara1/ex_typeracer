@@ -604,3 +604,37 @@ table#unidades td>a span{
 .label-success {
 	background-color: #5cb85c;
 }
+.label-warning {
+	background-color: #f0ad4e;
+}
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+}
+.loading {
+  position: absolute;
+  background-color: black;
+  color: #fff;
+  width: 100%;
+  height: 105%;
+  padding: 3px;
+  text-align: center;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  opacity: 0.9;
+}
+.custom-spinner {
+  position: absolute !important;
+  z-index: 2005 !important;
+  top: 50% !important;
+  left: 50% !important;
+}
