@@ -79,8 +79,9 @@ Vue.component('template-register', {
 			let map = {
 				200: () => {this.$snotify.info(message, this.notifyOptions)},
 				201: () => {this.$snotify.info(message, this.notifyOptions)},
-				400: () => {this.$snotify.info("Hubo Un error en el proceso", this.notifyOptions)},
-				404: () => {this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions)}
+				400: () => {this.$snotify.info("Hubo Un error en el proceso", this.notifyOptions); this.user.person.userName = null},
+				404: () => {this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions); this.user.person.userName = null},
+				401: () => {this.$snotify.error("Promotor o Manager no valido en banner", this.notifyOptions); this.user.person.userName = null}
 			}
 			map[response]()
 		},
@@ -158,7 +159,14 @@ Vue.component('template-register', {
 					<td>{{user.person.profiles[0].description}}</td>
 					<td></td>
 					<td>
+						<!--
+
 							<button class="btn btn-danger btn-xs btn-block buttonTable" @click="deleteRol()" id="buttonTable"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+						-->
+						<div class="btn-group" role="group" aria-label="Basic example">
+								<button type="button" class="btn btn-danger" @click="deleteRol()"><i class="fa fa-times" aria-hidden="true"></i>Eliminar</button>
+								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].description == 'Jefe de Programa CE'"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
+						</div>
 					</td>
 				</tr>
 			</tbody>
