@@ -126,7 +126,6 @@ class PromoterServiceImpl implements PromoterService{
 
   List<Map> getCoordinates(){
     promoterRepository.findAll().collect(){ promoter ->
-      println promoter.programManager
       [
         promoter: [id: promoter.id, programManager: parserProgrmaManager(promoter.programManager)],
         campuses: listOfCampuses(userCampusRepository.findByUserCampusPK_UserName(promoter.id.userName)),
@@ -137,7 +136,6 @@ class PromoterServiceImpl implements PromoterService{
   }
 
   def parserProgrmaManager(def programManager){
-    println programManager?.dump()
     [userName: programManager?.id?.userName]
   }
 
