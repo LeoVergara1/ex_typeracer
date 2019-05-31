@@ -8,6 +8,8 @@
 	</div>
 	<hr>
 	<div id="app">
+		<div class="loading" v-if="loader.loading"></div>
+		<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 		<div class="row">
 		<div class="col-md-5 col-lg-5" v-if="person.profiles">
 			<h4 class="block orange">{{person.bannerName}}</h4>
