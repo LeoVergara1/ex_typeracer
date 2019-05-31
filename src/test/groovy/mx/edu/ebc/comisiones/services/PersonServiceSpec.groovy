@@ -71,14 +71,14 @@ class PersonServiceSpec extends Specification{
 			resultCampus
 	}
 
+	@Transactional
 	def "Deleting a username"(){
 		given: "A username with profiles"
-			String username = "r.martinez026"
+			String username = "ja.cortes002"
 			String codeCampus = "CMX"
-			String roleCode = "558"
+			String roleCode = "557"
 		when: "Deleting"
 			def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
-			println result
 		then:
 			result
 	}

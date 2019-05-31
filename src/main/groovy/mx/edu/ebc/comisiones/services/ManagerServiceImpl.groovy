@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 import mx.edu.ebc.comisiones.comision.domain.ProgramManager
 import mx.edu.ebc.comisiones.comision.domain.PidmAndUserNamePK
 import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
+import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 
 @Service
 class ManagerServiceImpl implements ManagerService {
@@ -28,6 +29,8 @@ class ManagerServiceImpl implements ManagerService {
   ProgramManagerRepository programManagerRepository
   @Autowired
   PromoterService promoterService
+  @Autowired
+  PromoterRepository promoterRepository
 
   @Override
   Map createManager(String userName, Long pidm, String recrCode) {
@@ -58,9 +61,17 @@ class ManagerServiceImpl implements ManagerService {
     logger.info "Deleting manager: $userName"
     def manager = programManagerRepository.findOneById_UserName(userName)
     if(manager){
+      deletePromotersFromManager(manager)
       programManagerRepository.delete(manager)
       return true
     }
     false
+  }
+
+  void deletePromotersFromManager(ProgramManager manager){
+    manager.promoters?.each(){ promoter ->
+      promoter.programManager = null
+      promoterRepository.save(promoter)
+    }
   }
 }

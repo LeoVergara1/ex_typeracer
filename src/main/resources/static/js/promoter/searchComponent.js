@@ -36,7 +36,7 @@ Vue.component('template-search', {
 				}
 				else {
 					this.responses.foundInBanner = false
-					this.$snotify.warning('Usuario no encontrado', 'Advertencia', this.notifyOptions);
+					this.$snotify.warning('Usuario inexistente', 'Advertencia', this.notifyOptions);
 				}
 			}, response => {
 				console.log("Fail")

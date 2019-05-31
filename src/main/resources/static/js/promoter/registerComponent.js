@@ -81,7 +81,7 @@ Vue.component('template-register', {
 				201: () => {this.$snotify.info(message, this.notifyOptions)},
 				400: () => {this.$snotify.info("Hubo Un error en el proceso", this.notifyOptions); this.user.person.userName = null},
 				404: () => {this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions); this.user.person.userName = null},
-				401: () => {this.$snotify.error("Promotor o Manager no valido en banner", this.notifyOptions); this.user.person.userName = null}
+				401: () => {this.$snotify.error("El usuario no cumple la precondición en Banner para este rol", this.notifyOptions); this.user.person.userName = null}
 			}
 			map[response]()
 		},

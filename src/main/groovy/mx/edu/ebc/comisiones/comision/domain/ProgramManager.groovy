@@ -13,7 +13,7 @@ class ProgramManager {
 
   @EmbeddedId
   PidmAndUserNamePK id
-  @OneToMany(mappedBy = "programManager", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+  @OneToMany(mappedBy = "programManager", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
   Set<Promoter> promoters = new ArrayList<Promoter>()
 
   @Override
