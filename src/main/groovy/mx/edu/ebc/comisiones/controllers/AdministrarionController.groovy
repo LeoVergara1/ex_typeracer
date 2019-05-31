@@ -128,7 +128,6 @@ class AdministrarionController {
 	@PostMapping("administration/save/association")
   @ResponseBody
   public Map saveAssociation(@RequestBody Map associationData) {
-		println associationData
 		Map infoPerson = administrationService.saveAssociation(associationData.listPromoterToUser, associationData.person)
     return infoPerson
   }
