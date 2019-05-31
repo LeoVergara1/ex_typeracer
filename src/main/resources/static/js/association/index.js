@@ -55,6 +55,7 @@ var app = new Vue({
         console.log(response.body);
         this.promoters = response.body
         this.listPromoterToUser = this.promoters.filter((element, index, array)=>{
+          if(element.promoter.programManager.userName == this.person.userName){ element.associate = true}
           return (element.campuses[0].code == this.person.campuses[0].campusCode)
         })
         this.loader.loading = false
@@ -69,14 +70,18 @@ var app = new Vue({
        return "notAssociate"
       }
       else if(username != this.person.userName){
-        console.log(this.person)
         return "associateHer"
       }
       else{
-        promoter.associate = true
         return "associateYou"
       }
     }
+  },
+  mounted() {
+    this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
+      this.loader.loading = true
+      this.getCoordinators()
+    })
   },
   components: {
     RingLoader: VueSpinner.RingLoader
