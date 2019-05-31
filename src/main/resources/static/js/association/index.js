@@ -7,11 +7,21 @@ var app = new Vue({
     headerBgVariant: "white",
     headerTextVariant: 'dark',
     promoters: Array,
-    listPromoterToUser: []
+    listPromoterToUser: [],
+    loader:{
+      color: '#0b93d1',
+      height: '15px',
+      width: '5px',
+      margin: '2px',
+      radius: '2px',
+      loading: false,
+      size: "95px",
+    }
   },
   computed: {
   },
   created: function() {
+    this.loader.loading = true
     this.$http.post('/administration/search/association', {user: this.username}).then(response => {
       // get body data
       console.log(response.body);
@@ -28,13 +38,14 @@ var app = new Vue({
       console.log(numero)
     },
     sendAssociation: function() {
-      console.log("Click")
+      this.loader.loading = true
       this.$http.post('/administration/save/association', { listPromoterToUser: this.listPromoterToUser, person: this.person } ).then( response =>{
         console.log(response)
+        this.loader.loading = false
+        this.$bvModal.show("modal-1")
       }, response => {
         console.log(response)
       })
-      this.$bvModal.show("modal-1")
     },
     closedModal: function(){
       this.$bvModal.hide("modal-1")
@@ -46,13 +57,13 @@ var app = new Vue({
         this.listPromoterToUser = this.promoters.filter((element, index, array)=>{
           return (element.campuses[0].code == this.person.campuses[0].campusCode)
         })
+        this.loader.loading = false
       }, response => {
         console.log("Fail")
         console.log(response)
       })
     },
     validateAssociation: function(promoter){
-      console.log(promoter)
       let username = promoter.promoter.programManager.userName
       if(!username){
        return "notAssociate"
@@ -62,8 +73,12 @@ var app = new Vue({
         return "associateHer"
       }
       else{
+        promoter.associate = true
         return "associateYou"
       }
     }
+  },
+  components: {
+    RingLoader: VueSpinner.RingLoader
   }
 })
