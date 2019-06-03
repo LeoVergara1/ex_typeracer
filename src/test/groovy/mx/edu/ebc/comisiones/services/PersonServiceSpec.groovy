@@ -11,6 +11,7 @@ import  mx.edu.ebc.comisiones.pojos.Person
 import spock.lang.Specification
 import spock.lang.Unroll
 import org.springframework.transaction.annotation.Transactional
+import spock.lang.Ignore
 
 @SpringBootTest
 @ContextConfiguration
@@ -28,6 +29,7 @@ class PersonServiceSpec extends Specification{
     assert personService
   }
 
+	@Ignore
 	@Unroll
 	@Transactional
 	def "create a person with rol manager with satatus 401"(){
