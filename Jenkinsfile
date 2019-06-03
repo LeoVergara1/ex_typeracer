@@ -3,7 +3,7 @@ pipeline{
   agent { label 'slave-1'}
 
   tools {
-    gradle "Gradle 4.8"
+    gradle "Gradle 5.2.1"
   }
 
   stages {
