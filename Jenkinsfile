@@ -11,7 +11,18 @@ pipeline{
     stage('Test App'){
       steps{
         echo 'Testing app'
-        //sh "gradle clean test --stacktrace"
+        sh "gradle clean test"
+      }
+    }
+
+    stage('Building JS'){
+      //when {
+      //  expression {
+      //    env.BRANCH_NAME in ["master","QA"]
+      //  }
+      //}
+      steps{
+        sh 'yarn install'
       }
     }
 
