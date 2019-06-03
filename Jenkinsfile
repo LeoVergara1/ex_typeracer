@@ -11,7 +11,7 @@ pipeline{
     stage('Test App'){
       steps{
         echo 'Testing app'
-        sh "gradle clean test"
+        //sh "gradle clean test"
       }
     }
 
@@ -22,6 +22,7 @@ pipeline{
       //  }
       //}
       steps{
+        echo 'Building javascript apps'
         sh 'yarn install'
       }
     }
