@@ -50,7 +50,7 @@ pipeline{
         URL_SERVER = "${env.BRANCH_NAME == 'master' ? 'DAWS03LX@172.31.100.25' : 'DAWS03LX@172.31.100.25'}"
       }
       steps{
-        sh "scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy.sh ${env.URL_SERVER}:~/deployComisionesLi.sh"
+        sh "scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy.sh ${env.URL_SERVER}:~/deploy_comisiones_li.sh"
       }
     }
 
@@ -64,7 +64,7 @@ pipeline{
         URL_SERVER = "${env.BRANCH_NAME == 'master' ? 'DAWS03LX@172.31.100.25' : 'DAWS03LX@172.31.100.25'}"
       }
       steps{
-        sh "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${env.URL_SERVER} 'sh deployComisionesLi.sh comisiones-li 8105'"
+        sh "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${env.URL_SERVER} 'sh deploy_comisiones_li.sh comisiones-li 8105'"
       }
     }
   }
