@@ -1,4 +1,4 @@
-FROM oracle-java:8 
+FROM store/oracle/serverjre:8
 WORKDIR /root/
 ARG PATH_FOLDER
 ADD $PATH_FOLDER/comisiones-0.0.1-SNAPSHOT.jar comisiones-0.0.1-SNAPSHOT.jar
