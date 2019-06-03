@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.github.groovy-wslite:groovy-wslite:1.1.2'
 	compile group: 'org.codehaus.groovy', name: 'groovy-json', version: '2.5.7'
-	runtime group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
+	implementation group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
   compile "commons-dbcp:commons-dbcp:1.4"
   compile 'commons-pool:commons-pool:1.6'
 	compile group: 'com.kakawait', name: 'cas-security-spring-boot-starter', version: '1.0.0-beta-2'
