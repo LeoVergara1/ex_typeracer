@@ -20,14 +20,12 @@ import org.apache.commons.dbcp.BasicDataSource
 public class DataSourceConfigSeguridad {
 
 @Bean
-@Primary
 @ConfigurationProperties("db2.datasource")
 public DataSourceProperties secondDataSourceProperties() {
 	return new DataSourceProperties();
 }
 
 @Bean
-@Primary
 @ConfigurationProperties("db2.datasource.configuration")
 public BasicDataSource secondDataSource() {
 	return secondDataSourceProperties().initializeDataSourceBuilder()
@@ -35,7 +33,6 @@ public BasicDataSource secondDataSource() {
 }
 
 @Bean
-@Primary
 public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder

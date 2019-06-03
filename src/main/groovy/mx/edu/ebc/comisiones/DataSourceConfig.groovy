@@ -21,12 +21,14 @@ import org.springframework.orm.jpa.JpaTransactionManager
 public class DataSourceConfig {
 
 @Bean
+@Primary
 @ConfigurationProperties("spring.datasource")
 public DataSourceProperties firstDataSourceProperties() {
 	return new DataSourceProperties();
 }
 
 @Bean
+@Primary
 @ConfigurationProperties("spring.datasource.configuration")
 public BasicDataSource firstDataSource() {
 	return firstDataSourceProperties().initializeDataSourceBuilder()
@@ -34,6 +36,7 @@ public BasicDataSource firstDataSource() {
 }
 //
 @Bean
+@Primary
 public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder
