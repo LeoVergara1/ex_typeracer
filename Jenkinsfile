@@ -32,7 +32,7 @@ pipeline{
         script {
           docker.withTool('Docker') {
             docker.withRegistry('http://localhost:5000') {
-              def customImage = docker.build("ebc/micronaut/comisiones-li",'--build-arg PATH_FOLDER=build/libs/ .')
+              def customImage = docker.build("ebc/springboot/comisiones-li",'--build-arg PATH_FOLDER=build/libs/ .')
               customImage.push()
             }
           }
