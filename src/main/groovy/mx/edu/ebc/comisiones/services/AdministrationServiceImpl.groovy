@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 import mx.edu.ebc.comisiones.pojos.*
 import wslite.json.JSONObject
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
+import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 
@@ -46,6 +47,8 @@ public class AdministrationServiceImpl implements AdministrationService {
 	ProgramManagerService programManagerService
 	@Autowired
 	ProgramManagerRepository programManagerRepository
+	@Autowired
+  RolesRepository rolesRepository
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -98,7 +101,7 @@ public class AdministrationServiceImpl implements AdministrationService {
     }
     //Map mapRol = personService.getRolesFromProperties()
     [person:person,
-    	mapRol: roles,
+    	mapRol: rolesRepository.findAllByNidRolPortal("869"),
      	managerRoleId: managerRoleId]
 	}
 

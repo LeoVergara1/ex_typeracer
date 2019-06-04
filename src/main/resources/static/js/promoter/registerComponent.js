@@ -104,6 +104,20 @@ Vue.component('template-register', {
 			})
 		}
 	},
+	filters: {
+		getDescriptionToRol: function (value){
+			let map = {
+				"DIR_CAMPUS": "Director de campus",
+				"ADMIN_JP": "Administrador",
+				"COORD_MERCADOTECNIA_CORP": "Coordinador",
+				"NOMINA_ADMIN_SICOSS": "Sicoss de nomina",
+				"JEFE_PROMOCION": "Jefe de promoción",
+				"Promotor": "Promotor",
+				"PROMOCIÓN": "Promoción"
+			}
+			return map[value]
+		}
+	},
 	template: `
 	<div class="row" v-if="alertData.user && !alertData.show && !response.register">
 		<div class="col-lg-2">
@@ -121,16 +135,13 @@ Vue.component('template-register', {
 			<label for="selectRoles">Rol</label>
 			<div id="filter-roles">
 			<select class="form-control filtersRolAndCampus" v-model="register.roleCode">
-				<option disabled="disabled">Seleccione un rol</option>
-				<option value="555">Administrador de Personal</option>
-				<option value="556">Administrador-Comisiones</option>
-				<option value="554">Autorizador Divisional</option>
-				<option value="557">Jefe de Programa CE</option>
-				<option value="558">Promotor-Comisiones</option>
+				<option v-for="rol in user.mapRol" v-bind:value="rol.nidRol">
+				{{ rol.descriptionRol | getDescriptionToRol }}
+			</option>
 			</select>
 		</div>
 		</div>
-		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == 557 || register.roleCode == 558">
+		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == 308 || register.roleCode == 888">
 			<label for="recrCodeInput">Código de Promotor</label>
 			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="register.rcreCode">
 		</div>
