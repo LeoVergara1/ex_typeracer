@@ -115,7 +115,7 @@ Vue.component('template-register', {
 				"Promotor": "Promotor",
 				"PROMOCIÓN": "Promoción"
 			}
-			return map[value]
+			return map[value] ? map[value] : value
 		}
 	},
 	template: `
@@ -176,7 +176,7 @@ Vue.component('template-register', {
 						-->
 						<div class="btn-group" role="group" aria-label="Basic example">
 								<button type="button" class="btn btn-danger" @click="deleteRol()"><i class="fa fa-times" aria-hidden="true"></i>Eliminar</button>
-								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].description == 'Jefe de Programa CE'"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
+								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].id == 308"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
 						</div>
 					</td>
 				</tr>
