@@ -28,6 +28,9 @@ dependencies {
   compile "commons-dbcp:commons-dbcp:1.4"
   compile 'commons-pool:commons-pool:1.6'
 	compile group: 'com.kakawait', name: 'cas-security-spring-boot-starter', version: '1.0.0-beta-2'
+	def excludesList = ['spring-web']
+	compile("mx.edu.ebc:ebc-cas:4.5.0"){
+     excludesList.each { m -> exclude module: m }}
 	implementation 'org.codehaus.groovy:groovy'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
