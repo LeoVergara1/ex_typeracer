@@ -1,6 +1,9 @@
 <footer>
 	<script src="/third-party/vue/dist/vue.js"></script>
 	<script src="/third-party/vue-resource/dist/vue-resource.min.js"></script>
+	<script>
+		Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName("_csrf")[0].content;
+	</script>
 	<script src="/third-party/vue-snotify/vue-snotify.min.js"></script>
 	<script src="/third-party/bootstrap-vue/dist/bootstrap-vue.min.js"></script>
 	<script src="/third-party/vue-spinner/dist/vue-spinner.min.js"></script>

@@ -25,6 +25,14 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PathVariable
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
+import javax.servlet.http.HttpSession
+import org.springframework.security.core.userdetails.UserDetailsService;
+import java.security.Principal
+import org.springframework.security.cas.authentication.CasAuthenticationToken
+import mx.edu.ebc.cas.util.pojo.EbcUser
+import mx.edu.ebc.cas.util.pojo.UserProfile
 
 @Controller
 class AdministrarionController {
@@ -43,6 +51,9 @@ class AdministrarionController {
 	PromoterService promoterService
 	@Value('#{${campus}}')
 	Map<String, String> campus
+	@Autowired
+	UserDetailsService userDetailsService
+
 
   @RequestMapping("/")
   @ResponseBody
@@ -57,8 +68,20 @@ class AdministrarionController {
 
   @RequestMapping("administration/show")
   @ResponseBody
-  public ModelAndView administrationShow() {
+  public ModelAndView administrationShow(Principal principal) {
 		ModelAndView model = new ModelAndView("index");
+		println "*"*100
+		println "*"*100
+		//def usuarioCas = ((CasAuthenticationToken) principal).getUserDetails()
+		EbcUser usuarioCas = (EbcUser) ((CasAuthenticationToken) principal).getUserDetails()
+		println usuarioCas.dump()
+		//println session.dump()
+		//println session.properties.each { k, v -> println "$k == ${v?.dump()}" }
+		//println "*"*100
+		//println session.session.dump()
+		//println "+"*100
+		//println session.session.properties.each { k, v -> println "$k == ${v?.dump()}" }
+		//def user = 	userDetailsService.loadUserByUsername(session.session.username)
 		model.addObject("content", "show");
 		model.addObject("comisionesList", administrationService.findAllComission());
 		model.addObject("comissionEjecutiva", administrationService.findAllComission().first().comisionEjecutivo);

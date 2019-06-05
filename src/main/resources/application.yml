@@ -1,9 +1,21 @@
 security:
+  url:
+    ws:
+      person:
+        profile: http://172.31.100.25:8085/api-seguridad/v2/api/user/profile
+        role: http://172.31.100.25:8085/api-seguridad/v2/api/user/role
+  portal:
+    name: Web-comisiones
   cas:
+    app:
+      key: web-comisiones
     server:
       base-url: https://apr-test.ebc.edu.mx/casad
+      url:
+        logout: https://apr-test.ebc.edu.mx/casad/logout
     service:
       base-url: http://localhost:8090
+      callback-base-url: http://localhost:8090
 spring:
   datasource:
     url: jdbc:oracle:thin:@10.31.23.34:1521:DEVL8
