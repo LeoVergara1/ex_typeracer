@@ -96,7 +96,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 	Map getPersonWithValidations(String username){
 			Person person = personService.findPersonByUsername(username)
     if(person.userName){
-    	person = personService.setProfile(person, "Web-comisiones")
+    	person = personService.setProfile(person, "Pago%20de%20comisiones")
     	person = personService.setCampuses(person)
     }
     //Map mapRol = personService.getRolesFromProperties()
@@ -143,7 +143,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	def removePromoterFromProgram(Promoter promoter, ProgramManager program){
-		if(promoter.programManager?.id?.userName == program.id.userName){
+		if(promoter.programManager?.id?.userName == program?.id?.userName){
 			promoter.programManager = null
 			promoterRepository.save(promoter)
 		}
