@@ -60,7 +60,6 @@ class AdministrarionController {
   public ModelAndView home() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "home");
-		//def list = adminDeComisionesRepository.findAll()
 		model.addObject("title", "Baeldung");
 		model.addObject("any", "Hola mundo");
 		return model
@@ -70,11 +69,8 @@ class AdministrarionController {
   @ResponseBody
   public ModelAndView administrationShow(Principal principal) {
 		ModelAndView model = new ModelAndView("index");
-		println "*"*100
-		println "*"*100
 		//def usuarioCas = ((CasAuthenticationToken) principal).getUserDetails()
-		EbcUser usuarioCas = (EbcUser) ((CasAuthenticationToken) principal).getUserDetails()
-		println usuarioCas.dump()
+		//EbcUser usuarioCas = (EbcUser) ((CasAuthenticationToken) principal).getUserDetails()
 		//println session.dump()
 		//println session.properties.each { k, v -> println "$k == ${v?.dump()}" }
 		//println "*"*100
