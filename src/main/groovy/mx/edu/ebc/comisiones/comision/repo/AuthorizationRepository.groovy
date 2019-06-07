@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 public interface AuthorizationRepository extends JpaRepository<AuthorizationComission,Integer> {
-	List<AuthorizationRepository> findAll()
+	List<AuthorizationComission> findAll()
 }

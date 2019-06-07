@@ -16,8 +16,6 @@ class AuthorizationComission {
 	String promoterName
 	@Column(name = "PUESTO")
 	String job
-	@Column(name = "CLAVE_EMP_PROMOTOR")
-	String clavePromoter
 	@Column(name = "ID_ALUMNO")
 	String idStudent
 	@Column(name = "NOMBRE_ALUMNO")
@@ -46,8 +44,6 @@ class AuthorizationComission {
 	BigDecimal cordinaterComission
 	@Column(name="FECHA_AUTORIZADO")
 	Date authorizeDate
-	@Column(name="CLAVE_EMP_COORDINADOR")
-	String claveCoordinater
 	@Column(name="USUARIO")
 	String user
 
