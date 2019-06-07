@@ -159,4 +159,16 @@ Person findPersonByUsername(String username) {
     }
   }
 
+  def getMenusToPerson(String userName){
+    def result = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/profile/${userName}/Pago%20de%20comisiones")
+    println "Init buil"
+    result.accessProfile.collect(){ menu ->
+      println menu
+      [
+        shortName: menu.shortName,
+        submenus: menu.accessProfile.collect(){ [ url: it.url, shortName: it.shortName] }
+      ]
+    }
+  }
+
 }

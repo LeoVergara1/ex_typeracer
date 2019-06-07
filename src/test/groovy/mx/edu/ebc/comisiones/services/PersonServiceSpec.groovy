@@ -20,6 +20,8 @@ class PersonServiceSpec extends Specification{
 
 	@Autowired
   PersonService personService
+	@Autowired
+  RestConnectionService restConnectionService
 
 
   def "Spect 000 Check service inject"() {
@@ -81,6 +83,15 @@ class PersonServiceSpec extends Specification{
 			String roleCode = "557"
 		when: "Deleting"
 			def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
+		then:
+			result
+	}
+
+	def "get menus to user"() {
+		given: "A username"
+		String username = "ja.cortes002"
+		when:
+		def result = personService.getMenusToPerson(username)
 		then:
 			result
 	}
