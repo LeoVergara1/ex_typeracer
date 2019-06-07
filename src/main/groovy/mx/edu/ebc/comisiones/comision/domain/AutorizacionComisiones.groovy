@@ -16,7 +16,7 @@ public class AutorizacionComisiones {
   double comision;
   String periodo;
   Date fechaDePago;
-  char autorizadoDirector;
+  String autorizadoDirector;
   Date dateCreated;
   Date lastUpdated;
   String idCoordinador;
