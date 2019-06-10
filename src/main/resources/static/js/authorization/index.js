@@ -2,12 +2,22 @@ var app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!',
-    username: document.getElementById("username").value,
+    username: "",
     person: Object,
     headerBgVariant: "white",
     headerTextVariant: 'dark',
     promoters: Array,
+    campuses: Object,
+    campusSelected: "CMX",
+    alumns: [],
     listPromoterToUser: [],
+    date: '2019/01/01',
+    date:{
+      selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
+      selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
+      months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      weekDays: ["Lun", "Mar", "Mier", "Jue", "Vie", "Sab", "Dom"]
+    },
     loader:{
       color: '#0b93d1',
       height: '15px',
@@ -19,52 +29,52 @@ var app = new Vue({
     }
   },
   computed: {
+    totalCommission() {
+      let cost = 0
+      this.alumns.forEach(element => {
+         cost = element.comision + cost
+      });
+      return cost.toFixed(2)
+    },
+    period(){
+      let options = { year: 'numeric', month: 'long', day: 'numeric' }
+      let dateParts = this.date.selectInit.split("/")
+      console.log(dateParts)
+      let init = new Date(Date.parse(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`)).toLocaleDateString("es-ES", options)
+      dateParts = this.date.selectFin.split("/")
+      let fin = new Date(Date.parse(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`)).toLocaleDateString("es-ES", options)
+      console.log(init)
+      console.log(fin)
+      return `${init} al ${fin}`
+    }
   },
   created: function() {
     this.loader.loading = true
+    this.$http.get('/authorization/campueses').then(response => {
+      console.log(response.body);
+      this.campuses = response.body.campus
+      this.person = response.body.person.person
+      this.loader.loading = false
+    }, response => {
+      console.log("Fail")
+      console.log(response)
+    })
   },
   methods:{
-    update: function (numero) {
-      console.log(numero)
-    },
-    sendAssociation: function() {
+    getCalculation() {
       this.loader.loading = true
-      this.$http.post('/administration/save/association', { listPromoterToUser: this.listPromoterToUser, person: this.person } ).then( response =>{
-        console.log(response)
-        this.loader.loading = false
-        this.$bvModal.show("modal-1")
-      }, response => {
-        console.log(response)
-      })
-    },
-    closedModal: function(){
-      this.$bvModal.hide("modal-1")
-    },
-    getCoordinators: function(){
-      this.$http.get('/administration/coordinators').then(response => {
+      this.$http.post(`/authorization/getCalculation`, {
+        campus: this.campusSelected,
+        initDate: this.date.selectInit,
+        finDate: this.date.selectFin
+      }).then(response => {
         console.log(response.body);
-        this.promoters = response.body
-        this.listPromoterToUser = this.promoters.filter((element, index, array)=>{
-          if(element.promoter.programManager.userName == this.person.userName){ element.associate = true}
-          return (element.campuses[0].code == this.person.campuses[0].campusCode)
-        })
         this.loader.loading = false
+        this.alumns = response.body.out_comisiones
       }, response => {
         console.log("Fail")
         console.log(response)
       })
-    },
-    validateAssociation: function(promoter){
-      let username = promoter.promoter.programManager.userName
-      if(!username){
-       return "notAssociate"
-      }
-      else if(username != this.person.userName){
-        return "associateHer"
-      }
-      else{
-        return "associateYou"
-      }
     }
   },
   mounted() {
@@ -74,6 +84,21 @@ var app = new Vue({
     })
   },
   components: {
-    RingLoader: VueSpinner.RingLoader
+    RingLoader: VueSpinner.RingLoader,
+    DatePick: VueDatePick
+  },
+  filters: {
+		getDescriptionToRol: function (value){
+			let map = {
+				"DIR_CAMPUS": "Director de campus",
+				"ADMIN_JP": "Administrador",
+				"COORD_MERCADOTECNIA_CORP": "Coordinador",
+				"NOMINA_ADMIN_SICOSS": "Sicoss de nomina",
+				"JEFE_PROMOCION": "Jefe de promoción",
+				"Promotor": "Promotor",
+				"PROMOCIÓN": "Promoción"
+			}
+			return map[value] ? map[value] : value
+    }
   }
 })

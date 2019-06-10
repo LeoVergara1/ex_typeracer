@@ -251,10 +251,26 @@ border:0 !important;
 }
 
 thead tr{
- background-color: #0B93D1 ;
- color: white;
+/* background-color: #0B93D1 ;
+ color: white;*/
 }
+.vdpWithInput>input {
+	font-size: 16px;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 6px;
+	padding-right: 40px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 4px;
+	background: transparent;
+	border: 1px solid #e0e0e0;
+	box-shadow: 0 0.1em 0.3em rgba(0,0,0,.05);
+	outline: 0;
 
+}
 thead.materias tr{
  background-color: transparent;
  color: black;
