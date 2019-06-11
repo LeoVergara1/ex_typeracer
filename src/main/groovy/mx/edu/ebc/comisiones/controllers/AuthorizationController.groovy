@@ -60,4 +60,13 @@ class AuthorizationController {
 		println data
 		authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
   }
+
+	@PostMapping("/sendAuthorization")
+  @ResponseBody
+  public Map sendAuthorization(HttpServletRequest request, @RequestBody Map data) {
+		String username = request.getUserPrincipal().getUserDetails().username
+		authorizationService.saveListAuthorization(data.listAuthorization, username)
+		[response: 200]
+  }
+
 }
