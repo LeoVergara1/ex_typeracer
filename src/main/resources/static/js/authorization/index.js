@@ -61,6 +61,25 @@ var app = new Vue({
     })
   },
   methods:{
+    setAuthorization(alumno, { target }){
+      (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
+      console.log(target.checked)
+    },
+    sendAuthorization(){
+      let listTosend = this.alumns.filter(alumno => alumno.autorizadoDirector == "AUTORIZADO")
+      console.log(listTosend)
+      this.loader.loading = true
+      this.$http.post(`/authorization/sendAuthorization`, {
+        listAuthorization: listTosend
+      }).then(response => {
+        console.log(response.body);
+        this.alumns = this.alumns.filter(alumno => alumno.autorizadoDirector != "AUTORIZADO")
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
+    },
     getCalculation() {
       this.loader.loading = true
       this.$http.post(`/authorization/getCalculation`, {
