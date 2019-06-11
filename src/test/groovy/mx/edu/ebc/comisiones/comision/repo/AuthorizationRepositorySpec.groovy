@@ -36,4 +36,13 @@ class AuthorizationRepositorySpec extends Specification{
 			result
 	}
 
+	def "findByIdPromotorAndIdCoordinadorAndIdAlumno"(){
+		when:
+			def result = authorizationRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno("M00253895","M00130851","M00994209")
+			println "+"*100
+			println result
+		then:
+			result
+	}
+
 }
