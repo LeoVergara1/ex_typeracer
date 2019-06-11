@@ -75,6 +75,10 @@
 							Corrientes
 						</button>
 					</h5>
+					<div class="float-right">
+							<button @click="sendAuthorization()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check" aria-hidden="true"></i> Autorizar</button>
+					</div>
+
 				</div>
 
 				<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -150,7 +154,7 @@
 							<br class="clear">
 							<br>
 							<div class="col-md-12 col-lg-12">
-									<table class="table table-bordered table-striped">
+									<table class="table table-bordered table-striped" style="font-size: 12px;">
 									 <tbody><tr>
 											 <th>Promotor</th>
 											 <th>Comisión promotor</th>
@@ -159,61 +163,26 @@
 											 <th>Periodo de inscripción</th>
 											 <th>Alumno</th>
 											 <th>Fecha de Pago</th>
-											 <th>Tipo de pago</th>
-											 <th>Numero de NRC's</th>
 											 <th>Valor de contrato</th>
 											 <th>% Beneficios</th>
 											 <th>Valor real de contrato</th>
 											 <th>Registrar</th>
 											 <th>Denegar</th>
 									 </tr>
-										<tr>
-												<td>Jakopo Jose Antonio Trejo Muñoz - <b>AD5474</b></td>
-												<td>$1,000.00</td>
-												<td>Jessica Rivera León - <b>AD9078</b></td>
-												<td>$1,000.00</td>
-												<td>201620</td>
-												<td>Victor Alfonso Sanchez García - <b>M000000031</b></td>
-												<td>23 de Abril 2017</td>
-												<td>Crédito</td>
-												<td>3</td>
+										<tr v-for="(alumno, index) in alumns">
+												<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
+												<td>{{alumno.comision}}</td>
+												<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
+												<td>{{alumno.comisionCoordinador}}</td>
+												<td>{{alumno.periodo}}</td>
+												<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
+												<td>{{alumno.fechaDePago}}</td>
 												<td class="text-center"><span class="block">$3,700.00</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
 												<td>15%</td>
 												<td>$1,850.00</td>
-												<td class="text-center"> <input type="checkbox"></td>
+												<td class="text-center"> <input type="checkbox" @change="setAuthorization(alumno, $event)"></td>
 												<td><a class="btn btn-xs btn-block btn-danger">Rechazar</a></td>
-										</tr>
-										<tr>
-												<td>Jakopo Jose Antonio Trejo Muñoz - <b>AD5474</b></td>
-												<td>$1,000.00</td>
-												<td>Jessica Rivera León - <b>AD9078</b></td>
-												<td>$1,000.00</td>
-												<td>201620</td>
-												<td>Victor Alfonso Sanchez García - <b>M000000031</b></td>
-												<td>23 de Abril 2017</td>
-												<td>Crédito</td>
-												<td>3</td>
-												<td class="text-center"><span class="block">$3,700.00</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-												<td>15%</td>
-												<td>$1,850.00</td>
-												<td class="text-center"> <input type="checkbox"></td>
-												<td><a class="btn btn-xs btn-block btn-danger">Rechazar</a></td>
-										</tr>
-										<tr>
-												<td>Jakopo Jose Antonio Trejo Muñoz - <b>AD5474</b></td>
-												<td>$1,000.00</td>
-												<td>Jessica Rivera León - <b>AD9078</b></td>
-												<td>$1,000.00</td>
-												<td>201620</td>
-												<td>Victor Alfonso Sanchez García - <b>M000000031</b></td>
-												<td>23 de Abril 2017</td>
-												<td>Crédito</td>
-												<td>3</td>
-												<td class="text-center"><span class="block">$3,700.00</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-												<td>15%</td>
-												<td>$1,850.00</td>
-												<td class="text-center"> <input type="checkbox"></td>
-												<td><a class="btn btn-xs btn-block btn-danger">Rechazar</a></td>
+
 										</tr>
 									</tbody></table>
 							</div>
@@ -239,5 +208,6 @@
 	</div>
 </div>
 <div th:fragment="js">
+  <link rel="stylesheet" href="/css/authorization_style.css" />
 	<script src="/js/authorization/index.js"></script>
 </div>
