@@ -69,4 +69,13 @@ class AuthorizationController {
 		[response: 200]
   }
 
+  @RequestMapping("/query")
+  @ResponseBody
+  public ModelAndView queryAuthorization() {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "queryAuthorization");
+		//def list = adminDeComisionesRepository.findAll()
+		return model
+  }
+
 }
