@@ -1,0 +1,17 @@
+<div th:fragment="queryAuthorization">
+	<br>
+	<div id="app">
+		<div class="row">
+				<div class="col-lg-12">
+						<h3 class="blue margin0">Consulta de comisiones</h3>
+					</div>
+		</div>
+		<hr>
+		<template-comission-search :loader="loader" ></template-comission-search>
+	</div>
+</div>
+<div th:fragment="js">
+  <link rel="stylesheet" href="/css/authorization_style.css" />
+	<script src="/js/authorization/searchCommissionComponent.js"></script>
+	<script src="/js/authorization/queryAuthorization.js"></script>
+</div>
