@@ -1,6 +1,8 @@
 <div th:fragment="queryAuthorization">
 	<br>
 	<div id="app">
+		<div class="loading" v-if="loader.loading"></div>
+		<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 		<div class="row">
 				<div class="col-lg-12">
 						<h3 class="blue margin0">Consulta de comisiones</h3>
@@ -8,6 +10,37 @@
 		</div>
 		<hr>
 		<template-comission-search :loader="loader" :data-to-table="commissionsToTable" :date="date"></template-comission-search>
+		<hr>
+		<div class="row">
+			<div class="col-md-12 col-lg-12">
+					<table class="table table-bordered table-striped" style="font-size: 12px;">
+					 <tbody><tr>
+							 <th>Promotor</th>
+							 <th>Comisión promotor</th>
+							 <th>Jefe</th>
+							 <th>Comisión jefe</th>
+							 <th>Periodo de inscripción</th>
+							 <th>Alumno</th>
+							 <th>Fecha de Pago</th>
+							 <th>Valor de pago inicial</th>
+							 <th>% Beneficios</th>
+							 <th>Valor real de contrato</th>
+					 </tr>
+						<tr v-for="(alumno, index) in commissionsToTable">
+								<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
+								<td>{{alumno.comision}}</td>
+								<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
+								<td>{{alumno.comisionCoordinador}}</td>
+								<td>{{alumno.periodo}}</td>
+								<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
+								<td>{{alumno.fechaDePago}}</td>
+								<td class="text-center"><span class="block">${{alumno.pagoInicial}}</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
+								<td>15%</td>
+								<td>$1,850.00</td>
+						</tr>
+					</tbody></table>
+			</div>
+		</div>
 	</div>
 </div>
 <div th:fragment="js">
