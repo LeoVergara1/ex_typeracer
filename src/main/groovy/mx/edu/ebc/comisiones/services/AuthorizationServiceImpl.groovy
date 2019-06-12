@@ -64,4 +64,10 @@ class AuthorizationServiceImpl implements AuthorizationService {
 		println finDateFrom
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(status, initDateFrom, finDateFrom)
 	}
+
+	def structureGrups(def groups){
+		groups.collect(){ k, v ->
+			[namePromoter: v[0].nombrePromotor, job: v[0].puesto, numberStudents: v.size(), datePayment: v[0].fechaDePago, comission: v.sum{ it.comision.toFloat() }]
+		}
+	}
 }
