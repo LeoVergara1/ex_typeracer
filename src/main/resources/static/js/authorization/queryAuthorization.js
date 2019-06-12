@@ -1,7 +1,8 @@
 var app = new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue!',
+		message: 'Hello Vue!',
+		typeReport: "General",
     username: "",
     person: Object,
     headerBgVariant: "white",
@@ -28,7 +29,8 @@ var app = new Vue({
       size: "95px",
 		},
 		commissionsToTable: [],
-		dataToTable: []
+		dataToTable: [],
+		groups: []
   },
   computed: {
     totalCommission() {
@@ -76,8 +78,12 @@ var app = new Vue({
       this.loader.loading = true
       this.getCoordinators()
 		})
-		this.$root.$on('send_table',(table) => {
+		this.$root.$on('send_table',(table, groups) => {
 			this.commissionsToTable = table
+			this.groups = groups
+		})
+		this.$root.$on('send_report',(report) => {
+			this.typeReport = report
 		})
   },
   components: {

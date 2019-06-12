@@ -41,6 +41,11 @@ Vue.component('template-comission-search', {
       console.log(response)
     })
 	},
+	watch: {
+		'searchData.typeReport': function() {
+			this.$root.$emit('send_report', this.searchData.typeReport)
+		}
+	},
 	methods: {
 		search(){
 			console.log("Init Search ")
@@ -49,7 +54,7 @@ Vue.component('template-comission-search', {
 			this.$http.post(`/authorization/query/searchCommisions`, this.searchData).then(response => {
         console.log(response.body);
         this.loader.loading = false
-				this.$root.$emit('send_table', response.body.commissions)
+				this.$root.$emit('send_table', response.body.commissions, response.body.groups)
       }, response => {
         console.log("Fail")
         console.log(response)

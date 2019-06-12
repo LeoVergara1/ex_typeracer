@@ -11,7 +11,7 @@
 		<hr>
 		<template-comission-search :loader="loader" :data-to-table="commissionsToTable" :date="date"></template-comission-search>
 		<hr>
-		<div class="row">
+		<div class="row" v-if="typeReport == 'General'">
 			<div class="col-md-12 col-lg-12">
 					<table class="table table-bordered table-striped" style="font-size: 12px;">
 					 <tbody><tr>
@@ -40,6 +40,26 @@
 						</tr>
 					</tbody></table>
 			</div>
+		</div>
+		<div class="row" v-else>
+				<div class="col-md-8 col-lg-8" id="general" style="">
+            <table class="table table-bordered table-striped">
+             <tbody><tr>
+                 <th>Puesto</th>
+                 <th>Nombre</th>
+                 <th>No. Alumnos inscritos</th>
+                 <th>Periodo</th>
+                 <th>Comisión total</th>
+             </tr>
+              <tr>
+                  <td>Jefe</td>
+                  <td>Jakopo Jose Antonio Trejo Muñoz - <b>AD5359</b></td>
+                  <td>6</td>
+                  <td>Periodo 1</td>
+                  <td>$2,000.00</td>
+              </tr>
+            </tbody></table>
+        </div>
 		</div>
 	</div>
 </div>
