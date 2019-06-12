@@ -82,8 +82,9 @@ class AuthorizationController {
   @ResponseBody
   public Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
 		println data
-		//def list = adminDeComisionesRepository.findAll()
-		[response:200, commissions: authorizationService.getCommissionsByStatus(data)]
+		def list = authorizationService.getCommissionsByStatus(data)
+		def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
+		[response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
   }
 
 }
