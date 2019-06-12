@@ -1,18 +1,27 @@
 // Define a new component called button-counter
 Vue.component('template-comission-search', {
 	props: {
-		loader: Object
+		loader: Object,
+		dataToTable: {
+			type: Array,
+			required: true
+		}
 	},
   data: function () {
     return {
 			searchData: {
-				user: ""
+				typeReport: "",
+				period: "",
+				campus: "",
+				status: ""
 			},
+			myDataToTable: this.dataToTable,
 			alertModel:{
 			},
 			responses: {
 				foundInBanner: false
-			}
+			},
+			campuses: []
     }
 	},
 	created: function (){
@@ -28,22 +37,25 @@ Vue.component('template-comission-search', {
     })
 	},
 	methods: {
-
+		search(){
+			console.log("Init Search ")
+			this.myDataToTable = [1]
+			this.$root.$emit('send_table', this.myDataToTable)
+			console.log("Find Search")
+		}
 	},
 	template: `
 	<div class="row">
 			<div class="col-md-2 col-lg-2">
 					<label for="exampleInputName2">Tipo de reporte</label>
-					<select id="tipo" class="form-control">
-					 <option value="0"></option>
+					<select id="tipo" class="form-control" v-model="searchData.typeReport">
 						<option value="1">General</option>
 						<option value="2">Detallado</option>
 					</select>
 	</div>
 	<div class="col-md-2 col-lg-2">
 			<label for="exampleInputName2">Periodo</label>
-			<select class="form-control">
-			 <option value=""></option>
+			<select class="form-control" v-model="searchData.period">
 				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
 				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
 				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
@@ -54,26 +66,23 @@ Vue.component('template-comission-search', {
 </div>
 <div class="col-md-2 col-lg-2">
 		<label for="exampleInputName2">Campus</label>
-		<select class="form-control">
+		<select class="form-control" v-model="searchData.campus">
 		 <option value=""></option>
-			<option>CMX</option>
-			<option>TOL</option>
-			<option>MER</option>
-			<option>LEO</option>
-			<option>PCH</option>
-			<option>CHI</option>
+		 <option v-for="(k, v) in campuses" v-bind:value="v">
+		 	{{ k }}
+	 		</option>
 		</select>
 </div>
 <div class="col-md-2 col-lg-2">
 		<label for="exampleInputName2">Estatus</label>
-		<select class="form-control">
-		 <option value=""></option>
+		<select class="form-control" v-model="searchData.status">
+			<option>Por Autorizar</option>
 			<option>Autorizado</option>
-			<option>Denegado</option>
+			<option>Rechazado</option>
 		</select>
 </div>
 <div class="col-md-2 col-lg-2">
-		<a style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</a>
+		<button @click="search" style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
 	</div>
 	</div>
 	`
