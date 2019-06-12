@@ -5,13 +5,18 @@ Vue.component('template-comission-search', {
 		dataToTable: {
 			type: Array,
 			required: true
+		},
+		date: {
+			type: Object,
+			required: true
 		}
 	},
   data: function () {
     return {
 			searchData: {
 				typeReport: "",
-				period: "",
+				selectFin: this.date.selectFin,
+				selectInit: this.date.selectInit,
 				campus: "",
 				status: ""
 			},
@@ -40,29 +45,37 @@ Vue.component('template-comission-search', {
 		search(){
 			console.log("Init Search ")
 			this.myDataToTable = [1]
-			this.$root.$emit('send_table', this.myDataToTable)
+      this.loader.loading = true
+			this.$http.post(`/authorization/query/searchCommisions`, this.searchData).then(response => {
+        console.log(response.body);
+        this.loader.loading = false
+				this.$root.$emit('send_table', this.myDataToTable)
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
 			console.log("Find Search")
-		}
+		},
+	},
+	components: {
+    DatePick: VueDatePick
 	},
 	template: `
 	<div class="row">
 			<div class="col-md-2 col-lg-2">
 					<label for="exampleInputName2">Tipo de reporte</label>
 					<select id="tipo" class="form-control" v-model="searchData.typeReport">
-						<option value="1">General</option>
-						<option value="2">Detallado</option>
+						<option value="General">General</option>
+						<option value="Detallado">Detallado</option>
 					</select>
 	</div>
-	<div class="col-md-2 col-lg-2">
-			<label for="exampleInputName2">Periodo</label>
-			<select class="form-control" v-model="searchData.period">
-				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
-				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
-				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
-				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
-				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
-				<option>Periodo 1 - 1 de Enero al 15 de Enero 2017</option>
-			</select>
+	<div class="col-lg-2">
+	<label for="selectCampus">Fecha inicio</label>
+	<date-pick v-model="searchData.selectInit" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+</div>
+<div class="col-lg-2">
+	<label for="selectCampus">Fecha Fin</label>
+	<date-pick v-model="searchData.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
 </div>
 <div class="col-md-2 col-lg-2">
 		<label for="exampleInputName2">Campus</label>

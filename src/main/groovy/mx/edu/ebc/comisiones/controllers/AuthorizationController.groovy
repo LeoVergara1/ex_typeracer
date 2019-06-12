@@ -78,4 +78,12 @@ class AuthorizationController {
 		return model
   }
 
+  @PostMapping("/query/searchCommisions")
+  @ResponseBody
+  public Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
+		println data
+		//def list = adminDeComisionesRepository.findAll()
+		[response:200, commissions: []]
+  }
+
 }
