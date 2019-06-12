@@ -25,9 +25,9 @@ class AuthorizationServiceImpl implements AuthorizationService {
       p_fecha_pago_fin: finDateFrom,
       p_campus: campus
     ]
-		println "*"*100
-		println params
-		[out_comisiones: filterAuthorizations(params)]
+		def comissions = filterAuthorizations(params)
+
+		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
 
 	def saveListAuthorization(List<AuthorizationComission> listToAuthorization, String username){
@@ -38,8 +38,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
 
 	def filterAuthorizations(Map params){
 		autorizacionComisionesStoredProcedure.execute(params).out_comisiones.findAll(){
-			//!(authorizationRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
-			true
+			!(authorizationRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
 		}
 	}
 }
