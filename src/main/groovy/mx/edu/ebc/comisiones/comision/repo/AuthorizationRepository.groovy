@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 public interface AuthorizationRepository extends JpaRepository<AuthorizationComission,Integer> {
 	List<AuthorizationComission> findAll()
+	List<AuthorizationComission> findAllByAutorizadoDirector(String autorizadoDirector)
+	List<AuthorizationComission> findAllByAutorizadoDirectorAndFechaAutorizadoBetween(String autorizadoDirector, Date initDate, Date finDate)
 	AuthorizationComission findByIdPromotorAndIdCoordinadorAndIdAlumno(String idPromoter, String idCoordinator, String idAlumno)
 }
