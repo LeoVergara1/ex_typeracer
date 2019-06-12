@@ -83,7 +83,7 @@ class AuthorizationController {
   public Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
 		println data
 		//def list = adminDeComisionesRepository.findAll()
-		[response:200, commissions: []]
+		[response:200, commissions: authorizationService.getCommissionsByStatus(data)]
   }
 
 }
