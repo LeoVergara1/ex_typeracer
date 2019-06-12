@@ -14,11 +14,11 @@ Vue.component('template-comission-search', {
   data: function () {
     return {
 			searchData: {
-				typeReport: "",
+				typeReport: "General",
 				selectFin: this.date.selectFin,
 				selectInit: this.date.selectInit,
-				campus: "",
-				status: ""
+				campus: "CMX",
+				status: "POR_AUTORIZAR"
 			},
 			myDataToTable: this.dataToTable,
 			alertModel:{
@@ -49,7 +49,7 @@ Vue.component('template-comission-search', {
 			this.$http.post(`/authorization/query/searchCommisions`, this.searchData).then(response => {
         console.log(response.body);
         this.loader.loading = false
-				this.$root.$emit('send_table', this.myDataToTable)
+				this.$root.$emit('send_table', response.body.commissions)
       }, response => {
         console.log("Fail")
         console.log(response)
@@ -89,9 +89,9 @@ Vue.component('template-comission-search', {
 <div class="col-md-2 col-lg-2">
 		<label for="exampleInputName2">Estatus</label>
 		<select class="form-control" v-model="searchData.status">
-			<option>Por Autorizar</option>
-			<option>Autorizado</option>
-			<option>Rechazado</option>
+			<option value="POR_AUTORIZAR">Por Autorizar</option>
+			<option value="AUTORIZADO">Autorizado</option>
+			<option value="RECHAZADO">Rechazado</option>
 		</select>
 </div>
 <div class="col-md-2 col-lg-2">
