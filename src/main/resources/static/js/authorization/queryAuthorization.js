@@ -26,7 +26,9 @@ var app = new Vue({
       radius: '2px',
       loading: false,
       size: "95px",
-    }
+		},
+		commissionsToTable: [],
+		dataToTable: []
   },
   computed: {
     totalCommission() {
@@ -73,7 +75,10 @@ var app = new Vue({
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
       this.loader.loading = true
       this.getCoordinators()
-    })
+		})
+		this.$root.$on('send_table',(table) => {
+			this.commissionsToTable = table
+		})
   },
   components: {
     RingLoader: VueSpinner.RingLoader,
