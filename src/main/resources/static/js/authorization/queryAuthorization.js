@@ -122,7 +122,7 @@ var app = new Vue({
        }
       dataToExcel.push(json)
       });
-
+      return dataToExcel
     }
   },
   mounted() {
