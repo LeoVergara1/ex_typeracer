@@ -67,7 +67,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
 
 	def structureGrups(def groups){
 		groups.collect(){ k, v ->
-			[namePromoter: v[0].nombrePromotor, job: v[0].puesto, numberStudents: v.size(), datePayment: v[0].fechaDePago, comission: v.sum{ it.comision.toFloat() }]
+			[namePromoter: v[0].nombrePromotor, job: v[0].puesto, numberStudents: v.size(), datePayment: v[0].fechaDePago, comission: v.sum{ it.comision.toFloat() }, idPromoter: v[0].idPromotor]
 		}
 	}
 }

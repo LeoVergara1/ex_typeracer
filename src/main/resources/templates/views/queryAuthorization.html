@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="float-right">
-					<button class="btn btn-block btn-sm btn-success" @click="onexport">Export xlxs <i class="fa fa-file-excel-o"></i></button>
+					<button class="btn btn-block btn-sm btn-success" v-if="commissionsToTable.length" @click="onexport">Export xlxs <i class="fa fa-file-excel-o"></i></button>
 				</div>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
              </tr>
               <tr v-for="(promoter, index) in groups">
                   <td>{{promoter.job}}</td>
-                  <td>{{promoter.namePromoter}} - <b>AD5359</b></td>
+                  <td>{{promoter.namePromoter}} - <b>{{promoter.idPromoter}}</b></td>
                   <td>{{promoter.numberStudents}}</td>
                   <td>{{searchData.selectInit}} - {{searchData.selectFin}}</td>
                   <td>{{promoter.comission}}</td>

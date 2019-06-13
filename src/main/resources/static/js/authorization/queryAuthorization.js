@@ -114,10 +114,10 @@ var app = new Vue({
       array.forEach(element => {
        json = {
         "Puesto": element.job,
-        "ID": element.nombrePromotor,
-        "Nombre": element.nombrePromotor,
-        "Periodo": element.idAlumno,
-        "Total inscritos": `${this.searchData.selectInit} - ${this.searchData.selectFin}`,
+        "ID": element.idPromoter,
+        "Nombre": element.namePromoter,
+        "Periodo": `${this.searchData.selectInit} - ${this.searchData.selectFin}`,
+        "Total inscritos": element.numberStudents,
         "Comisión": element.comission,
        }
       dataToExcel.push(json)
