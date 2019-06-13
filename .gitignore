@@ -1,4 +1,4 @@
-HELP.md
+help.MD
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -33,3 +33,4 @@ HELP.md
 /src/main/resources/third-party/
 /src/main/resources/static/third-party/
 bin/
+yarn-error.log
