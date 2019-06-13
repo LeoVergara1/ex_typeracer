@@ -11,9 +11,16 @@
 		<hr>
 		<template-comission-search :loader="loader" :data-to-table="commissionsToTable" :date="date"></template-comission-search>
 		<hr>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="float-right">
+					<button class="btn btn-block btn-sm btn-success" @click="onexport">Export xlxs <i class="fa fa-file-excel-o"></i></button>
+				</div>
+			</div>
+		</div>
 		<div class="row" v-if="typeReport == 'General'">
 			<div class="col-md-12 col-lg-12">
-					<table class="table table-bordered table-striped" style="font-size: 12px;">
+					<table class="table table-bordered table-striped" style="font-size: 12px;" id="tableCommissions">
 					 <tbody><tr>
 							 <th>Promotor</th>
 							 <th>Comisión promotor</th>
@@ -51,12 +58,12 @@
                  <th>Periodo</th>
                  <th>Comisión total</th>
              </tr>
-              <tr>
-                  <td>Jefe</td>
-                  <td>Jakopo Jose Antonio Trejo Muñoz - <b>AD5359</b></td>
-                  <td>6</td>
-                  <td>Periodo 1</td>
-                  <td>$2,000.00</td>
+              <tr v-for="(promoter, index) in groups">
+                  <td>{{promoter.job}}</td>
+                  <td>{{promoter.namePromoter}} - <b>AD5359</b></td>
+                  <td>{{promoter.numberStudents}}</td>
+                  <td>{{searchData.selectInit}} - {{searchData.selectFin}}</td>
+                  <td>{{promoter.comission}}</td>
               </tr>
             </tbody></table>
         </div>
