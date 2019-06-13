@@ -30,7 +30,8 @@ var app = new Vue({
 		},
 		commissionsToTable: [],
 		dataToTable: [],
-		groups: []
+    groups: [],
+    searchData: {}
   },
   computed: {
     totalCommission() {
@@ -53,34 +54,86 @@ var app = new Vue({
     }
   },
   created: function() {
-
+    console.log(XLSX)
   },
   methods:{
-    },
-    getCalculation() {
+    onexport() {
       this.loader.loading = true
-      this.$http.post(`/authorization/getCalculation`, {
-        campus: this.campusSelected,
-        initDate: this.date.selectInit,
-        finDate: this.date.selectFin
-      }).then(response => {
-        console.log(response.body);
-        this.loader.loading = false
-        this.alumns = response.body.out_comisiones
-      }, response => {
-        console.log("Fail")
-        console.log(response)
+      const ws_data = [
+        [" ", " ", " ", "Administración de Comisiones ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", "Fecha de Actualización: ", "12 junio 2019"],
+        ["Campus", this.searchData.campus],
+        ["Fecha de inicio: ", this.searchData.selectInit],
+        ["Fecha Fin", this.searchData.selectFin]
+      ];
+      const workSheetTitle = XLSX.utils.aoa_to_sheet(ws_data)
+      //var animalWS = XLSX.utils.json_to_sheet(this.commissionsToTable)
+      //var wb = XLSX.utils.book_new() // make Workbook of Excel
+      var tbl = document.getElementById('tableCommissions');
+      //var wb = XLSX.utils.table_to_book(tbl);
+      var wb = XLSX.utils.book_new() // make Workbook of Excel
+      //const workSheet = XLSX.utils.table_to_sheet(tbl, ws_data,{Origin:'A10'});
+      //add Worksheet to Workbook
+      //Workbook contains one or more worksheets
+      //XLSX.utils.book_append_sheet(wb, animalWS, 'animals')
+      let lisToExcel = (this.searchData.typeReport == 'General') ? this.prepareJSONtoExcel(this.commissionsToTable) : this.prepareJSONtoExcelGroup(this.groups)
+      const workSheet = XLSX.utils.json_to_sheet(lisToExcel, {
+        origin: "A10",
+        Header: ['Column 1', 'Column 2', 'Column 3'],
+        SkpHeader: true // skip the title line above
       })
+      XLSX.utils.sheet_add_aoa(workSheet, ws_data, {
+        Origin: 'A1'// Add content from A1
+      });
+      XLSX.utils.book_append_sheet(wb, workSheet, 'comisiones')
+      XLSX.writeFile(wb, 'comissiones.xlsx')
+      this.loader.loading = false
+    },
+    prepareJSONtoExcel(array) {
+      let dataToExcel = []
+      array.forEach(element => {
+       json = {
+        "ID Promotor": element.idPromotor,
+        "Nombre del Promotor": element.nombrePromotor,
+        "Puesto": element.puesto,
+        "ID Alumno": element.idAlumno,
+        "Nombre": element.nombreAlumno,
+        "Pago Inicial": element.pagoInicial,
+        "Comisión": element.comision,
+        "ID Coordinador": element.idCoordinador,
+        "Nombre": element.nombreCoordinador,
+        "Período": element.periodo,
+        "Fecha Pago": element.fechaDePago
+       }
+      dataToExcel.push(json)
+      });
+      return dataToExcel
+    },
+    prepareJSONtoExcelGroup(array) {
+      let dataToExcel = []
+      array.forEach(element => {
+       json = {
+        "Puesto": element.job,
+        "ID": element.nombrePromotor,
+        "Nombre": element.nombrePromotor,
+        "Periodo": element.idAlumno,
+        "Total inscritos": `${this.searchData.selectInit} - ${this.searchData.selectFin}`,
+        "Comisión": element.comission,
+       }
+      dataToExcel.push(json)
+      });
 
+    }
   },
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
       this.loader.loading = true
       this.getCoordinators()
 		})
-		this.$root.$on('send_table',(table, groups) => {
+		this.$root.$on('send_table',(table, groups, searchData) => {
 			this.commissionsToTable = table
-			this.groups = groups
+      this.groups = groups
+      this.searchData = searchData
 		})
 		this.$root.$on('send_report',(report) => {
 			this.typeReport = report
