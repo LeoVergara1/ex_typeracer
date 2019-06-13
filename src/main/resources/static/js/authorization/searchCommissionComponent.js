@@ -54,7 +54,7 @@ Vue.component('template-comission-search', {
 			this.$http.post(`/authorization/query/searchCommisions`, this.searchData).then(response => {
         console.log(response.body);
         this.loader.loading = false
-				this.$root.$emit('send_table', response.body.commissions, response.body.groups)
+				this.$root.$emit('send_table', response.body.commissions, response.body.groups, this.searchData)
       }, response => {
         console.log("Fail")
         console.log(response)
