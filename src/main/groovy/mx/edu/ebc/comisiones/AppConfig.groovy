@@ -16,6 +16,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
       registry.addInterceptor(casInterceptor).addPathPatterns("/administration/*").excludePathPatterns("/administration/search/association")
       .addPathPatterns("/")
       .addPathPatterns("/authorization/")
-      .addPathPatterns("/authorization/query");
+      .addPathPatterns("/authorization/query")
+      .addPathPatterns("/sicoss/");
    }
 }
