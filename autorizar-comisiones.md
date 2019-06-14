@@ -5,7 +5,7 @@
 
 ###Función
 
-Como Director de campus
+Como Jefe de promoción
 quiero ver el resumen de los ingresos por las comisiones
 de tal forma que visualice cuánto y a quién se les podrá autorizar el pago
 
@@ -13,12 +13,12 @@ de tal forma que visualice cuánto y a quién se les podrá autorizar el pago
 
 Los datos del director de campus se muestran en la parte superior izquierda de la pantalla, con la siguiente información:
 - Nombre completo del director de campus Nombre(s) + Apellido Paternos + * + Apellido Materno del director que inicia sesión
-- Rol: Rol del usuario que consulta (Director de campus)
+- Rol: Rol del usuario que consulta (Jefe de promoción)
 - Campus al que pertenece el director que inicia sesión
 - Periodo: Rango de tiempo abarcado en los filtros de búsqueda de las comsiones calculadas  
 
 - Se mostrará un recuadro para el monto total a pagar, identificado como “Comisión a pagar” 
-	- El monto a mostrar es el que se obtiene en el cálculo sobre el porcentaje de comisión del Coordinador de campus respecto a las comisiones de sus promotores asignados 
+	- El monto a mostrar es el que se obtiene en el cálculo sobre el porcentaje de comisión del jefe de promoción de campus respecto a las comisiones de sus promotores asignados 
 - Se mostrará un recuadro para el total de ingresos, identificado como “Ingresos”
 	- El total de ingresos a mostrar es el que se obtiene de la sumatoria de alumnos inscritos por los promotores asociados al coordinador del campus
 
@@ -27,7 +27,7 @@ Los datos del director de campus se muestran en la parte superior izquierda de l
 
 ###Función
 
-Como Coordinador
+Como Director de campus
 quiero autorizar la comisiones
 de tal forma que los promotores y coordinadores reciban su pago e inscriban a más estudiantes.
 
