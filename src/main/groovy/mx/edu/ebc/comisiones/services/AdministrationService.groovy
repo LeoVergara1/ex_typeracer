@@ -1,12 +1,12 @@
 package mx.edu.ebc.comisiones.services
 
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones
-import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation
 import mx.edu.ebc.comisiones.pojos.*
+import mx.edu.ebc.comisiones.comision.domain.Promoter
 
 public interface AdministrationService {
 	List<AdminDeComisiones> findAllComission()
-	List<PromoterAssociation> findAllPromoters()
+	List<Promoter> findAllPromoters()
 	AdminDeComisiones updateCuotaFijaToComission(String id, String cuotaFija)
 	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion)
 	Person findPerson(String user)

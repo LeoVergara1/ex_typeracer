@@ -3,6 +3,7 @@ package mx.edu.ebc.comisiones.services
 import groovy.transform.Memoized
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
+import mx.edu.ebc.comisiones.pojos.Person
 import mx.edu.ebc.comisiones.pojos.PromoterCommand
 import mx.edu.ebc.comisiones.comision.domain.PidmAndUserNamePK
 import mx.edu.ebc.comisiones.pojos.PromoterCode
@@ -51,19 +52,26 @@ class PromoterServiceImpl implements PromoterService{
 	Map<String, String> campus
 
   @Override
-  Map createPromoter(String userName, Long pidm, String recrCode) {
-    logger.info "Saving new promoter: $userName"
+  Map createPromoter(Person person, String recrCode) {
+    logger.info "Saving new promoter: $person.userName"
     if(promoterRepository.findOneById_RecrCode(recrCode) || programManagerService.findOneById_RecrCode(recrCode)){
       logger.info RECR_CODE
       return [message: RECR_CODE, created: false]
     }
-    if (promoterRepository.findOneById_UserName(userName)){
+    if (promoterRepository.findOneById_UserName(person.userName)){
       logger.info ALREADY_EXISTS
       return [message: ALREADY_EXISTS, created: false]
     }
 
-    PidmAndUserNamePK id = new PidmAndUserNamePK(userName: userName, pidm: pidm, recrCode: recrCode)
+    PidmAndUserNamePK id = new PidmAndUserNamePK(userName: person.userName, pidm: person.pidm, recrCode: recrCode)
     Promoter promoter = new Promoter(id: id)
+    promoter.idPromoter = person.enrollment
+    promoter.promoterName = person.firstName
+    promoter.apellidosPromoter = person.lastName
+    promoter.clavePromoter = person.adminId?.replace("AD", "").toInteger()
+    promoter.jobPromoter = "Promotor"
+    promoter.relationActive = "N"
+    promoter.lastUpdated = new Date()
     promoter = promoterRepository.save(promoter)
     promoter ? {
       logger.info "Successfuly created..."

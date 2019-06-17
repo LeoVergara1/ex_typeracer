@@ -5,15 +5,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
-import mx.edu.ebc.comisiones.comision.repo.PromoterAssociationRepository
 import mx.edu.ebc.comisiones.comision.repo.PersonRepository
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
 import mx.edu.ebc.comisiones.comision.domain.ProgramManager;
-import mx.edu.ebc.comisiones.comision.domain.PromoterAssociation;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 import mx.edu.ebc.comisiones.pojos.*
 import wslite.json.JSONObject
+import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
@@ -27,8 +26,6 @@ public class AdministrationServiceImpl implements AdministrationService {
 
 	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
-	@Autowired
-	PromoterAssociationRepository promoterAssociationRepository
 	@Autowired
 	PersonRepository personRepository
 	@Autowired
@@ -56,8 +53,8 @@ public class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	@Override
-	List<PromoterAssociation> findAllPromoters(){
-		promoterAssociationRepository.findAll()
+	List<Promoter> findAllPromoters(){
+		promoterRepository.findAll()
 	}
 
 	@Transactional

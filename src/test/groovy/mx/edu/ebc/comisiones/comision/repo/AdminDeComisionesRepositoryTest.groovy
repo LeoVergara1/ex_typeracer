@@ -16,17 +16,5 @@ public class AdminDeComisionesRepositoryIntegrationTest {
 
 	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
-	@Autowired
-	PromoterAssociationRepository promoterAssociationRepository
 
-	@Test
-	public void getAllComisiones() {
-	    // given
-	    // when
-	    def found = adminDeComisionesRepository.findAll()
-	    def promoters = promoterAssociationRepository.findAll()
-			println promoters
-	    // then
-			assertThat(promoters).isNotNull()
-	}
 }

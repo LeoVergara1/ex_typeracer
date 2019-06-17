@@ -10,6 +10,7 @@ import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import spock.lang.Specification
 import spock.lang.Ignore
 import org.springframework.transaction.annotation.Transactional
+import mx.edu.ebc.comisiones.pojos.Person
 
 @SpringBootTest
 @ContextConfiguration
@@ -18,6 +19,8 @@ class PromoterServiceSpec extends Specification{
 
 	@Autowired
   PromoterService promoterService
+	@Autowired
+	PersonService personService
 
 
   def "Spect 000 Check service inject"() {
@@ -34,7 +37,8 @@ class PromoterServiceSpec extends Specification{
 			Long pidm = 289
 			String recrCode = "SUG"
 		when: "is created"
-			def result = promoterService.createPromoter(username, pidm, recrCode)
+			def person = personService.findPersonByUsername(username)
+			def result = promoterService.createPromoter(person, recrCode)
 		then: "created"
 			assert result.message == "Successfuly created..."
 	}
@@ -46,7 +50,8 @@ class PromoterServiceSpec extends Specification{
 			Long pidm = 289
 			String recrCode = "SUGH"
 		when: "is created"
-			def result = promoterService.createPromoter(username, pidm, recrCode)
+			def person = personService.findPersonByUsername(username)
+			def result = promoterService.createPromoter(person,recrCode)
 		then: "created"
 			assert result.message == "ERROR, This promoter already exists"
 	}
@@ -58,7 +63,8 @@ class PromoterServiceSpec extends Specification{
 			Long pidm = 289
 			String recrCode = "SUGHS"
 		when: "is created"
-			def result = promoterService.createPromoter(username, pidm, recrCode)
+			def person = personService.findPersonByUsername(username)
+			def result = promoterService.createPromoter(person,recrCode)
 		then: "created"
 			assert result
 	}
