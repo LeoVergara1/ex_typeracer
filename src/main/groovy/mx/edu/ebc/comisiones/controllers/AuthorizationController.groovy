@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PathVariable
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat
 
 @RequestMapping("/authorization")
 @Controller
@@ -85,6 +86,17 @@ class AuthorizationController {
 		def list = authorizationService.getCommissionsByStatus(data)
 		def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
 		[response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
+  }
+
+	@PostMapping("/sicoss")
+  @ResponseBody
+  public Map sicoss(HttpServletRequest request, @RequestBody Map data) {
+		String username = request.getUserPrincipal().getUserDetails().username
+    Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
+    Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
+		println data
+		def result = authorizationService.getAllAuthorizationsCommisionsWithStructureToReport("AUTORIZADO", initDateFrom, finDateFrom , data.campusSelected)
+		return [response: result, groups: result.groupBy({ it.campus })]
   }
 
 }
