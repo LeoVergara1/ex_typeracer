@@ -129,19 +129,29 @@ public class AdministrationServiceImpl implements AdministrationService {
 		ProgramManager program = programManagerService.findOneById_UserName(person.userName)
 		listAssociations.each(){ association ->
 			Promoter promoter = promoterRepository.findOneById_UserName(association.promoter.id.userName)
-			(association.associate) ? addPromoterToProgram(promoter, program) : removePromoterFromProgram(promoter, program)
+			(association.associate) ? addPromoterToProgram(promoter, program, person) : removePromoterFromProgram(promoter, program)
 		}
 		[status: 200]
 	}
 
-	def addPromoterToProgram (Promoter promoter, ProgramManager program){
+	def addPromoterToProgram (Promoter promoter, ProgramManager program, def person){
 		promoter.programManager = program
+		promoter.idCoordinater = person.enrollment
+		promoter.relationActive = 'Y'
+		promoter.coordinaterName = person.firstName
+		promoter.apellidosCoordinater = person.lastName
+		promoter.claveCoordinater = person.adminId.replace("AD", "").toInteger()
 		promoterRepository.save(promoter)
 	}
 
 	def removePromoterFromProgram(Promoter promoter, ProgramManager program){
 		if(promoter.programManager?.id?.userName == program?.id?.userName){
 			promoter.programManager = null
+		promoter.idCoordinater = null
+		promoter.coordinaterName = null
+		promoter.relationActive = 'N'
+		promoter.apellidosCoordinater = null
+		promoter.claveCoordinater = null
 			promoterRepository.save(promoter)
 		}
 	}

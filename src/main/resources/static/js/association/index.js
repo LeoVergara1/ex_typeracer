@@ -26,12 +26,12 @@ var app = new Vue({
       // get body data
       console.log(response.body);
       this.person = response.body.person
+      this.getCoordinators()
     }, response => {
       console.log("Fail")
       console.log(response)
       // error callback
     });
-    this.getCoordinators()
   },
   methods:{
     update: function (numero) {
@@ -51,6 +51,9 @@ var app = new Vue({
       this.$bvModal.hide("modal-1")
     },
     getCoordinators: function(){
+      console.log("Antes")
+      console.log(this.person)
+      console.log("Antes")
       this.$http.get('/administration/coordinators').then(response => {
         console.log(response.body);
         this.promoters = response.body
