@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.storedProcedure.AutorizacionComisionesStoredProcedure
 import org.springframework.beans.factory.annotation.Autowired
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
+import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 import java.text.SimpleDateFormat
 
 @Service
@@ -16,6 +17,8 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	AutorizacionComisionesStoredProcedure autorizacionComisionesStoredProcedure
 	@Autowired
 	AuthorizationRepository authorizationRepository
+	@Autowired
+	PromoterRepository promoterRepository
 
 	def getCalculation(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
@@ -59,14 +62,30 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	}
 
 	def findAllAuthorizationByStatus(String status, Date initDateFrom, Date finDateFrom){
-		println initDateFrom
-		println finDateFrom
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(status, initDateFrom, finDateFrom)
 	}
 
 	def structureGrups(def groups){
 		groups.collect(){ k, v ->
 			[namePromoter: v[0].nombrePromotor, job: v[0].puesto, numberStudents: v.size(), datePayment: v[0].fechaDePago, comission: v.sum{ it.comision.toFloat() }, idPromoter: v[0].idPromotor]
+		}
+	}
+
+	def getAllAuthorizationsCommisionsWithStructureToReport(String status, Date initDateFrom, Date finDateFrom, String campus){
+		List<AuthorizationComission> authorizations = []
+		if(campus == "TODOS"){
+			authorizations = findAllAuthorizationByStatus(status, initDateFrom, finDateFrom)
+		}
+		else {
+			authorizations = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(status, campus, initDateFrom, finDateFrom)
+		}
+		generateStructuraToReport(authorizations)
+	}
+
+	def generateStructuraToReport(List<AuthorizationComission> authorizations){
+		authorizations.collect(){ authorized ->
+			println authorized.dump()
+			[authorization: authorized, pronoter: promoterRepository.findOneByIdPromoter(authorized.idPromotor), campus: authorized.campus]
 		}
 	}
 }
