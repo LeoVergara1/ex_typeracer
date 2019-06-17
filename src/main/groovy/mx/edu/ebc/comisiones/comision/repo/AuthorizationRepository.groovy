@@ -9,5 +9,6 @@ public interface AuthorizationRepository extends JpaRepository<AuthorizationComi
 	List<AuthorizationComission> findAll()
 	List<AuthorizationComission> findAllByAutorizadoDirector(String autorizadoDirector)
 	List<AuthorizationComission> findAllByAutorizadoDirectorAndFechaAutorizadoBetween(String autorizadoDirector, Date initDate, Date finDate)
+	List<AuthorizationComission> findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(String autorizadoDirector, String campus, Date initDate, Date finDate)
 	AuthorizationComission findByIdPromotorAndIdCoordinadorAndIdAlumno(String idPromoter, String idCoordinator, String idAlumno)
 }
