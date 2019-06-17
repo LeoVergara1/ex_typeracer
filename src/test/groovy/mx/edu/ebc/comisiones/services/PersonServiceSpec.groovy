@@ -47,8 +47,9 @@ class PersonServiceSpec extends Specification{
     where:
     _username  			|   _codeCampus  | _roleCode | _recCred  || _statusRole
     "ja.cortes002"  |   "CMX"        | "558"     | '000'     ||  201
-    "ja.cortes002"  |   "CMX"        | "558"     | '001'     ||  401
+    "ja.cortes002"  |   "CMX"        | "558"     | '001'     ||  201
     "ja.cortes002"  |   "CMX"        | "557"     | '000'     ||  201
+    "ja.cortes002"  |   "CMX"        | "888"     | '000'     ||  201
 	}
 
 	def "Find a username for this portal name"(){

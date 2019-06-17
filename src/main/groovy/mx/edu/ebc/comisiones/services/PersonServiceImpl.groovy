@@ -90,14 +90,14 @@ Person findPersonByUsername(String username) {
   def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
     recrCode = recrCode.toUpperCase()
     logger.info "Inicia Proceso para asignar el rol"
-    Long pidm = findPersonByUsername(username).pidm
+    Person person = findPersonByUsername(username)
     Long roleId = Long.valueOf(roleCode)
     Integer statusRole
     Integer validation
     String message
     if (roleCode == promoterRoleId || roleCode == managerRoleID){
       logger.info "Promoter/Manager Role found, validation in Banner starts"
-      validation = promoterAsignmentService.isPromoterPidmAndRecrCodeValidForRegistration(pidm, recrCode)
+      validation = promoterAsignmentService.isPromoterPidmAndRecrCodeValidForRegistration(person.pidm, recrCode)
       if (validation != 200){
         logger.info "Promoter or manager not valid in banner... aborting user creation"
         return [statusRole: validation, message: "Promoter or manager not valid in banner... aborting user creation"]
@@ -105,12 +105,12 @@ Person findPersonByUsername(String username) {
     }
     Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
     if (securityRoleAssignment){
-      def userCampus = userCampusService.created(codeCampus, username, pidm)
+      def userCampus = userCampusService.created(codeCampus, username, person.pidm)
       if (userCampus) {
         if (roleCode == managerRoleID)
-          managerService.createManager(username, pidm, recrCode)
+          managerService.createManager(username, person.pidm, recrCode)
         else if(roleCode == promoterRoleId)
-          promoterService.createPromoter(username, pidm, recrCode)
+          promoterService.createPromoter(person, recrCode)
         statusRole = 201
       }else
         statusRole = 404
