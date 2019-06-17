@@ -36,9 +36,10 @@ class PromoterServiceSpec extends Specification{
 			String username = "r.martinez026"
 			Long pidm = 289
 			String recrCode = "SUG"
+			String campusCode = "CMX"
 		when: "is created"
 			def person = personService.findPersonByUsername(username)
-			def result = promoterService.createPromoter(person, recrCode)
+			def result = promoterService.createPromoter(person, campusCode, recrCode)
 		then: "created"
 			assert result.message == "Successfuly created..."
 	}
@@ -49,9 +50,10 @@ class PromoterServiceSpec extends Specification{
 			String username = "r.martinez026"
 			Long pidm = 289
 			String recrCode = "SUGH"
+			String campusCode = "CMX"
 		when: "is created"
 			def person = personService.findPersonByUsername(username)
-			def result = promoterService.createPromoter(person,recrCode)
+			def result = promoterService.createPromoter(person, campusCode, recrCode)
 		then: "created"
 			assert result.message == "ERROR, This promoter already exists"
 	}
@@ -62,9 +64,10 @@ class PromoterServiceSpec extends Specification{
 			String username = "r.martinez026"
 			Long pidm = 289
 			String recrCode = "SUGHS"
+			String campusCode = "CMX"
 		when: "is created"
 			def person = personService.findPersonByUsername(username)
-			def result = promoterService.createPromoter(person,recrCode)
+			def result = promoterService.createPromoter(person, campusCode, recrCode)
 		then: "created"
 			assert result
 	}

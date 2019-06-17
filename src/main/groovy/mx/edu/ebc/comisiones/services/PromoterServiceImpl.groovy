@@ -52,7 +52,7 @@ class PromoterServiceImpl implements PromoterService{
 	Map<String, String> campus
 
   @Override
-  Map createPromoter(Person person, String recrCode) {
+  Map createPromoter(Person person, String campusCode, String recrCode) {
     logger.info "Saving new promoter: $person.userName"
     if(promoterRepository.findOneById_RecrCode(recrCode) || programManagerService.findOneById_RecrCode(recrCode)){
       logger.info RECR_CODE
@@ -72,6 +72,8 @@ class PromoterServiceImpl implements PromoterService{
     promoter.jobPromoter = "Promotor"
     promoter.relationActive = "N"
     promoter.lastUpdated = new Date()
+    promoter.campusCode = campusCode
+    promoter.campusDesc = campus[campusCode]
     promoter = promoterRepository.save(promoter)
     promoter ? {
       logger.info "Successfuly created..."

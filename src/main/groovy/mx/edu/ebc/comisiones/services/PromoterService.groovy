@@ -6,7 +6,7 @@ import mx.edu.ebc.comisiones.pojos.Person
 
 interface PromoterService {
   Boolean deletePromoter(String userName)
-  Map createPromoter(Person person, String recrCode)
+  Map createPromoter(Person person, String campusCode, String recrCode)
   List<PromoterCode> getRecrCodeCatalogue()
   Boolean isRecruiterCodeAlreadyInUse(String recrCode)
   Boolean isAPromoterSavedWithRecrCode(String recrCode)

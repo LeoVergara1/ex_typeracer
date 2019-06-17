@@ -110,7 +110,7 @@ Person findPersonByUsername(String username) {
         if (roleCode == managerRoleID)
           managerService.createManager(username, person.pidm, recrCode)
         else if(roleCode == promoterRoleId)
-          promoterService.createPromoter(person, recrCode)
+          promoterService.createPromoter(person, codeCampus, recrCode)
         statusRole = 201
       }else
         statusRole = 404
