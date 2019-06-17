@@ -12,5 +12,6 @@ public interface PromoterRepository extends JpaRepository<Promoter,PidmAndUserNa
   Promoter findOneById_Pidm(Long pidm)
   Promoter findOneById_UserNameAndProgramManagerIdUserName(String promoterUserName, String managerUserName)
   Promoter findOneById_RecrCode(String recrCode)
+  Promoter findOneByIdPromoter(String idPromoter)
 
 }
