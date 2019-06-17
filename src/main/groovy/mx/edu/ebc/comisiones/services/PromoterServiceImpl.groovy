@@ -69,7 +69,7 @@ class PromoterServiceImpl implements PromoterService{
     promoter.promoterName = person.firstName
     promoter.apellidosPromoter = person.lastName
     promoter.clavePromoter = person.adminId?.replace("AD", "").toInteger()
-    promoter.jobPromoter = "Promotor"
+    promoter.jobPromoter = "PROMOTOR"
     promoter.relationActive = "N"
     promoter.lastUpdated = new Date()
     promoter.campusCode = campusCode
