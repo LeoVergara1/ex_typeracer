@@ -63,7 +63,9 @@ var app = new Vue({
       XLSX.writeFile(wb, 'registroPagos.xlsx')
 		},
 		generatePDF(k){
-
+			var doc = new jsPDF()
+			doc.text('Hello world!', 10, 10)
+			doc.save('a4.pdf')
 		},
 		builtDataToExcel(array){
       let dataToExcel = []
