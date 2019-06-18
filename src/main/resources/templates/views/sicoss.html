@@ -57,6 +57,37 @@
 			</div>
 
 		</div>
+		<div class="">
+
+		</div>
+		<div class="row" v-show="false">
+			<table class="table" id="tableToPdf">
+				<thead>
+					<tr>
+						<th>CAMPUS</th>
+						<th>CLAVE EMPLEADO</th>
+						<th>APELLIDOS</th>
+						<th>NOMBRE(S)</th>
+						<th>TIPO DE PAGO</th>
+						<th>CLAVE DE LA RECEPCION</th>
+						<th>TOTAL A PAGAR</th>
+						<th>FECHA DE PAGO</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="element in dataToTable">
+						<td scope="row">{{element.campus}}</td>
+						<td>{{element.promoter ? element.promoter.clavePromoter : 0}}</td>
+						<td>{{element.promoter ? element.promoter.apellidosPromoter : element.authorization.nombrePromotor}}</td>
+						<td>{{element.promoter ? element.promoter.promoterName : element.authorization.nombrePromotor}}</td>
+						<td>N</td>
+						<td>422</td>
+						<td>{{element.authorization.pagoInicial}}</td>
+						<td>{{element.authorization.fechaDePago | removeExtendTime}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		</div>
 </div>
 <div th:fragment="js">
