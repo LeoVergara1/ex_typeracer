@@ -85,7 +85,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	def generateStructuraToReport(List<AuthorizationComission> authorizations){
 		authorizations.collect(){ authorized ->
 			println authorized.dump()
-			[authorization: authorized, pronoter: promoterRepository.findOneByIdPromoter(authorized.idPromotor), campus: authorized.campus]
+			[authorization: authorized, promoter: promoterRepository.findOneByIdPromoter(authorized.idPromotor), campus: authorized.campus]
 		}
 	}
 }
