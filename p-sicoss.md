@@ -2,6 +2,8 @@
 
 ##CP-22 Procesar archivo SICOSS
 
+![Procesar archivo sicoss](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/SICOSS/procesar-archivo.png)
+
 ###Función
 
 Como Administración de Personal y Coordinador de Nómina
@@ -27,10 +29,12 @@ de tal forma que se puedan pagar las comisiones a promotores, coordinadores y je
 
 - Los registros de las comisiones que se mostrarán en el archivo para SICOSS, se obtiene del esquema de SICOSS de Comisiones DVL8
 
-
+![Ejemplo esquema sicoss](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/SICOSS/ejemplo-esquema.png)
 
 
 ##CP-23 Volver a procesar SICOSS
+
+![Reprocesamiento archivo sicoss](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/SICOSS/volver-procesar.png)
 
 ###Función
 
@@ -53,6 +57,8 @@ Se debe hacer un update a los registros del archivo sicoss almacenados en el esq
 
 
 ##CP-24 Descargar archivo para SICOSS
+
+![Descargar archivo](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/SICOSS/descargar-sicoss.png)
 
 ###Función
 
@@ -81,3 +87,5 @@ de tal forma que vea las comisiones a pagar a promotores, coordinadores y jefes
 ###Especificaciones técnicas  
 
 - Los registros de las comisiones que se mostrarán en el archivo para SICOSS, se obtiene del esquema de SICOSS de Comisiones DVL8
+
+![Ejemplo esquema sicoss](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/SICOSS/ejemplo-esquema.png)
