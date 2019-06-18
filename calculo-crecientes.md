@@ -1,6 +1,6 @@
 #Cálculo comisiones crecientes (LI, Posgrado)
 
-![Diagrama cálculo comisiones crecientes](https://s3.amazonaws.com/documentacionebc/Im%C3%A1genes%20Comisiones%20EBC/LI/Autorizaci%C3%B3n/C%C3%A1lculo-Crecientes.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYHINAML3SJUUFZBF%2F20190614%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190614T143649Z&X-Amz-Expires=900&X-Amz-Signature=ab1b8d55bb518543da66ded13c06636c6e96c21457cd22d5bccbb03a3d33ad84&X-Amz-SignedHeaders=host)
+![Diagrama cálculo comisiones crecientes](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Autorizaci%C3%B3n/C%C3%A1lculo-Crecientes.png)
 
 El cálculo de las comisiones crecientes se realiza siempre al final de trimestre de la campaña correspondiente y para cada campus, de acuerdo al siguiente proceso:
 
