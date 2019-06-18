@@ -2,6 +2,8 @@
 
 ##CP-17 Ver reporte general de comisiones
 
+![Reporte general](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Consulta/reporte-general.png)
+
 ###Función
 
 Como Jefe de promoción, 
@@ -51,6 +53,8 @@ La información del reporte, de acuerdo a los criterios de búsqueda seleccionad
 
 
 ##CP-18 Ver reporte detallado de comisiones
+
+![Reporte global](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Consulta/reporte-detallado.png)
 
 ###Función
 
