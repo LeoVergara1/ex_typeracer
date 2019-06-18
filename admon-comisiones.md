@@ -3,6 +3,8 @@
 
 ##CP-4 Asignar porcentaje de comisión fija a coordinador
 
+![Porcentaje coordinador](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Asignar%20comisiones/asignar-comisiones_LI.png)
+
 ###Función
 
 Como administrador
@@ -19,6 +21,9 @@ de tal forma que incremente la inscripción de alumnos.
 	- No se permite ingresar números con decimales
 - Se mostrará un botón de “Actualizar” que permitirá modificar este porcentaje y guardarlo.
 
+![Estructura administrativos](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Asignar%20comisiones/Estructura%20de%20usuarios%20LP.png)
+
+
 ###Especificaciones técnicas 
 
 - Los montos de porcentaje de comisión para coordinadores se guardan en el esquema de comisiones: 
@@ -28,6 +33,8 @@ de tal forma que incremente la inscripción de alumnos.
 
 
 ##CP-3 Asignar porcentaje de comisión a promotores
+
+![Porcentaje promotor](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Asignar%20comisiones/asignar-comisiones_LI.png)
 
 ###Función
 
@@ -54,6 +61,8 @@ de tal forma que incremente la inscripción de alumnos.
 
 
 ##CP-2 Asignar cuota fija por pago de inscripción por campus
+
+![Cuotas campus](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Asignar%20comisiones/comisiones-campus.png)
 
 ###Función
 
