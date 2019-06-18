@@ -19,7 +19,14 @@ var app = new Vue({
 		},
 		campuses: Object,
 		person: Object,
-		groups: {}
+		groups: {},
+		dataToTable: [],
+		specialElementHandlers: {
+			'.no-export': function(element, renderer) {
+				// true = "handled elsewhere, bypass text extraction"
+				return true;
+			}
+		}
 	},
 	created: function(){
 		this.loader.loading = true
@@ -62,16 +69,32 @@ var app = new Vue({
       XLSX.utils.book_append_sheet(wb, workSheet, 'comisiones')
       XLSX.writeFile(wb, 'registroPagos.xlsx')
 		},
+		sleep: (milliseconds) => {
+			return new Promise(resolve => setTimeout(resolve, milliseconds))
+		},
 		generatePDF(k){
-			var doc = new jsPDF()
-			doc.text('Hello world!', 10, 10)
-			doc.save('a4.pdf')
+			this.dataToTable = this.groups[k]
+			console.log(this.groups[k])
+			this.sleep(1).then(() => { //Because render in html is liitle more low
+				//do stuff
+				let doc = new jsPDF({
+					orientation: 'landscape'
+				});
+				doc.autoTable({html: '#tableToPdf'});
+				let margins = {
+					top: 5,
+					bottom: 5,
+					left: 3,
+					width: 600
+				};
+				doc.save('comisiones.pdf');
+			})
 		},
 		builtDataToExcel(array){
       let dataToExcel = []
       array.forEach(element => {
        json = {
-        "TR_NUMERO": element.pronoter ? element.pronoter.clavePromoter : 0,
+        "TR_NUMERO": element.promoter ? element.promoter.clavePromoter : 0,
         "NOMI_TIPONOMINA": 1,
         "NOMI_CLAVE": 0,
         "NOMI_CONCEPTO": 422,
@@ -87,6 +110,11 @@ var app = new Vue({
       dataToExcel.push(json)
       });
       return dataToExcel
+		}
+	},
+	filters: {
+		removeExtendTime(time) {
+			return time.replace(/T+(\w|:|.)+/, "")
 		}
 	},
 	components: {
