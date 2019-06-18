@@ -1,5 +1,6 @@
 #Autorización 
 
+![Resumen autorización](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Autorizaci%C3%B3n/resumen-autorizacion_v2.png)
 
 ##CP-25 Ver resumen de autorización
 
@@ -24,6 +25,8 @@ Los datos del director de campus se muestran en la parte superior izquierda de l
 
 
 ##CP-16 Autorizar comisiones
+
+![Autorizar comisiones]](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Autorizaci%C3%B3n/autorizacion_v2.png)
 
 ###Función
 
