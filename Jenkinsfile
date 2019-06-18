@@ -16,11 +16,11 @@ pipeline{
     }
 
     stage('Building JS'){
-      //when {
-      //  expression {
-      //    env.BRANCH_NAME in ["master","QA"]
-      //  }
-      //}
+      when {
+        expression {
+          env.BRANCH_NAME in ["master","QA"]
+        }
+      }
       steps{
         nodejs(nodeJSInstallationName: 'Node 10.3.0') {
           echo 'Building javascript apps'
@@ -37,11 +37,11 @@ pipeline{
 
 
     stage('Build image docker') {
-      //when {
-      //  expression {
-      //    env.BRANCH_NAME in ["master","QA"]
-      //  }
-      //}
+      when {
+        expression {
+          env.BRANCH_NAME in ["master","QA"]
+        }
+      }
       steps{
         script {
           docker.withTool('Docker') {
@@ -55,13 +55,13 @@ pipeline{
     }
 
     stage('DEVL ENVIRONMENT: Transfering sh'){
-      //when {
-      //  expression {
-      //    env.BRANCH_NAME in ["master", "QA"]
-      //  }
-      //}
+      when {
+        expression {
+          env.BRANCH_NAME in ["master", "QA"]
+        }
+      }
       environment {
-        URL_SERVER = "${env.BRANCH_NAME == 'master' ? 'DAWS03LX@172.31.100.25' : 'DAWS03LX@172.31.100.25'}"
+        URL_SERVER = "${env.BRANCH_NAME == 'master' ? 'DAWS03LX@172.31.100.25' : 'TAWS02LX@172.31.100.24'}"
       }
       steps{
         sh "scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy.sh ${env.URL_SERVER}:~/deploy_comisiones_li.sh"
@@ -69,13 +69,13 @@ pipeline{
     }
 
     stage('ENVIRONMENT:Deploying app'){
-      //when {
-      //  expression {
-      //    env.BRANCH_NAME in ["master", "QA"]
-      //  }
-      //}
+      when {
+        expression {
+          env.BRANCH_NAME in ["master", "QA"]
+        }
+      }
       environment {
-        URL_SERVER = "${env.BRANCH_NAME == 'master' ? 'DAWS03LX@172.31.100.25' : 'DAWS03LX@172.31.100.25'}"
+        URL_SERVER = "${env.BRANCH_NAME == 'master' ? 'DAWS03LX@172.31.100.25' : 'TAWS02LX@172.31.100.24'}"
       }
       steps{
         sh "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${env.URL_SERVER} 'sh deploy_comisiones_li.sh comisiones-li 8107'"
