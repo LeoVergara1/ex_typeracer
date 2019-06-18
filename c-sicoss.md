@@ -2,6 +2,8 @@
 
 ##CP-22 Consultar archivo SICOSS
 
+![Descargar consulta](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/SICOSS/descargar-consulta.png)
+
 ###Función
 
 Como Administración de Personal y Coordinador de Nómina
