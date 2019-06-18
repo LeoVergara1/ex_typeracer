@@ -22,8 +22,10 @@ pipeline{
       //  }
       //}
       steps{
-        echo 'Building javascript apps'
-        sh 'yarn install'
+        nodejs(nodeJSInstallationName: 'Node 10.3.0') {
+          echo 'Building javascript apps'
+          sh 'yarn install'
+        }
       }
     }
 
