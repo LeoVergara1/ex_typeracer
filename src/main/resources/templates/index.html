@@ -28,7 +28,7 @@
                 <a style="color: white" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${menu.shortName}">
                 </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#" th:each="submenu : ${menu.submenus}" th:text="${submenu.shortName}" style="color: white">Action</a>
+                <a class="dropdown-item" th:href="${submenu.url}" th:each="submenu : ${menu.submenus}" th:text="${submenu.shortName}" style="color: white">Action</a>
               </div>
             </li>
           </ul>
