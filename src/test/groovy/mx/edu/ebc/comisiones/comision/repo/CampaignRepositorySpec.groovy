@@ -33,7 +33,6 @@ class CampaignRepositorySpec extends Specification{
 			println result[0].dump()
 		then:
 			assert result
-			false
 	}
 
 }
