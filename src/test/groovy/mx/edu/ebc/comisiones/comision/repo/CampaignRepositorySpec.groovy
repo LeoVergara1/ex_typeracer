@@ -30,8 +30,10 @@ class CampaignRepositorySpec extends Specification{
 	def "get all campaing register"(){
 		when:
 			def result = campaingRepository.findAll()
+			println result[0].dump()
 		then:
 			assert result
+			false
 	}
 
 }

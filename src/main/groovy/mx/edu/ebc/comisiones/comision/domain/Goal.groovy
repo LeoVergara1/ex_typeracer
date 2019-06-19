@@ -17,7 +17,7 @@ class Goal {
 	String username
 	@Column(name = "LAST_UPDATED")
 	Date lastUpdated
-	@Column(name = "DATE_UPDATED")
+	@Column(name = "DATE_CREATED")
 	Date dateCreated
 
 	@ManyToOne

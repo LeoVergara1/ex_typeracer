@@ -17,10 +17,10 @@ class Campaign {
 	String clave
 	@Column(name = "LAST_UPDATED")
 	Date lastUpdated
-	@Column(name = "DATE_UPDATED")
+	@Column(name = "DATE_CREATED")
 	Date dateCreated
 
-	@OneToMany(mappedBy = "campaing")
+	@OneToMany(mappedBy = "campaing", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	Set<Goal> goals = new ArrayList<Goal>()
 
 }
