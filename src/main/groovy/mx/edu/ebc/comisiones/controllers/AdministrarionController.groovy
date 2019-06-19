@@ -173,4 +173,12 @@ class AdministrarionController {
 	 [result: result]
   }
 
+  @RequestMapping("administration/company")
+  @ResponseBody
+  public ModelAndView company() {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "company");
+		return model
+  }
+
 }
