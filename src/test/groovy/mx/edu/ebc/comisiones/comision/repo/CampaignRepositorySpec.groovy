@@ -11,6 +11,8 @@ import spock.lang.Specification
 import spock.lang.Ignore
 import org.springframework.transaction.annotation.Transactional
 import mx.edu.ebc.comisiones.comision.storedProcedure.AutorizacionComisionesStoredProcedure
+import mx.edu.ebc.comisiones.comision.domain.Campaign
+import java.text.SimpleDateFormat
 
 @SpringBootTest
 @ContextConfiguration
@@ -31,6 +33,23 @@ class CampaignRepositorySpec extends Specification{
 		when:
 			def result = campaingRepository.findAll()
 			println result[0].dump()
+		then:
+			assert result
+	}
+
+	@Transactional
+	def "save campaing register"(){
+		given: "A campaign"
+			Campaign campaign = new Campaign(
+				name: "Nombre",
+				status: "created",
+				endDate: new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2000"),
+				initDate: new SimpleDateFormat("dd/MM/yyyy").parse("11/11/2020"),
+				year: "2019"
+			)
+		when:
+			def result = campaingRepository.save(campaign)
+			println result
 		then:
 			assert result
 	}
