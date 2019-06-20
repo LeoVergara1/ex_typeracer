@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.PersonRepository
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
+import mx.edu.ebc.comisiones.comision.domain.Campaign;
 import mx.edu.ebc.comisiones.comision.domain.ProgramManager;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
@@ -14,9 +15,11 @@ import mx.edu.ebc.comisiones.pojos.*
 import wslite.json.JSONObject
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
+import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import java.text.SimpleDateFormat
 
 
 @Service
@@ -46,6 +49,8 @@ public class AdministrationServiceImpl implements AdministrationService {
 	ProgramManagerRepository programManagerRepository
 	@Autowired
   RolesRepository rolesRepository
+	@Autowired
+	CampaignRepository campaignRepository
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -159,5 +164,17 @@ public class AdministrationServiceImpl implements AdministrationService {
 	@Override
 	def deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
 		personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
+	}
+
+	Campaign save_campaign(Map campaign){
+		Campaign campaign_domain = new Campaign(
+			name: campaign.name,
+			clave: campaign.clave,
+			status: "created",
+			endDate: new SimpleDateFormat("dd/MM/yyyy").parse(campaign.dateInit),
+			initDate: new SimpleDateFormat("dd/MM/yyyy").parse(campaign.dateEnd),
+			year: campaign.year
+		)
+		campaignRepository.save(campaign_domain)
 	}
 }
