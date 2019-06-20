@@ -4,8 +4,8 @@ import javax.persistence.*
 
 @Entity
 class Goal {
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ID_CAMPAING")
-  @SequenceGenerator(sequenceName = "SQ_ID_CAMPAING", allocationSize = 1, name = "SQ_ID_CAMPAING")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ID_GOAL")
+  @SequenceGenerator(sequenceName = "SQ_ID_GOAL", allocationSize = 1, name = "SQ_ID_GOAL")
 	@Id
 	Integer id
 	String status
