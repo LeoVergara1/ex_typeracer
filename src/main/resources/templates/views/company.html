@@ -1,4 +1,7 @@
-<div th:fragment="company">
+<div th:fragment="company" id=app>
+	<div class="loading" v-if="loader.loading"></div>
+	<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
+	<vue-snotify></vue-snotify	>
 	<br>
 	<div class="row">
 		<div class="col-lg-12">
@@ -9,35 +12,90 @@
 	<div class="row">
 		<div class="col-md-3 col-lg-3">
 			<label for="exampleInputName2">Nombre de campaña</label>
-			<input type="text" class="form-control" id="exampleInputAmount" value="">
+			<input type="text" class="form-control" id="exampleInputAmount" v-model="dataToSearch.name">
 		</div>
 		<div class="col-md-3 col-lg-3">
 			<label for="exampleInputName2">Clave</label>
-			<input type="text" class="form-control" id="exampleInputAmount" value="">
+			<input type="text" class="form-control" id="exampleInputAmount" v-model="dataToSearch.clave">
 		</div>
 		<div class="col-md-2 col-lg-2">
-			<a style="margin-top:35px;" href="" class="btn btn-block btn-sm btn-primary"><i class="fa fa-search"
-					aria-hidden="true"></i> Buscar</a>
+			<button style="margin-top:35px;" href="" class="btn btn-block btn-sm btn-primary" @click="searhCampaign"><i class="fa fa-search"
+					aria-hidden="true"></i> Buscar</button>
 		</div>
 		<div class="col-md-2 col-lg-2">
-			<a style="margin-top:35px;" href="" class="btn btn-sm btn-success btn-block"><i class="fa fa-user-plus"
-					aria-hidden="true"></i> Registrar</a>
+			<button style="margin-top:35px;" href="" class="btn btn-sm btn-success btn-block"><i class="fa fa-user-plus"
+					aria-hidden="true"></i> Registrar</button>
 		</div>
 	</div>
 	<br>
-	<div class="row">
+	<div class="row" v-if="register">
 			<div class="col-lg-2">
 					<label for="exampleInputName2">Año</label>
 					<br class="clear">
 					<label class="radio-inline">
-						<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 2019
+						<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2019" v-model="dataToSearch.year" > 2019
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2020
+						<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2020" v-model="dataToSearch.year"> 2020
 					</label>
+				</div>
+				<div class="col-lg-2">
+					<label for="selectCampus">Fecha inicio</label>
+					<date-pick v-model="dataToSearch.dateInit" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+				</div>
+				<div class="col-lg-2">
+					<label for="selectCampus">Fecha Fin</label>
+					<date-pick v-model="dataToSearch.dateEnd" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+				</div>
+				<div class="col-md-2 col-lg-2">
+					<button style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary" @click="addCampaign"><i class="fa fa-save"></i> Guardar</button>
 				</div>
 	</div>
 	<hr>
+	<br>
+	<div class="col-lg-12" v-if="campaign.id">
+		<table class="table table-bordered table-striped">
+		 <tbody><tr>
+				 <th>Clave</th>
+				 <th>Nombre de campaña</th>
+				 <th>Fecha inicio</th>
+				 <th>Fecha fin</th>
+				 <th></th>
+				 <th></th>
+		 </tr>
+			<tr>
+					<td>
+						<label for="" v-if="enableEdit">
+							{{campaign.clave}}
+						</label>
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="campaign.clave">
+					</td>
+					<td>
+						<label for="" v-if="enableEdit">
+							{{campaign.name}}
+						</label>
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="campaign.name">
+					</td>
+					<td>
+						<label for="" v-if="enableEdit">
+							{{campaign.initDate | removeExtendTime}}
+						</label>
+						<date-pick v-else v-model="campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY/MM/DD'"></date-pick>
+					</td>
+					<td>
+						<label for="" v-if="enableEdit">
+							{{campaign.endDate | removeExtendTime}}
+						</label>
+						<date-pick v-else v-model="campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY/MM/DD'"></date-pick>
+					</td>
+					<td><button class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
+					<td>
+						<button v-if="enableEdit" class="btn btn-primary btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
+						<button v-else class="btn btn-success btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+					</td>
+			</tr>
+		</tbody></table>
+</div>
 </div>
 <div th:fragment="js">
 	<script src="/js/administration/company.js"></script>
