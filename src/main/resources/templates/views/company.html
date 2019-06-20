@@ -88,7 +88,7 @@
 						</label>
 						<date-pick v-else v-model="campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY/MM/DD'"></date-pick>
 					</td>
-					<td><button class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
+					<td><button @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
 					<td>
 						<button v-if="enableEdit" class="btn btn-primary btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
 						<button v-else class="btn btn-success btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
