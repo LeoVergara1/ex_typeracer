@@ -11,6 +11,7 @@ import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
@@ -53,6 +54,8 @@ class AdministrarionController {
 	Map<String, String> campus
 	@Autowired
 	UserDetailsService userDetailsService
+	@Autowired
+	CampaignRepository campaignRepository
 
 
   @RequestMapping("/")
@@ -180,5 +183,28 @@ class AdministrarionController {
 		model.addObject("content", "company");
 		return model
   }
+
+	@PostMapping("administration/save/campaign")
+	@ResponseBody
+  Map addCampaign(@RequestBody Map dataToSearch){
+		println dataToSearch
+		[result: administrationService.save_campaign(dataToSearch)]
+  }
+
+	@PostMapping("administration/delete/campaign")
+	@ResponseBody
+  Map deleteCampaign(@RequestBody Map dataToSearch){
+		println dataToSearch
+	 [result: 200]
+  }
+
+	@GetMapping("administration/search/campaign/{name}/{clave}")
+  @ResponseBody
+  Map searhCampaign(@PathVariable String name, @PathVariable String clave) {
+		def campaign = campaignRepository.findByClave(clave)
+		(campaign) ? campaign.goals = [] : campaign
+		[campaign: campaign]
+  }
+
 
 }
