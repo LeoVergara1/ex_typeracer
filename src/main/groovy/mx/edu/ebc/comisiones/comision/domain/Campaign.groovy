@@ -14,11 +14,12 @@ class Campaign {
 	@Column(name = "END_DATE")
 	Date endDate
 	String name
+	String year
 	String clave
 	@Column(name = "LAST_UPDATED")
-	Date lastUpdated
+	Date lastUpdated = new Date()
 	@Column(name = "DATE_CREATED")
-	Date dateCreated
+	Date dateCreated = new Date()
 
 	@OneToMany(mappedBy = "campaing", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	Set<Goal> goals = new ArrayList<Goal>()
