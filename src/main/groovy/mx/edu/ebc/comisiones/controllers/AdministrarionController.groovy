@@ -195,7 +195,7 @@ class AdministrarionController {
 	@ResponseBody
   Map deleteCampaign(@RequestBody Map dataToSearch){
 		println dataToSearch
-	 [result: 200]
+		[result: campaignRepository.deleteById(dataToSearch.id)]
   }
 
 	@GetMapping("administration/search/campaign/{name}/{clave}")
@@ -204,6 +204,14 @@ class AdministrarionController {
 		def campaign = campaignRepository.findByClave(clave)
 		(campaign) ? campaign.goals = [] : campaign
 		[campaign: campaign]
+  }
+
+  @RequestMapping("administration/goals")
+  @ResponseBody
+  public ModelAndView goal() {
+		ModelAndView model = new ModelAndView("goal");
+		model.addObject("content", "goal");
+		return model
   }
 
 
