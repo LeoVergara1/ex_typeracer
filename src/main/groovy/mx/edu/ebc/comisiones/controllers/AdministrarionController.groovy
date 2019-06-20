@@ -209,7 +209,7 @@ class AdministrarionController {
   @RequestMapping("administration/goals")
   @ResponseBody
   public ModelAndView goal() {
-		ModelAndView model = new ModelAndView("goal");
+		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "goal");
 		return model
   }

@@ -1,7 +1,14 @@
-<div th:fragment="goal">
-
+<div th:fragment="goal" id="app">
+  <div class="loading" v-if="loader.loading"></div>
+	<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
+	<vue-snotify></vue-snotify	>
+	<br>
+	<div class="row">
+		<div class="col-lg-12">
+			<h3 class="blue margin0">Administrador de metas por campañas</h3>
+		</div>
+	</div>
+	<hr>
 </div>
-
 <div th:fragment="js">
-
 </div>
