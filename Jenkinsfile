@@ -49,7 +49,7 @@ pipeline{
         script {
           docker.withTool('Docker') {
             docker.withRegistry('http://localhost:5000') {
-              def customImage = docker.build("ebc/springboot/comisiones-li","--build-arg SPRING_ENV=${env.SPRING_ENV} . PATH_FOLDER=build/libs/ .")
+              def customImage = docker.build("ebc/springboot/comisiones-li","--build-arg SPRING_ENV=${env.SPRING_ENV} --build-arg PATH_FOLDER=build/libs/ .")
               customImage.push()
             }
           }
