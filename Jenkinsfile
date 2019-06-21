@@ -23,6 +23,9 @@ pipeline{
       environment {
         SPRING_ENV = "${env.BRANCH_NAME == 'master' ? 'stage' : env.BRANCH_NAME}"
       }
+       steps {
+        echo 'Set prooperties'
+      }
     }
 
     stage('Building JS'){
