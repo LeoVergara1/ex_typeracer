@@ -24,6 +24,17 @@ Los datos del director de campus se muestran en la parte superior izquierda de l
 	- El total de ingresos a mostrar es el que se obtiene de la sumatoria de alumnos inscritos por los promotores asociados al coordinador del campus
 
 
+### Especificaciones técnicas 
+
+- Para la sección de “Comisión a pagar” se debe consultar el cálculo de comisiones crecientes, referente al cálculo del porcentaje de comisión asignado al coordinador del campus del Director sobre el total obtenido de las inscripciones de sus promotores durante el periodo activo.
+			- Tabla: ADMIN_DE_COMISIONES
+			- Entidades: COMISION_COORDINADOR, COMISION, EJECUTIVO, CAMPUS_CODE, CUOTA_FIJA
+
+			- Tabla:ASOCIACION_PROMOTOR
+			- Entidades: ID_COORDINADOR, ID, PROMOTOR, CAMPUS_CODE, RECR_CODE_MANAGER, CLAVE_EMP_COORDINADOR, CLAVE_EMP_PROMOTOR 		
+ Para la sección de “Ingresos”, el total se obtiene de la suma de todos los registros mostrados de todos los promotores asignados al coordinador del campus del Diretor
+
+
 ##CP-16 Autorizar comisiones
 
 ![Autorizar comisiones]](https://documentacionebc.s3.amazonaws.com/Im%C3%A1genes%20Comisiones%20EBC/LI/Autorizaci%C3%B3n/autorizacion_v2.png)
@@ -78,8 +89,12 @@ La autorización de comisiones consta de tres partes:
 - Aparecerá un botón que lleve por nombre “Autorizar” que realizará el proceso de autorización de las comisiones para su pago.
 - Se autorizaran las comisiones que tengan seleccionado el checkbox tanto para comisiones corrientes y comisiones crecientes.
 
-###Epecificaciones técnicas
 
-La información de las comisiones se consulta del Esquema de comisiones en la tabla AUTORIZACION_COMISIONES.
+### Especificaciones técnicas 
+
+- Los datos necesarios para las comisiones que sean autorizadas, se guardan en el esquema de COMISIONES PRESENCIALES:
+	- User: pgocomis
+	- Tabla: AUTORIZACION_COMISIONES
+	- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIOla tabla AUTORIZACION_COMISIONES.
 
 Actualmente hay columnas que no existen y se deberán crear, estas son: Matrícula, Tipo de pago, Valor de contrato, Valor real de contrato, Comisión creciente, Autorizar comisión creciente.

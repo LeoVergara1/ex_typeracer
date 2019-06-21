@@ -51,6 +51,10 @@ La información del reporte, de acuerdo a los criterios de búsqueda seleccionad
 - No. Alumnos inscritos: Se requiere mostrar el total de alumnos inscritos por el promotor en periodo de tiempo seleccionado en la búsqueda. En el caso de los coordinadores, el número de alumnos inscritos debe ser la sumatoria de los alumnos inscritos por los promotores que tiene asociados en el periodo de tiempo seleccionado en la búsqueda
 - Comisión total: Se requiere hacer la sumatoria del monto almacenado del cálculo que corresponde a la comisión del promotor y coordinador de acuerdo al periodo de tiempo seleccionado en la búsqueda, y todos los alumnos que inscribió en este tiempo. Para calcular el monto de comisión correspondiente, se sigue el proceso del cálculo de comisiones corrientes.   Ver anexo de cálculo de comisiones CC-1
 
+- Los datos mostrados, se obtiene de las comisiones autorizadas, que se almacenan en el esquema de AUTORIZACIÓN_COMISIONES .
+			- Tabla: AUTORIZACIÓN_COMISIONES
+			- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIO
+
 
 ##CP-18 Ver reporte detallado de comisiones
 
@@ -117,3 +121,7 @@ de tal forma pueda conocer toda la información de las comisiones por la inscrip
 
 - No. Alumnos inscritos: Se requiere mostrar el total de alumnos inscritos por el promotor en periodo de tiempo seleccionado en la búsqueda. En el caso de los coordinadores, el número de alumnos inscritos debe ser la sumatoria de los alumnos inscritos por los promotores que tiene asociados en el periodo de tiempo seleccionado en la búsqueda
 - Comisión total: Se requiere hacer la sumatoria del monto almacenado del cálculo que corresponde a la comisión del promotor de acuerdo al periodo de tiempo seleccionado en la búsqueda, y todos los alumnos que inscribió en este tiempo. Para calcular el monto de comisión correspondiente, se sigue el proceso del cálculo de comisiones corrientes.   Ver anexo de cálculo de comisiones CC-1
+
+- Los datos mostrados, se obtiene de las comisiones autorizadas, que se almacenan en el esquema de AUTORIZACIÓN_COMISIONES .
+			- Tabla: AUTORIZACIÓN_COMISIONES
+			- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIO

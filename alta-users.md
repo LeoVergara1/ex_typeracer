@@ -36,9 +36,20 @@ de tal forma que puedan utilizar la aplicación de comisiones con un rol dado
 - El nombre completo y matrícula del usuario buscado se obtiene de Banner en la forma SPRIDEN
 - Los usuarios promotores y los códigos de promotor están registrados en la forma de Banner SORAROL
 - Los roles asignados a los usuarios se almacenan en la Aplicación de Seguridad
-- Los usuarios registrados como promotores, se almacenan en el esquema de promotores 
-	- Tabla: PROMOTER
-	- Entidad:  PIDM, USER_NAME, RECR_CODE
+- Los usuarios registrados como promotores, se almacenan en el esquema de asociación de promotores
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad: ID_PROMOTOR, NOMBRE_PROMOTOR, APELLIDOS_PROMOTOR, CLAVE_EMP_PROMOTOR, PUESTO_PROMOTOR
+
+- Los usuarios registrados como coordinadores, se almacenan en el esquema de asociación de promotores 
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad: ID_COORDINADOR, NOMBRE_COORDINADOR, APELLIDOS_COORDINADOR, CLAVE_EMP_COORDINADOR
+
+- Los usuarios registrados como jefes de programa, se almacenan en el esquema de asociación de promotores 
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad:  PIDM_MANAGER, USER_NAME_MANAGER ID_COORDINADOR, RECR_CODE_MANAGER
 
 **Reglas para dar de alta a un usuario:***
 
@@ -76,9 +87,10 @@ de tal forma que el usuario se pueda asociar para el pago de comisiones
 
 ###Especificaciones técnicas
 
-- La asociación de promotores a coordinadores se almacenan en el esquema de promotores 
-- Tabla: PROMOTER
-- Entidad:  PIDM, USER_NAME, RECR_CODE, PIDM_MANAGER, USER_NAME_MANAGER, RECR_CODE_MANAGER
+- La asociación de promotores a coordinadores y jefes de programa, se almacenan en el esquema de asociación de promotores
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad: ID_PROMOTOR, NOMBRE_PROMOTOR, APELLIDOS_PROMOTOR, CLAVE_EMP_PROMOTOR, PUESTO_PROMOTOR, IDM_MANAGER, USER_NAME_MANAGER ID_COORDINADOR, RECR_CODE_MANAGER, NOMBRE_COORDINADOR, APELLIDOS_COORDINADOR, CLAVE_EMP_COORDINADOR, PIDM_MANAGER, USER_NAME_MANAGER ID_COORDINADOR, RECR_CODE_MANAGER
 
 ##CP-6 Asociar promotores 
 
@@ -119,12 +131,10 @@ de tal forma que los coordinadores y promotores puedan cobrar su porcentaje de c
 
 ###Especificaciones técnicas 
 
-- La asociación de promotores a coordinadores se almacenan en el esquema de promotores 
-	- Tabla: PROMOTER
-	- Entidad:  PIDM, USER_NAME, RECR_CODE, PIDM_MANAGER, USER_NAME_MANAGER, RECR_CODE_MANAGER
-- La información de los coordinadores se toma del esquema de jefes de programa
-	- Tabla: PROGRAM_MANAGER
-	- Entidad:  PIDM, USER_NAME, RECR_CODE
+- La asociación de promotores a coordinadores y jefes de programa, se almacenan en el esquema de asociación de promotores
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad: ID_PROMOTOR, NOMBRE_PROMOTOR, APELLIDOS_PROMOTOR, CLAVE_EMP_PROMOTOR, PUESTO_PROMOTOR, IDM_MANAGER, USER_NAME_MANAGER ID_COORDINADOR, RECR_CODE_MANAGER, NOMBRE_COORDINADOR, APELLIDOS_COORDINADOR, CLAVE_EMP_COORDINADOR, PIDM_MANAGER, USER_NAME_MANAGER ID_COORDINADOR, RECR_CODE_MANAGER
 
 
 ##CP-24 Búsqueda de usuarios registrados
@@ -157,3 +167,24 @@ Una vez que encuentra al usuario, se debe mostrar la siguiente información sobr
 - Rol: Nombre del rol asignado
 - Eliminar: Botón para dar de baja al usuario buscado 
 - Asociar: Este botón sólo se muestra si el usuario buscado es un coordinador
+
+###Especificaciones técnicas
+
+-  Los usuarios a consultar en la búsqueda se obtienen de Banner de la forma SPRIDEN
+- El nombre completo y matrícula del usuario buscado se obtiene de Banner en la forma SPRIDEN
+- Los usuarios promotores y los códigos de promotor están registrados en la forma de Banner SORAROL
+- Los roles asignados a los usuarios se almacenan en la Aplicación de Seguridad
+- Los usuarios registrados como promotores, se almacenan en el esquema de asociación de promotores
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad: ID_PROMOTOR, NOMBRE_PROMOTOR, APELLIDOS_PROMOTOR, CLAVE_EMP_PROMOTOR, PUESTO_PROMOTOR
+
+- Los usuarios registrados como coordinadores, se almacenan en el esquema de asociación de promotores 
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad: ID_COORDINADOR, NOMBRE_COORDINADOR, APELLIDOS_COORDINADOR, CLAVE_EMP_COORDINADOR
+
+- Los usuarios registrados como jefes de programa, se almacenan en el esquema de asociación de promotores 
+	- User: pgocomis 
+	- Tabla: ASOCIACION_PROMOTOR
+	- Entidad:  PIDM_MANAGER, USER_NAME_MANAGER ID_COORDINADOR, RECR_CODE_MANAGER

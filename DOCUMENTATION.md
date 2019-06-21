@@ -18,7 +18,11 @@ La aplicación de comisiones presenciales contempla los siguientes módulos:
 [- Administrador de comisiones](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/79547e4168b7b22626e9c5e7f6896345bb17c3ba/admon-comisiones.md?at=feature%2FCP-26)
 
 
-3) Creación de campañas 
+3) Comisiones crecientes 
+
+[- Administración de campañas crecientes](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/f778e2b8ee1f9bd791884088781d3eddbd172125/admon-campanas.md?at=feature%2FCP-26)
+[- Autorización de campañas crecientes](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/f778e2b8ee1f9bd791884088781d3eddbd172125/autorizar-crecientes.md?at=feature%2FCP-26)
+[- Consulta de campañas crecientes](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/f778e2b8ee1f9bd791884088781d3eddbd172125/reportes-crecientes.md?at=feature%2FCP-26) 
 
 
 [4) Autorización](https://bitbucket.org/ebcdesarrollo/comisiones-li/src/79547e4168b7b22626e9c5e7f6896345bb17c3ba/autorizar-comisiones.md?at=feature%2FCP-26)

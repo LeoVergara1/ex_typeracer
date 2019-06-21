@@ -27,6 +27,7 @@ de tal forma que incremente la inscripción de alumnos.
 ###Especificaciones técnicas 
 
 - Los montos de porcentaje de comisión para coordinadores se guardan en el esquema de comisiones: 
+	- User: pgocomis 
 	- Tabla ADMIN_DE_COMISIONES
 	- Entidad: COMISION_COORDINACION  
 
@@ -56,6 +57,7 @@ de tal forma que incremente la inscripción de alumnos.
 ###Especificaciones técnicas 
 
 - Los montos de porcentaje de comisión para promotores se guardan en el esquema de comisiones: 
+	- User: pgocomis 
 	- Tabla ADMIN_DE_COMISIONES
 	- Entidad: COMISION_EJECUTIVO
 
@@ -83,6 +85,7 @@ por pago de inscripción.
 ###Especificaciones técnicas 
 
 - El listado de campus se guardan en el esquema de comisiones: 
+	- User: pgocomis 
 	- Tabla ADMIN_DE_COMISIONES
 	- Entidad: CAMPUS_DESC
 - La cuota fija por pago de inscripción se guardan en el esquema de comisiones:
