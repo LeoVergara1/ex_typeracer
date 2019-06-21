@@ -14,6 +14,16 @@ pipeline{
         //sh "gradle clean test"
       }
     }
+    stage('Preparing Configuration'){
+      when {
+        expression {
+          !(env.BRANCH_NAME in ["PROD", "QA", "master"])
+        }
+      }
+      environment {
+        SPRING_ENV = "${env.BRANCH_NAME == 'master' ? 'stage' : env.BRANCH_NAME}"
+      }
+    }
 
     stage('Building JS'){
       when {
