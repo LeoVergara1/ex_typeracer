@@ -36,8 +36,6 @@ de tal forma que se establezca los periodos de comisiones crecientes
 
 
 
-
-
 ## CP-28 Buscar campañas 
 
 ### Función

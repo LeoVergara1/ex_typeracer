@@ -78,4 +78,4 @@ de tal forma que pueda exportar y saber las comisiones y sus estatus
 			- Tabla: AUTORIZACIÓN_COMISIONES
 			- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIO
 	
- Para la sección de “Ingresos”, el total se obtiene de la suma de todos los registros mostrados de todos los promotores asignados al coordinador del campus del Jefe de promoción
+- Para la sección de “Ingresos”, el total se obtiene de la suma de todos los registros mostrados de todos los promotores asignados al coordinador del campus del Jefe de promoción

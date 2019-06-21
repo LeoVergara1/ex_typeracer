@@ -63,7 +63,6 @@ de tal forma que pueda validar las comisiones crecientes que se deben pagar
 	- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIO
 
 
-
 ## CP-31 Autorizar comisiones crecientes 
 
 ### Función
@@ -122,7 +121,6 @@ Los datos del director de campus se muestran en la parte superior izquierda de l
 - Para la sección de “Comisión a pagar” se debe consultar el cálculo de comisiones crecientes, referente al cálculo del porcentaje de comisión asignado al coordinador del campus del Director sobre el total obtenido de las inscripciones de sus promotores durante el periodo activo.
 			- Tabla: ADMIN_DE_COMISIONES
 			- Entidades: COMISION_COORDINADOR, COMISION, EJECUTIVO, CAMPUS_CODE, CUOTA_FIJA
-
 			- Tabla:ASOCIACION_PROMOTOR
 			- Entidades: ID_COORDINADOR, ID, PROMOTOR, CAMPUS_CODE, RECR_CODE_MANAGER, CLAVE_EMP_COORDINADOR, CLAVE_EMP_PROMOTOR 		
  Para la sección de “Ingresos”, el total se obtiene de la suma de todos los registros mostrados de todos los promotores asignados al coordinador del campus del Diretor
