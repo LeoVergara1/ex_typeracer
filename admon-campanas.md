@@ -29,7 +29,11 @@ de tal forma que se establezca los periodos de comisiones crecientes
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
+- Los datos solicitados para registrar las campañas, se guardan en el esquema de COMISIONES PRESENCIALES:
+	- User: pgocomis
+	- Tabla: CAMPAIGN
+	- EntidadES: ID, STATUS, INIT_DATE, END_DATE, NAME, CLAVE, USERNAME, DATE_CREATED, LAST_UPDATED, YEAR
+
 
 
 
@@ -65,7 +69,10 @@ de tal forma que pueda consultar el detalle de cada una de ellas
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
+- Los datos solicitados para registrar las campañas, se guardan y actualizan (editar, eliminar) en el esquema de COMISIONES PRESENCIALES:
+	- User: pgocomis
+	- Tabla: CAMPAIGN
+	- EntidadES: ID, STATUS, INIT_DATE, END_DATE, NAME, CLAVE, USERNAME, DATE_CREATED, LAST_UPDATED, YEAR
 
 
 ## CP-29 Administrar metas por campaña 
@@ -106,5 +113,7 @@ de tal forma que pueda establecerse las condiciones para el pago de comisiones c
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
-
+- Los datos solicitados para registrar las campañas, se guardan en el esquema de COMISIONES PRESENCIALES:
+	- User: pgocomis
+	- Tabla: GOAL
+	- EntidadES: ID, STATUS, TYPE, CAMPUS, NUM_REGISTERS, PERCET_COMMISSION, USERNAME, DATE_CREATED, LAST_UPDATED, CAMPAING_ID

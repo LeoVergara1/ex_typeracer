@@ -57,7 +57,10 @@ de tal forma que pueda validar las comisiones crecientes que se deben pagar
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
+- Los datos necesarios para las comisiones que sean autorizadas, se guardan en el esquema de COMISIONES PRESENCIALES:
+	- User: pgocomis
+	- Tabla: AUTORIZACION_COMISIONES
+	- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIO
 
 
 
@@ -80,7 +83,10 @@ de tal forma que pueda autorizar las comisiones a pagar
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
+- Los datos necesarios para las comisiones que sean autorizadas, se guardan en el esquema de COMISIONES PRESENCIALES:
+	- User: pgocomis
+	- Tabla: AUTORIZACION_COMISIONES
+	- Entidades: ID, CAMPUS, ID_PROMOTOR, NOMBRE_PROMOTOR, PUESTO, ID_ALUMNO, NOMBRE_ALUMNO, PAGO_INICIAL, TOTAL_DESCUENTOS, COMISION, PERIODO, FECHA_DE_PAGO, AUTORIZADO_DIRECTOR, DATE_CREATED, LAST_CREATED, ID_COORDINADOR, COMISION_COORDINADOR, FECHA_AUTORIZADO, USUARIO
 
 
 
@@ -113,8 +119,13 @@ Los datos del director de campus se muestran en la parte superior izquierda de l
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
+- Para la sección de “Comisión a pagar” se debe consultar el cálculo de comisiones crecientes, referente al cálculo del porcentaje de comisión asignado al coordinador del campus del Director sobre el total obtenido de las inscripciones de sus promotores durante el periodo activo.
+			- Tabla: ADMIN_DE_COMISIONES
+			- Entidades: COMISION_COORDINADOR, COMISION, EJECUTIVO, CAMPUS_CODE, CUOTA_FIJA
 
+			- Tabla:ASOCIACION_PROMOTOR
+			- Entidades: ID_COORDINADOR, ID, PROMOTOR, CAMPUS_CODE, RECR_CODE_MANAGER, CLAVE_EMP_COORDINADOR, CLAVE_EMP_PROMOTOR 		
+ Para la sección de “Ingresos”, el total se obtiene de la suma de todos los registros mostrados de todos los promotores asignados al coordinador del campus del Diretor
 
 
 ## CP-33 Ver resumen de autorización - Jefe de promoción
@@ -146,6 +157,12 @@ de tal forma que visualice cuánto y a quién se les podrá autorizar el pago
 
 ### Especificaciones técnicas 
 
-- No se cuenta con una base de datos ni estructura.
+- Para la sección de “Comisión a pagar” se debe consultar el cálculo de comisiones crecientes, referente al cálculo del porcentaje de comisión asignado al coordinador del campus del Jefe de promoción sobre el total obtenido de las inscripciones de sus promotores durante el periodo activo.
+			- Tabla: ADMIN_DE_COMISIONES
+			- Entidades: COMISION_COORDINADOR, COMISION, EJECUTIVO, CAMPUS_CODE, CUOTA_FIJA
+
+			- Tabla:ASOCIACION_PROMOTOR
+			- Entidades: ID_COORDINADOR, ID, PROMOTOR, CAMPUS_CODE, RECR_CODE_MANAGER, CLAVE_EMP_COORDINADOR, CLAVE_EMP_PROMOTOR 		
+ Para la sección de “Ingresos”, el total se obtiene de la suma de todos los registros mostrados de todos los promotores asignados al coordinador del campus del Jefe de promoción
 
 
