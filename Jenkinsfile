@@ -43,7 +43,7 @@ pipeline{
         }
       }
       environment {
-        SPRING_ENV = "${env.BRANCH_NAME == 'master' ? 'stage' : 'QA'}"
+        SPRING_ENV = "${env.BRANCH_NAME == 'master' ? 'stage' : 'qa'}"
       }
       steps{
         script {
