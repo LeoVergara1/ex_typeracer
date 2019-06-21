@@ -160,7 +160,7 @@ Person findPersonByUsername(String username) {
   }
 
   def getMenusToPerson(String userName){
-    def result = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/profile/${userName}/Pago%20de%20comisiones")
+    def result = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/profile/${userName}/comisiones-li")
     println "Init buil"
     result?.accessProfile.collect(){ menu ->
       println menu
