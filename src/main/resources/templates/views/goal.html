@@ -14,25 +14,23 @@
       <label for="exampleInputName2">Año</label>
       <br class="clear">
       <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 2019
+        <input type="radio" name="year" id="inlineRadio1" :value="year" v-model="yearSelected" @change="getCampaings"> {{year}}
       </label>
       <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2020
+        <input type="radio" name="year" id="inlineRadio2" :value="year + 1" v-model="yearSelected" @change="getCampaings"> {{year + 1}}
       </label>
     </div>
     <div class="col-lg-3">
       <label for="exampleInputName2">Campaña</label>
-      <select class="form-control">
-        <option></option>
-        <option>Enero - Marzo 2019</option>
-        <option>Enero - Marzo 2019</option>
-        <option>Enero - Marzo 2019</option>
-        <option>Enero - Marzo 2019</option>
+      <select class="form-control" @change="getCampaing()" v-model.number="selectedCamping">
+        <option v-for="(campaign, index) in campaigns" :value="index">
+          {{campaign.name}} - {{campaign.clave}}
+        </option>
       </select>
     </div>
     <div class="col-md-2 col-lg-2">
-      <button style="margin-top:25px;" id="buttonBuscar" class="btn btn-block btn-sm btn-primary"><i
-          class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+      <button style="margin-top:35px;" id="buttonBuscar" class="btn btn-block btn-sm btn-primary"><i
+          class="fa fa-search" aria-hidden="true" @click="getCampaing()"></i> Buscar</button>
     </div>
   </div>
   <hr>
@@ -49,10 +47,10 @@
             <th>Metas</th>
           </tr>
           <tr>
-            <td>Ene-Mar</td>
-            <td>Enero_Marzo_2019</td>
-            <td>01/01/2019</td>
-            <td>31/03/2019</td>
+            <td>{{campaign.name}}</td>
+            <td>{{campaign.name}}</td>
+            <td>{{campaign.initDate | removeExtendTime}}</td>
+            <td>{{campaign.endDate | removeExtendTime}}</td>
             <td><button id="buttonAgregar" class="btn btn-primary btn-xs btn-block"><i class="fa fa-plus"
                   aria-hidden="true"></i> Agregar</button></td>
           </tr>
