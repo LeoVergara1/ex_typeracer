@@ -10,17 +10,18 @@ class Goal {
 	Integer id
 	String status
 	String campus
+	String type
 	@Column(name = "NUM_REGISTERS")
 	Integer numRegisters
 	@Column(name = "PERCENT_COMMISSION")
 	Integer percentCommission
 	String username
 	@Column(name = "LAST_UPDATED")
-	Date lastUpdated
+	Date lastUpdated = new Date()
 	@Column(name = "DATE_CREATED")
-	Date dateCreated
+	Date dateCreated = new Date()
 
 	@ManyToOne
-	Campaign campaing
+	Campaign campaign
 
 }

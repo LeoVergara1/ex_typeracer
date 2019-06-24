@@ -24,7 +24,7 @@ class Campaign {
 	Date dateCreated = new Date()
 
 	@JsonBackReference
-	@OneToMany(mappedBy = "campaing", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+	@OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	Set<Goal> goals = new ArrayList<Goal>()
 
 }

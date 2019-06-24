@@ -9,6 +9,7 @@ var app = new Vue({
     enableEdit: true,
     listPromoterToUser: [],
     campaigns: [],
+    goals: [],
     selectedCamping: 0,
     campaign: {
       id: 0,
@@ -78,8 +79,29 @@ var app = new Vue({
         this.$snotify.warning("Completa los datos", this.notifyOptions)
       }
     },
+    saveGoal(goal) {
+      this.loader.loading = true
+      this.$http.post('/administration/save/goal', goal).then(response => {
+        console.log(response)
+        this.loader.loading = false
+      }, response => {
+        console.log(response)
+      })
+    },
     getCampaing(){
+      console.log("dkjghdjdih")
       this.campaign = this.campaigns[this.selectedCamping]
+    },
+    addGoals(id){
+      this.$http.get(`/administration/campaign/create/goals/${id}`).then(response => {
+        console.log(response.body.goals)
+        this.goals = response.body.goals
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
+
     },
     getCampaings(){
       this.$http.get(`/administration/campaign/year/${this.yearSelected}`).then(response => {

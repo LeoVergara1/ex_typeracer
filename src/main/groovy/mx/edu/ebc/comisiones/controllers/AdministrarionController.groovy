@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.PromoterService
+import mx.edu.ebc.comisiones.services.CampaignService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
+import mx.edu.ebc.comisiones.comision.repo.GoalRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -34,6 +36,7 @@ import java.security.Principal
 import org.springframework.security.cas.authentication.CasAuthenticationToken
 import mx.edu.ebc.cas.util.pojo.EbcUser
 import mx.edu.ebc.cas.util.pojo.UserProfile
+import mx.edu.ebc.comisiones.comision.domain.Goal
 
 @Controller
 class AdministrarionController {
@@ -56,6 +59,10 @@ class AdministrarionController {
 	UserDetailsService userDetailsService
 	@Autowired
 	CampaignRepository campaignRepository
+	@Autowired
+	CampaignService campaignService
+	@Autowired
+	GoalRepository goalRepository
 
 
   @RequestMapping("/")
@@ -209,11 +216,15 @@ class AdministrarionController {
 	@GetMapping("administration/campaign/year/{year}")
   @ResponseBody
   Map gatAllCampaign(@PathVariable String year) {
-		println "*"*100
-		println year
 		def campaign = campaignRepository.findAllByYear(year)
-		//(campaign) ? campaign.goals = [] : campaign
 		[campaign: campaign]
+  }
+
+	@GetMapping("administration/campaign/create/goals/{id}")
+  @ResponseBody
+  Map gatAllCampaign(@PathVariable Integer id) {
+		def goals = campaignService.createAllGolsToCampaing(id)
+		[goals: goals]
   }
 
   @RequestMapping("administration/goals")
@@ -224,5 +235,10 @@ class AdministrarionController {
 		return model
   }
 
+	@PostMapping("administration/save/goal")
+	@ResponseBody
+  Map saveGoal(@RequestBody Goal goal){
+		[result: goalRepository.save(goal)]
+  }
 
 }

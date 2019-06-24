@@ -29,8 +29,8 @@
       </select>
     </div>
     <div class="col-md-2 col-lg-2">
-      <button style="margin-top:35px;" id="buttonBuscar" class="btn btn-block btn-sm btn-primary"><i
-          class="fa fa-search" aria-hidden="true" @click="getCampaing()"></i> Buscar</button>
+      <button style="margin-top:35px;" id="buttonBuscar" @click="getCampaing()" class="btn btn-block btn-sm btn-primary"><i
+          class="fa fa-search" aria-hidden="true"></i> Buscar</button>
     </div>
   </div>
   <hr>
@@ -51,7 +51,7 @@
             <td>{{campaign.name}}</td>
             <td>{{campaign.initDate | removeExtendTime}}</td>
             <td>{{campaign.endDate | removeExtendTime}}</td>
-            <td><button id="buttonAgregar" class="btn btn-primary btn-xs btn-block"><i class="fa fa-plus"
+            <td><button id="buttonAgregar" @click="addGoals(campaign.id)" class="btn btn-primary btn-xs btn-block"><i class="fa fa-plus"
                   aria-hidden="true"></i> Agregar</button></td>
           </tr>
         </tbody>
@@ -71,45 +71,25 @@
             <th>% de comisión</th>
             <th></th>
           </tr>
-          <tr>
-            <td>CMX</td>
+          <tr v-for="(goal, index) in goals">
+            <td>{{goal.campus}}</td>
             <td>
               <div class="radio">
                 <label>
-                  <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
+                  <input type="radio" name="type" id="optionsRadios1" value="Inscritos" v-model="goal.type">
                   Inscritos
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="optionsRadios2" id="optionsRadios2" value="option2">
+                  <input type="radio" name="type" id="optionsRadios2" value="Sentados" v-model="goal.type">
                   Sentados
                 </label>
               </div>
             </td>
-            <td><input type="email" class="form-control" id="inputEmail"></td>
-            <td><input type="email" class="form-control" id="inputEmail" value="1%"></td>
-            <td><a class="btn btn-success btn-xs btn-block">Guardar</a></td>
-          </tr>
-          <tr>
-            <td>TOL</td>
-            <td>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                  Inscritos
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                  Sentados
-                </label>
-              </div>
-            </td>
-            <td><input type="email" class="form-control" id="inputEmail"></td>
-            <td><input type="email" class="form-control" id="inputEmail" value="1%"></td>
-            <td><a class="btn btn-success btn-xs btn-block">Guardar</a></td>
+            <td><input type="number" class="form-control" id="inputEmail" v-model="goal.numRegisters"></td>
+            <td><input type="number" class="form-control" id="inputEmail" v-model="goal.percentCommission"></td>
+            <td><a class="btn btn-success btn-xs btn-block" @click="saveGoal(goal)">Guardar</a></td>
           </tr>
         </tbody>
       </table>
