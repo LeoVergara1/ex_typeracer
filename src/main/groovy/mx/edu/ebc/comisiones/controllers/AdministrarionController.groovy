@@ -206,6 +206,16 @@ class AdministrarionController {
 		[campaign: campaign]
   }
 
+	@GetMapping("administration/campaign/year/{year}")
+  @ResponseBody
+  Map gatAllCampaign(@PathVariable String year) {
+		println "*"*100
+		println year
+		def campaign = campaignRepository.findAllByYear(year)
+		//(campaign) ? campaign.goals = [] : campaign
+		[campaign: campaign]
+  }
+
   @RequestMapping("administration/goals")
   @ResponseBody
   public ModelAndView goal() {
