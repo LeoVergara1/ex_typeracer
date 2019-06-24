@@ -1,6 +1,8 @@
 package mx.edu.ebc.comisiones.comision.domain
 
 import javax.persistence.*
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.JsonBackReference
 
 @Entity
 class Campaign {
@@ -21,6 +23,7 @@ class Campaign {
 	@Column(name = "DATE_CREATED")
 	Date dateCreated = new Date()
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "campaing", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	Set<Goal> goals = new ArrayList<Goal>()
 
