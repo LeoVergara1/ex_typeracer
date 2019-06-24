@@ -8,6 +8,8 @@ var app = new Vue({
     promoters: Array,
     enableEdit: true,
     listPromoterToUser: [],
+    campaigns: [],
+    selectedCamping: 0,
     campaign: {
       id: 0,
       status: "",
@@ -35,7 +37,9 @@ var app = new Vue({
       loading: false,
       size: "95px",
     },
-    register: false
+    register: false,
+    yearSelected: new Date().getFullYear(),
+    year: new Date().getFullYear(),
   },
   watch: {
     register: function(){
@@ -55,6 +59,7 @@ var app = new Vue({
         console.log("Fail")
         console.log(response)
       })
+      this.getCampaings()
   },
   methods:{
     addCampaign() {
@@ -72,6 +77,18 @@ var app = new Vue({
       else {
         this.$snotify.warning("Completa los datos", this.notifyOptions)
       }
+    },
+    getCampaing(){
+      this.campaign = this.campaigns[this.selectedCamping]
+    },
+    getCampaings(){
+      this.$http.get(`/administration/campaign/year/${this.yearSelected}`).then(response => {
+        this.campaigns = response.body.campaign
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
     },
     searhCampaign() {
     if(this.dataToSearch.name && this.dataToSearch.clave){
