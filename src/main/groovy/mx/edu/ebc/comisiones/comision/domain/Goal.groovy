@@ -14,7 +14,7 @@ class Goal {
 	@Column(name = "NUM_REGISTERS")
 	Integer numRegisters
 	@Column(name = "PERCENT_COMMISSION")
-	Integer percentCommission
+	float percentCommission = 0
 	String username
 	@Column(name = "LAST_UPDATED")
 	Date lastUpdated = new Date()
