@@ -80,18 +80,61 @@
 						<label for="" v-if="enableEdit">
 							{{campaign.initDate | removeExtendTime}}
 						</label>
-						<date-pick v-else v-model="campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY/MM/DD'"></date-pick>
+						<date-pick v-else v-model="campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td>
 						<label for="" v-if="enableEdit">
 							{{campaign.endDate | removeExtendTime}}
 						</label>
-						<date-pick v-else v-model="campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY/MM/DD'"></date-pick>
+						<date-pick v-else v-model="campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td><button @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
 					<td>
 						<button v-if="enableEdit" class="btn btn-primary btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
-						<button v-else class="btn btn-success btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateCampaign($event,campaign); enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+					</td>
+			</tr>
+		</tbody></table>
+</div>
+<div class="col-lg-12" v-if="showCampags">
+		<table class="table table-bordered table-striped">
+		 <tbody><tr>
+				 <th>Clave</th>
+				 <th>Nombre de campaña</th>
+				 <th>Fecha inicio</th>
+				 <th>Fecha fin</th>
+				 <th></th>
+				 <th></th>
+		 </tr>
+			<tr v-for="element in campaigns">
+					<td>
+						<label for="" v-if="element.editable">
+							{{element.campaign.clave}}
+						</label>
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="element.campaign.clave">
+					</td>
+					<td>
+						<label for="" v-if="element.editable">
+							{{element.campaign.name}}
+						</label>
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="element.campaign.name">
+					</td>
+					<td>
+						<label for="" v-if="element.editable">
+							{{element.campaign.initDate | removeExtendTime}}
+						</label>
+						<date-pick v-else v-model="element.campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+					</td>
+					<td>
+						<label for="" v-if="element.editable">
+							{{element.campaign.endDate | removeExtendTime}}
+						</label>
+						<date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+					</td>
+					<td><button @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
+					<td>
+						<button v-if="element.editable" class="btn btn-primary btn-xs btn-block"  @click="element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
+						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateCampaign($event,element.campaign); element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
 					</td>
 			</tr>
 		</tbody></table>
