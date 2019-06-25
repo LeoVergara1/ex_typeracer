@@ -1,7 +1,13 @@
 package mx.edu.ebc.comisiones.comision.domain
 
 import javax.persistence.*
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id")
 @Entity
 class Goal {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ID_GOAL")
@@ -12,7 +18,7 @@ class Goal {
 	String campus
 	String type
 	@Column(name = "NUM_REGISTERS")
-	Integer numRegisters
+	Integer numRegisters = 0
 	@Column(name = "PERCENT_COMMISSION")
 	float percentCommission = 0
 	String username

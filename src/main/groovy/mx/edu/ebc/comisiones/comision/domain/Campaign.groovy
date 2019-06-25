@@ -3,7 +3,12 @@ package mx.edu.ebc.comisiones.comision.domain
 import javax.persistence.*
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id")
 @Entity
 class Campaign {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ID_CAMPAING")
@@ -23,7 +28,6 @@ class Campaign {
 	@Column(name = "DATE_CREATED")
 	Date dateCreated = new Date()
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	Set<Goal> goals = new ArrayList<Goal>()
 
