@@ -35,7 +35,8 @@
   </div>
   <hr>
   <br>
-  <div id="tabla1" class="row">
+  <transition name="fade">
+  <div id="tabla1" class="row"  v-show="showInfoCampaign">
     <div class="col-lg-12">
       <table class="table table-bordered table-striped">
         <tbody>
@@ -58,10 +59,12 @@
       </table>
     </div>
   </div>
+  </transition>
   <br class="clear">
   <hr>
-  <div class="row">
-    <div class="col-lg-8">
+  <transition name="fade">
+  <div class="row" v-show="showCampus">
+    <div class="col-lg-12">
       <table class="table table-bordered table-striped">
         <tbody>
           <tr>
@@ -87,14 +90,15 @@
                 </label>
               </div>
             </td>
-            <td><input type="number" class="form-control" id="inputEmail" v-model="goal.numRegisters"></td>
-            <td><input type="number" class="form-control" id="inputEmail" v-model="goal.percentCommission"></td>
-            <td><a class="btn btn-success btn-xs btn-block" @click="saveGoal(goal)">Guardar</a></td>
+            <td><input v-validate="'required|max_value:999'" :name="'registers'+index" type="number" class="form-control" id="inputEmail" v-model="goal.numRegisters"></td>
+            <td><input v-validate="'required|max_value:99|decimal:3'" :name="'porcentage'+ index"type="number" class="form-control" id="inputEmail" v-model="goal.percentCommission"></td>
+            <td><a class="btn btn-success btn-xs btn-block" style="color: white;" @click="saveGoal(goal, index)">Guardar</a></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+</transition>
 </div>
 </div>
 <div th:fragment="js">
