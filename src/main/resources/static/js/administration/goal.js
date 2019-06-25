@@ -1,6 +1,8 @@
 var app = new Vue({
   el: '#app',
   data: {
+    showCampus: false,
+    showInfoCampaign: false,
     message: 'Hello Vue!',
     person: Object,
     headerBgVariant: "white",
@@ -10,6 +12,14 @@ var app = new Vue({
     listPromoterToUser: [],
     campaigns: [],
     goals: [],
+    notifyOptions: {
+      timeout: 9000,
+      showProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: true,
+      position: 'rightTop',
+      helperNotificationCycle: true
+    },
     selectedCamping: 0,
     campaign: {
       id: 0,
@@ -79,23 +89,47 @@ var app = new Vue({
         this.$snotify.warning("Completa los datos", this.notifyOptions)
       }
     },
-    saveGoal(goal) {
-      this.loader.loading = true
-      this.$http.post('/administration/save/goal', goal).then(response => {
-        console.log(response)
-        this.loader.loading = false
-      }, response => {
-        console.log(response)
-      })
+    saveGoal(goal, index) {
+      console.log("Submit")
+      console.log(this.errors.first(`porcentage${index}`))
+      if(!this.errors.has(`porcentage${index}`) && !this.errors.has(`registers${index}`) ){
+        this.loader.loading = true
+        this.$http.post('/administration/save/goal', goal).then(response => {
+          console.log(response)
+          this.loader.loading = false
+        }, response => {
+          console.log(response)
+        })
+      }
+      else {
+        if(this.errors.has(`porcentage${index}`))
+          return this.$snotify.warning(this.errors.first(`porcentage${index}`), this.notifyOptions)
+        this.$snotify.warning(this.errors.first(`registers${index}`), this.notifyOptions)
+      }
+     // if(goal.percentCommission < 99){
+     //   this.loader.loading = true
+     //   this.$http.post('/administration/save/goal', goal).then(response => {
+     //     console.log(response)
+     //     this.loader.loading = false
+     //   }, response => {
+     //     console.log(response)
+     //   })
+     // }
+     // else {
+     //   this.$snotify.warning("Porcentage maximo 99", this.notifyOptions)
+     // }
     },
     getCampaing(){
       console.log("dkjghdjdih")
       this.campaign = this.campaigns[this.selectedCamping]
+      this.showInfoCampaign = (this.campaign) ? true : false
+      this.showCampus = false
     },
     addGoals(id){
       this.$http.get(`/administration/campaign/create/goals/${id}`).then(response => {
         console.log(response.body.goals)
         this.goals = response.body.goals
+        this.showCampus = (this.goals) ? true : false
         this.loader.loading = false
       }, response => {
         console.log("Fail")
