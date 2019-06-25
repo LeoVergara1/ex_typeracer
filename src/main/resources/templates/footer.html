@@ -1,7 +1,11 @@
 <footer>
 	<script src="/third-party/vue/dist/vue.js"></script>
 	<script src="/third-party/vue-resource/dist/vue-resource.min.js"></script>
+	<script src="/third-party/vee-validate/dist/vee-validate.min.js"></script>
+	<script src="/third-party/vee-validate/dist/locale/es.js"></script>
 	<script>
+		Vue.use(VeeValidate);
+		VeeValidate.Validator.localize('es');
 		Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName("_csrf")[0].content;
 	</script>
 	<script src="/third-party/xlsx/dist/xlsx.full.min.js"></script>
