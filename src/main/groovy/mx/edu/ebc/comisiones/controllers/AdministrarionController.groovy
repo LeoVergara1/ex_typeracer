@@ -37,6 +37,7 @@ import org.springframework.security.cas.authentication.CasAuthenticationToken
 import mx.edu.ebc.cas.util.pojo.EbcUser
 import mx.edu.ebc.cas.util.pojo.UserProfile
 import mx.edu.ebc.comisiones.comision.domain.Goal
+import mx.edu.ebc.comisiones.comision.domain.Campaign
 
 @Controller
 class AdministrarionController {
@@ -213,6 +214,13 @@ class AdministrarionController {
 		[campaign: campaign]
   }
 
+	@GetMapping("administration/campaign/all")
+  @ResponseBody
+  Map searhCampaignAll() {
+		def campaigns = campaignRepository.findAll().collect(){ c -> [campaign: c, editable: true]}
+		[campaigns: campaigns]
+  }
+
 	@GetMapping("administration/campaign/year/{year}")
   @ResponseBody
   Map gatAllCampaign(@PathVariable String year) {
@@ -239,6 +247,12 @@ class AdministrarionController {
 	@ResponseBody
   Map saveGoal(@RequestBody Goal goal){
 		[result: goalRepository.save(goal)]
+  }
+
+	@PostMapping("administration/update/campaign")
+	@ResponseBody
+  Map updateCampaign(@RequestBody Campaign campaign){
+		[result: campaignRepository.save(campaign)]
   }
 
 }
