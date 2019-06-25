@@ -16,8 +16,8 @@ var app = new Vue({
       name: ""
     },
     dataToSearch: {
-      name: "ss",
-      clave: "jh378",
+      name: "",
+      clave: "",
       year: "",
       dateInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       dateEnd: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'})
@@ -35,7 +35,9 @@ var app = new Vue({
       loading: false,
       size: "95px",
     },
-    register: false
+    campaigns: [],
+    register: false,
+    showCampags: true
   },
   watch: {
     register: function(){
@@ -74,18 +76,45 @@ var app = new Vue({
       }
     },
     searhCampaign() {
-    if(this.dataToSearch.name && this.dataToSearch.clave){
-        this.loader.loading = true
-        this.$http.get(`/administration/search/campaign/${this.dataToSearch.name}/${this.dataToSearch.clave}`).then( response =>{
-          (response.body.campaign) ? (this.paserDates(response)) : (this.register = true)
-          this.loader.loading = false
-        }, response => {
-          console.log(response)
-        })
+      if(this.dataToSearch.clave){
+        this.findOne()
       }
-    else {
-      this.$snotify.warning("Completa los datos", this.notifyOptions)
-    }
+      else {
+        this.findAll()
+      }
+    },
+    findOne(){
+      this.loader.loading = true
+      this.$http.get(`/administration/search/campaign/notName/${this.dataToSearch.clave}`).then( response =>{
+        (response.body.campaign) ? (this.campaign = response.body.campaign) : (this.register = true)
+        this.loader.loading = false
+        this.showCampags = false
+      }, response => {
+        console.log(response)
+      })
+    },
+    findAll(){
+      this.loader.loading = true
+      this.$http.get(`/administration/campaign/all`).then( response =>{
+        console.log(response.body)
+        this.campaigns = response.body.campaigns
+        this.loader.loading = false
+        this.showCampags = true
+        this.campaign.id = 0
+      }, response => {
+        console.log(response)
+      })
+    },
+    updateCampaign(event, campaign){
+      console.log(event.target)
+      console.log(campaign)
+      this.loader.loading = true
+      this.$http.post('/administration/update/campaign', campaign ).then( response =>{
+        console.log(response)
+        this.loader.loading = false
+      }, response => {
+        console.log(response)
+      })
     },
     paserDates(response){
       this.register = false
