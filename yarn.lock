@@ -409,6 +409,11 @@ util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
+vee-validate@^2.2.11:
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.2.11.tgz#80b4e4b1354e6460b72b2a864a21a9298e2d71ce"
+  integrity sha512-wQMhq1cPOk+eaE+iKVyoyEUp1mczpeSvL4V3sardi9+KMgDw853kCd6v0iajdH8uUSpj319BVdXkmDlx1qWFog==
+
 vue-date-pick@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vue-date-pick/-/vue-date-pick-1.1.0.tgz#78a31ce42734e1332575843a298309ee1bbcafd0"
