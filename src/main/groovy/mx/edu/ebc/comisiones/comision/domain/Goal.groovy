@@ -25,7 +25,6 @@ class Goal {
 	@Column(name = "DATE_CREATED")
 	Date dateCreated = new Date()
 
-	@JsonIgnore
 	@ManyToOne
 	Campaign campaign
 
