@@ -126,6 +126,7 @@ var app = new Vue({
       this.showCampus = false
     },
     addGoals(id){
+      this.loader.loading = true
       this.$http.get(`/administration/campaign/create/goals/${id}`).then(response => {
         console.log(response.body.goals)
         this.goals = response.body.goals
