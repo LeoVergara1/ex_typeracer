@@ -4,6 +4,7 @@ import javax.persistence.*
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Entity
 class Goal {
@@ -24,6 +25,7 @@ class Goal {
 	@Column(name = "DATE_CREATED")
 	Date dateCreated = new Date()
 
+	@JsonIgnore
 	@ManyToOne
 	Campaign campaign
 
