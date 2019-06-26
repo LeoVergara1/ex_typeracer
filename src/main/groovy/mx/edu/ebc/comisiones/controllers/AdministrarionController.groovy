@@ -210,7 +210,6 @@ class AdministrarionController {
   @ResponseBody
   Map searhCampaign(@PathVariable String name, @PathVariable String clave) {
 		def campaign = campaignRepository.findByClave(clave)
-		(campaign) ? campaign.goals = [] : campaign
 		[campaign: campaign]
   }
 
