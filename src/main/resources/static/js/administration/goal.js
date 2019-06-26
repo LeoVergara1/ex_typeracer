@@ -91,6 +91,7 @@ var app = new Vue({
     },
     saveGoal(goal, index) {
       console.log("Submit")
+      goal.campaign = this.goals[0].campaign
       console.log(this.errors.first(`porcentage${index}`))
       if(!this.errors.has(`porcentage${index}`) && !this.errors.has(`registers${index}`) ){
         this.loader.loading = true
