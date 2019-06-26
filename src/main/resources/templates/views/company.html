@@ -28,6 +28,7 @@
 		</div>
 	</div>
 	<br>
+ <transition name="fade">
 	<div class="row" v-if="register">
 			<div class="col-lg-2">
 					<label for="exampleInputName2">Año</label>
@@ -51,8 +52,10 @@
 					<button style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary" @click="addCampaign"><i class="fa fa-save"></i> Guardar</button>
 				</div>
 	</div>
+	</transition>
 	<hr>
 	<br>
+ <transition name="fade">
 	<div class="col-lg-12" v-if="campaign.id">
 		<table class="table table-bordered table-striped">
 		 <tbody><tr>
@@ -88,14 +91,22 @@
 						</label>
 						<date-pick v-else v-model="campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
-					<td><button @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
 					<td>
+						<button v-if="campaign.goals.length == 0" @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+						<span v-else class="label label-warning">Campaña con comisiones activas</span>
+					</td>
+					<td v-if="dateExpires(campaign.endDate)">
 						<button v-if="enableEdit" class="btn btn-primary btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
 						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateCampaign($event,campaign); enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+					</td>
+					<td v-else style="width: 10%;">
+							<span class="label label-warning">Campaña finalizada</span>
 					</td>
 			</tr>
 		</tbody></table>
 </div>
+ </transition>
+ <transition name="fade">
 <div class="col-lg-12" v-if="showCampags">
 		<table class="table table-bordered table-striped">
 		 <tbody><tr>
@@ -131,14 +142,21 @@
 						</label>
 						<date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
-					<td><button @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button></td>
 					<td>
+						<button v-if="element.campaign.goals.length == 0" @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+						<span v-else class="label label-warning">Campaña con comisiones activas</span>
+					</td>
+					<td v-if="dateExpires(element.campaign.endDate)">
 						<button v-if="element.editable" class="btn btn-primary btn-xs btn-block"  @click="element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
 						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateCampaign($event,element.campaign); element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+					</td>
+					<td v-else style="width: 10%;">
+							<span class="label label-success">Campaña finalizada</span>
 					</td>
 			</tr>
 		</tbody></table>
 </div>
+</transition>
 </div>
 <div th:fragment="js">
 	<script src="/js/administration/company.js"></script>
