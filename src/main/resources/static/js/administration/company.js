@@ -37,7 +37,7 @@ var app = new Vue({
     },
     campaigns: [],
     register: false,
-    showCampags: true
+    showCampags: false
   },
   watch: {
     register: function(){
@@ -59,6 +59,11 @@ var app = new Vue({
       })
   },
   methods:{
+    dateExpires(date){
+      let parserDate = date.replace(/T+(\w|:|.)+/, "")
+      parserDate = new Date(parserDate.split("-"))
+      return parserDate < new Date()
+    },
     addCampaign() {
       if(this.dataToSearch.name && this.dataToSearch.clave){
         this.loader.loading = true
@@ -76,6 +81,7 @@ var app = new Vue({
       }
     },
     searhCampaign() {
+      this.register = false
       if(this.dataToSearch.clave){
         this.findOne()
       }
