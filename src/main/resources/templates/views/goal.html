@@ -79,13 +79,13 @@
             <td>
               <div class="radio">
                 <label>
-                  <input type="radio" name="type" id="optionsRadios1" value="Inscritos" v-model="goal.type">
+                  <input type="radio" :name="'type'+ index" id="optionsRadios1" value="Inscritos" v-model="goal.type">
                   Inscritos
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="type" id="optionsRadios2" value="Sentados" v-model="goal.type">
+                  <input type="radio" :name="'type'+ index" id="optionsRadios2" value="Sentados" v-model="goal.type">
                   Sentados
                 </label>
               </div>
