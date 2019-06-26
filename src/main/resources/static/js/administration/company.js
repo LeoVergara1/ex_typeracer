@@ -19,6 +19,7 @@ var app = new Vue({
       name: "",
       clave: "",
       year: "",
+      claveWihtoutPeriod: "",
       dateInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       dateEnd: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'})
     },
@@ -37,7 +38,8 @@ var app = new Vue({
     },
     campaigns: [],
     register: false,
-    showCampags: false
+    showCampags: false,
+    period: 20
   },
   watch: {
     register: function(){
@@ -65,8 +67,9 @@ var app = new Vue({
       return parserDate < new Date()
     },
     addCampaign() {
-      if(this.dataToSearch.name && this.dataToSearch.clave){
+      if(this.dataToSearch.name && this.dataToSearch.claveWihtoutPeriod){
         this.loader.loading = true
+        this.dataToSearch.clave = this.period + this.dataToSearch.claveWihtoutPeriod
         this.$http.post('/administration/save/campaign', this.dataToSearch ).then( response =>{
           console.log(response)
           this.loader.loading = false
@@ -82,7 +85,8 @@ var app = new Vue({
     },
     searhCampaign() {
       this.register = false
-      if(this.dataToSearch.clave){
+      this.dataToSearch.clave = this.period + this.dataToSearch.claveWihtoutPeriod
+      if(this.dataToSearch.claveWihtoutPeriod){
         this.findOne()
       }
       else {
