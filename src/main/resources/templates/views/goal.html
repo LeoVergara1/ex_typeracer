@@ -1,5 +1,5 @@
 <div th:fragment="goal" id="app">
-  <div class="loading" v-if="loader.loading"></div>
+  <div class="loading" v-if="loader.loading" style="height: 505%;"></div>
   <ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
   <vue-snotify></vue-snotify>
   <br>
@@ -90,7 +90,7 @@
                 </label>
               </div>
             </td>
-            <td><input v-validate="'required|max_value:999'" :name="'registers'+index" type="number" class="form-control" id="inputEmail" v-model="goal.numRegisters"></td>
+            <td><input v-validate="'required|max_value:999|integer'" :name="'registers'+index" type="number" class="form-control" id="inputEmail" v-model="goal.numRegisters"></td>
             <td><input v-validate="'required|max_value:99|decimal:3'" :name="'porcentage'+ index"type="number" class="form-control" id="inputEmail" v-model="goal.percentCommission"></td>
             <td><a class="btn btn-success btn-xs btn-block" style="color: white;" @click="saveGoal(goal, index)">Guardar</a></td>
           </tr>
