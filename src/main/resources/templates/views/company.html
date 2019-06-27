@@ -5,7 +5,7 @@
 	<br>
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="blue margin0">Administrador de campañas</h3>
+			<h3 class="blue margin0">Administrador de trimestre</h3>
 		</div>
 	</div>
 	<hr>
@@ -96,14 +96,14 @@
 					</td>
 					<td>
 						<button v-if="trimester.goals.length == 0" @click="deleteById(trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-						<span v-else class="label label-warning">Campaña con comisiones activas</span>
+						<span v-else class="label label-warning">Trimestre con comisiones activas</span>
 					</td>
 					<td v-if="dateExpires(trimester.endDate)">
 						<button v-if="enableEdit" class="btn btn-primary btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
 						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateTrimester($event,trimester); enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
 					</td>
 					<td v-else style="width: 10%;">
-							<span class="label label-warning">Campaña finalizada</span>
+							<span class="label label-warning">Trimestre finalizada</span>
 					</td>
 			</tr>
 		</tbody></table>
@@ -147,14 +147,14 @@
 					</td>
 					<td>
 						<button v-if="element.trimester.goals.length == 0" @click="deleteById(trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-						<span v-else class="label label-warning">Campaña con comisiones activas</span>
+						<span v-else class="label label-warning">Trimestre con comisiones activas</span>
 					</td>
 					<td v-if="dateExpires(element.trimester.endDate)">
 						<button v-if="element.editable" class="btn btn-primary btn-xs btn-block"  @click="element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
 						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateTrimester($event,element.trimester); element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
 					</td>
 					<td v-else style="width: 10%;">
-							<span class="label label-success">Campaña finalizada</span>
+							<span class="label label-success">Trimestre finalizada</span>
 					</td>
 			</tr>
 		</tbody></table>

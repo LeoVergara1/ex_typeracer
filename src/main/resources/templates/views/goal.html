@@ -5,7 +5,7 @@
   <br>
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="blue margin0">Administrador de metas por campañas</h3>
+      <h3 class="blue margin0">Administrador de metas por trimestre</h3>
     </div>
   </div>
   <hr>
@@ -21,7 +21,7 @@
       </label>
     </div>
     <div class="col-lg-3">
-      <label for="exampleInputName2">Campaña</label>
+      <label for="exampleInputName2">Trimestre</label>
       <select class="form-control" @change="getCampaing()" v-model.number="selectedCamping">
         <option v-for="(trimester, index) in trimesters" :value="index">
           {{trimester.name}} - {{trimester.clave}}
