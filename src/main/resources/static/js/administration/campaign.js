@@ -22,6 +22,10 @@ var app = new Vue({
       loading: false,
       size: "95px",
     },
+    year: new Date().getFullYear(),
+    lastYear: new Date().getFullYear() -1,
+    nextYear: new Date().getFullYear() +1,
+    campaigns: [],
   },
   watch: {
   },
@@ -33,6 +37,14 @@ var app = new Vue({
       this.$http.get('/authorization/campueses').then(response => {
         this.campuses = response.body.campus
         this.person = response.body.person.person
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
+      this.$http.get(`/administration/campaign/all/${this.year}`).then(response => {
+        console.log(response)
+        this.campaigns = response.body.campaigns
         this.loader.loading = false
       }, response => {
         console.log("Fail")
