@@ -12,6 +12,7 @@ import mx.edu.ebc.comisiones.services.PromoterService
 import mx.edu.ebc.comisiones.services.TrimesterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
@@ -64,6 +65,8 @@ class AdministrarionController {
 	TrimesterService trimesterService
 	@Autowired
 	GoalRepository goalRepository
+	@Autowired
+	CampaignRepository campaignRepository
 
 
   @RequestMapping("/")
@@ -260,6 +263,13 @@ class AdministrarionController {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "campaign");
 		return model
+  }
+
+	@GetMapping("administration/campaign/all/{year}")
+  @ResponseBody
+  Map gatAllCampaing(@PathVariable String year) {
+		def campaigns = campaignRepository.findAllByYear(year)
+		[campaigns: campaigns]
   }
 
 }
