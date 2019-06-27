@@ -254,4 +254,12 @@ class AdministrarionController {
 		[result: trimesterRepository.save(trimester)]
   }
 
+  @RequestMapping("administration/campaign")
+  @ResponseBody
+  public ModelAndView campaign() {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "campaign");
+		return model
+  }
+
 }
