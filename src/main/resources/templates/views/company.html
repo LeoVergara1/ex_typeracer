@@ -26,7 +26,7 @@
 					</select>
 		</div>
 		<div class="col-md-2 col-lg-2">
-			<button style="margin-top:35px;" href="" class="btn btn-block btn-sm btn-primary" @click="searhCampaign"><i class="fa fa-search"
+			<button style="margin-top:35px;" href="" class="btn btn-block btn-sm btn-primary" @click="searhTrimester"><i class="fa fa-search"
 					aria-hidden="true"></i> Buscar</button>
 		</div>
 	</div>
@@ -52,14 +52,14 @@
 					<date-pick v-model="dataToSearch.dateEnd" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
 				</div>
 				<div class="col-md-2 col-lg-2">
-					<button style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary" @click="addCampaign"><i class="fa fa-save"></i> Guardar</button>
+					<button style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary" @click="addTrimester"><i class="fa fa-save"></i> Guardar</button>
 				</div>
 	</div>
 	</transition>
 	<hr>
 	<br>
  <transition name="fade">
-	<div class="col-lg-12" v-if="campaign.id">
+	<div class="col-lg-12" v-if="trimester.id">
 		<table class="table table-bordered table-striped">
 		 <tbody><tr>
 				 <th>Clave</th>
@@ -72,35 +72,35 @@
 			<tr>
 					<td>
 						<label for="" v-if="enableEdit">
-							{{campaign.clave}}
+							{{trimester.clave}}
 						</label>
-						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="campaign.clave">
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="trimester.clave">
 					</td>
 					<td>
 						<label for="" v-if="enableEdit">
-							{{campaign.name}}
+							{{trimester.name}}
 						</label>
-						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="campaign.name">
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="trimester.name">
 					</td>
 					<td>
 						<label for="" v-if="enableEdit">
-							{{campaign.initDate | removeExtendTime}}
+							{{trimester.initDate | removeExtendTime}}
 						</label>
-						<date-pick v-else v-model="campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+						<date-pick v-else v-model="trimester.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td>
 						<label for="" v-if="enableEdit">
-							{{campaign.endDate | removeExtendTime}}
+							{{trimester.endDate | removeExtendTime}}
 						</label>
-						<date-pick v-else v-model="campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+						<date-pick v-else v-model="trimester.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td>
-						<button v-if="campaign.goals.length == 0" @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+						<button v-if="trimester.goals.length == 0" @click="deleteById(trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 						<span v-else class="label label-warning">Campaña con comisiones activas</span>
 					</td>
-					<td v-if="dateExpires(campaign.endDate)">
+					<td v-if="dateExpires(trimester.endDate)">
 						<button v-if="enableEdit" class="btn btn-primary btn-xs btn-block"  @click="enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
-						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateCampaign($event,campaign); enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateTrimester($event,trimester); enableEdit = !enableEdit" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
 					</td>
 					<td v-else style="width: 10%;">
 							<span class="label label-warning">Campaña finalizada</span>
@@ -120,38 +120,38 @@
 				 <th></th>
 				 <th></th>
 		 </tr>
-			<tr v-for="element in campaigns">
+			<tr v-for="element in trimesters">
 					<td>
 						<label for="" v-if="element.editable">
-							{{element.campaign.clave}}
+							{{element.trimester.clave}}
 						</label>
-						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="element.campaign.clave">
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="element.trimester.clave">
 					</td>
 					<td>
 						<label for="" v-if="element.editable">
-							{{element.campaign.name}}
+							{{element.trimester.name}}
 						</label>
-						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="element.campaign.name">
+						<input v-else type="text" class="form-control" id="exampleInputAmount" v-model="element.trimester.name">
 					</td>
 					<td>
 						<label for="" v-if="element.editable">
-							{{element.campaign.initDate | removeExtendTime}}
+							{{element.trimester.initDate | removeExtendTime}}
 						</label>
-						<date-pick v-else v-model="element.campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+						<date-pick v-else v-model="element.trimester.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td>
 						<label for="" v-if="element.editable">
-							{{element.campaign.endDate | removeExtendTime}}
+							{{element.trimester.endDate | removeExtendTime}}
 						</label>
-						<date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+						<date-pick v-else v-model="element.trimester.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td>
-						<button v-if="element.campaign.goals.length == 0" @click="deleteById(campaign.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+						<button v-if="element.trimester.goals.length == 0" @click="deleteById(trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 						<span v-else class="label label-warning">Campaña con comisiones activas</span>
 					</td>
-					<td v-if="dateExpires(element.campaign.endDate)">
+					<td v-if="dateExpires(element.trimester.endDate)">
 						<button v-if="element.editable" class="btn btn-primary btn-xs btn-block"  @click="element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
-						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateCampaign($event,element.campaign); element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
+						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateTrimester($event,element.trimester); element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
 					</td>
 					<td v-else style="width: 10%;">
 							<span class="label label-success">Campaña finalizada</span>

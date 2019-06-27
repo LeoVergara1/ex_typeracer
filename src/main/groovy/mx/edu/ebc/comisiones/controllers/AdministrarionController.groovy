@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.PromoterService
-import mx.edu.ebc.comisiones.services.CampaignService
+import mx.edu.ebc.comisiones.services.TrimesterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
-import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
+import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
 import org.springframework.beans.factory.annotation.Value
@@ -37,7 +37,7 @@ import org.springframework.security.cas.authentication.CasAuthenticationToken
 import mx.edu.ebc.cas.util.pojo.EbcUser
 import mx.edu.ebc.cas.util.pojo.UserProfile
 import mx.edu.ebc.comisiones.comision.domain.Goal
-import mx.edu.ebc.comisiones.comision.domain.Campaign
+import mx.edu.ebc.comisiones.comision.domain.Trimester
 
 @Controller
 class AdministrarionController {
@@ -59,9 +59,9 @@ class AdministrarionController {
 	@Autowired
 	UserDetailsService userDetailsService
 	@Autowired
-	CampaignRepository campaignRepository
+	TrimesterRepository trimesterRepository
 	@Autowired
-	CampaignService campaignService
+	TrimesterService trimesterService
 	@Autowired
 	GoalRepository goalRepository
 
@@ -192,45 +192,45 @@ class AdministrarionController {
 		return model
   }
 
-	@PostMapping("administration/save/campaign")
+	@PostMapping("administration/save/trimester")
 	@ResponseBody
-  Map addCampaign(@RequestBody Map dataToSearch){
+  Map addTrimester(@RequestBody Map dataToSearch){
 		println dataToSearch
-		[result: administrationService.save_campaign(dataToSearch)]
+		[result: administrationService.save_trimester(dataToSearch)]
   }
 
-	@PostMapping("administration/delete/campaign")
+	@PostMapping("administration/delete/trimester")
 	@ResponseBody
-  Map deleteCampaign(@RequestBody Map dataToSearch){
+  Map deleteTrimester(@RequestBody Map dataToSearch){
 		println dataToSearch
-		[result: campaignRepository.deleteById(dataToSearch.id)]
+		[result: trimesterRepository.deleteById(dataToSearch.id)]
   }
 
-	@GetMapping("administration/search/campaign/{name}/{clave}")
+	@GetMapping("administration/search/trimester/{name}/{clave}")
   @ResponseBody
-  Map searhCampaign(@PathVariable String name, @PathVariable String clave) {
-		def campaign = campaignRepository.findByClave(clave)
-		[campaign: campaign]
+  Map searhTrimester(@PathVariable String name, @PathVariable String clave) {
+		def trimester = trimesterRepository.findByClave(clave)
+		[trimester: trimester]
   }
 
-	@GetMapping("administration/campaign/all")
+	@GetMapping("administration/trimester/all")
   @ResponseBody
-  Map searhCampaignAll() {
-		def campaigns = campaignRepository.findAll().collect(){ c -> [campaign: c, editable: true]}
-		[campaigns: campaigns]
+  Map searhTrimesterAll() {
+		def trimesters = trimesterRepository.findAll().collect(){ c -> [trimester: c, editable: true]}
+		[trimesters: trimesters]
   }
 
-	@GetMapping("administration/campaign/year/{year}")
+	@GetMapping("administration/trimester/year/{year}")
   @ResponseBody
-  Map gatAllCampaign(@PathVariable String year) {
-		def campaign = campaignRepository.findAllByYear(year)
-		[campaign: campaign]
+  Map gatAllTrimester(@PathVariable String year) {
+		def trimester = trimesterRepository.findAllByYear(year)
+		[trimester: trimester]
   }
 
-	@GetMapping("administration/campaign/create/goals/{id}")
+	@GetMapping("administration/trimester/create/goals/{id}")
   @ResponseBody
-  Map gatAllCampaign(@PathVariable Integer id) {
-		def goals = campaignService.createAllGolsToCampaing(id)
+  Map gatAllTrimester(@PathVariable Integer id) {
+		def goals = trimesterService.createAllGolsToCampaing(id)
 		[goals: goals]
   }
 
@@ -248,10 +248,10 @@ class AdministrarionController {
 		[result: goalRepository.save(goal)]
   }
 
-	@PostMapping("administration/update/campaign")
+	@PostMapping("administration/update/trimester")
 	@ResponseBody
-  Map updateCampaign(@RequestBody Campaign campaign){
-		[result: campaignRepository.save(campaign)]
+  Map updateTrimester(@RequestBody Trimester trimester){
+		[result: trimesterRepository.save(trimester)]
   }
 
 }

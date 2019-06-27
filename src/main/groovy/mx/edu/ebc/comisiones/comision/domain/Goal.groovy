@@ -26,6 +26,6 @@ class Goal {
 	Date dateCreated = new Date()
 
 	@ManyToOne
-	Campaign campaign
+	Trimester trimester
 
 }

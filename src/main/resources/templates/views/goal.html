@@ -23,8 +23,8 @@
     <div class="col-lg-3">
       <label for="exampleInputName2">Campaña</label>
       <select class="form-control" @change="getCampaing()" v-model.number="selectedCamping">
-        <option v-for="(campaign, index) in campaigns" :value="index">
-          {{campaign.name}} - {{campaign.clave}}
+        <option v-for="(trimester, index) in trimesters" :value="index">
+          {{trimester.name}} - {{trimester.clave}}
         </option>
       </select>
     </div>
@@ -36,7 +36,7 @@
   <hr>
   <br>
   <transition name="fade">
-  <div id="tabla1" class="row"  v-show="showInfoCampaign">
+  <div id="tabla1" class="row"  v-show="showInfoTrimester">
     <div class="col-lg-12">
       <table class="table table-bordered table-striped">
         <tbody>
@@ -48,11 +48,11 @@
             <th>Metas</th>
           </tr>
           <tr>
-            <td>{{campaign.clave}}</td>
-            <td>{{campaign.name}}</td>
-            <td>{{campaign.initDate | removeExtendTime}}</td>
-            <td>{{campaign.endDate | removeExtendTime}}</td>
-            <td><button id="buttonAgregar" @click="addGoals(campaign.id)" class="btn btn-primary btn-xs btn-block"><i class="fa fa-plus"
+            <td>{{trimester.clave}}</td>
+            <td>{{trimester.name}}</td>
+            <td>{{trimester.initDate | removeExtendTime}}</td>
+            <td>{{trimester.endDate | removeExtendTime}}</td>
+            <td><button id="buttonAgregar" @click="addGoals(trimester.id)" class="btn btn-primary btn-xs btn-block"><i class="fa fa-plus"
                   aria-hidden="true"></i> Agregar</button></td>
           </tr>
         </tbody>

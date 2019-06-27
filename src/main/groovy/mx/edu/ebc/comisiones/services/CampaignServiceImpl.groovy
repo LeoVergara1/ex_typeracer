@@ -9,23 +9,23 @@ import org.springframework.stereotype.Service
 import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import mx.edu.ebc.comisiones.comision.domain.Goal
-import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
+import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
-import mx.edu.ebc.comisiones.comision.domain.Campaign;
+import mx.edu.ebc.comisiones.comision.domain.Trimester;
 
 @Service
-class CampaignServiceImpl implements CampaignService {
+class TrimesterServiceImpl implements TrimesterService {
 
 	@Autowired
 	GoalRepository goalRepository
 	@Value('${campusToGoals}')
 	List<String> campusToGoal
 	@Autowired
-	CampaignRepository campaignRepository
+	TrimesterRepository trimesterRepository
 
 	List<Goal> createAllGolsToCampaing(Integer id){
-		Campaign campaign = campaignRepository.findById(id)
-		List<Goal> goals = getGoalsFromCampaign(campaign)
+		Trimester trimester = trimesterRepository.findById(id)
+		List<Goal> goals = getGoalsFromTrimester(trimester)
 		if(goals)
 			return goals
 		campusToGoal.collect{ goalCampus ->
@@ -33,13 +33,13 @@ class CampaignServiceImpl implements CampaignService {
 			def goalCampusToSave = new Goal(
 				status:"created",
 				campus: goalCampus,
-				campaign: campaign
+				trimester: trimester
 			)
 			goalRepository.save(goalCampusToSave)
 		}
 	}
 
-	List<Goal> getGoalsFromCampaign(Campaign campaign){
-		goalRepository.findAllByCampaign(campaign)
+	List<Goal> getGoalsFromTrimester(Trimester trimester){
+		goalRepository.findAllByTrimester(trimester)
 	}
 }

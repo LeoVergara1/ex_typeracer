@@ -11,16 +11,16 @@ import spock.lang.Specification
 import spock.lang.Ignore
 import org.springframework.transaction.annotation.Transactional
 import mx.edu.ebc.comisiones.comision.storedProcedure.AutorizacionComisionesStoredProcedure
-import mx.edu.ebc.comisiones.comision.domain.Campaign
+import mx.edu.ebc.comisiones.comision.domain.Trimester
 import java.text.SimpleDateFormat
 
 @SpringBootTest
 @ContextConfiguration
 @TestPropertySource("classpath:application-dev.properties")
-class CampaignRepositorySpec extends Specification{
+class TrimesterRepositorySpec extends Specification{
 
 	@Autowired
-  CampaignRepository campaingRepository
+  TrimesterRepository campaingRepository
 
   def "Spect 000 Check service inject"() {
     when:
@@ -39,8 +39,8 @@ class CampaignRepositorySpec extends Specification{
 
 	@Transactional
 	def "save campaing register"(){
-		given: "A campaign"
-			Campaign campaign = new Campaign(
+		given: "A trimester"
+			Trimester trimester = new Trimester(
 				name: "Nombre",
 				status: "created",
 				endDate: new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2000"),
@@ -48,7 +48,7 @@ class CampaignRepositorySpec extends Specification{
 				year: "2019"
 			)
 		when:
-			def result = campaingRepository.save(campaign)
+			def result = campaingRepository.save(trimester)
 			println result
 		then:
 			assert result

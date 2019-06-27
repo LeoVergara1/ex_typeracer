@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators
   generator = ObjectIdGenerators.PropertyGenerator.class,
   property = "id")
 @Entity
-class Campaign {
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ID_CAMPAING")
-  @SequenceGenerator(sequenceName = "SQ_ID_CAMPAING", allocationSize = 1, name = "SQ_ID_CAMPAING")
+class Trimester {
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ID_TRIMESTER")
+  @SequenceGenerator(sequenceName = "SQ_ID_TRIMESTER", allocationSize = 1, name = "SQ_ID_TRIMESTER")
 	@Id
 	Integer id
 	String status
@@ -28,7 +28,7 @@ class Campaign {
 	@Column(name = "DATE_CREATED")
 	Date dateCreated = new Date()
 
-	@OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+	@OneToMany(mappedBy = "trimester", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	Set<Goal> goals = new ArrayList<Goal>()
 
 }

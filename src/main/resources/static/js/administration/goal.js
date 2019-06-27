@@ -2,7 +2,7 @@ var app = new Vue({
   el: '#app',
   data: {
     showCampus: false,
-    showInfoCampaign: false,
+    showInfoTrimester: false,
     message: 'Hello Vue!',
     person: Object,
     headerBgVariant: "white",
@@ -10,7 +10,7 @@ var app = new Vue({
     promoters: Array,
     enableEdit: true,
     listPromoterToUser: [],
-    campaigns: [],
+    trimesters: [],
     goals: [],
     notifyOptions: {
       timeout: 9000,
@@ -21,7 +21,7 @@ var app = new Vue({
       helperNotificationCycle: true
     },
     selectedCamping: 0,
-    campaign: {
+    trimester: {
       id: 0,
       status: "",
       initDate: "",
@@ -54,7 +54,7 @@ var app = new Vue({
   },
   watch: {
     register: function(){
-      (this.register) ? (this.campaign.id = 0) : "Nothing"
+      (this.register) ? (this.trimester.id = 0) : "Nothing"
     }
   },
   computed: {
@@ -73,13 +73,13 @@ var app = new Vue({
       this.getCampaings()
   },
   methods:{
-    addCampaign() {
+    addTrimester() {
       if(this.dataToSearch.name && this.dataToSearch.clave){
         this.loader.loading = true
-        this.$http.post('/administration/save/campaign', this.dataToSearch ).then( response =>{
+        this.$http.post('/administration/save/trimester', this.dataToSearch ).then( response =>{
           console.log(response)
           this.loader.loading = false
-          this.campaign = response.body.result
+          this.trimester = response.body.result
           this.register = false
         }, response => {
           console.log(response)
@@ -91,7 +91,7 @@ var app = new Vue({
     },
     saveGoal(goal, index) {
       console.log("Submit")
-      goal.campaign = this.goals[0].campaign
+      goal.trimester = this.goals[0].trimester
       console.log(this.errors.first(`porcentage${index}`))
       if(!this.errors.has(`porcentage${index}`) && !this.errors.has(`registers${index}`) ){
         this.loader.loading = true
@@ -122,13 +122,13 @@ var app = new Vue({
     },
     getCampaing(){
       console.log("dkjghdjdih")
-      this.campaign = this.campaigns[this.selectedCamping]
-      this.showInfoCampaign = (this.campaign) ? true : false
+      this.trimester = this.trimesters[this.selectedCamping]
+      this.showInfoTrimester = (this.trimester) ? true : false
       this.showCampus = false
     },
     addGoals(id){
       this.loader.loading = true
-      this.$http.get(`/administration/campaign/create/goals/${id}`).then(response => {
+      this.$http.get(`/administration/trimester/create/goals/${id}`).then(response => {
         console.log(response.body.goals)
         this.goals = response.body.goals
         this.showCampus = (this.goals) ? true : false
@@ -140,19 +140,19 @@ var app = new Vue({
 
     },
     getCampaings(){
-      this.$http.get(`/administration/campaign/year/${this.yearSelected}`).then(response => {
-        this.campaigns = response.body.campaign
+      this.$http.get(`/administration/trimester/year/${this.yearSelected}`).then(response => {
+        this.trimesters = response.body.trimester
         this.loader.loading = false
       }, response => {
         console.log("Fail")
         console.log(response)
       })
     },
-    searhCampaign() {
+    searhTrimester() {
     if(this.dataToSearch.name && this.dataToSearch.clave){
         this.loader.loading = true
-        this.$http.get(`/administration/search/campaign/${this.dataToSearch.name}/${this.dataToSearch.clave}`).then( response =>{
-          (response.body.campaign) ? (this.paserDates(response)) : (this.register = true)
+        this.$http.get(`/administration/search/trimester/${this.dataToSearch.name}/${this.dataToSearch.clave}`).then( response =>{
+          (response.body.trimester) ? (this.paserDates(response)) : (this.register = true)
           this.loader.loading = false
         }, response => {
           console.log(response)
@@ -164,16 +164,16 @@ var app = new Vue({
     },
     paserDates(response){
       this.register = false
-      this.campaign = response.body.campaign
-      this.campaign.initDate = this.campaign.initDate.replace(/-/g, "/").replace(/T+(\w|:|.)+/, "")
-      this.campaign.endDate = this.campaign.endDate.replace(/-/g, "/").replace(/T+(\w|:|.)+/, "")
+      this.trimester = response.body.trimester
+      this.trimester.initDate = this.trimester.initDate.replace(/-/g, "/").replace(/T+(\w|:|.)+/, "")
+      this.trimester.endDate = this.trimester.endDate.replace(/-/g, "/").replace(/T+(\w|:|.)+/, "")
     },
     deleteById(id){
       this.loader.loading = true
-      this.$http.post('/administration/delete/campaign', {id: id} ).then( response =>{
+      this.$http.post('/administration/delete/trimester', {id: id} ).then( response =>{
         console.log(response)
         this.loader.loading = false
-        this.campaign.id = 0
+        this.trimester.id = 0
         this.$snotify.info("Borrado Exitoso!", this.notifyOptions)
         this.register = false
       }, response => {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.PersonRepository
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones;
-import mx.edu.ebc.comisiones.comision.domain.Campaign;
+import mx.edu.ebc.comisiones.comision.domain.Trimester;
 import mx.edu.ebc.comisiones.comision.domain.ProgramManager;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
@@ -15,7 +15,7 @@ import mx.edu.ebc.comisiones.pojos.*
 import wslite.json.JSONObject
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
-import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
+import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
 import mx.edu.ebc.comisiones.comision.domain.Promoter
@@ -50,7 +50,7 @@ public class AdministrationServiceImpl implements AdministrationService {
 	@Autowired
   RolesRepository rolesRepository
 	@Autowired
-	CampaignRepository campaignRepository
+	TrimesterRepository trimesterRepository
 
 	@Override
 	List<AdminDeComisiones> findAllComission(){
@@ -166,15 +166,15 @@ public class AdministrationServiceImpl implements AdministrationService {
 		personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
 	}
 
-	Campaign save_campaign(Map campaign){
-		Campaign campaign_domain = new Campaign(
-			name: campaign.name,
-			clave: campaign.clave,
+	Trimester save_trimester(Map trimester){
+		Trimester trimester_domain = new Trimester(
+			name: trimester.name,
+			clave: trimester.clave,
 			status: "created",
-			endDate: new SimpleDateFormat("dd/MM/yyyy").parse(campaign.dateInit),
-			initDate: new SimpleDateFormat("dd/MM/yyyy").parse(campaign.dateEnd),
-			year: campaign.year
+			endDate: new SimpleDateFormat("dd/MM/yyyy").parse(trimester.dateInit),
+			initDate: new SimpleDateFormat("dd/MM/yyyy").parse(trimester.dateEnd),
+			year: trimester.year
 		)
-		campaignRepository.save(campaign_domain)
+		trimesterRepository.save(trimester_domain)
 	}
 }
