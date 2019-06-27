@@ -7,6 +7,7 @@ import org.springframework.test.context.TestPropertySource
 import mx.edu.ebc.comisiones.seguridad.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
+import mx.edu.ebc.comisiones.comision.domain.Campaign
 import spock.lang.Specification
 import spock.lang.Ignore
 import org.springframework.transaction.annotation.Transactional
@@ -20,18 +21,21 @@ import java.text.SimpleDateFormat
 class TrimesterRepositorySpec extends Specification{
 
 	@Autowired
-  TrimesterRepository campaingRepository
+  TrimesterRepository trimesterRepository
+
+	@Autowired
+  CampaignRepository campaignRepository
 
   def "Spect 000 Check service inject"() {
     when:
-    println campaingRepository
+    println campaignRepository
     then:
-    assert campaingRepository
+    assert campaignRepository
   }
 
 	def "get all campaing register"(){
 		when:
-			def result = campaingRepository.findAll()
+			def result = trimesterRepository.findAll()
 			println result[0].dump()
 		then:
 			assert result
@@ -48,7 +52,24 @@ class TrimesterRepositorySpec extends Specification{
 				year: "2019"
 			)
 		when:
-			def result = campaingRepository.save(trimester)
+			def result = trimesterRepository.save(trimester)
+			println result
+		then:
+			assert result
+	}
+
+	@Transactional
+	def "Save new campaign"(){
+		given: "A campaign"
+			Campaign campaign = new Campaign(
+				name: "Nombre",
+				status: "created",
+				endDate: new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2000"),
+				initDate: new SimpleDateFormat("dd/MM/yyyy").parse("11/11/2020"),
+				year: "2019"
+			)
+		when:
+			def result = campaignRepository.save(campaign)
 			println result
 		then:
 			assert result
