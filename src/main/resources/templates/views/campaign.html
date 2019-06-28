@@ -14,9 +14,9 @@
                     <div class="col-md-12">
                         <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" @click="getLastYear()">{{lastYear}}</a>
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{year}}</a>
-                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" @click="getNextYear()">{{nextYear}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" @click="getYear(lastYear)">{{lastYear}}</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" @click="getYear(year)">{{year}}</a>
+                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" @click="getYear(nextYear)">{{nextYear}}</a>
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -30,16 +30,33 @@
                                             <th>Estado</th>
                                             <th>Fecha Inicio</th>
                                             <th>Fecha Fin</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="campaign in campaigns">
-                                            <td>{{campaign.name}}</td>
-                                            <td>{{campaign.period}}</td>
-                                            <td>{{campaign.year}}</td>
-                                            <td>{{campaign.status}}</td>
-                                            <td>{{campaign.initDate | removeExtendTime}}</td>
-                                            <td>{{campaign.endDate | removeExtendTime}}</td>
+                                        <tr v-for="element in campaigns">
+                                            <td>
+                                                <input type="text" name="" id="" v-model="element.campaign.name" class="form-control" :disabled=!element.editable>
+                                            </td>
+                                            <td>{{element.campaign.period}}</td>
+                                            <td>{{element.campaign.year}}</td>
+                                            <td>{{element.campaign.status}}</td>
+                                            <td>
+						                        <label for="" v-if="!element.editable">
+                                                {{element.campaign.initDate | removeExtendTime}}
+                                                </label>
+						                        <date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+                                            </td>
+                                            <td>
+						                        <label for="" v-if="!element.editable">
+                                                {{element.campaign.endDate | removeExtendTime}}
+                                                </label>
+						                        <date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+                                            </td>
+                                            <td>
+                                                <i v-if="!element.editable" class="fa fa-pencil fa-2x" aria-hidden="true" @click="element.editable = !element.editable"></i>
+                                                <i v-else class="fa fa-paper-plane-o fa-2x" aria-hidden="true" @click="updateCampaign(element.campaign); element.editable = !element.editable"></i>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -48,26 +65,39 @@
                                 <table class="table" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Project Name</th>
-                                            <th>Employer</th>
-                                            <th>Time</th>
+                                            <th>Nombre</th>
+                                            <th>Periodo</th>
+                                            <th>Año</th>
+                                            <th>Estado</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="#">Work 1</a></td>
-                                            <td>Doe</td>
-                                            <td>john@example.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Work 2</a></td>
-                                            <td>Moe</td>
-                                            <td>mary@example.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Work 3</a></td>
-                                            <td>Dooley</td>
-                                            <td>july@example.com</td>
+                                        <tr v-for="element in campaigns">
+                                            <td>
+                                                <input type="text" name="" id="" v-model="element.campaign.name" class="form-control" :disabled=!element.editable>
+                                            </td>
+                                            <td>{{element.campaign.period}}</td>
+                                            <td>{{element.campaign.year}}</td>
+                                            <td>{{element.campaign.status}}</td>
+                                            <td>
+						                        <label for="" v-if="!element.editable">
+                                                {{element.campaign.initDate | removeExtendTime}}
+                                                </label>
+						                        <date-pick v-else v-model="element.campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+                                            </td>
+                                            <td>
+						                        <label for="" v-if="!element.editable">
+                                                {{element.campaign.endDate | removeExtendTime}}
+                                                </label>
+						                        <date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+                                            </td>
+                                            <td>
+                                                <i v-if="!element.editable" class="fa fa-pencil fa-2x" aria-hidden="true" @click="element.editable = !element.editable"></i>
+                                                <i v-else class="fa fa-paper-plane-o fa-2x" aria-hidden="true" @click="updateCampaign(element.campaign); element.editable = !element.editable"></i>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -76,26 +106,39 @@
                                 <table class="table" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Contest Name</th>
-                                            <th>Date</th>
-                                            <th>Award Position</th>
+                                            <th>Nombre</th>
+                                            <th>Periodo</th>
+                                            <th>Año</th>
+                                            <th>Estado</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="#">Work 1</a></td>
-                                            <td>Doe</td>
-                                            <td>john@example.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Work 2</a></td>
-                                            <td>Moe</td>
-                                            <td>mary@example.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Work 3</a></td>
-                                            <td>Dooley</td>
-                                            <td>july@example.com</td>
+                                        <tr v-for="element in campaigns">
+                                            <td>
+                                                <input type="text" name="" id="" v-model="element.campaign.name" class="form-control" :disabled=!element.editable>
+                                            </td>
+                                            <td>{{element.campaign.period}}</td>
+                                            <td>{{element.campaign.year}}</td>
+                                            <td>{{element.campaign.status}}</td>
+                                            <td>
+						                        <label for="" v-if="!element.editable">
+                                                {{element.campaign.initDate | removeExtendTime}}
+                                                </label>
+						                        <date-pick v-else v-model="element.campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+                                            </td>
+                                            <td>
+						                        <label for="" v-if="!element.editable">
+                                                {{element.campaign.endDate | removeExtendTime}}
+                                                </label>
+						                        <date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+                                            </td>
+                                            <td>
+                                                <i v-if="!element.editable" class="fa fa-pencil fa-2x" aria-hidden="true" @click="element.editable = !element.editable"></i>
+                                                <i v-else class="fa fa-paper-plane-o fa-2x" aria-hidden="true" @click="updateCampaign(element.campaign); element.editable = !element.editable"></i>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
