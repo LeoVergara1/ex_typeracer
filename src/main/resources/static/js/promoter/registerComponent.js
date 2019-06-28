@@ -141,7 +141,7 @@ Vue.component('template-register', {
 			</select>
 		</div>
 		</div>
-		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == 308 || register.roleCode == 888">
+		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == 804 || register.roleCode == 803">
 			<label for="recrCodeInput">Código de Promotor</label>
 			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="register.rcreCode">
 		</div>
