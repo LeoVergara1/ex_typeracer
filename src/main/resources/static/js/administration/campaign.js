@@ -52,6 +52,26 @@ var app = new Vue({
       })
   },
   methods:{
+    getNextYear(){
+      this.$http.get(`/administration/campaign/all/${this.nextYear}`).then(response => {
+        console.log(response)
+        this.campaigns = response.body.campaigns
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
+    },
+    getLastYear(){
+      this.$http.get(`/administration/campaign/all/${this.lastYear}`).then(response => {
+        console.log(response)
+        this.campaigns = response.body.campaigns
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
+    }
   },
   mounted() {
   },
