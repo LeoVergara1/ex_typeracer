@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.PromoterService
 import mx.edu.ebc.comisiones.services.TrimesterService
+import mx.edu.ebc.comisiones.services.CampaignService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
@@ -39,6 +40,7 @@ import mx.edu.ebc.cas.util.pojo.EbcUser
 import mx.edu.ebc.cas.util.pojo.UserProfile
 import mx.edu.ebc.comisiones.comision.domain.Goal
 import mx.edu.ebc.comisiones.comision.domain.Trimester
+import mx.edu.ebc.comisiones.comision.domain.Campaign
 
 @Controller
 class AdministrarionController {
@@ -67,6 +69,8 @@ class AdministrarionController {
 	GoalRepository goalRepository
 	@Autowired
 	CampaignRepository campaignRepository
+	@Autowired
+	CampaignService campaignService
 
 
   @RequestMapping("/")
@@ -268,8 +272,14 @@ class AdministrarionController {
 	@GetMapping("administration/campaign/all/{year}")
   @ResponseBody
   Map gatAllCampaing(@PathVariable String year) {
-		def campaigns = campaignRepository.findAllByYear(year)
+		def campaigns = campaignService.getALlCampaningsByYearAndCreateIfNotExist(year)
 		[campaigns: campaigns]
+  }
+
+	@PostMapping("administration/update/campaign")
+	@ResponseBody
+  Map updateCampaign(@RequestBody Campaign campaign){
+		[result: campaignRepository.save(campaign)]
   }
 
 }
