@@ -52,8 +52,8 @@ var app = new Vue({
       })
   },
   methods:{
-    getNextYear(){
-      this.$http.get(`/administration/campaign/all/${this.nextYear}`).then(response => {
+    getYear(year){
+      this.$http.get(`/administration/campaign/all/${year}`).then(response => {
         console.log(response)
         this.campaigns = response.body.campaigns
         this.loader.loading = false
@@ -62,13 +62,14 @@ var app = new Vue({
         console.log(response)
       })
     },
-    getLastYear(){
-      this.$http.get(`/administration/campaign/all/${this.lastYear}`).then(response => {
+    updateCampaign(campaign){
+      console.log("Add...")
+      this.loader.loading = true
+      this.$http.post('/administration/update/campaign', campaign ).then( response =>{
         console.log(response)
-        this.campaigns = response.body.campaigns
         this.loader.loading = false
+        this.$snotify.info("Actualizado Exitoso!", this.notifyOptions)
       }, response => {
-        console.log("Fail")
         console.log(response)
       })
     }
