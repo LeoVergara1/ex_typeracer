@@ -103,7 +103,7 @@ public class AdministrationServiceImpl implements AdministrationService {
     }
     //Map mapRol = personService.getRolesFromProperties()
     [person:person,
-    	mapRol: rolesRepository.findAllByNidRolPortal("869"),
+    	mapRol: rolesRepository.findAllByNidRolPortal("1437"),
      	managerRoleId: managerRoleId]
 	}
 
