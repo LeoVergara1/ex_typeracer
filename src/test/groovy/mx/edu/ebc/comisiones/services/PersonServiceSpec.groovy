@@ -20,9 +20,6 @@ class PersonServiceSpec extends Specification{
 
 	@Autowired
   PersonService personService
-	@Autowired
-  RestConnectionService restConnectionService
-
 
   def "Spect 000 Check service inject"() {
     when:

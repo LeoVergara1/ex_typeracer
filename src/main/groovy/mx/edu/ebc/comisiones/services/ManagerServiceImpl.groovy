@@ -21,10 +21,8 @@ class ManagerServiceImpl implements ManagerService {
   private static String DB_ERROR = "ERROR, data base error"
   private static String SUCCESS = "Operation succesfully achieved..."
 
-  @Autowired
-  RestConnectionService restConnectionService
-	@Value('${url.apicomisiones}')
-	String clientComissions
+  @Value('${url.apicomisiones}')
+  String clientComissions
   @Autowired
   ProgramManagerRepository programManagerRepository
   @Autowired

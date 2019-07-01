@@ -8,7 +8,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal
 import org.springframework.beans.factory.annotation.Value
-import mx.edu.ebc.comisiones.services.RestConnectionService
 import org.springframework.security.core.userdetails.UserDetailsService
 import mx.edu.ebc.comisiones.services.PersonService
 import mx.edu.ebc.comisiones.pojos.Profile
@@ -24,8 +23,6 @@ class CasInterceptor implements HandlerInterceptor {
   String clientApiBannerSeguridad
   String roles = "v2/api/user/profile"
   String profiles = "v2/api/user/role"
-  @Autowired
-  RestConnectionService restConnectionService
   @Autowired
   PersonService personService
 
