@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.Query
 public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
   List<Campaign> findAll()
   List<Campaign> findAllByYear(String year)
+	Campaign findByPeriodAndStatus(Integer period, String status)
 }

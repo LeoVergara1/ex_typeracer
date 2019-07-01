@@ -18,6 +18,8 @@ class CalculationServiceSpec extends Specification{
 
 	@Autowired
   CalculationService calculationService
+	@Autowired
+	CampaignRepository campaignRepository
 
 
   def "Spect 000 Check service inject"() {
@@ -26,5 +28,16 @@ class CalculationServiceSpec extends Specification{
     then:
     assert calculationService
   }
+
+	def "Get Authorization by semester"(){
+		given: "Semester"
+			def campaign = campaignRepository.findByPeriodAndStatus(20, "ACTIVE")
+		when: ""
+			def result = calculationService.getAuthorizationsByCampaign(campaign)
+		then: ""
+			result
+
+
+	}
 
 }
