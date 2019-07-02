@@ -7,7 +7,12 @@ import javax.persistence.JoinColumns
 import javax.persistence.ManyToOne
 import javax.persistence.Table
 import javax.persistence.Column
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id")
 @Entity
 @Table(name = "ASOCIACION_PROMOTOR")
 class Promoter {

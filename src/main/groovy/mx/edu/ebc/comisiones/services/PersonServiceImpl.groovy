@@ -5,24 +5,17 @@ import mx.edu.ebc.comisiones.pojos.*
 import org.springframework.beans.factory.annotation.Value
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import mx.edu.ebc.api.service.ManagerService
-//import mx.edu.ebc.api.service.PromoterAsignmentService
-//import mx.edu.ebc.api.service.PromoterService
-//import mx.edu.ebc.api.service.RestConnectionService
-//import mx.edu.ebc.api.service.PersonService
-//import mx.edu.ebc.api.service.ProfileService
-//import mx.edu.ebc.api.service.SecurityApiService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
+import mx.edu.ebc.comisiones.network.NetworkService
+import mx.edu.ebc.comisiones.network.HTTPMethod
 
 @Service
 class PersonServiceImpl implements PersonService {
 
 	  Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class)
 
- 		@Autowired
- 		RestConnectionService restConnectionService
 		@Value('${url.apibannercomisiones}')
 		String clientApiBannerComissions
 		@Value('${url.apibannerseguridad}')
@@ -33,10 +26,6 @@ class PersonServiceImpl implements PersonService {
 		String managerRoleID
 		@Value('${promoterRoleId}')
 		String promoterRoleId
- // @Autowired
- // Properties properties
- // @Autowired
- // ProfileService profileService
  		@Autowired
  		CampusService campusService
     @Autowired
@@ -49,42 +38,27 @@ class PersonServiceImpl implements PersonService {
     PromoterService promoterService
     @Autowired
     UserCampusService userCampusService
- // @Autowired
- // ManagerService managerService
- // @Autowired
- // Map rolesMap
 
- // @Override
- // JSONObject findByUsername(String username) {
- // }
+  Person findPersonByUsername(String username) {
+    Person.fromJsonObject(
+      NetworkService.buildRequest(clientApiBannerComissions){
+          endpointUrl "/v1/api/person/${username}"
+      }.execute().json
+    )
+  }
 
- // @Override
-Person findPersonByUsername(String username) {
-	Person.fromJsonObject(restConnectionService.get(clientApiBannerComissions, "/v1/api/person/${username}"))
-}
-
-@Override
- Person setProfile(Person person, String portalName){
-	 person.profiles =  findPersonByUsernameAndPortalName(person.userName, portalName)
-   (!person.profiles) ? (person.profiles = []) : "Nothing"
-   person
- }
+  @Override
+  Person setProfile(Person person, String portalName){
+ 	 person.profiles =  findPersonByUsernameAndPortalName(person.userName, portalName)
+    (!person.profiles) ? (person.profiles = []) : "Nothing"
+    person
+  }
 
   @Override
   Person setCampuses(Person person){
     person.campuses = campusService.getAllCampusesforUser("FutureCampus",person.userName)
     person
   }
-
- // @Override
- // List<RoleCommand> getRoles(String portalName){
- //   List<RoleCommand> roles = []
- //   List<JSONObject> jsonObject = restConnectionService.get(properties.getProperty("core.url.apibannerseguridad"), "/v2/api/application/roles/${portalName}")
- //   jsonObject?.each{role ->
- //     roles << RoleCommand.convertJSONtoRoles(role)
- //   }
- //   roles
- // }
 
   @Override
   def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
@@ -125,9 +99,14 @@ Person findPersonByUsername(String username) {
   @Override
   Map deleteCampusAndRolToPerson(String username, String codeCampus, String roleCode) {
     logger.info "Deleting user: $username"
-   def statusCampus =  userCampusService.deleteByCodeCampusAndUserName(codeCampus, username)
+    def statusCampus =  userCampusService.deleteByCodeCampusAndUserName(codeCampus, username)
 
-    def statusRole =  restConnectionService.delete(clientApiBannerSeguridad,"/v2/api/user/role/", [user_name: username, role_id: roleCode])
+    def statusRole = NetworkService.buildRequest(clientApiBannerSeguridad){
+       endpointUrl "/v2/api/user/role/"
+       method HTTPMethod.DELETE
+       query([user_name: username, role_id: roleCode])
+    }.execute()
+
     if(roleCode==managerRoleID){
       logger.info "Manager Role detected, deleting..."
       logger.info managerService.deleteManager(username) ? "Success" : "Error"
@@ -136,8 +115,8 @@ Person findPersonByUsername(String username) {
       logger.info promoterService.deletePromoter(username) ? "Success" : "Error"
     }
 
-   [statusRole:statusRole?.statusCode,
-   statusCampus: statusCampus?.statusCode]
+    [statusRole:statusRole?.statusCode,
+    statusCampus: statusCampus?.statusCode]
   }
 
 
@@ -153,17 +132,18 @@ Person findPersonByUsername(String username) {
 
   @Override
   List<Profile> findPersonByUsernameAndPortalName(String userName, String portalName){
-    List<JSONObject> jsonObject = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/role/${userName}/${portalName}")
-    jsonObject?.collect{ profile ->
+    def jsonObject = NetworkService.buildRequest(clientApiBannerSeguridad){
+      endpointUrl "/v2/api/user/role/${userName}/${portalName}"
+    }.execute()?.json
+   jsonObject?.collect{ profile ->
       Profile.fromJsonObject(profile)
     }
   }
 
   def getMenusToPerson(String userName){
-    def result = restConnectionService.get(clientApiBannerSeguridad, "/v2/api/user/profile/${userName}/comisiones-li")
-    println "Init buil"
-    result?.accessProfile.collect(){ menu ->
-      println menu
+    NetworkService.buildRequest(clientApiBannerSeguridad){
+      endpointUrl "/v2/api/user/profile/${userName}/comisiones-li"
+    }.execute()?.json?.accessProfile.collect(){ menu ->
       [
         shortName: menu.shortName,
         submenus: menu.accessProfile.collect(){ [ url: it.url, shortName: it.shortName] }

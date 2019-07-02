@@ -87,15 +87,6 @@ class AdministrarionController {
   @ResponseBody
   public ModelAndView administrationShow(Principal principal) {
 		ModelAndView model = new ModelAndView("index");
-		//def usuarioCas = ((CasAuthenticationToken) principal).getUserDetails()
-		//EbcUser usuarioCas = (EbcUser) ((CasAuthenticationToken) principal).getUserDetails()
-		//println session.dump()
-		//println session.properties.each { k, v -> println "$k == ${v?.dump()}" }
-		//println "*"*100
-		//println session.session.dump()
-		//println "+"*100
-		//println session.session.properties.each { k, v -> println "$k == ${v?.dump()}" }
-		//def user = 	userDetailsService.loadUserByUsername(session.session.username)
 		model.addObject("content", "show");
 		model.addObject("comisionesList", administrationService.findAllComission());
 		model.addObject("comissionEjecutiva", administrationService.findAllComission().first().comisionEjecutivo);

@@ -3,21 +3,20 @@ package mx.edu.ebc.comisiones.services
 import mx.edu.ebc.comisiones.enumeration.AdministratorAccess
 import mx.edu.ebc.comisiones.pojos.Person
 import mx.edu.ebc.comisiones.pojos.SecurityUser
-import mx.edu.ebc.comisiones.services.RestConnectionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Value
 import wslite.json.JSONObject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import mx.edu.ebc.comisiones.network.NetworkService
+import mx.edu.ebc.comisiones.network.HTTPMethod
 
 @Service
 class SecurityApiServiceImpl implements SecurityApiService{
 
 	Logger logger = LoggerFactory.getLogger(SecurityApiServiceImpl.class)
 
-  @Autowired
-  RestConnectionService restConnectionService
   @Autowired
   PersonService personService
 	@Value('${url.apibannercomisiones}')
@@ -30,16 +29,17 @@ class SecurityApiServiceImpl implements SecurityApiService{
     "Creando usuario $name con nombre de usuario $userName"
     Integer statusCode
     logger.info "Se inicia el proceso para registrar un nuevo usuario mediante API-SEGURIDAD username: $userName, idEnrollment: $idEnrollement"
-    def response = restConnectionService.post(
-            clientApiBannerSeguridad,
-            "/v2/api/user/",
-            [
+    def response = NetworkService.buildRequest(clientApiBannerSeguridad){
+       endpointUrl "/v2/api/user/"
+       method HTTPMethod.POST
+       query([
                     name: name,
                     email: email,
                     user_name: userName,
                     administrator: accessLvl.value.toString(),
                     id_enrollment: idEnrollement
             ])
+    }.execute()
     response instanceof Integer ? (statusCode = response) : (statusCode = response?.statusCode)
     if ([400,409,412].find { it == statusCode }) {
       logger.error "Error al crear un nuevo usuario en api-seguridad service statusCode: $statusCode"
@@ -81,9 +81,9 @@ class SecurityApiServiceImpl implements SecurityApiService{
   @Override
   SecurityUser findSecurityUserByUserName(String userName) {
     logger.info "Buscando usuario en api-seguridad"
-    JSONObject jsonObject = restConnectionService.get(
-            clientApiBannerSeguridad,
-            "/v2/api/user/$userName")
+    def jsonObject = NetworkService.buildRequest(clientApiBannerSeguridad){
+      endpointUrl "/v2/api/user/$userName"
+    }.execute()?.json
     jsonObject ?
             new SecurityUser(jsonObject).fromJSONObjectToSecurityUser() :
             null
@@ -93,7 +93,11 @@ class SecurityApiServiceImpl implements SecurityApiService{
   Boolean assignRoleToSecurityUser(String userName, Long roleId) {
     logger.info "Asignando rol $roleId a usuario $userName"
     Integer statusCode
-    def response =  restConnectionService.post(clientApiBannerSeguridad,"/v2/api/user/role/", [user_name: userName, role_id: roleId])
+    def response = NetworkService.buildRequest(clientApiBannerSeguridad){
+      endpointUrl "/v2/api/user/role/"
+      method HTTPMethod.POST
+      query([user_name: userName, role_id: roleId])
+    }.execute()
     if (response instanceof Integer)
       statusCode = response
     else

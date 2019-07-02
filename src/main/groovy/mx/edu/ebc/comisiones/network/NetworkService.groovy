@@ -2,7 +2,7 @@ package mx.edu.ebc.comisiones.network
 
 class NetworkService {
 
-	def buildRequest(String url, @DelegatesTo(Request) Closure cl){
+	static buildRequest(String url, @DelegatesTo(Request) Closure cl){
     def request = new Request(url)
     def code = cl.rehydrate(request, this, this)
     code.resolveStrategy = Closure.DELEGATE_ONLY

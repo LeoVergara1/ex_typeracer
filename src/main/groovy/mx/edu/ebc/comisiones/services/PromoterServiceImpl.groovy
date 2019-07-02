@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 import mx.edu.ebc.comisiones.comision.repo.UserCampusRepository
 import mx.edu.ebc.comisiones.comision.repo.ProgramManagerRepository
-
+import mx.edu.ebc.comisiones.network.NetworkService
 
 @Service
 class PromoterServiceImpl implements PromoterService{
@@ -29,9 +29,6 @@ class PromoterServiceImpl implements PromoterService{
   private static String DB_ERROR = "ERROR, data base error"
   private static String SUCCESS = "Operation succesfully achieved..."
 
-
-  @Autowired
-  RestConnectionService restConnectionService
   @Autowired
   Properties properties
 	@Value('${url.apicomisiones}')
@@ -98,10 +95,9 @@ class PromoterServiceImpl implements PromoterService{
   @Memoized
   List<PromoterCode> getRecrCodeCatalogue() {
     logger.info "Retrieving all Promoters in stvrecr catalogue"
-    List<JSONObject> response = restConnectionService.get(
-            clientApiBannerComission,
-            "/v1/api/promoters/recr_code_catalogue"
-    )
+    def response = NetworkService.buildRequest(clientApiBannerComission){
+      endpointUrl "/v1/api/promoters/recr_code_catalogue"
+    }.execute()?.json
     response.inject([]) { listOfPromoterBanner, jsonObject ->
       listOfPromoterBanner << PromoterCommand.createPromoterBannerForRecrCodeFromJSONObject(jsonObject)
       listOfPromoterBanner
@@ -111,9 +107,9 @@ class PromoterServiceImpl implements PromoterService{
   @Override
   Boolean isRecruiterCodeAlreadyInUse(String recrCode) {
     logger.info "Verifying recrCode in api-comisiones: $recrCode"
-    JSONObject response = restConnectionService.get(
-            clientComissions,
-            "/v1/api/promoter/recruiter_code/occupied/$recrCode")
+    def response = NetworkService.buildRequest(clientComissions){
+      endpointUrl "/v1/api/promoter/recruiter_code/occupied/$recrCode"
+    }.execute()?.json
     logger.info "${response}"
     response ?
             new Boolean(response?.isValid)
@@ -121,8 +117,9 @@ class PromoterServiceImpl implements PromoterService{
   }
 
   List<Promoter> getPromotersOfManager(String username){
-    def response = restConnectionService.get(clientComissions,
-      "/v1/api/manager/program/${username}/promoters/",[:])
+    def response = NetworkService.buildRequest(clientComissions){
+      endpointUrl "/v1/api/manager/program/${username}/promoters/"
+    }.execute()?.json
     response.collect{ promoter ->
       new Promoter(promoter)
     }

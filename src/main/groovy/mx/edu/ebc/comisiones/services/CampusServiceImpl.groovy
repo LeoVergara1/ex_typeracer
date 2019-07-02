@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
+import mx.edu.ebc.comisiones.network.NetworkService
 
 @Service
 class CampusServiceImpl implements CampusService {
 
-  @Autowired
-  RestConnectionService restConnectionService
   @Value('${url.apibannercomisiones}')
 	String clientApiBannerComissions
   @Value('${url.apicomisiones}')
@@ -21,14 +20,11 @@ class CampusServiceImpl implements CampusService {
   @Autowired
   UserCampusService userCampusService
 
-  @Override
-  List<JSONObject> findAll() {
-    restConnectionService.get(clientApiBannerComissions, "/v1/api/campuses", [:])
-  }
-
   @Memoized
   List<Campus> list() {
-    findAll().collect {
+    NetworkService.buildRequest(clientApiBannerComissions){
+      endpointUrl "/v1/api/campuses"
+    }.execute().json.collect {
       Campus.fromJsonObject(it)
     }
   }

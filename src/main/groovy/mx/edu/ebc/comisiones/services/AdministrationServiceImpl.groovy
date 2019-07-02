@@ -28,8 +28,6 @@ public class AdministrationServiceImpl implements AdministrationService {
 	AdminDeComisionesRepository adminDeComisionesRepository
 	@Autowired
 	PersonRepository personRepository
-	@Autowired
-	RestConnectionService restConnectionService
 	@Value('${url.apibannercomisiones}')
 	String clientApiBannerComissions
 	@Value('${managerRoleID}')
@@ -100,7 +98,7 @@ public class AdministrationServiceImpl implements AdministrationService {
     }
     //Map mapRol = personService.getRolesFromProperties()
     [person:person,
-    	mapRol: rolesRepository.findAllByNidRolPortal("1437"),
+    	mapRol: rolesRepository.findAllByNidRolPortal("1430"),
      	managerRoleId: managerRoleId]
 	}
 
@@ -116,7 +114,6 @@ public class AdministrationServiceImpl implements AdministrationService {
   @Override
   List<RoleCommand> getRoles(String portalName){
    // List<RoleCommand> roles = []
-   // List<JSONObject> jsonObject = restConnectionService.get(properties.getProperty("core.url.apibannerseguridad"), "/v2/api/application/roles/${portalName}")
    // jsonObject?.each{role ->
    //   roles << RoleCommand.convertJSONtoRoles(role)
    // }
