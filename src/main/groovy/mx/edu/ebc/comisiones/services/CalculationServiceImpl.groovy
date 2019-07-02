@@ -20,14 +20,21 @@ class CalculationServiceImpl implements CalculationService {
 
 	@Autowired
 	AuthorizationRepository authorizationRepository
+	@Autowired
+	CampaignRepository campaignRepository
 
 	def getAuthorizationsByCampaign(Campaign campaign){
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate)
 	}
 
 	Boolean validateGoal(Goal goal) {
-		println goal
+		println goal.dump()
+		Campaign campaign = getCampaignByTrimester(goal.trimester)
 		false
+	}
+
+	Campaign getCampaignByTrimester(Trimester trimester){
+		campaignRepository.findByPeriodAndStatus(trimester.period, "ACTIVE")
 	}
 
 }

@@ -42,9 +42,9 @@ class CalculationServiceSpec extends Specification{
 
 	def "Init Validations to goal '(meta)'"(){
 		given: "Semester"
-			def goal = goalRepository.findAll().first
+			def goal = goalRepository.findAll().first()
 		when: ""
-			def result = calculationService.getAuthorizationsByCampaign(campaign)
+			def result = calculationService.validateGoal(goal)
 		then: ""
 			result
 	}
