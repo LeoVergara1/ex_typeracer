@@ -25,4 +25,9 @@ class CalculationServiceImpl implements CalculationService {
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate)
 	}
 
+	Boolean validateGoal(Goal goal) {
+		println goal
+		false
+	}
+
 }

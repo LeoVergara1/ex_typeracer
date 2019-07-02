@@ -36,6 +36,7 @@ class AuthorizationRepositorySpec extends Specification{
 			result
 	}
 
+	@Ignore
 	def "findByIdPromotorAndIdCoordinadorAndIdAlumno"(){
 		when:
 			def result = authorizationRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno("M00253895","M00130851","M00994209")

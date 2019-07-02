@@ -8,6 +8,7 @@ import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import spock.lang.Specification
+import spock.lang.Ignore
 
 @SpringBootTest
 @ContextConfiguration
@@ -25,6 +26,7 @@ class ProgramManagerServiceSpec extends Specification{
     assert programManagerService
   }
 
+	@Ignore
 	def "Find program manager"(){
 		given: "by username"
 			String username = "vi.mendoza"
@@ -34,6 +36,7 @@ class ProgramManagerServiceSpec extends Specification{
 			assert result
 	}
 
+	@Ignore
 	def "Find program manager by reCred"(){
 		given: "by username"
 			String recCred = "HG87"

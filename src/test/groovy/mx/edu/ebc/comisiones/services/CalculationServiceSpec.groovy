@@ -20,6 +20,8 @@ class CalculationServiceSpec extends Specification{
   CalculationService calculationService
 	@Autowired
 	CampaignRepository campaignRepository
+	@Autowired
+	GoalRepository goalRepository
 
 
   def "Spect 000 Check service inject"() {
@@ -36,8 +38,15 @@ class CalculationServiceSpec extends Specification{
 			def result = calculationService.getAuthorizationsByCampaign(campaign)
 		then: ""
 			result
+	}
 
-
+	def "Init Validations to goal '(meta)'"(){
+		given: "Semester"
+			def goal = goalRepository.findAll().first
+		when: ""
+			def result = calculationService.getAuthorizationsByCampaign(campaign)
+		then: ""
+			result
 	}
 
 }
