@@ -5,7 +5,7 @@ import groovy.transform.Memoized
 import mx.edu.ebc.comisiones.pojos.Campus
 import mx.edu.ebc.comisiones.pojos.UserCampusCommand
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import mx.edu.ebc.comisiones.comision.domain.Goal
@@ -15,7 +15,7 @@ import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
 import mx.edu.ebc.comisiones.comision.domain.Trimester;
 
-@Service
+@Component
 class CalculationServiceImpl implements CalculationService {
 
 	@Autowired
@@ -34,6 +34,9 @@ class CalculationServiceImpl implements CalculationService {
 	}
 
 	Campaign getCampaignByTrimester(Trimester trimester){
+		println trimester.dump()
+		println "*"*100
+		Integer period =  trimester.clave.take(2).toInteger()
 		campaignRepository.findByPeriodAndStatus(trimester.period, "ACTIVE")
 	}
 
