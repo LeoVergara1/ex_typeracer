@@ -33,6 +33,8 @@ var app = new Vue({
 
   },
   created: function() {
+    let container = document.getElementById("app")
+    container.classList.remove("display_current")
       this.loader.loading = true
       this.$http.get('/authorization/campueses').then(response => {
         this.campuses = response.body.campus

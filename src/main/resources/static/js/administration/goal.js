@@ -61,16 +61,18 @@ var app = new Vue({
 
   },
   created: function() {
-      this.loader.loading = true
-      this.$http.get('/authorization/campueses').then(response => {
-        this.campuses = response.body.campus
-        this.person = response.body.person.person
-        this.loader.loading = false
-      }, response => {
-        console.log("Fail")
-        console.log(response)
-      })
-      this.getCampaings()
+    let container = document.getElementById("app")
+    container.classList.remove("display_current")
+    this.loader.loading = true
+    this.$http.get('/authorization/campueses').then(response => {
+      this.campuses = response.body.campus
+      this.person = response.body.person.person
+      this.loader.loading = false
+    }, response => {
+      console.log("Fail")
+      console.log(response)
+    })
+    this.getCampaings()
   },
   methods:{
     addTrimester() {

@@ -1,4 +1,4 @@
-<div th:fragment="company" id=app>
+<div th:fragment="company" id=app class="display_current">
 	<div class="loading" v-if="loader.loading" style="height: 205%;"></div>
 	<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 	<vue-snotify></vue-snotify	>
@@ -11,7 +11,7 @@
 	<hr>
 	<div class="row">
 		<div class="col-md-3 col-lg-3">
-			<label for="exampleInputName2">Nombre de campaña</label>
+			<label for="exampleInputName2">Nombre de trimestre</label>
 			<input type="text" class="form-control" id="exampleInputAmount" v-model="dataToSearch.name">
 		</div>
 		<div class="col-md-3 col-lg-3">
@@ -63,7 +63,7 @@
 		<table class="table table-bordered table-striped">
 		 <tbody><tr>
 				 <th>Clave</th>
-				 <th>Nombre de campaña</th>
+				 <th>Nombre de trimestre</th>
 				 <th>Fecha inicio</th>
 				 <th>Fecha fin</th>
 				 <th></th>
@@ -114,7 +114,7 @@
 		<table class="table table-bordered table-striped">
 		 <tbody><tr>
 				 <th>Clave</th>
-				 <th>Nombre de campaña</th>
+				 <th>Nombre de trimestre</th>
 				 <th>Fecha inicio</th>
 				 <th>Fecha fin</th>
 				 <th></th>

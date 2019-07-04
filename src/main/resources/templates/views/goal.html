@@ -1,4 +1,4 @@
-<div th:fragment="goal" id="app">
+<div th:fragment="goal" id="app" class="display_current">
   <div class="loading" v-if="loader.loading" style="height: 505%;"></div>
   <ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
   <vue-snotify></vue-snotify>
@@ -42,7 +42,7 @@
         <tbody>
           <tr>
             <th>Clave</th>
-            <th>Nombre de campaña</th>
+            <th>Nombre de trimestre</th>
             <th>Fecha inicio</th>
             <th>Fecha fin</th>
             <th>Metas</th>
