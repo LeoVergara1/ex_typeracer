@@ -4,7 +4,7 @@ import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones
 import mx.edu.ebc.comisiones.pojos.*
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 
-public interface AdministrationService {
+interface AdministrationService {
 	List<AdminDeComisiones> findAllComission()
 	List<Promoter> findAllPromoters()
 	AdminDeComisiones updateCuotaFijaToComission(String id, String cuotaFija)

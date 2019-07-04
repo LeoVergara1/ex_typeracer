@@ -25,6 +25,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PathVariable
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat
 
@@ -41,7 +42,7 @@ class AuthorizationController {
 
   @RequestMapping("/")
   @ResponseBody
-  public ModelAndView authorization() {
+  ModelAndView authorization() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "authorization");
 		//def list = adminDeComisionesRepository.findAll()
@@ -50,20 +51,20 @@ class AuthorizationController {
 
 	@GetMapping("/campueses")
   @ResponseBody
-  public Map campueses(HttpServletRequest request) {
+  Map campueses(HttpServletRequest request) {
 		String username = request.getUserPrincipal().getUserDetails().username
 		return [campus: campus, person: administrationService.getPersonWithValidations(username)];
   }
 
 	@PostMapping("/getCalculation")
   @ResponseBody
-  public Map getCalculation(@RequestBody Map data) {
+  Map getCalculation(@RequestBody Map data) {
 		authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
   }
 
 	@PostMapping("/sendAuthorization")
   @ResponseBody
-  public Map sendAuthorization(HttpServletRequest request, @RequestBody Map data) {
+  Map sendAuthorization(HttpServletRequest request, @RequestBody Map data) {
 		String username = request.getUserPrincipal().getUserDetails().username
 		authorizationService.saveListAuthorization(data.listAuthorization, username)
 		[response: 200]
@@ -71,16 +72,15 @@ class AuthorizationController {
 
   @RequestMapping("/query")
   @ResponseBody
-  public ModelAndView queryAuthorization() {
+  ModelAndView queryAuthorization() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "queryAuthorization");
-		//def list = adminDeComisionesRepository.findAll()
 		return model
   }
 
   @PostMapping("/query/searchCommisions")
   @ResponseBody
-  public Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
+  Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
 		def list = authorizationService.getCommissionsByStatus(data)
 		def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
 		[response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
@@ -88,12 +88,19 @@ class AuthorizationController {
 
 	@PostMapping("/sicoss")
   @ResponseBody
-  public Map sicoss(HttpServletRequest request, @RequestBody Map data) {
+  Map sicoss(HttpServletRequest request, @RequestBody Map data) {
 		String username = request.getUserPrincipal().getUserDetails().username
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
 		def result = authorizationService.getAllAuthorizationsCommisionsWithStructureToReport("AUTORIZADO", initDateFrom, finDateFrom , data.campusSelected)
 		return [response: result, groups: result.groupBy({ it.campus })]
   }
+
+  @PostMapping("/denegate")
+  @ResponseBody
+  Map queryAuthorizationSearchCommissions(@RequestBody AuthorizationComission comision) {
+		[response:200]
+  }
+
 
 }

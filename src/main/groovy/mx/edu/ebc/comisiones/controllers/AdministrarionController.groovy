@@ -75,7 +75,7 @@ class AdministrarionController {
 
   @RequestMapping("/")
   @ResponseBody
-  public ModelAndView home() {
+  ModelAndView home() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "home");
 		model.addObject("title", "Baeldung");
@@ -85,7 +85,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/show")
   @ResponseBody
-  public ModelAndView administrationShow(Principal principal) {
+  ModelAndView administrationShow(Principal principal) {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "show");
 		model.addObject("comisionesList", administrationService.findAllComission());
@@ -97,7 +97,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/association")
   @ResponseBody
-  public ModelAndView association() {
+  ModelAndView association() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "association");
 		model.addObject("listAssociation", administrationService.findAllPromoters())
@@ -106,7 +106,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/association/{username}")
   @ResponseBody
-  public ModelAndView association(@PathVariable(value="username") String username) {
+  ModelAndView association(@PathVariable(value="username") String username) {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "registerAssociation");
 		model.addObject("username", username);
@@ -116,14 +116,14 @@ class AdministrarionController {
 
 	@GetMapping("administration/updateCuotaFija")
   @ResponseBody
-  public RedirectView updateCuotaFija(@RequestParam(name = "id") String id, @RequestParam(name = "cuotaFija") String cuotaFija) {
+  RedirectView updateCuotaFija(@RequestParam(name = "id") String id, @RequestParam(name = "cuotaFija") String cuotaFija) {
 		administrationService.updateCuotaFijaToComission(id, cuotaFija)
 		return new RedirectView("/administration/show");
   }
 
 	@GetMapping("administration/updateComission")
   @ResponseBody
-  public RedirectView updateComission(@RequestParam(name = "comissionEjecutiva") String comissionEjecutiva, @RequestParam(name = "comissionCordinacion") String comissionCordinacion) {
+  RedirectView updateComission(@RequestParam(name = "comissionEjecutiva") String comissionEjecutiva, @RequestParam(name = "comissionCordinacion") String comissionCordinacion) {
 		administrationService.updateComissions(comissionEjecutiva, comissionCordinacion)
 		return new RedirectView("/administration/show");
   }
@@ -136,7 +136,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/data/association")
   @ResponseBody
-  public Map getInfoAssociation() {
+  Map getInfoAssociation() {
 		Map data = [
 			campus: campus,
 			listAssociation: administrationService.findAllPromoters()
@@ -147,14 +147,14 @@ class AdministrarionController {
 	//@RequestMapping(path = "administration/search/association", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PostMapping("administration/search/association")
   @ResponseBody
-  public Map getInfoAssociationCoordinater(@RequestBody Map searchData) {
+  Map getInfoAssociationCoordinater(@RequestBody Map searchData) {
 		Map infoPerson = administrationService.getPersonWithValidations(searchData.user)
     return infoPerson
   }
 
 	@PostMapping("administration/save/association")
   @ResponseBody
-  public Map saveAssociation(@RequestBody Map associationData) {
+  Map saveAssociation(@RequestBody Map associationData) {
 		Map infoPerson = administrationService.saveAssociation(associationData.listPromoterToUser, associationData.person)
     return infoPerson
   }
@@ -176,7 +176,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/company")
   @ResponseBody
-  public ModelAndView company() {
+  ModelAndView company() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "company");
 		return model
@@ -224,7 +224,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/goals")
   @ResponseBody
-  public ModelAndView goal() {
+  ModelAndView goal() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "goal");
 		return model
@@ -244,7 +244,7 @@ class AdministrarionController {
 
   @RequestMapping("administration/campaign")
   @ResponseBody
-  public ModelAndView campaign() {
+  ModelAndView campaign() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "campaign");
 		return model

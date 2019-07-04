@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.Query
 
 @Repository
-public interface TrimesterRepository extends JpaRepository<Trimester, Integer> {
+interface TrimesterRepository extends JpaRepository<Trimester, Integer> {
 	List<Trimester> findAll()
 	List<Trimester> findAllByYear(String year)
 	Trimester findByClave(String clave)

@@ -2,7 +2,7 @@ package mx.edu.ebc.comisiones.comision.domain
 
 import java.util.Date;
 
-public class AutorizacionComisiones {
+class AutorizacionComisiones {
 
   Long id;
   String campus;

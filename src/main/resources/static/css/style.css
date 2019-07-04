@@ -707,3 +707,8 @@ table#unidades td>a span{
 .display_current {
 	display: none !important;
 }
+
+a.active {
+	background-color: #0092D0 !important;
+	color: white !important;
+}

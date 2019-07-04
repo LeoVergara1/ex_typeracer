@@ -17,23 +17,23 @@ import com.zaxxer.hikari.HikariDataSource
 import org.apache.commons.dbcp.BasicDataSource
 
 @Configuration
-public class DataSourceConfigSeguridad {
+class DataSourceConfigSeguridad {
 
 @Bean
 @ConfigurationProperties("db2.datasource")
-public DataSourceProperties secondDataSourceProperties() {
+DataSourceProperties secondDataSourceProperties() {
 	return new DataSourceProperties();
 }
 
 @Bean
 @ConfigurationProperties("db2.datasource.configuration")
-public BasicDataSource secondDataSource() {
+BasicDataSource secondDataSource() {
 	return secondDataSourceProperties().initializeDataSourceBuilder()
 			.type(BasicDataSource.class).build();
 }
 
 @Bean
-public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
+LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder
 			.dataSource(secondDataSource())

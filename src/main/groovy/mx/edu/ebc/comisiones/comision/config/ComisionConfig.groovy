@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @EnableJpaRepositories(basePackages = ["mx.edu.ebc.comisiones.comision.repo"],
 		entityManagerFactoryRef = "firstEntityManagerFactory")
-public class ComisionConfig {
+class ComisionConfig {
 
 }

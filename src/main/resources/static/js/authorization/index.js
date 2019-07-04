@@ -12,6 +12,8 @@ var app = new Vue({
     alumns: [],
     listPromoterToUser: [],
     date: '2019/01/01',
+    comissionsGroups: [],
+    totalCommissionPromoter: 0,
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -49,6 +51,8 @@ var app = new Vue({
     }
   },
   created: function() {
+    let container = document.getElementById("app")
+    container.classList.remove("display_current")
     this.loader.loading = true
     this.$http.get('/authorization/campueses').then(response => {
       console.log(response.body);
@@ -61,9 +65,26 @@ var app = new Vue({
     })
   },
   methods:{
+    calculateComissionByPromoter (commissions){
+      let cost = 0
+      commissions.forEach(element => {
+         cost = element.comision + cost
+      });
+      this.totalCommissionPromoter =  cost.toFixed(2)
+    },
     setAuthorization(alumno, { target }){
       (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
       console.log(target.checked)
+    },
+    denegateAuthorization(alumno){
+      console.log(alumno)
+      this.loader.loading = true
+      this.$http.post(`/authorization/denegate`, alumno).then(response => {
+        console.log(response.body);
+        this.loader.loading = false
+      }, response => {
+        console.log(response)
+      })
     },
     sendAuthorization(){
       let listTosend = this.alumns.filter(alumno => alumno.autorizadoDirector == "AUTORIZADO")
@@ -90,6 +111,7 @@ var app = new Vue({
         console.log(response.body);
         this.loader.loading = false
         this.alumns = response.body.out_comisiones
+        this.comissionsGroups = response.body.comissionsGroups
       }, response => {
         console.log("Fail")
         console.log(response)

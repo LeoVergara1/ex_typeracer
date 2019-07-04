@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository
 
 @Repository
-public interface PromoterRepository extends JpaRepository<Promoter,PidmAndUserNamePK> {
+interface PromoterRepository extends JpaRepository<Promoter,PidmAndUserNamePK> {
   List<Promoter> findAll()
 	Promoter findOneById_UserName(String userName)
   Promoter findOneById_Pidm(Long pidm)

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.Query
 
 @Repository
-public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
+interface CampaignRepository extends JpaRepository<Campaign, Integer> {
   List<Campaign> findAll()
   List<Campaign> findAllByYear(String year)
 	Campaign findByPeriodAndStatus(Integer period, String status)

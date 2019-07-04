@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository
 
 @Repository
-public interface ProgramManagerRepository extends JpaRepository<ProgramManager,PidmAndUserNamePK> {
+interface ProgramManagerRepository extends JpaRepository<ProgramManager,PidmAndUserNamePK> {
 
   ProgramManager findOneById_UserName(String userName)
   ProgramManager findOneById_Pidm(Long pidm)

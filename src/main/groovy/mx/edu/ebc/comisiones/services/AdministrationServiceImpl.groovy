@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat
 
 
 @Service
-public class AdministrationServiceImpl implements AdministrationService {
+class AdministrationServiceImpl implements AdministrationService {
 
 	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository

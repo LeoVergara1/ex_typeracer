@@ -7,10 +7,10 @@ import mx.edu.ebc.comisiones.comision.domain.AutorizacionComisiones;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class AutorizacionComisionesMapper implements RowMapper<AutorizacionComisiones> {
+class AutorizacionComisionesMapper implements RowMapper<AutorizacionComisiones> {
 
 	@Override
-	public AutorizacionComisiones mapRow(ResultSet rs, int rowNum) throws SQLException {
+	AutorizacionComisiones mapRow(ResultSet rs, int rowNum) throws SQLException {
 		AutorizacionComisiones autorizacionComisiones = new AutorizacionComisiones();
 		autorizacionComisiones.setCampus(rs.getString("CAMPUS"));
 		autorizacionComisiones.setIdPromotor(rs.getString("ID_PROMOTOR"));

@@ -1,6 +1,6 @@
 <div th:fragment="authorization">
 	<br>
-	<div id="app">
+	<div id="app" class="display_current">
 		<div class="loading" v-if="loader.loading"></div>
 		<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 		<div class="row">
@@ -85,65 +85,29 @@
 					<div class="card-body">
 							<div class="col-md-12 col-lg-12">
 									<ul class="nav nav-tabs">
-										<li class="active"><a data-toggle="tab" href="#todos">Todos</a></li>
-										<li><a data-toggle="tab" href="#promotor1">Gustavo González</a></li>
-										<li><a data-toggle="tab" href="#promotor2">Yazmín Cabrera</a></li>
-										<li><a data-toggle="tab" href="#promotor3">Jakopo Trejo</a></li>
+										<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos">Todos</a></li>
+										<li class="nav-item" v-for="(key, value) in comissionsGroups">
+											<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key)">{{key[0].nombrePromotor}}</a>
+										</li>
 									</ul>
 
 									<div class="tab-content">
 										<div id="todos" class="tab-pane fade in active">
 										</div>
 										<!--1-->
-										<div id="promotor1" class="tab-pane fade">
+										<div :id="'promotor' + value" class="tab-pane fade" v-for="(key, value) in comissionsGroups">
 											<div class="row">
 												 <br class="clear">
 													<div class="col-md-3 col-lg-3">
 															<div style="border: 1px solid silver; padding: 5px; background-color: rgb(223, 240, 216) !important;" class="bg-success text-success text-center">
 																	<h6 class="margin0">Comisión a pagar</h6>
-																	<h5 class="">$ 8,000.00</h5>
+																	<h5 class="">$ {{totalCommissionPromoter}}</h5>
 															</div>
 													</div>
 													<div class="col-md-3 col-lg-3">
 															<div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
 																	<h6 class="margin0">Ingresos</h6>
-																	<h5 class="">10</h5>
-															</div>
-													</div>
-											</div>
-										</div>
-										<!--1-->
-										<div id="promotor2" class="tab-pane fade">
-											<div class="row">
-												 <br class="clear">
-													<div class="col-md-3 col-lg-3">
-															<div style="border:1px solid silver; padding:5px;" class="bg-success text-success text-center">
-																	<h6 class="margin0">Comisión a pagar</h6>
-																	<h5 class="">$ 10,000.00</h5>
-															</div>
-													</div>
-													<div class="col-md-3 col-lg-3">
-															<div style="border:1px solid silver; padding:5px;" class="bg-info text-info text-center">
-																	<h6 class="margin0">Ingresos</h6>
-																	<h5 class="">10</h5>
-															</div>
-													</div>
-											</div>
-										</div>
-										<!--1-->
-										<div id="promotor3" class="tab-pane fade">
-											<div class="row">
-												 <br class="clear">
-													<div class="col-md-3 col-lg-3">
-															<div style="border:1px solid silver; padding:5px;" class="bg-success text-success text-center">
-																	<h6 class="margin0">Comisión a pagar</h6>
-																	<h5 class="">$ 7,000.00</h5>
-															</div>
-													</div>
-													<div class="col-md-3 col-lg-3">
-															<div style="border:1px solid silver; padding:5px;" class="bg-info text-info text-center">
-																	<h6 class="margin0">Ingresos</h6>
-																	<h5 class="">10</h5>
+																	<h5 class="">{{key.length}}</h5>
 															</div>
 													</div>
 											</div>
@@ -181,7 +145,7 @@
 												<td>15%</td>
 												<td>$1,850.00</td>
 												<td class="text-center"> <input type="checkbox" @change="setAuthorization(alumno, $event)"></td>
-												<td><a class="btn btn-xs btn-block btn-danger">Rechazar</a></td>
+												<td><button class="btn btn-xs btn-block btn-danger" @click="denegateAuthorization(alumno)">Rechazar</button></td>
 
 										</tr>
 									</tbody></table>

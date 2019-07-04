@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.Query
 
 @Repository
-public interface GoalRepository extends JpaRepository<Goal, Integer> {
+interface GoalRepository extends JpaRepository<Goal, Integer> {
 	List<Goal> findAll()
 	List<Goal> findAllByTrimester(Trimester trimester)
 }

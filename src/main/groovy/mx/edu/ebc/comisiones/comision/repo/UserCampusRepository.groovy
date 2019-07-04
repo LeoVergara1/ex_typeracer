@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param
 import org.springframework.data.jpa.repository.Query
 
 @Repository
-public interface UserCampusRepository extends JpaRepository<UserCampus,UserCampusComposite> {
+interface UserCampusRepository extends JpaRepository<UserCampus,UserCampusComposite> {
 	List<UserCampus> findByUserCampusPK_UserName(String userName)
 	@Query("select u from UserCampus u where u.userCampusPK.campusCode = :campusCode and u.userCampusPK.userName = :userName")
   UserCampus findByCampusCodeAndUserName(@Param("campusCode")String codeCampus, @Param("userName")String userName)

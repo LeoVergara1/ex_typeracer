@@ -15,13 +15,13 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AutorizacionComisionesStoredProcedure extends StoredProcedure {
+class AutorizacionComisionesStoredProcedure extends StoredProcedure {
 
 	private static final String STORED_PROCEDURE_NAME = "genpub.pc_pago_comisiones.pr_comisiones";
 	private static final String CURSOR_NAME = "out_comisiones";
 
 	@Autowired
-	public AutorizacionComisionesStoredProcedure(DataSource dataSource){
+	AutorizacionComisionesStoredProcedure(DataSource dataSource){
 		super(dataSource,STORED_PROCEDURE_NAME);
 		declareParameter(new SqlParameter("p_fecha_pago_ini", Types.DATE));
 		declareParameter(new SqlParameter("p_fecha_pago_fin", Types.DATE));
@@ -30,7 +30,7 @@ public class AutorizacionComisionesStoredProcedure extends StoredProcedure {
 		compile();
 	}
 
-	public Map execute(Map parametros){
+	Map execute(Map parametros){
 		return super.execute(parametros);
 	}
 

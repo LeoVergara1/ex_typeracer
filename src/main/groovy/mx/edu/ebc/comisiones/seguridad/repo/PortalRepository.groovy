@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository
 
 @Repository
-public interface PortalRepository extends JpaRepository<Portales,Integer> {
+interface PortalRepository extends JpaRepository<Portales,Integer> {
 	List<Portales> findAll()
 }

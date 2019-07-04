@@ -14,7 +14,7 @@ import javax.persistence.*
           @StoredProcedureParameter(type = void.class, mode = ParameterMode.REF_CURSOR)
 		])
 ])
-public class PaymentComission implements Serializable {
+class PaymentComission implements Serializable {
 
 	@Id
 	@Column(name = "id_promotor")

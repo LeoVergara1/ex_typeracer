@@ -7,6 +7,6 @@ import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 @Configuration
 @EnableJpaRepositories(basePackages = ["mx.edu.ebc.comisiones.seguridad.repo"],
 		entityManagerFactoryRef = "secondEntityManagerFactory")
-public class SeguridadConfig {
+class SeguridadConfig {
 
 }

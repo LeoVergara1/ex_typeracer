@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.Query
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+interface PersonRepository extends JpaRepository<Person, Integer> {
 	List<Person> findAll()
 
 	@Query("SELECT u FROM Person u WHERE u.id = 26872")

@@ -18,26 +18,26 @@ import org.apache.commons.dbcp.BasicDataSource
 import org.springframework.orm.jpa.JpaTransactionManager
 
 @Configuration
-public class DataSourceConfig {
+class DataSourceConfig {
 
 @Bean
 @Primary
 @ConfigurationProperties("spring.datasource")
-public DataSourceProperties firstDataSourceProperties() {
+DataSourceProperties firstDataSourceProperties() {
 	return new DataSourceProperties();
 }
 
 @Bean
 @Primary
 @ConfigurationProperties("spring.datasource.configuration")
-public BasicDataSource firstDataSource() {
+BasicDataSource firstDataSource() {
 	return firstDataSourceProperties().initializeDataSourceBuilder()
 			.type(BasicDataSource.class).build();
 }
 //
 @Bean
 @Primary
-public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
+LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder
 			.dataSource(firstDataSource())
@@ -53,19 +53,19 @@ JpaTransactionManager transactionManager(){
 
 @Bean
 @ConfigurationProperties("banner.datasource")
-public DataSourceProperties bannerDataSourceProperties() {
+DataSourceProperties bannerDataSourceProperties() {
 	return new DataSourceProperties();
 }
 
 @Bean
 @ConfigurationProperties("banner.datasource.configuration")
-public BasicDataSource bannerDataSource() {
+BasicDataSource bannerDataSource() {
 	return bannerDataSourceProperties().initializeDataSourceBuilder()
 			.type(BasicDataSource.class).build();
 }
 
 @Bean
-public LocalContainerEntityManagerFactoryBean bannerEntityManagerFactory(
+LocalContainerEntityManagerFactoryBean bannerEntityManagerFactory(
 		EntityManagerFactoryBuilder builder) {
 	return builder
 			.dataSource(bannerDataSource())

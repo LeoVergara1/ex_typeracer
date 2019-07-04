@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.core.userdetails.UserDetails
 import mx.edu.ebc.comisiones.pojos.EbcUser
 
-public class UserDetailsServiceImpl implements UserDetailsService {
+class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
       EbcUser user = new EbcUser()
         if (user == null) {
             throw new UsernameNotFoundException(

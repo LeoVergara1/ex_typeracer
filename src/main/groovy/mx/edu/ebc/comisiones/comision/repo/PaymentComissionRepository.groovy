@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.data.jpa.repository.query.Procedure
 
-public interface PaymentComissionRepository extends JpaRepository<PaymentComission, Long> {
+interface PaymentComissionRepository extends JpaRepository<PaymentComission, Long> {
     @Procedure(name = "java_procedure_name")
     def procedureName(@Param("p_fecha_pago_ini") Date p_fecha_pago_ini, @Param("p_fecha_pago_fin") Date p_fecha_pago_fin, @Param("p_campus") String p_campus);
 }

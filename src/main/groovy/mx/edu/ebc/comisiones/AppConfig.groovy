@@ -7,12 +7,12 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Component
-public class AppConfig extends WebMvcConfigurerAdapter {
+class AppConfig extends WebMvcConfigurerAdapter {
    @Autowired
    CasInterceptor casInterceptor
 
    @Override
-   public void addInterceptors(InterceptorRegistry registry) {
+   void addInterceptors(InterceptorRegistry registry) {
       registry.addInterceptor(casInterceptor).addPathPatterns("/administration/*").excludePathPatterns("/administration/search/association")
       .addPathPatterns("/")
       .addPathPatterns("/authorization/")

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository
 
 @Repository
-public interface AuthorizationRepository extends JpaRepository<AuthorizationCrescent,Integer> {
+interface AuthorizationRepository extends JpaRepository<AuthorizationCrescent,Integer> {
 	List<AuthorizationCrescent> findAll()
 	List<AuthorizationCrescent> findAllByAutorizadoDirector(String autorizadoDirector)
 	List<AuthorizationCrescent> findAllByAutorizadoDirectorAndFechaAutorizadoBetween(String autorizadoDirector, Date initDate, Date finDate)

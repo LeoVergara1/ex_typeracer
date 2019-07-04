@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository
 
 @Repository
-public interface RolesRepository extends JpaRepository<Roles,Integer> {
+interface RolesRepository extends JpaRepository<Roles,Integer> {
 	List<Roles> findAll()
 	List<Roles> findAllByNidRolPortal(String nidRolPortal)
 	List<Roles> findAllByDescriptionRol(String descriptionRol)
