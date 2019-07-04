@@ -58,7 +58,6 @@ class AuthorizationController {
 	@PostMapping("/getCalculation")
   @ResponseBody
   public Map getCalculation(@RequestBody Map data) {
-		println data
 		authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
   }
 
@@ -82,7 +81,6 @@ class AuthorizationController {
   @PostMapping("/query/searchCommisions")
   @ResponseBody
   public Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
-		println data
 		def list = authorizationService.getCommissionsByStatus(data)
 		def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
 		[response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
@@ -94,7 +92,6 @@ class AuthorizationController {
 		String username = request.getUserPrincipal().getUserDetails().username
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
-		println data
 		def result = authorizationService.getAllAuthorizationsCommisionsWithStructureToReport("AUTORIZADO", initDateFrom, finDateFrom , data.campusSelected)
 		return [response: result, groups: result.groupBy({ it.campus })]
   }

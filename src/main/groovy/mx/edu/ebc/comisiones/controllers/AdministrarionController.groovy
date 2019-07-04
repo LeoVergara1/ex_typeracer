@@ -98,7 +98,6 @@ class AdministrarionController {
   @RequestMapping("administration/association")
   @ResponseBody
   public ModelAndView association() {
-		println campus
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "association");
 		model.addObject("listAssociation", administrationService.findAllPromoters())
@@ -166,19 +165,12 @@ class AdministrarionController {
   Map deleteCampusAndRolToPerson(@RequestBody Map data){
     logger.info "Eliminar Campus y rol de una persona"
     def result = administrationService.deleteCampusAndRolToPerson(data.person.userName, data.person.campuses[0].campusCode, data.person.profiles[0].id.toString())
-   // log.info result.dump()
   }
 
 	@PostMapping("administration/saveRolToPerson")
 	@ResponseBody
   Map saveRolToPerson(@RequestBody Map user){
-		println user.dump()
-		println "Despues"
-		println user.person.userName
-		println user.campus
 		def result = administrationService.saveRolAndCampus(user.person.userName, user.campus, user.roleCode.toString(), user.rcreCode)
-    //def result = personService.deleteCampusAndRolToPerson(username, codeCampus, roleCode)
-   // log.info result.dump()
 	 [result: result]
   }
 
@@ -193,14 +185,12 @@ class AdministrarionController {
 	@PostMapping("administration/save/trimester")
 	@ResponseBody
   Map addTrimester(@RequestBody Map dataToSearch){
-		println dataToSearch
 		[result: administrationService.save_trimester(dataToSearch)]
   }
 
 	@PostMapping("administration/delete/trimester")
 	@ResponseBody
   Map deleteTrimester(@RequestBody Map dataToSearch){
-		println dataToSearch
 		[result: trimesterRepository.deleteById(dataToSearch.id)]
   }
 

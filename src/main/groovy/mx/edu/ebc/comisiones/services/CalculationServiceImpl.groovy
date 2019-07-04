@@ -29,7 +29,6 @@ class CalculationServiceImpl implements CalculationService {
 	}
 
 	Boolean validateGoal(Goal goal) {
-		println goal.dump()
 		Campaign campaign = getCampaignByTrimester(goal.trimester)
 		List<AuthorizationComission> authorizations = getAuthorizationsByCampaign(campaign)
 		false

@@ -29,7 +29,6 @@ class TrimesterServiceImpl implements TrimesterService {
 		if(goals)
 			return goals
 		campusToGoal.collect{ goalCampus ->
-			println goalCampus
 			def goalCampusToSave = new Goal(
 				status:"created",
 				campus: goalCampus,

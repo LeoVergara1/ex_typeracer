@@ -28,12 +28,9 @@ class CasInterceptor implements HandlerInterceptor {
 
   @Override
   boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    println "********************MENUS**********************"
-    println clientApiBannerSeguridad
      def userName = request.getUserPrincipal().getUserDetails()
      def session = request.getSession()
      (session.getAttribute("ebcUser")) ? 'Nothing' : addUserEbcTosession(userName.username, session)
-     System.out.println("Pre Handle method is Calling");
      return true;
   }
 
