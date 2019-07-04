@@ -10,6 +10,7 @@ import wslite.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import mx.edu.ebc.comisiones.comision.domain.Goal
 import mx.edu.ebc.comisiones.comision.domain.Campaign
+import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
@@ -23,19 +24,18 @@ class CalculationServiceImpl implements CalculationService {
 	@Autowired
 	CampaignRepository campaignRepository
 
-	def getAuthorizationsByCampaign(Campaign campaign){
+	List<AuthorizationComission> getAuthorizationsByCampaign(Campaign campaign){
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate)
 	}
 
 	Boolean validateGoal(Goal goal) {
 		println goal.dump()
 		Campaign campaign = getCampaignByTrimester(goal.trimester)
+		List<AuthorizationComission> authorizations = getAuthorizationsByCampaign(campaign)
 		false
 	}
 
 	Campaign getCampaignByTrimester(Trimester trimester){
-		println trimester.dump()
-		println "*"*100
 		Integer period =  trimester.clave.take(2).toInteger()
 		campaignRepository.findByPeriodAndStatus(trimester.period, "ACTIVE")
 	}
