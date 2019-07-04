@@ -109,18 +109,6 @@ var app = new Vue({
           return this.$snotify.warning(this.errors.first(`porcentage${index}`), this.notifyOptions)
         this.$snotify.warning(this.errors.first(`registers${index}`), this.notifyOptions)
       }
-     // if(goal.percentCommission < 99){
-     //   this.loader.loading = true
-     //   this.$http.post('/administration/save/goal', goal).then(response => {
-     //     console.log(response)
-     //     this.loader.loading = false
-     //   }, response => {
-     //     console.log(response)
-     //   })
-     // }
-     // else {
-     //   this.$snotify.warning("Porcentage maximo 99", this.notifyOptions)
-     // }
     },
     getCampaing(){
       console.log("dkjghdjdih")

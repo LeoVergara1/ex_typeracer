@@ -119,17 +119,6 @@ class PersonServiceImpl implements PersonService {
     statusCampus: statusCampus?.statusCode]
   }
 
-
- // Map getRolesFromProperties(){
- //   def rolSession = properties.getProperty("roles")
- //   Map mapRol = [:]
- //   rolSession.split(",").each {  param ->
- //     def nameAndValue = param.split(":")
- //     mapRol[nameAndValue[0].toInteger()] = nameAndValue[1]
- //   }
- //   mapRol
- // }
-
   @Override
   List<Profile> findPersonByUsernameAndPortalName(String userName, String portalName){
     def jsonObject = NetworkService.buildRequest(clientApiBannerSeguridad){

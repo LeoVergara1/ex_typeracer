@@ -23,7 +23,6 @@ var app = new Vue({
 		dataToTable: [],
 		specialElementHandlers: {
 			'.no-export': function(element, renderer) {
-				// true = "handled elsewhere, bypass text extraction"
 				return true;
 			}
 		}

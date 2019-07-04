@@ -1,4 +1,3 @@
-// Define a new component called button-counter
 Vue.component('template-search', {
 	props: {
 		notifyOptions: Object,
@@ -24,7 +23,6 @@ Vue.component('template-search', {
 		association: function(){
 			this.loader.loading = true
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
-				// get body data
 				this.loader.loading = false
 				this.user.person = response.body.person;
 				this.user.managerRoleId = response.body.managerRoleId;
@@ -41,7 +39,6 @@ Vue.component('template-search', {
 			}, response => {
 				console.log("Fail")
 				console.log(response)
-				// error callback
 			})
 		},
 	},

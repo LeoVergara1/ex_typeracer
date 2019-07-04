@@ -81,44 +81,17 @@ public class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	@Override
-  Person setProfile(Person person, String username, String portalName){
-    //List<Profile> profiles= profileService.findPersonByUsernameAndPortalName(username, portalName)
-    //profiles.each{ profile ->
-    //  person.profiles << profile
-    //}
-    person
-  }
-
-	@Override
 	Map getPersonWithValidations(String username){
 			Person person = personService.findPersonByUsername(username)
     if(person.userName){
     	person = personService.setProfile(person, "comisiones-li")
     	person = personService.setCampuses(person)
     }
-    //Map mapRol = personService.getRolesFromProperties()
     [person:person,
     	mapRol: rolesRepository.findAllByNidRolPortal("1430"),
      	managerRoleId: managerRoleId]
 	}
 
-  @Override
-  Person setCampuses(Person person){
-   // List<UserCampus> campuses= userCampusService.getAllCampusesforUser("FutureCampus",person.userName)
-   // campuses?.each{ campus ->
-   //   person.campuses << campus
-   // }
-    person
-  }
-
-  @Override
-  List<RoleCommand> getRoles(String portalName){
-   // List<RoleCommand> roles = []
-   // jsonObject?.each{role ->
-   //   roles << RoleCommand.convertJSONtoRoles(role)
-   // }
-   // roles
-  }
 	@Override
 	def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
 		personService.saveRolAndCampus(username, codeCampus, roleCode, recrCode)

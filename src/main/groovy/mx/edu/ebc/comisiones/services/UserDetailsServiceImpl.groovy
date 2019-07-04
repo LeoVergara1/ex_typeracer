@@ -7,8 +7,6 @@ import mx.edu.ebc.comisiones.pojos.EbcUser
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    // ...
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
       EbcUser user = new EbcUser()

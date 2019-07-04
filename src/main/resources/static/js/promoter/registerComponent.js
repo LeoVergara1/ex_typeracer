@@ -1,4 +1,3 @@
-// Define a new component called button-counter
 Vue.component('template-register', {
 	props:  {
 		user: Object,

@@ -18,7 +18,6 @@ class Profile {
                    enrollment:jsonObject?.enrollment,
                    fullName:jsonObject?.fullName,
                    dateCreated: jsonObject?.dateCreated ?  LocalDate.parse(jsonObject.dateCreated) : LocalDate.now()
-                  // dateCreated:new Date().parse('yyy-mm-dd',jsonObject?.dateCreated ?: "0000-00-00")
                         )
   }
 }

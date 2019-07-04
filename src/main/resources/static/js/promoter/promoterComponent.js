@@ -1,4 +1,3 @@
-// Define a new component called button-counter
 Vue.component('template-promoter', {
 	props: {
 			campus: Object
@@ -12,7 +11,6 @@ Vue.component('template-promoter', {
 	created: function (){
 		console.log("Instancia creada de componente")
 		this.$http.get('/administration/data/association').then(response => {
-			// get body data
 			this.someData = response.body;
 			console.log(response.body);
 			this.campus.list = response.body.campus
@@ -22,7 +20,6 @@ Vue.component('template-promoter', {
 		}, response => {
 			console.log("regreso mal")
 			console.log(response)
-			// error callback
 		});
 	},
 	methods: {

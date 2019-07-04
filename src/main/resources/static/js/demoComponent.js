@@ -1,4 +1,3 @@
-// Define a new component called button-counter
 Vue.component('button-counter', {
   data: function () {
     return {

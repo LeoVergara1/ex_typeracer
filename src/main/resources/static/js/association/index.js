@@ -23,14 +23,12 @@ var app = new Vue({
   created: function() {
     this.loader.loading = true
     this.$http.post('/administration/search/association', {user: this.username}).then(response => {
-      // get body data
       console.log(response.body);
       this.person = response.body.person
       this.getCoordinators()
     }, response => {
       console.log("Fail")
       console.log(response)
-      // error callback
     });
   },
   methods:{
