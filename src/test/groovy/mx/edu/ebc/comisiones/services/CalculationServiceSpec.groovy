@@ -7,6 +7,7 @@ import org.springframework.test.context.TestPropertySource
 import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
+import mx.edu.ebc.comisiones.comision.domain.Campaign
 import spock.lang.Specification
 import spock.lang.Ignore
 import org.springframework.transaction.annotation.Transactional
@@ -47,6 +48,17 @@ class CalculationServiceSpec extends Specification{
 			def result = calculationService.validateGoal(goal)
 		then: ""
 			result
+	}
+
+	def "Calculation"(){
+		given: "Semester Active"
+		String year = (new Date().year + 1900).toString()
+		List<Campaign> campaign = campaignRepository.findByYearAndStatus(year, "ACTIVE")
+		when:
+		def result = "0"
+		then:
+		false
+
 	}
 
 }
