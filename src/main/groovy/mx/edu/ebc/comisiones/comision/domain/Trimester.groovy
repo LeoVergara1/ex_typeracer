@@ -22,6 +22,7 @@ class Trimester {
 	Date endDate
 	String name
 	String year
+	Integer period
 	String clave
 	@Column(name = "LAST_UPDATED")
 	Date lastUpdated = new Date()
