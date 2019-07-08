@@ -141,9 +141,9 @@
 												<td>{{alumno.periodo}}</td>
 												<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
 												<td>{{alumno.fechaDePago}}</td>
-												<td class="text-center"><span class="block">$3,700.00</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-												<td>15%</td>
-												<td>$1,850.00</td>
+												<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
+												<td>{{alumno | percentDiscount}}%</td>
+												<td>${{alumno.valorContratoReal}}</td>
 												<td class="text-center"> <input type="checkbox" @change="setAuthorization(alumno, $event)"></td>
 												<td><button class="btn btn-xs btn-block btn-danger" @click="denegateAuthorization(alumno)">Rechazar</button></td>
 
