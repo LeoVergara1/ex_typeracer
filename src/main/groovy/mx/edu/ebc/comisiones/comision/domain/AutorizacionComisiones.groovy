@@ -24,5 +24,7 @@ class AutorizacionComisiones {
   double comisionCoordinador;
   Date fechaAutorizado;
   String usuario;
+  String tipoPago;
+  double valorContratoReal;
 
 	}
