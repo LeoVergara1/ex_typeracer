@@ -47,6 +47,10 @@ class AuthorizationComission {
 	Date fechaAutorizado
 	@Column(name="USUARIO")
 	String user
+	@Column(name="TIPO_PAGO")
+  	String tipoPago;
+	@Column(name="VALOR_CONTRATO_REAL")
+ 	double valorContratoReal;
 
 	AuthorizationComission(def json, username){
 		this.user = username
@@ -67,6 +71,8 @@ class AuthorizationComission {
 		this.periodo = json.periodo
 		this.puesto = json.puesto
 		this.totalDescuentos = json.totalDescuentos
+		this.tipoPago = json.tipoPago
+		this.valorContratoReal = json.valorContratoReal
 		this.dateCreated = new Date()
 		this.lastUpdated = new Date()
 	}
