@@ -8,6 +8,7 @@ import mx.edu.ebc.comisiones.comision.repo.*
 import org.springframework.test.context.ContextConfiguration
 import mx.edu.ebc.comisiones.comision.domain.UserCampus
 import mx.edu.ebc.comisiones.comision.domain.Campaign
+import mx.edu.ebc.comisiones.comision.domain.Trimester
 import spock.lang.Specification
 import spock.lang.Ignore
 import org.springframework.transaction.annotation.Transactional
@@ -23,6 +24,8 @@ class CalculationServiceSpec extends Specification{
 	CampaignRepository campaignRepository
 	@Autowired
 	GoalRepository goalRepository
+  @Autowired
+  TrimesterRepository trimesterRepository
 
 
   def "Spect 000 Check service inject"() {
@@ -44,16 +47,26 @@ class CalculationServiceSpec extends Specification{
 	def "Init Validations to goal '(meta)'"(){
 		given: "Semester"
 			def goal = goalRepository.findAll().first()
+			println goal.dump()
 		when: ""
-			def result = calculationService.validateGoal(goal)
+			def result = calculationService.calculationByGoal(goal, new Date(Date.parse("2019/1/1")), new Date(Date.parse("2019/7/1")))
+			println result
+			println "******************"
 		then: ""
 			result
 	}
 
 	def "Calculation"(){
-		given: "Semester Active"
+		given: "Semester By dates"
 		String year = (new Date().year + 1900).toString()
 		List<Campaign> campaign = campaignRepository.findByYearAndStatus(year, "ACTIVE")
+		and: "Dates"
+    Date initDate = new Date(Date.parse("2019/1/1"))
+    Date endDate = new Date(Date.parse("2019/7/1"))
+    and: "Smetester"
+    Trimester trimester = trimesterRepository.findByInitDateGreaterThanAndEndDateLessThan(initDate, endDate)
+    println trimester
+    println trimester.goals
 		when:
 		def result = "0"
 		then:
