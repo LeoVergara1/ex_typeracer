@@ -140,6 +140,10 @@ var app = new Vue({
 				"PROMOCIÓN": "Promoción"
 			}
 			return map[value] ? map[value] : value
+    },
+    percentDiscount(alumno){
+      let percent = alumno.totalDescuentos * 100
+      return (percent/alumno.valorContratoReal.toFixed(3))
     }
   }
 })
