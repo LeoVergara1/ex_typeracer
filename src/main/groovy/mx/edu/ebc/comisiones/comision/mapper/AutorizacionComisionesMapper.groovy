@@ -26,6 +26,8 @@ class AutorizacionComisionesMapper implements RowMapper<AutorizacionComisiones> 
 		autorizacionComisiones.setIdCoordinador(rs.getString("id_coordinador"));
 		autorizacionComisiones.setNombreCoordinador(rs.getString("nombre_coordinador"));
 		autorizacionComisiones.setComisionCoordinador(rs.getDouble("comision_coordinador"));
+		autorizacionComisiones.setValorContratoReal(rs.getDouble("valor_contrato"));
+		autorizacionComisiones.setTipoPago(rs.getString("tipo_pago"));
 		autorizacionComisiones.setAutorizadoDirector('N');
 		return autorizacionComisiones;
 	}
