@@ -2,6 +2,7 @@ package mx.edu.ebc.comisiones.services
 
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
+import mx.edu.ebc.comisiones.comision.domain.AutorizacionComisiones
 import mx.edu.ebc.comisiones.pojos.*
 import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.storedProcedure.AutorizacionComisionesStoredProcedure
@@ -43,6 +44,10 @@ class AuthorizationServiceImpl implements AuthorizationService {
 		autorizacionComisionesStoredProcedure.execute(params).out_comisiones.findAll(){
 			!(authorizationRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
 		}
+	}
+	
+	List<AutorizacionComisiones> getCommissionsByDatesAndCampusFromBanner(String campus, Date initDate, Date endDate){
+		autorizacionComisionesStoredProcedure.execute([p_fecha_pago_ini: initDate, p_fecha_pago_fin: endDate, p_campus: campus]).out_comisiones	
 	}
 
 	def getCommissionsByStatus(Map params){
