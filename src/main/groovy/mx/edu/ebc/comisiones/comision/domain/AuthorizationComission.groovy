@@ -48,9 +48,11 @@ class AuthorizationComission {
 	@Column(name="USUARIO")
 	String user
 	@Column(name="TIPO_PAGO")
-  	String tipoPago;
+ 	String tipoPago;
 	@Column(name="VALOR_CONTRATO_REAL")
  	double valorContratoReal;
+	@Column(name="PIDM")
+ 	Long pidm;
 
 	AuthorizationComission(def json, username){
 		this.user = username
