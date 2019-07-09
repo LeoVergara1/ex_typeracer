@@ -44,8 +44,13 @@ class CalculationServiceImpl implements CalculationService {
 
 	}
 
-	AuthorizationCrescent calculationByGoal(Goal goal, Date initDate, Date endDate){
+	List<AuthorizationCrescent> calculationByGoal(Goal goal, Date initDate, Date endDate){
 		List<AuthorizationComission> authorizationsCommissions = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween("AUTORIZADO", goal.campus, initDate, endDate)
+		(authorizationsCommissions.size() >= goal.numRegisters) ? authorizationsCommissions : [] 
+	}
+
+	List<AuthorizationCrescent> updatingStatusAuthorizations(authorizationsCrecent, Date initDate, Date endDate){
+		authorizationsCrecent	
 	}
 
 }

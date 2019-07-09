@@ -50,10 +50,20 @@ class CalculationServiceSpec extends Specification{
 			println goal.dump()
 		when: ""
 			def result = calculationService.calculationByGoal(goal, new Date(Date.parse("2019/1/1")), new Date(Date.parse("2019/7/1")))
-			println result
-			println "******************"
 		then: ""
 			result
+	}
+
+	def "Check authorization in banner to current status of authorization"(){
+		given: "Semester"
+			def goal = goalRepository.findAll().first()
+			println goal.dump()
+		and: "Authorizations to update"	
+			def authorizationsCommissions = calculationService.calculationByGoal(goal, new Date(Date.parse("2019/1/1")), new Date(Date.parse("2019/7/1")))
+		when: ""
+			def authorizationsUpdated = calculationService.updatingStatusAuthorizations(authorizationsCommissions, new Date(Date.parse("2019/1/1")), new Date(Date.parse("2019/7/1")))
+		then: ""
+			authorizationsUpdated
 	}
 
 	def "Calculation"(){
