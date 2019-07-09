@@ -49,14 +49,49 @@ class CalculationServiceImpl implements CalculationService {
 
 	List<AuthorizationCrescent> calculationByGoal(Goal goal, Date initDate, Date endDate){
 		List<AuthorizationComission> authorizationsCommissions = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween("AUTORIZADO", goal.campus, initDate, endDate)
-		(authorizationsCommissions.size() >= goal.numRegisters) ? authorizationsCommissions : [] 
+		(authorizationsCommissions.size() >= goal.numRegisters) ? makingCalculations(authorizationsCommissions, goal) : [] 
 	}
-
+	//TODO: Updating authorizations
 	List<AuthorizationCrescent> updatingStatusAuthorizations(List<AuthorizationCrescent> authorizationsCrecent, Date initDate, Date endDate, String campus){
 		List<AutorizacionComisiones> autorizacionComisiones = authorizationService.getCommissionsByDatesAndCampusFromBanner(campus, initDate, endDate)
-		println "******BANNER*****"
-		println autorizacionComisiones
 		authorizationsCrecent	
+	}
+
+	List<AuthorizationCrescent> makingCalculations(List<AuthorizationComission> authorizationsCommissions, goal){
+		authorizationsCommissions.collect(){ authorization ->
+			new AuthorizationCrescent(
+  			campus: authorization.campus,
+  			idPromotor: authorization.idPromotor,
+  			nombrePromotor: authorization.nombrePromotor,
+  			puesto: authorization.puesto,
+  			idAlumno: authorization.idAlumno,
+  			nombreAlumno: authorization.nombreAlumno,
+  			pagoInicial: authorization.pagoInicial,
+  			totalDescuentos: authorization.totalDescuentos,
+  			comision: authorization.comision,
+  			periodo: authorization.periodo,
+  			fechaDePago: authorization.fechaDePago,
+  			autorizadoDirector: authorization.autorizadoDirector,
+  			dateCreated: new Date(),
+  			lastUpdated: new Date(),
+  			idCoordinador: authorization.idCoordinador,
+  			nombreCoordinador: authorization.nombreCoordinador,
+  			comisionCoordinador: authorization.comisionCoordinador,
+  			fechaAutorizado: authorization.fechaAutorizado,
+  			usuario: authorization.usuario,
+  			tipoPago: authorization.tipoPago,
+  			valorContratoReal: authorization.valorContratoReal,
+  			pidm: authorization.pidm
+			) 
+		}
+	}
+
+	BigDecimal calculationComissionPromoter(){
+
+	}
+
+	BigDecimal calculationComissionCoordinater(){
+
 	}
 
 }
