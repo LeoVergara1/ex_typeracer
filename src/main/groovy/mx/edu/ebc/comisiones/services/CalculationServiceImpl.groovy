@@ -15,7 +15,8 @@ import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
-import mx.edu.ebc.comisiones.comision.domain.Trimester;
+import mx.edu.ebc.comisiones.comision.domain.Trimester
+import mx.edu.ebc.comisiones.comision.domain.AutorizacionComisiones
 
 @Component
 class CalculationServiceImpl implements CalculationService {
@@ -24,6 +25,8 @@ class CalculationServiceImpl implements CalculationService {
 	AuthorizationRepository authorizationRepository
 	@Autowired
 	CampaignRepository campaignRepository
+	@Autowired
+	AuthorizationService authorizationService
 
 	List<AuthorizationComission> getAuthorizationsByCampaign(Campaign campaign){
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate)
@@ -37,7 +40,7 @@ class CalculationServiceImpl implements CalculationService {
 
 	Campaign getCampaignByTrimester(Trimester trimester){
 		Integer period =  trimester.clave.take(2).toInteger()
-		campaignRepository.findByPeriodAndStatus(trimester.period, "ACTIVE")
+		campaignRepository.findByPeriodAndStatus(period, "ACTIVE")
 	}
 
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoals(List<Goal> goals){
@@ -49,7 +52,10 @@ class CalculationServiceImpl implements CalculationService {
 		(authorizationsCommissions.size() >= goal.numRegisters) ? authorizationsCommissions : [] 
 	}
 
-	List<AuthorizationCrescent> updatingStatusAuthorizations(authorizationsCrecent, Date initDate, Date endDate){
+	List<AuthorizationCrescent> updatingStatusAuthorizations(List<AuthorizationCrescent> authorizationsCrecent, Date initDate, Date endDate, String campus){
+		List<AutorizacionComisiones> autorizacionComisiones = authorizationService.getCommissionsByDatesAndCampusFromBanner(campus, initDate, endDate)
+		println "******BANNER*****"
+		println autorizacionComisiones
 		authorizationsCrecent	
 	}
 
