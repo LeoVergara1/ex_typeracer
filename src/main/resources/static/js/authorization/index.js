@@ -95,11 +95,18 @@ var app = new Vue({
       }).then(response => {
         console.log(response.body);
         this.alumns = this.alumns.filter(alumno => alumno.autorizadoDirector != "AUTORIZADO")
+        this.resetChecksBoxes()
         this.loader.loading = false
       }, response => {
         console.log("Fail")
         console.log(response)
       })
+    },
+    resetChecksBoxes(){
+      checkboxes = document.getElementsByClassName("check_element")
+      for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked = false;
+      }
     },
     getCalculation() {
       this.loader.loading = true
