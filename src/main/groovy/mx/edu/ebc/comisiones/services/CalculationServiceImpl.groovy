@@ -68,7 +68,7 @@ class CalculationServiceImpl implements CalculationService {
   			nombreAlumno: authorization.nombreAlumno,
   			pagoInicial: authorization.pagoInicial,
   			totalDescuentos: authorization.totalDescuentos,
-  			comision: authorization.comision,
+  			comision: calculationComissionPromoter(authorization.valorContratoReal, goal.percentCommission),
   			periodo: authorization.periodo,
   			fechaDePago: authorization.fechaDePago,
   			autorizadoDirector: authorization.autorizadoDirector,
@@ -86,12 +86,13 @@ class CalculationServiceImpl implements CalculationService {
 		}
 	}
 
-	BigDecimal calculationComissionPromoter(){
-
+	double calculationComissionPromoter(double valorContratoReal, float percentCommission){
+		(valorContratoReal* (percentCommission/100)) 
 	}
 
-	BigDecimal calculationComissionCoordinater(){
-
+	double calculationComissionCoordinater(double valorContratoReal, float percentCommission){
+		double commissionPromoter = (valorContratoReal* (percentCommission/100)) 
+		commissionPromoter * 0.15 
 	}
 
 }

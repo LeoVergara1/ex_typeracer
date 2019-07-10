@@ -58,10 +58,13 @@ class CalculationServiceSpec extends Specification{
 		given: "Semester"
 			def goal = goalRepository.findAll().first()
 			println goal.dump()
-		and: "Authorizations to update"	
-			def authorizationsCommissions = calculationService.calculationByGoal(goal, new Date(Date.parse("2019/1/1")), new Date(Date.parse("2019/7/1")))
 		and: "Get trimester by goal"
 			Campaign campaign = calculationService.getCampaignByTrimester(goal.trimester)
+		and: "Authorizations to update"	
+			def authorizationsCommissions = calculationService.calculationByGoal(goal, campaign.initDate, campaign.endDate)
+			println "Calculados"
+			println authorizationsCommissions
+			authorizationsCommissions.each(){ println it.dump()}
 		when: ""
 			def authorizationsUpdated = calculationService.updatingStatusAuthorizations(authorizationsCommissions, campaign.initDate, campaign.endDate, goal.campus)
 		then: ""
