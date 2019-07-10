@@ -12,6 +12,7 @@ import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
+import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,6 +26,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PathVariable
 import mx.edu.ebc.comisiones.comision.domain.Promoter
+import mx.edu.ebc.comisiones.comision.domain.Trimester
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat
@@ -39,6 +41,8 @@ class AuthorizationController {
 	AdministrationService administrationService
 	@Autowired
 	AuthorizationService authorizationService
+  @Autowired
+  TrimesterRepository trimesterRepository
 
   @RequestMapping("/")
   @ResponseBody
@@ -59,7 +63,9 @@ class AuthorizationController {
 	@PostMapping("/getCalculation")
   @ResponseBody
   Map getCalculation(@RequestBody Map data) {
-		authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
+		Map calculationWithComissions = authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
+    Trimester trimester = trimesterRepository.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
+    calculationWithComissions
   }
 
 	@PostMapping("/sendAuthorization")
