@@ -1,4 +1,4 @@
-var app = new Vue({
+const app = new Vue({
   el: '#app',
   data: {
 		message: 'Hello Vue!',
@@ -12,7 +12,6 @@ var app = new Vue({
     campusSelected: "CMX",
     alumns: [],
     listPromoterToUser: [],
-    date: '2019/01/01',
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -54,6 +53,7 @@ var app = new Vue({
     }
   },
   created: function() {
+    // eslint-disable-next-line no-undef
     console.log(XLSX)
   },
   methods:{
@@ -92,7 +92,7 @@ var app = new Vue({
     prepareJSONtoExcel(array) {
       let dataToExcel = []
       array.forEach(element => {
-       json = {
+      let json = {
         "ID Promotor": element.idPromotor,
         "Nombre del Promotor": element.nombrePromotor,
         "Puesto": element.puesto,
@@ -101,7 +101,7 @@ var app = new Vue({
         "Pago Inicial": element.pagoInicial,
         "Comisión": element.comision,
         "ID Coordinador": element.idCoordinador,
-        "Nombre": element.nombreCoordinador,
+        "Nombre Coordinador": element.nombreCoordinador,
         "Período": element.periodo,
         "Fecha Pago": element.fechaDePago
        }
@@ -112,7 +112,7 @@ var app = new Vue({
     prepareJSONtoExcelGroup(array) {
       let dataToExcel = []
       array.forEach(element => {
-       json = {
+      let json = {
         "Puesto": element.job,
         "ID": element.idPromoter,
         "Nombre": element.namePromoter,
