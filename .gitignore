@@ -34,3 +34,4 @@ help.MD
 /src/main/resources/static/third-party/
 bin/
 yarn-error.log
+node_modules

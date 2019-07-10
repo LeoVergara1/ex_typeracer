@@ -20,5 +20,8 @@
     "vue-snotify": "^3.2.1",
     "vue-spinner": "^1.0.3",
     "xlsx": "^0.14.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1"
   }
 }
