@@ -51,7 +51,7 @@ class CalculationServiceSpec extends Specification{
 		when: ""
 			def result = calculationService.calculationByGoal(goal, new Date(Date.parse("2019/1/1")), new Date(Date.parse("2019/7/1")))
 		then: ""
-			result
+			goal	
 	}
 
 	def "Check authorization in banner to current status of authorization"(){
@@ -74,7 +74,7 @@ class CalculationServiceSpec extends Specification{
 	def "Calculation"(){
 		given: "Semester By dates"
 		String year = (new Date().year + 1900).toString()
-		List<Campaign> campaign = campaignRepository.findByYearAndStatus(year, "ACTIVE")
+		List<Campaign> campaigns = campaignRepository.findByYearAndStatus(year, "ACTIVE")
 		and: "Dates"
     Date initDate = new Date(Date.parse("2019/1/1"))
     Date endDate = new Date(Date.parse("2019/7/1"))
@@ -82,10 +82,10 @@ class CalculationServiceSpec extends Specification{
     Trimester trimester = trimesterRepository.findByInitDateGreaterThanAndEndDateLessThan(initDate, endDate)
     println trimester
     println trimester.goals
-		when:
-		def result = "0"
+		when: "Get campaing"
+		Campaign campaign = calculationService.getCampaignByTrimester(trimester)
 		then:
-		false
+		campaign
 
 	}
 
