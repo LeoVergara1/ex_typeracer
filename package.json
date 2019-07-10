@@ -22,6 +22,5 @@
     "xlsx": "^0.14.3"
   },
   "devDependencies": {
-    "eslint": "^6.0.1"
   }
 }
