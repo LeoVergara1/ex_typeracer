@@ -78,7 +78,7 @@ class CalculationServiceImpl implements CalculationService {
   			nombreCoordinador: authorization.nombreCoordinador,
   			comisionCoordinador: authorization.comisionCoordinador,
   			fechaAutorizado: authorization.fechaAutorizado,
-  			usuario: authorization.usuario,
+  			user: authorization.user,
   			tipoPago: authorization.tipoPago,
   			valorContratoReal: authorization.valorContratoReal,
   			pidm: authorization.pidm
