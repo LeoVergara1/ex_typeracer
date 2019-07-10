@@ -47,5 +47,11 @@ class AuthorizationCrescent {
 	Date fechaAutorizado
 	@Column(name="USUARIO")
 	String user
+	@Column(name="TIPO_PAGO")
+ 	String tipoPago;
+	@Column(name="VALOR_CONTRATO_REAL")
+ 	double valorContratoReal;
+	@Column(name="PIDM")
+ 	Long pidm;
 
 }
