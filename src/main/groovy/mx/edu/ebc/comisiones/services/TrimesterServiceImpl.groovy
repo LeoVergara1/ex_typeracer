@@ -12,6 +12,7 @@ import mx.edu.ebc.comisiones.comision.domain.Goal
 import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
 import mx.edu.ebc.comisiones.comision.domain.Trimester;
+import java.text.SimpleDateFormat
 
 @Service
 class TrimesterServiceImpl implements TrimesterService {
@@ -41,4 +42,11 @@ class TrimesterServiceImpl implements TrimesterService {
 	List<Goal> getGoalsFromTrimester(Trimester trimester){
 		goalRepository.findAllByTrimester(trimester)
 	}
+
+	List<Trimester> findByInitDateGreaterThanAndEndDateLessThan(String initDate, String endDate){
+    Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
+    Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(endDate)
+    trimesterRepository.findByInitDateGreaterThanAndEndDateLessThan(initDateFrom, finDateFrom)
+	}
+
 }
