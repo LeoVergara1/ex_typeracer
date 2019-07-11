@@ -148,7 +148,7 @@ class CalculationServiceSpec extends Specification{
 		when: "Se calcula la comision"
 			double comissionCoordinater = calculationService.calculationComissionCoordinater(valorContratoReal, percentCommission)
 		then:
-			comissionCoordinater == 50
+			comissionCoordinater == 1395.0
 	}
 
 	def "5 Calcular la comision del promotor"(){
