@@ -158,7 +158,7 @@ class CalculationServiceSpec extends Specification{
 		when: "Se calcula la comision"
 			double comissionPromoter = calculationService.calculationComissionPromoter(valorContratoReal, percentCommission)
 		then:
-			comissionPromoter == 50
+			comissionPromoter == 9300.0
 	}
 
 }
