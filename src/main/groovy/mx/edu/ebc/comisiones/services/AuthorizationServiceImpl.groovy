@@ -45,9 +45,9 @@ class AuthorizationServiceImpl implements AuthorizationService {
 			!(authorizationRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
 		}
 	}
-	
+
 	List<AutorizacionComisiones> getCommissionsByDatesAndCampusFromBanner(String campus, Date initDate, Date endDate){
-		autorizacionComisionesStoredProcedure.execute([p_fecha_pago_ini: initDate, p_fecha_pago_fin: endDate, p_campus: campus]).out_comisiones	
+		autorizacionComisionesStoredProcedure.execute([p_fecha_pago_ini: initDate, p_fecha_pago_fin: endDate, p_campus: campus]).out_comisiones
 	}
 
 	def getCommissionsByStatus(Map params){
