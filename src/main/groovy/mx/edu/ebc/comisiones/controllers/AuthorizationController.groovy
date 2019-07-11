@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.AuthorizationService
+import mx.edu.ebc.comisiones.services.TrimesterService
 import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
@@ -41,6 +42,8 @@ class AuthorizationController {
 	AdministrationService administrationService
 	@Autowired
 	AuthorizationService authorizationService
+	@Autowired
+	TrimesterService trimesterService
   @Autowired
   TrimesterRepository trimesterRepository
 
@@ -64,8 +67,10 @@ class AuthorizationController {
   @ResponseBody
   Map getCalculation(@RequestBody Map data) {
 		Map calculationWithComissions = authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
-    Trimester trimester = trimesterRepository.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
-    calculationWithComissions
+    List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
+    if(trimester.size() > 1)
+      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: []]
+    calculationWithComissions << [moreThanTwo: false, calculationCrecent: []]
   }
 
 	@PostMapping("/sendAuthorization")
