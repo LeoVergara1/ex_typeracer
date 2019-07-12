@@ -31,6 +31,7 @@ import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.comision.domain.Trimester
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat
 
 @RequestMapping("/authorization")

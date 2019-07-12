@@ -184,7 +184,7 @@ class AdministrarionController {
 
 	@PostMapping("administration/save/trimester")
 	@ResponseBody
-  Map addTrimester(@RequestBody Map dataToSearch){
+  Map addTrimester(@RequestBody Map dataToSearch, HttpSession session){
 		[result: administrationService.save_trimester(dataToSearch)]
   }
 
