@@ -43,8 +43,10 @@ class CalculationServiceImpl implements CalculationService {
 		campaignRepository.findByPeriodAndStatus(period, "ACTIVE")
 	}
 
-	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoals(List<Goal> goals){
-
+	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoals(Trimester trimester ,String campus){
+		Campaign campaign = getCampaignByTrimester(trimester)
+		Goal goal = trimester.goals.find(){ it.campus == campus}
+		calculationByGoal(goal, campaign.initDate, campaign.endDate)
 	}
 
 	List<AuthorizationCrescent> calculationByGoal(Goal goal, Date initDate, Date endDate){

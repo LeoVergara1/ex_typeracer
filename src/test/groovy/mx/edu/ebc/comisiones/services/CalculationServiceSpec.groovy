@@ -161,4 +161,17 @@ class CalculationServiceSpec extends Specification{
 			comissionPromoter == 9300.0
 	}
 
+	def "6 Probandon las 5 pruebas anteriores en orden"(){
+		given: "Simulate inputs from front"
+			String campus = "CMX"
+			String initDate = "01/01/2019" 
+			String endDate = "11/11/2019"
+		and: "Trimester"
+			Trimester trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(initDate, endDate).first()
+		when: "Se quiere obtener autorizaciones crecientes"
+			List<AuthorizationCrescent> authorizationCrescents = calculationService.getAuthorizationsCrescentcalculationByGoals(trimester, campus)
+		then:
+			authorizationCrescents
+	}
+
 }
