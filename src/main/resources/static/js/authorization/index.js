@@ -2,7 +2,7 @@ var app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!',
-    username: "",
+    username: document.getElementsByName("_username")[0].content,
     person: Object,
     headerBgVariant: "white",
     headerTextVariant: 'dark',
@@ -11,9 +11,10 @@ var app = new Vue({
     campusSelected: "CMX",
     alumns: [],
     listPromoterToUser: [],
-    date: '2019/01/01',
     comissionsGroups: [],
     totalCommissionPromoter: 0,
+    authorizationsCrecent: [],
+    period: 20,
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -103,7 +104,7 @@ var app = new Vue({
       })
     },
     resetChecksBoxes(){
-      checkboxes = document.getElementsByClassName("check_element")
+      let checkboxes = document.getElementsByClassName("check_element")
       for(var i=0, n=checkboxes.length;i<n;i++) {
         checkboxes[i].checked = false;
       }
@@ -113,12 +114,14 @@ var app = new Vue({
       this.$http.post(`/authorization/getCalculation`, {
         campus: this.campusSelected,
         initDate: this.date.selectInit,
-        finDate: this.date.selectFin
+        finDate: this.date.selectFin,
+        period: this.period
       }).then(response => {
         console.log(response.body);
         this.loader.loading = false
         this.alumns = response.body.out_comisiones
         this.comissionsGroups = response.body.comissionsGroups
+        this.authorizationsCrecent = response.body.calculationCrecent
       }, response => {
         console.log("Fail")
         console.log(response)
