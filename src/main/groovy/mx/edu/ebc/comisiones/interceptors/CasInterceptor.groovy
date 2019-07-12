@@ -36,6 +36,7 @@ class CasInterceptor implements HandlerInterceptor {
 
   void addUserEbcTosession(String userName, def session){
     session.setAttribute("ebcUser", new EbcUser(
+      username: userName,
       profiles: personService.findPersonByUsernameAndPortalName(userName, "comisiones-li"),
       menus: personService.getMenusToPerson(userName)
     ))
