@@ -30,9 +30,17 @@
 				<label for="selectCampus">Fecha Fin</label>
 				<date-pick v-model="date.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
 			</div>
+			<div class="col-md-2 col-lg-2">
+				<label for="exampleInputName2" v-model="period">Periodo</label> 
+				<select name="" id="" class="form-control">
+					<option value="20">20</option> 
+					<option value="40">40</option>
+				</select>
+			</div>
 			<div class="col-lg-2">
 				<button class="btn btn-primary mb-2" style="margin-top: 30px;" @click="getCalculation">Buscar</button>
 			</div>
+
 		</div>
 	<hr>
 	<div class="row">
@@ -163,8 +171,74 @@
 				</div>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 					<div class="card-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					</div>
+						<div class="col-md-12 col-lg-12">
+								<ul class="nav nav-tabs">
+									<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos">Todos</a></li>
+									<li class="nav-item" v-for="(key, value) in comissionsGroups">
+										<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key)">{{key[0].nombrePromotor}}</a>
+									</li>
+								</ul>
+
+								<div class="tab-content">
+									<div id="todos" class="tab-pane fade in active">
+									</div>
+									<!--1-->
+									<div :id="'promotor' + value" class="tab-pane fade" v-for="(key, value) in comissionsGroups">
+										<div class="row">
+											 <br class="clear">
+												<div class="col-md-3 col-lg-3">
+														<div style="border: 1px solid silver; padding: 5px; background-color: rgb(223, 240, 216) !important;" class="bg-success text-success text-center">
+																<h6 class="margin0">Comisión a pagar</h6>
+																<h5 class="">$ {{totalCommissionPromoter}}</h5>
+														</div>
+												</div>
+												<div class="col-md-3 col-lg-3">
+														<div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
+																<h6 class="margin0">Ingresos</h6>
+																<h5 class="">{{key.length}}</h5>
+														</div>
+												</div>
+										</div>
+									</div>
+									<!--1-->
+								</div>
+						</div>
+						<br class="clear">
+						<br>
+						<div class="col-md-12 col-lg-12">
+								<table class="table table-bordered table-striped" style="font-size: 12px;">
+								 <tbody><tr>
+										 <th>Promotor</th>
+										 <th>Comisión promotor</th>
+										 <th>Jefe</th>
+										 <th>Comisión jefe</th>
+										 <th>Periodo de inscripción</th>
+										 <th>Alumno</th>
+										 <th>Fecha de Pago</th>
+										 <th>Valor de contrato</th>
+										 <th>% Beneficios</th>
+										 <th>Valor real de contrato</th>
+										 <th>Registrar</th>
+										 <th>Denegar</th>
+								 </tr>
+									<tr v-for="(alumno, index) in authorizationsCrecent">
+											<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
+											<td>{{alumno.comision}}</td>
+											<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
+											<td>{{alumno.comisionCoordinador}}</td>
+											<td>{{alumno.periodo}}</td>
+											<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
+											<td>{{alumno.fechaDePago}}</td>
+											<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
+											<td>{{alumno | percentDiscount}}%</td>
+											<td>${{alumno.valorContratoReal}}</td>
+											<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
+											<td><button class="btn btn-xs btn-block btn-danger" @click="denegateAuthorization(alumno)">Rechazar</button></td>
+
+									</tr>
+								</tbody></table>
+						</div>
+				</div>
 				</div>
 			</div>
 		</div>
