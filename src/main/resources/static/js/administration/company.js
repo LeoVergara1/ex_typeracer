@@ -1,7 +1,6 @@
 var app = new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue!',
     person: Object,
     headerBgVariant: "white",
     headerTextVariant: 'dark',
@@ -16,6 +15,8 @@ var app = new Vue({
       name: ""
     },
     dataToSearch: {
+      username: document.getElementsByName("_username")[0].content,
+      period: "",
       name: "",
       clave: "",
       year: "",
@@ -71,7 +72,7 @@ var app = new Vue({
     addTrimester() {
       if(this.dataToSearch.name && this.dataToSearch.claveWihtoutPeriod){
         this.loader.loading = true
-        this.dataToSearch.clave = this.period + this.dataToSearch.claveWihtoutPeriod
+        this.dataToSearch.clave = this.dataToSearch.period + this.dataToSearch.claveWihtoutPeriod
         this.$http.post('/administration/save/trimester', this.dataToSearch ).then( response =>{
           console.log(response)
           this.loader.loading = false
