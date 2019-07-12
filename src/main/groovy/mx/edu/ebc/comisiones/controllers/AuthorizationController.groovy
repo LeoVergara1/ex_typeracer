@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.AuthorizationService
 import mx.edu.ebc.comisiones.services.TrimesterService
+import mx.edu.ebc.comisiones.services.CalculationService
 import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
@@ -36,6 +37,8 @@ import java.text.SimpleDateFormat
 @Controller
 class AuthorizationController {
 
+	Logger logger = LoggerFactory.getLogger(AuthorizationController.class)
+
 	@Value('#{${campus}}')
 	Map<String, String> campus
 	@Autowired
@@ -46,6 +49,8 @@ class AuthorizationController {
 	TrimesterService trimesterService
   @Autowired
   TrimesterRepository trimesterRepository
+  @Autowired
+  CalculationService calculationService
 
   @RequestMapping("/")
   @ResponseBody
@@ -66,11 +71,19 @@ class AuthorizationController {
 	@PostMapping("/getCalculation")
   @ResponseBody
   Map getCalculation(@RequestBody Map data) {
+    logger.info "Calculado comisiones corrientes"
 		Map calculationWithComissions = authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
     List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
-    if(trimester.size() > 1)
-      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: []]
-    calculationWithComissions << [moreThanTwo: false, calculationCrecent: []]
+    if(trimester.size() > 1){
+      logger.error "La busqueda incluye más de un trimestre"
+      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: false]
+    }
+    else if(trimester.size() == 0){
+      logger.error "La busqueda incluye más de un trimestre"
+      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: true]
+    }
+    logger.info "Calculado comisiones crecientes"
+    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationService.getAuthorizationsCrescentcalculationByGoals(trimester.first(), data.campus)]
   }
 
 	@PostMapping("/sendAuthorization")
