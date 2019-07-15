@@ -31,8 +31,8 @@
 				<date-pick v-model="date.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
 			</div>
 			<div class="col-md-2 col-lg-2">
-				<label for="exampleInputName2" v-model="period">Periodo</label> 
-				<select name="" id="" class="form-control">
+				<label for="exampleInputName2">Periodo</label> 
+				<select name="" id="" class="form-control" v-model="period_banner">
 					<option value="20">20</option> 
 					<option value="40">40</option>
 				</select>
@@ -153,7 +153,7 @@
 												<td>{{alumno | percentDiscount}}%</td>
 												<td>${{alumno.valorContratoReal}}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
-												<td><button class="btn btn-xs btn-block btn-danger" @click="denegateAuthorization(alumno)">Rechazar</button></td>
+												<td><button class="btn btn-xs btn-block btn-danger" @click="denegateComissions(alumno)">Rechazar</button></td>
 
 										</tr>
 									</tbody></table>
@@ -168,6 +168,9 @@
 							Crecientes
 						</button>
 					</h5>
+					<div class="float-right">
+							<button @click="sendAuthorizationCrecent()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check" aria-hidden="true"></i> Autorizar</button>
+					</div>
 				</div>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 					<div class="card-body">
@@ -232,8 +235,8 @@
 											<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
 											<td>{{alumno | percentDiscount}}%</td>
 											<td>${{alumno.valorContratoReal}}</td>
-											<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
-											<td><button class="btn btn-xs btn-block btn-danger" @click="denegateAuthorization(alumno)">Rechazar</button></td>
+											<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorizationCrecent(alumno, $event)"></td>
+											<td><button class="btn btn-xs btn-block btn-danger" @click="denegateComissions(alumno)">Rechazar</button></td>
 
 									</tr>
 								</tbody></table>
