@@ -12,4 +12,5 @@ interface TrimesterRepository extends JpaRepository<Trimester, Integer> {
 	Trimester findByClave(String clave)
 	Trimester findById(Integer id)
 	List<Trimester> findByInitDateGreaterThanAndEndDateLessThan(Date initDate, Date endDate)
+	List<Trimester> findByInitDateGreaterThanAndEndDateLessThanAndPeriod(Date initDate, Date endDate, Integer period)
 }
