@@ -13,6 +13,9 @@ import mx.edu.ebc.comisiones.comision.domain.Campaign
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationCrescent
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
+import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.comision.repo.AuthorizationCrescentRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
 import mx.edu.ebc.comisiones.comision.repo.GoalRepository
 import mx.edu.ebc.comisiones.comision.domain.Trimester
@@ -27,6 +30,10 @@ class CalculationServiceImpl implements CalculationService {
 	CampaignRepository campaignRepository
 	@Autowired
 	AuthorizationService authorizationService
+	@Autowired
+	AdminDeComisionesRepository adminDeComisionesRepository
+	@Autowired
+	AuthorizationCrescentRepository authorizationCrescentRepository
 
 	List<AuthorizationComission> getAuthorizationsByCampaign(Campaign campaign){
 		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate)
@@ -48,6 +55,14 @@ class CalculationServiceImpl implements CalculationService {
 		Goal goal = trimester.goals.find(){ it.campus == campus}
 		calculationByGoal(goal, campaign.initDate, campaign.endDate)
 	}
+
+	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(Trimester trimester ,String campus){
+		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoals(trimester , campus) 
+		authorizationsToAuthorize.findAll(){
+			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
+		}
+	}
+
 
 	List<AuthorizationCrescent> calculationByGoal(Goal goal, Date initDate, Date endDate){
 		List<AuthorizationComission> authorizationsCommissions = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween("AUTORIZADO", goal.campus, initDate, endDate)
@@ -73,7 +88,7 @@ class CalculationServiceImpl implements CalculationService {
   			comision: calculationComissionPromoter(authorization.valorContratoReal, goal.percentCommission),
   			periodo: authorization.periodo,
   			fechaDePago: authorization.fechaDePago,
-  			autorizadoDirector: authorization.autorizadoDirector,
+  			autorizadoDirector: "CALCULADO",
   			dateCreated: new Date(),
   			lastUpdated: new Date(),
   			idCoordinador: authorization.idCoordinador,
@@ -94,7 +109,7 @@ class CalculationServiceImpl implements CalculationService {
 
 	double calculationComissionCoordinater(double valorContratoReal, float percentCommission){
 		double commissionPromoter = (valorContratoReal* (percentCommission/100)) 
-		commissionPromoter * 0.15 
+		commissionPromoter * adminDeComisionesRepository.findAll().first().comisionCoordinacion 
 	}
 
 }
