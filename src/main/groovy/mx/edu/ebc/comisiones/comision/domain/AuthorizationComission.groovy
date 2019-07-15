@@ -34,9 +34,9 @@ class AuthorizationComission {
 	@Column(name="AUTORIZADO_DIRECTOR")
 	String autorizadoDirector
 	@Column(name="DATE_CREATED")
-	Date dateCreated
+	Date dateCreated = new Date()
 	@Column(name="LAST_UPDATED")
-	Date lastUpdated
+	Date lastUpdated = new Date()
 	@Column(name="ID_COORDINADOR")
 	String idCoordinador
 	@Column(name="NOMBRE_COORDINADOR")
@@ -53,6 +53,8 @@ class AuthorizationComission {
  	double valorContratoReal;
 	@Column(name="PIDM")
  	Long pidm;
+	@Column(name="COMMENTS")
+ 	String comment
 
 	AuthorizationComission(def json, username){
 		this.user = username

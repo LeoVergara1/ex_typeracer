@@ -53,5 +53,7 @@ class AuthorizationCrescent {
  	double valorContratoReal;
 	@Column(name="PIDM")
  	Long pidm;
+	@Column(name="COMMENTS")
+ 	String comment
 
 }

@@ -26,5 +26,6 @@ class AutorizacionComisiones {
   String tipoPago
   double valorContratoReal
   Long pidm
+  String comment
 
 	}
