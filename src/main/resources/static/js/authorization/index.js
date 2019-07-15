@@ -14,7 +14,7 @@ var app = new Vue({
     comissionsGroups: [],
     totalCommissionPromoter: 0,
     authorizationsCrecent: [],
-    period: 20,
+    period_banner: 20,
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -77,6 +77,10 @@ var app = new Vue({
       (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
       console.log(target.checked)
     },
+    setAuthorizationCrecent(alumno, { target }){
+      (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
+      console.log(target.checked)
+    },
     denegateAuthorization(alumno){
       console.log(alumno)
       this.loader.loading = true
@@ -103,11 +107,36 @@ var app = new Vue({
         console.log(response)
       })
     },
+    sendAuthorizationCrecent(){
+      let listTosend = this.authorizationsCrecent.filter(alumno => alumno.autorizadoDirector == "AUTORIZADO")
+      console.log(listTosend)
+      this.loader.loading = true
+      this.$http.post(`/authorization/sendAuthorizationCrecent`, listTosend).then(response => {
+        console.log(response.body);
+        this.authorizationsCrecent = this.authorizationsCrecent.filter(alumno => alumno.autorizadoDirector != "AUTORIZADO")
+        this.resetChecksBoxes()
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
+    },
     resetChecksBoxes(){
       let checkboxes = document.getElementsByClassName("check_element")
       for(var i=0, n=checkboxes.length;i<n;i++) {
         checkboxes[i].checked = false;
       }
+    },
+    denegateComissions(authorizationComission){
+      this.loader.loading = true
+      authorizationComission.autorizadoDirector = "RECHAZADA"
+      this.$http.post(`/authorization/denegateComissions`, authorizationComission).then(response => {
+        console.log(response.body);
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      })
     },
     getCalculation() {
       this.loader.loading = true
@@ -115,7 +144,7 @@ var app = new Vue({
         campus: this.campusSelected,
         initDate: this.date.selectInit,
         finDate: this.date.selectFin,
-        period: this.period
+        period: this.period_banner
       }).then(response => {
         console.log(response.body);
         this.loader.loading = false
