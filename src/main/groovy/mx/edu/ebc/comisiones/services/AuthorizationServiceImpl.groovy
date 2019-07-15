@@ -3,6 +3,7 @@ package mx.edu.ebc.comisiones.services
 import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.domain.AutorizacionComisiones
+import mx.edu.ebc.comisiones.comision.domain.AuthorizationCrescent
 import mx.edu.ebc.comisiones.pojos.*
 import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.storedProcedure.AutorizacionComisionesStoredProcedure
@@ -37,6 +38,13 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	def saveListAuthorization(List<AuthorizationComission> listToAuthorization, String username){
 		listToAuthorization.each{ authorized ->
 			authorizationRepository.save(new AuthorizationComission(authorized, username))
+		}
+	}
+
+	def saveListAuthorizationCrecent(List<AuthorizationCrescent> listToAuthorization, String username){
+		listToAuthorization.each{ authorized ->
+			authorized.user = username
+			authorizationRepository.save(authorized)
 		}
 	}
 
