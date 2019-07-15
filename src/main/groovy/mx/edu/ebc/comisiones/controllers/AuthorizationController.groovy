@@ -13,6 +13,7 @@ import mx.edu.ebc.comisiones.services.CalculationService
 import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import org.springframework.beans.factory.annotation.Value
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 import mx.edu.ebc.comisiones.comision.domain.Trimester
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
+import mx.edu.ebc.comisiones.comision.domain.AuthorizationCrescent
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat
@@ -52,6 +54,8 @@ class AuthorizationController {
   TrimesterRepository trimesterRepository
   @Autowired
   CalculationService calculationService
+  @Autowired
+  AuthorizationRepository authorizationRepository
 
   @RequestMapping("/")
   @ResponseBody
@@ -73,6 +77,7 @@ class AuthorizationController {
   @ResponseBody
   Map getCalculation(@RequestBody Map data) {
     logger.info "Calculado comisiones corrientes"
+    println data
 		Map calculationWithComissions = authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
     List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
     if(trimester.size() > 1){
@@ -84,7 +89,7 @@ class AuthorizationController {
       return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: true]
     }
     logger.info "Calculado comisiones crecientes"
-    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationService.getAuthorizationsCrescentcalculationByGoals(trimester.first(), data.campus)]
+    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(trimester.first(), data.campus)]
   }
 
 	@PostMapping("/sendAuthorization")
@@ -92,6 +97,26 @@ class AuthorizationController {
   Map sendAuthorization(HttpServletRequest request, @RequestBody Map data) {
 		String username = request.getUserPrincipal().getUserDetails().username
 		authorizationService.saveListAuthorization(data.listAuthorization, username)
+		[response: 200]
+  }
+
+	@PostMapping("/sendAuthorizationCrecent")
+  @ResponseBody
+  Map sendAuthorizationCrecent(HttpServletRequest request, @RequestBody List<AuthorizationCrescent> authorizationCrescents) {
+		String username = request.getUserPrincipal().getUserDetails().username
+		authorizationService.saveListAuthorizationCrecent(authorizationCrescents, username)
+		[response: 200]
+  }
+
+	@PostMapping("/denegateComissions")
+  @ResponseBody
+  Map denegateComissions(HttpServletRequest request, @RequestBody AuthorizationComission authorizationComission) {
+		String username = request.getUserPrincipal().getUserDetails().username
+    println authorizationComission.dump()
+    authorizationComission.dateCreated = new Date()
+    authorizationComission.lastUpdated = new Date()
+    authorizationComission.user = username
+    authorizationRepository.save(authorizationComission)
 		[response: 200]
   }
 
