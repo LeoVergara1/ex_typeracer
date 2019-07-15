@@ -29,6 +29,10 @@ var app = new Vue({
       radius: '2px',
       loading: false,
       size: "95px",
+    },
+    authorizationToDenegate: {
+      authorization: {},
+      send: {}
     }
   },
   computed: {
@@ -80,6 +84,15 @@ var app = new Vue({
     setAuthorizationCrecent(alumno, { target }){
       (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
       console.log(target.checked)
+    },
+    showModalTooDenegate(authorization, functionSend){
+      this.authorizationToDenegate.authorization = authorization
+      this.authorizationToDenegate.send = functionSend
+      this.$bvModal.show("modal-denegate")
+    },
+    executeDenegateFromModal(){
+      this.authorizationToDenegate.send(this.authorizationToDenegate.authorization)
+      this.$bvModal.hide("modal-denegate")
     },
     denegateAuthorization(alumno){
       console.log(alumno)
@@ -159,8 +172,6 @@ var app = new Vue({
   },
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
-      this.loader.loading = true
-      this.getCoordinators()
     })
   },
   components: {

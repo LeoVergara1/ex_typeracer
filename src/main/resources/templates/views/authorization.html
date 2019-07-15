@@ -1,6 +1,16 @@
 <div th:fragment="authorization">
 	<br>
+
 	<div id="app" class="display_current">
+	<b-modal id="modal-denegate" title="Rechazar">
+			<p class="my-4">Razón</p>
+			<input type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment">
+			<template slot="modal-footer" class="w-100">
+					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal">
+						Cerrar
+					</b-button>
+			</template>
+	</b-modal>
 		<div class="loading" v-if="loader.loading"></div>
 		<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 		<div class="row">
@@ -153,7 +163,7 @@
 												<td>{{alumno | percentDiscount}}%</td>
 												<td>${{alumno.valorContratoReal}}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
-												<td><button class="btn btn-xs btn-block btn-danger" @click="denegateComissions(alumno)">Rechazar</button></td>
+												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions)">Rechazar</button></td>
 
 										</tr>
 									</tbody></table>
