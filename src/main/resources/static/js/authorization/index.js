@@ -33,13 +33,21 @@ var app = new Vue({
     authorizationToDenegate: {
       authorization: {},
       send: {}
-    }
+    },
+    authorizationsCrecentGroups: []
   },
   computed: {
     totalCommission() {
       let cost = 0
       this.alumns.forEach(element => {
-         cost = element.comision + cost
+         cost = Number(element.comision) + cost
+      });
+      return cost.toFixed(2)
+    },
+    totalCommissionCrecent(){
+      let cost = 0
+      this.authorizationsCrecent.forEach(element => {
+         cost = Number(element.comision) + cost
       });
       return cost.toFixed(2)
     },
@@ -71,9 +79,10 @@ var app = new Vue({
   },
   methods:{
     calculateComissionByPromoter (commissions){
+      console.log(commissions)
       let cost = 0
       commissions.forEach(element => {
-         cost = element.comision + cost
+         cost = Number(element.comision) + cost
       });
       this.totalCommissionPromoter =  cost.toFixed(2)
     },
@@ -164,6 +173,7 @@ var app = new Vue({
         this.alumns = response.body.out_comisiones
         this.comissionsGroups = response.body.comissionsGroups
         this.authorizationsCrecent = response.body.calculationCrecent
+        this.authorizationsCrecentGroups = response.body.groupsCalculations
       }, response => {
         console.log("Fail")
         console.log(response)
