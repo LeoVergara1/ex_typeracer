@@ -5,7 +5,7 @@
 	<b-modal id="modal-denegate" title="Rechazar">
 			<textarea type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment" class="form-control" rows="5"></textarea>
 			<template slot="modal-footer" class="w-100">
-					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal('comission')">
+					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal()">
 						Confirmar	
 					</b-button>
 			</template>
@@ -81,24 +81,26 @@
 	<hr>
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="blue margin0">Promotores</h3>
 		</div>
 	</div>
 	<div id="accordion">
 			<div class="card">
 				<div class="card-header" id="headingOne">
-					<h5 class="mb-0">
-						<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					<div class="row">
+					<h5 class="col-7">
+						<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="transition: 0.5s ease-in-out;
+						text-decoration: none;
+						color: black;">
 							Corrientes
 						</button>
 					</h5>
-					<div class="float-right">
+					<div class="col-5">
 							<button @click="sendAuthorization()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check" aria-hidden="true"></i> Autorizar</button>
 					</div>
-
+					</div>
 				</div>
 
-				<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+				<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
 					<div class="card-body">
 							<div class="col-md-12 col-lg-12">
 									<ul class="nav nav-tabs">
@@ -162,7 +164,7 @@
 												<td>{{alumno | percentDiscount}}%</td>
 												<td>${{alumno.valorContratoReal}}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
-												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index)">Rechazar</button></td>
+												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index, '')">Rechazar</button></td>
 
 										</tr>
 									</tbody></table>
@@ -172,13 +174,19 @@
 			</div>
 			<div class="card">
 				<div class="card-header" id="headingTwo">
-					<h5 class="mb-0">
-						<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							Crecientes
-						</button>
-					</h5>
-					<div class="float-right">
-							<button @click="sendAuthorizationCrecent()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check" aria-hidden="true"></i> Autorizar</button>
+					<div class="row">
+						<h5 class="col-7">
+							<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+								aria-controls="collapseTwo" style="    transition: 0.5s ease-in-out;
+										text-decoration: none;
+										color: black;">
+								Crecientes
+							</button>
+						</h5>
+						<div class="col-5">
+							<button @click="sendAuthorizationCrecent()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check"
+									aria-hidden="true"></i> Autorizar</button>
+						</div>
 					</div>
 				</div>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
