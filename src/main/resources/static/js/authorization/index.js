@@ -32,7 +32,8 @@ var app = new Vue({
     },
     authorizationToDenegate: {
       authorization: {},
-      send: {}
+      send: {},
+      indexList: ""
     },
     authorizationsCrecentGroups: []
   },
@@ -94,19 +95,27 @@ var app = new Vue({
       (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
       console.log(target.checked)
     },
-    showModalTooDenegate(authorization, functionSend){
+    showModalTooDenegate(authorization, functionSend, index){
       this.authorizationToDenegate.authorization = authorization
       this.authorizationToDenegate.send = functionSend
+      this.authorizationToDenegate.indexList = index
       this.$bvModal.show("modal-denegate")
     },
-    executeDenegateFromModal(){
+    executeDenegateFromModal(from_type){
       this.authorizationToDenegate.send(this.authorizationToDenegate.authorization)
       this.$bvModal.hide("modal-denegate")
+      if (from_type == "comission"){
+        this.alumns.splice(-1, this.authorizationToDenegate.indexList)
+      }
+      else {
+        this.authorizationsCrecent.splice(-1, this.authorizationToDenegate.indexList +1)
+      }
     },
-    denegateAuthorization(alumno){
+    denegateAuthorizationCrecent(alumno){
       console.log(alumno)
       this.loader.loading = true
-      this.$http.post(`/authorization/denegate`, alumno).then(response => {
+      alumno.autorizadoDirector = "RECHAZADA"
+      this.$http.post(`/authorization/denegateCrecent`, alumno).then(response => {
         console.log(response.body);
         this.loader.loading = false
       }, response => {
