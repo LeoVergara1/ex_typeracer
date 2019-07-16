@@ -712,3 +712,8 @@ a.active {
 	background-color: #0092D0 !important;
 	color: white !important;
 }
+
+.modal-header {
+background-color: white;
+color: black
+}
