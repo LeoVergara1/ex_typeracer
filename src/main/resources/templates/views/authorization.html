@@ -7,7 +7,7 @@
 			<input type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment">
 			<template slot="modal-footer" class="w-100">
 					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal">
-						Cerrar
+						Confirmar	
 					</b-button>
 			</template>
 	</b-modal>
@@ -187,7 +187,7 @@
 						<div class="col-md-12 col-lg-12">
 								<ul class="nav nav-tabs">
 									<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos">Todos</a></li>
-									<li class="nav-item" v-for="(key, value) in comissionsGroups">
+									<li class="nav-item" v-for="(key, value) in authorizationsCrecentGroups">
 										<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key)">{{key[0].nombrePromotor}}</a>
 									</li>
 								</ul>
@@ -196,7 +196,7 @@
 									<div id="todos" class="tab-pane fade in active">
 									</div>
 									<!--1-->
-									<div :id="'promotor' + value" class="tab-pane fade" v-for="(key, value) in comissionsGroups">
+									<div :id="'promotor' + value" class="tab-pane fade" v-for="(key, value) in authorizationsCrecentGroups">
 										<div class="row">
 											 <br class="clear">
 												<div class="col-md-3 col-lg-3">
