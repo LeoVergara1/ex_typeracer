@@ -4,11 +4,13 @@ import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.domain.AutorizacionComisiones
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationCrescent
+import mx.edu.ebc.comisiones.comision.domain.Trimester
 import mx.edu.ebc.comisiones.pojos.*
 import org.springframework.stereotype.Service
 import mx.edu.ebc.comisiones.comision.storedProcedure.AutorizacionComisionesStoredProcedure
 import org.springframework.beans.factory.annotation.Autowired
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
+import mx.edu.ebc.comisiones.comision.repo.AuthorizationCrescentRepository
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 import java.text.SimpleDateFormat
 
@@ -20,7 +22,13 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	@Autowired
 	AuthorizationRepository authorizationRepository
 	@Autowired
+	AuthorizationCrescentRepository authorizationCrescentRepository
+	@Autowired
 	PromoterRepository promoterRepository
+	@Autowired
+	TrimesterService trimesterService
+	@Autowired
+	CalculationService calculationService
 
 	def getCalculation(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
@@ -100,4 +108,25 @@ class AuthorizationServiceImpl implements AuthorizationService {
 			[authorization: authorized, promoter: promoterRepository.findOneByIdPromoter(authorized.idPromotor), campus: authorized.campus]
 		}
 	}
+
+	List<AuthorizationCrescent> getCommissionsCrecentByStatus(data){
+		println data
+		if(data.status == "POR_AUTORIZAR")
+			return filterToAuthorizationsCrecents(data)
+		if(data.status == "AUTORIZADO")
+			return findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data) 
+		if(data.status == "RECHAZADO")
+			return [1,23,4]
+	}
+	
+	List<AuthorizationCrescent> filterToAuthorizationsCrecents(data){
+    calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(data.trimester, data.campus)
+	}
+
+	List<AuthorizationCrescent> findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data){
+    Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
+    Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
+		authorizationCrescentRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data.status, data.campus, initDateFrom, finDateFrom) 
+	}
+
 }
