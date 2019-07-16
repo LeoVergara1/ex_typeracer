@@ -53,6 +53,8 @@ const app = new Vue({
     }
   },
   created: function() {
+    let container = document.getElementById("app")
+    container.classList.remove("display_current")
     // eslint-disable-next-line no-undef
     console.log(XLSX)
   },
@@ -144,6 +146,10 @@ const app = new Vue({
     DatePick: VueDatePick
   },
   filters: {
+    percentDiscount(alumno){
+      let percent = alumno.totalDescuentos * 100
+      return (percent/alumno.valorContratoReal.toFixed(3))
+    },
 		getDescriptionToRol: function (value){
 			let map = {
 				"DIR_CAMPUS": "Director de campus",
