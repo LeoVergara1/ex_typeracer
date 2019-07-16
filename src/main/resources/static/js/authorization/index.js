@@ -101,10 +101,10 @@ var app = new Vue({
       this.authorizationToDenegate.indexList = index
       this.$bvModal.show("modal-denegate")
     },
-    executeDenegateFromModal(from_type){
+    executeDenegateFromModal(){
       this.authorizationToDenegate.send(this.authorizationToDenegate.authorization)
       this.$bvModal.hide("modal-denegate")
-      if (from_type == "comission"){
+      if ( this.authorizationToDenegate.send == this.denegateComissions ){
         this.alumns.splice(-1, this.authorizationToDenegate.indexList)
       }
       else {
