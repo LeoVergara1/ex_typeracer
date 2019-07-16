@@ -14,6 +14,7 @@ import mx.edu.ebc.comisiones.services.PromoterService
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
+import mx.edu.ebc.comisiones.comision.repo.AuthorizationCrescentRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import mx.edu.ebc.comisiones.comision.repo.TrimesterRepository
 import org.springframework.beans.factory.annotation.Value
@@ -56,6 +57,8 @@ class AuthorizationController {
   CalculationService calculationService
   @Autowired
   AuthorizationRepository authorizationRepository
+  @Autowired
+  AuthorizationCrescentRepository authorizationCrescentRepository
 
   @RequestMapping("/")
   @ResponseBody
@@ -147,9 +150,14 @@ class AuthorizationController {
 		return [response: result, groups: result.groupBy({ it.campus })]
   }
 
-  @PostMapping("/denegate")
+  @PostMapping("/denegateCrecent")
   @ResponseBody
-  Map queryAuthorizationSearchCommissions(@RequestBody AuthorizationComission comision) {
+  Map denegateCrecent(HttpServletRequest request, @RequestBody AuthorizationCrescent authorizationCrescent) {
+		String username = request.getUserPrincipal().getUserDetails().username
+    authorizationCrescent.dateCreated = new Date()
+    authorizationCrescent.lastUpdated = new Date()
+    authorizationCrescent.user = username
+    authorizationCrescentRepository.save(authorizationCrescent)
 		[response:200]
   }
 
