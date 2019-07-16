@@ -135,9 +135,24 @@ class AuthorizationController {
   @PostMapping("/query/searchCommisions")
   @ResponseBody
   Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
-		def list = authorizationService.getCommissionsByStatus(data)
-		def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
-		[response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
+    if(data.typeComission == "Corrientes"){
+		  def list = authorizationService.getCommissionsByStatus(data)
+		  def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
+		  return [response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
+    }
+    List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.selectInit, data.selectFin)
+    if(trimester.size() > 1){
+      logger.error "La busqueda incluye más de un trimestre"
+      return [response: 404, commissions: [], groups: []]
+    }
+    else if(trimester.size() == 0){
+      logger.error "La busqueda incluye más de un trimestre"
+      return [response: 404, commissions: [], groups: []]
+    }
+    data << [trimester: trimester.first()]
+    List<AuthorizationCrescent> authorizationCrescents = authorizationService.getCommissionsCrecentByStatus(data)
+    def groups = authorizationService.structureGrups(authorizationCrescents.groupBy({ it.idPromotor }))
+    [response:200, commissions: authorizationCrescents, groups: groups]
   }
 
 	@PostMapping("/sicoss")
