@@ -89,7 +89,8 @@ class AuthorizationController {
       return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: true]
     }
     logger.info "Calculado comisiones crecientes"
-    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(trimester.first(), data.campus)]
+    def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(trimester.first(), data.campus)
+    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
   }
 
 	@PostMapping("/sendAuthorization")
