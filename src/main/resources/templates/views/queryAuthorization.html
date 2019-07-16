@@ -1,6 +1,6 @@
-<div th:fragment="queryAuthorization">
+<div th:fragment="queryAuthorization"  id="app" class="display_current">
 	<br>
-	<div id="app">
+	<div id="app_nothing">
 		<div class="loading" v-if="loader.loading"></div>
 		<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 		<div class="row">
@@ -43,7 +43,7 @@
 								<td>{{alumno.fechaDePago}}</td>
 								<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a href="" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
 								<td>{{alumno | percentDiscount}}%</td>
-								<td>$1,850.00</td>
+								<td>${{alumno.valorContratoReal}}</td>
 						</tr>
 					</tbody></table>
 			</div>

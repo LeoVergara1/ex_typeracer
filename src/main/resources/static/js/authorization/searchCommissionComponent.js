@@ -17,7 +17,8 @@ Vue.component('template-comission-search', {
 				selectFin: this.date.selectFin,
 				selectInit: this.date.selectInit,
 				campus: "CMX",
-				status: "POR_AUTORIZAR"
+				status: "POR_AUTORIZAR",
+				typeComission: "Corrientes"
 			},
 			myDataToTable: this.dataToTable,
 			alertModel:{
@@ -99,7 +100,16 @@ Vue.component('template-comission-search', {
 		</select>
 </div>
 <div class="col-md-2 col-lg-2">
-		<button @click="search" style="margin-top:25px;" href="" class="btn btn-block btn-sm btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+		<div class="btn-group" style="margin-top: 15%">
+				<button  @click="search" type="button" class="btn btn-block btn-sm btn-primary"><i class="fa fa-search" aria-hidden="true"></i> {{searchData.typeComission}}</button>
+				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" @click="searchData.typeComission = 'Corrientes'">Corrientes</a>
+					<a class="dropdown-item" @click="searchData.typeComission = 'Crecientes'">Crecientes</a>
+				</div>
+			</div>
 	</div>
 	</div>
 	`
