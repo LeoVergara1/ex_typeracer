@@ -3,10 +3,9 @@
 
 	<div id="app" class="display_current">
 	<b-modal id="modal-denegate" title="Rechazar">
-			<p class="my-4">Razón</p>
-			<input type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment">
+			<textarea type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment" class="form-control" rows="5"></textarea>
 			<template slot="modal-footer" class="w-100">
-					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal">
+					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal('comission')">
 						Confirmar	
 					</b-button>
 			</template>
@@ -163,7 +162,7 @@
 												<td>{{alumno | percentDiscount}}%</td>
 												<td>${{alumno.valorContratoReal}}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
-												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions)">Rechazar</button></td>
+												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index)">Rechazar</button></td>
 
 										</tr>
 									</tbody></table>
@@ -246,7 +245,7 @@
 											<td>{{alumno | percentDiscount}}%</td>
 											<td>${{alumno.valorContratoReal}}</td>
 											<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorizationCrecent(alumno, $event)"></td>
-											<td><button class="btn btn-xs btn-block btn-danger" @click="denegateComissions(alumno)">Rechazar</button></td>
+											<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateAuthorizationCrecent, index)">Rechazar</button></td>
 
 									</tr>
 								</tbody></table>
