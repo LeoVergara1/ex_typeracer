@@ -4,5 +4,5 @@ import mx.edu.ebc.comisiones.comision.domain.AdminDeComisiones
 import mx.edu.ebc.comisiones.pojos.*
 
 interface AuthorizationService {
-	def findAllAuthorizationByStatus(String status, Date initDateFrom, Date finDateFrom)
+	def findAllAuthorizationByStatus(String status, String campus, Date initDateFrom, Date finDateFrom)
 }

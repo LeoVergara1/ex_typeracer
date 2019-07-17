@@ -76,14 +76,15 @@ class AuthorizationServiceImpl implements AuthorizationService {
     ]
 		if(params.status == "POR_AUTORIZAR")
 			return filterAuthorizations(paramsStored)
-		if(params.status == "AUTORIZADO")
-			return findAllAuthorizationByStatus(params.status, initDateFrom, finDateFrom)
-		if(params.status == "RECHAZADO")
-			return [1,23,4]
+		if(params.status == "AUTORIZADO" || params.status == "RECHAZADA")
+			return findAllAuthorizationByStatus(params.status, params.campus, initDateFrom, finDateFrom)
 	}
 
-	def findAllAuthorizationByStatus(String status, Date initDateFrom, Date finDateFrom){
-		authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(status, initDateFrom, finDateFrom)
+	def findAllAuthorizationByStatus(String status, String campus, Date initDateFrom, Date finDateFrom){
+		println status
+		if(campus == "TODOS")
+			return authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(status, initDateFrom, finDateFrom)
+		authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(status, campus,initDateFrom, finDateFrom)
 	}
 
 	def structureGrups(def groups){
@@ -113,10 +114,8 @@ class AuthorizationServiceImpl implements AuthorizationService {
 		println data
 		if(data.status == "POR_AUTORIZAR")
 			return filterToAuthorizationsCrecents(data)
-		if(data.status == "AUTORIZADO")
+		if(data.status == "AUTORIZADO" || data.status == "RECHAZADA")
 			return findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data) 
-		if(data.status == "RECHAZADO")
-			return [1,23,4]
 	}
 	
 	List<AuthorizationCrescent> filterToAuthorizationsCrecents(data){
@@ -126,6 +125,9 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	List<AuthorizationCrescent> findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
+		if(data.campus == "TODOS"){
+			return authorizationCrescentRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(data.status, initDateFrom, finDateFrom) 
+		}
 		authorizationCrescentRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data.status, data.campus, initDateFrom, finDateFrom) 
 	}
 
