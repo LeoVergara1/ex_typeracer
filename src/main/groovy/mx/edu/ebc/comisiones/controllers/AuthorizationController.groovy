@@ -120,6 +120,7 @@ class AuthorizationController {
     authorizationComission.dateCreated = new Date()
     authorizationComission.lastUpdated = new Date()
     authorizationComission.user = username
+    authorizationComission.fechaAutorizado = new Date() 
     authorizationRepository.save(authorizationComission)
 		[response: 200]
   }
@@ -137,6 +138,8 @@ class AuthorizationController {
   Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
     if(data.typeComission == "Corrientes"){
 		  def list = authorizationService.getCommissionsByStatus(data)
+      println "********"
+      println list
 		  def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
 		  return [response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
     }
@@ -171,6 +174,7 @@ class AuthorizationController {
 		String username = request.getUserPrincipal().getUserDetails().username
     authorizationCrescent.dateCreated = new Date()
     authorizationCrescent.lastUpdated = new Date()
+    authorizationCrescent.fechaAutorizado = new Date() 
     authorizationCrescent.user = username
     authorizationCrescentRepository.save(authorizationCrescent)
 		[response:200]
