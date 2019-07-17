@@ -12,6 +12,7 @@ Vue.component('template-comission-search', {
 	},
   data: function () {
     return {
+			allCampuses: false,
 			searchData: {
 				typeReport: "General",
 				selectFin: this.date.selectFin,
@@ -44,6 +45,15 @@ Vue.component('template-comission-search', {
 	watch: {
 		'searchData.typeReport': function() {
 			this.$root.$emit('send_report', this.searchData.typeReport)
+		},
+		'searchData.status': function(val){
+			console.log(val)
+			if(this.searchData.status == "POR_AUTORIZAR"){
+				this.allCampuses = false
+			}
+			else{
+				this.allCampuses = true
+			}
 		}
 	},
 	methods: {
@@ -83,21 +93,21 @@ Vue.component('template-comission-search', {
 	<date-pick v-model="searchData.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
 </div>
 <div class="col-md-2 col-lg-2">
-		<label for="exampleInputName2">Campus</label>
-		<select class="form-control" v-model="searchData.campus">
-		 <option value=""></option>
-		 <option v-for="(k, v) in campuses" v-bind:value="v">
-		 	{{ k }}
-	 		</option>
-		</select>
-</div>
-<div class="col-md-2 col-lg-2">
 		<label for="exampleInputName2">Estatus</label>
 		<select class="form-control" v-model="searchData.status">
 			<option value="POR_AUTORIZAR">Por Autorizar</option>
 			<option value="AUTORIZADO">Autorizado</option>
-			<option value="RECHAZADO">Rechazado</option>
+			<option value="RECHAZADA">Rechazado</option>
 		</select>
+</div>
+<div class="col-md-2 col-lg-2">
+	<label for="exampleInputName2">Campus</label>
+	<select class="form-control" v-model="searchData.campus">
+	 <option value="TODOS" v-if="allCampuses">Todos</option>
+	 <option v-for="(k, v) in campuses" v-bind:value="v">
+		 {{ k }}
+		 </option>
+	</select>
 </div>
 <div class="col-md-2 col-lg-2">
 		<div class="btn-group" style="margin-top: 15%">
