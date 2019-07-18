@@ -30,7 +30,8 @@ const app = new Vue({
 		commissionsToTable: [],
 		dataToTable: [],
     groups: [],
-    searchData: {}
+    searchData: {},
+    comment_denegate: ""
   },
   computed: {
     totalCommission() {
@@ -125,12 +126,14 @@ const app = new Vue({
       dataToExcel.push(json)
       });
       return dataToExcel
+    },
+    show_comment(comment){
+      this.$bvModal.show("modal-denegate")
+      this.comment_denegate = comment
     }
   },
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
-      this.loader.loading = true
-      this.getCoordinators()
 		})
 		this.$root.$on('send_table',(table, groups, searchData) => {
 			this.commissionsToTable = table
@@ -161,6 +164,9 @@ const app = new Vue({
 				"PROMOCIÓN": "Promoción"
 			}
 			return map[value] ? map[value] : value
-    }
+    },
+    removeExtendTime(time) {
+			return time.replace(/T+(\w|:|.)+/, "")
+		}
   }
 })
