@@ -120,7 +120,7 @@ class AuthorizationController {
     authorizationComission.dateCreated = new Date()
     authorizationComission.lastUpdated = new Date()
     authorizationComission.user = username
-    authorizationComission.fechaAutorizado = new Date() 
+    authorizationComission.fechaAutorizado = new Date()
     authorizationRepository.save(authorizationComission)
 		[response: 200]
   }
@@ -174,7 +174,7 @@ class AuthorizationController {
 		String username = request.getUserPrincipal().getUserDetails().username
     authorizationCrescent.dateCreated = new Date()
     authorizationCrescent.lastUpdated = new Date()
-    authorizationCrescent.fechaAutorizado = new Date() 
+    authorizationCrescent.fechaAutorizado = new Date()
     authorizationCrescent.user = username
     authorizationCrescentRepository.save(authorizationCrescent)
 		[response:200]
