@@ -1,0 +1,38 @@
+<div th:fragment="queryProcess" id="app" class="display_current">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="blue margin0">General</h3>
+    </div>
+    <br class="clear">
+    <hr>
+    <div class="col-lg-3">
+	    <label for="selectCampus">Fecha inicio</label>
+	    <date-pick v-model="searchData.selectInit" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+    </div>
+    <div class="col-lg-3">
+	    <label for="selectCampus">Fecha Fin</label>
+	    <date-pick v-model="searchData.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+    </div>
+    <div class="col-md-4 col-lg-2">
+      <label for="exampleInputPassword1">No. Empleado</label>
+      <input type="" class="form-control" id="exampleInputPassword1" placeholder="No. Empleado">
+
+    </div>
+    <div class="col-lg-3">
+      <a style="margin-top:35px;" data-toggle="modal" data-target="#myModal"
+        class="btn btn-sm btn-success btn-block">Consultar SICOSS</a>
+    </div>
+    <br class="clear">
+    <br>
+    <div class="col-lg-12 bg-warning text-warning" style="padding:10px;">
+      <div class="row">
+        <div class="col-lg-3">
+          <b>El archivo no ha sido procesado.</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:fragment="js">
+  <script src="/js/sicoss/queryProcess.js"></script>
+</div>

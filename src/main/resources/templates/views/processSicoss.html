@@ -1,0 +1,41 @@
+<div th:fragment="processSicoss"  id="app" class="display_current">
+    <br>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="blue margin0">General</h3>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4 col-lg-4">
+      <label for="" class="font-weight-bold">Periodo</label>
+      <select name="" id="" class="form-control">
+
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal-1>Procesar SICOSS</b-button>
+      <!-- Modal -->
+    </div>
+  </div>
+  <br class="clear">
+  <br>
+  <div class="row" style="background-color: #fcf8e3">
+    <div class="col-lg-3" style="color: #8a6d3b">
+      <b>El archivo ya fue procesado:</b>
+      Usuario:
+      <b>j.meneses</b>
+      <br>
+      Fecha:
+      <b>23-Septiembre-2017 14:00 Hrs</b>
+    </div>
+    <div class="col-lg-3">
+        <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal-1>Volver a Procesar SICOSS</b-button>
+        <!-- Modal -->
+    </div>
+  </div>
+</div>
+  </div>
+<div th:fragment="js">
+	<script src="/js/sicoss/processSicoss.js"></script>
+</div>

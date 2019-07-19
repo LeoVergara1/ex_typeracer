@@ -47,4 +47,19 @@ class SicossController {
 		model
 	}
 
+	@GetMapping("/process")
+	@ResponseBody
+	ModelAndView process(){
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "processSicoss");
+		model
+	}
+
+	@GetMapping("/queryProcess")
+	@ResponseBody
+	ModelAndView queryProcess(){
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "queryProcess");
+		model
+	}
 }
