@@ -23,6 +23,10 @@ class Campaign {
 	String name
 	String year
   Integer period
+	@Column(name = "STATUS_SICOSS")
+  String statusSicoss 
+	@Column(name = "USERNAME_PROCESS")
+  String usernameSicoss 
 	@Column(name = "LAST_UPDATED")
 	Date lastUpdated = new Date()
 	@Column(name = "DATE_CREATED")
