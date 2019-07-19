@@ -10,7 +10,7 @@
     <div class="col-md-4 col-lg-4">
       <label for="" class="font-weight-bold">Periodo</label>
       <select name="" id="" class="form-control">
-
+        <option value="camping.id" v-for="camping in campings">{{camping | parserCamping}}</option>
       </select>
     </div>
     <div class="col-lg-3">

@@ -10,8 +10,10 @@ import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.AuthorizationService
 import mx.edu.ebc.comisiones.services.PromoterService
 import mx.edu.ebc.comisiones.services.SicossService
+import mx.edu.ebc.comisiones.comision.domain.Campaign;
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
+import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
@@ -38,6 +40,8 @@ class SicossController {
 	AdministrationService administrationService
 	@Autowired
 	SicossService sicossService
+	@Autowired
+	CampaignRepository campaignRepository
 
 	@GetMapping("/")
 	@ResponseBody
@@ -62,4 +66,11 @@ class SicossController {
 		model.addObject("content", "queryProcess");
 		model
 	}
+
+	@GetMapping("/campings")
+	@ResponseBody
+	List<Campaign> campings(){
+		campaignRepository.findAllByStatus("ACTIVE")
+	}
+
 }

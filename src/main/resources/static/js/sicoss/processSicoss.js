@@ -5,6 +5,7 @@ var app = new Vue({
     username: document.getElementsByName("_username")[0].content,
     campuses: Object,
     campusSelected: "CMX",
+    campings: [],
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -32,6 +33,14 @@ var app = new Vue({
       console.log(response.body);
       this.campuses = response.body.campus
       this.person = response.body.person.person
+      this.loader.loading = false
+    }, response => {
+      console.log("Fail")
+      console.log(response)
+    })
+    this.$http.get('/sicoss/campings').then(response => {
+      console.log(response.body);
+      this.campings = response.body
       this.loader.loading = false
     }, response => {
       console.log("Fail")
@@ -65,6 +74,9 @@ var app = new Vue({
     percentDiscount(alumno){
       let percent = alumno.totalDescuentos * 100
       return (percent/alumno.valorContratoReal.toFixed(3))
+    },
+    parserCamping(camping){
+      return `${camping.name} ${camping.initDate.replace(/T+(\w|:|.)+/, "")} - ${camping.endDate.replace(/T+(\w|:|.)+/, "")}`
     }
   }
 })
