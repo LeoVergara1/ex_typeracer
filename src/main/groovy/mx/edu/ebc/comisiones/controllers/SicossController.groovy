@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RequestBody
 import mx.edu.ebc.comisiones.services.AdministrationService
 import mx.edu.ebc.comisiones.services.AuthorizationService
 import mx.edu.ebc.comisiones.services.PromoterService
@@ -71,6 +72,17 @@ class SicossController {
 	@ResponseBody
 	List<Campaign> campings(){
 		campaignRepository.findAllByStatus("ACTIVE")
+	}
+
+	@PostMapping("/porcossSicoss")
+	@ResponseBody
+	Map processSicoss(HttpServletRequest request, @RequestBody Campaign camping){
+		String username = request.getUserPrincipal().getUserDetails().username
+		camping.statusSicoss = "SEND"
+		camping.usernameSicoss = username
+		campaignRepository.save(camping)
+		println camping
+		[response: 200]
 	}
 
 }
