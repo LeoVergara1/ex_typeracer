@@ -6,6 +6,7 @@ var app = new Vue({
     campuses: Object,
     campusSelected: "CMX",
     campings: [],
+    periodSelected: 0,
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -48,7 +49,15 @@ var app = new Vue({
     })
   },
   methods:{
-
+    processSicoss(){
+      this.$http.post(`/sicoss/porcossSicoss`, this.campings[this.periodSelected]).then(response => {
+        console.log(response.body);
+        this.loader.loading = false
+        this.$bvModal.show('modal-download')
+      }, response => {
+        console.log(response)
+      })
+    }
   },
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
