@@ -27,5 +27,7 @@ class AutorizacionComisiones {
   double valorContratoReal
   Long pidm
   String comment
+  String adCoordinador
+  String adPromotor
 
 	}

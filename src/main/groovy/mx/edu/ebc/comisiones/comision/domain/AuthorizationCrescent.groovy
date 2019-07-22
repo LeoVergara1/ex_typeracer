@@ -55,5 +55,9 @@ class AuthorizationCrescent {
  	Long pidm;
 	@Column(name="COMMENTS")
  	String comment
+	@Column(name="AD_COORDINADOR")
+	String adCoordinador
+	@Column(name="AD_PROMOTOR")
+	String adPromotor
 
 }

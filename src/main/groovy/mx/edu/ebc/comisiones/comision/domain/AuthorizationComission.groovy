@@ -55,6 +55,10 @@ class AuthorizationComission {
  	Long pidm;
 	@Column(name="COMMENTS")
  	String comment
+	@Column(name="AD_COORDINADOR")
+	String adCoordinador
+	@Column(name="AD_PROMOTOR")
+	String adPromotor
 
 	AuthorizationComission(def json, username){
 		this.user = username
@@ -79,6 +83,9 @@ class AuthorizationComission {
 		this.valorContratoReal = json.valorContratoReal
 		this.dateCreated = new Date()
 		this.lastUpdated = new Date()
+		this.adCoordinador = json.adCoordinador
+		this.adPromotor = json.adPromotor
+		this.pidm = json.pidm
 	}
 
 	AuthorizationComission(){}
