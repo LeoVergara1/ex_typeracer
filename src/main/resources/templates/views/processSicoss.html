@@ -1,5 +1,21 @@
 <div th:fragment="processSicoss"  id="app" class="display_current">
-    <br>
+  	<b-modal id="modal-download" title="Archivo sicoss">
+        <h1 class="margin0 text-success text-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i></h1>
+        <h4 class="text-center">Periodo: <span class="text-success">Septiembre (1-09-2017 al 30-09-2017)</span></h4>
+        <div class="row">
+            <div class="col-lg-3"></div>
+             <div class="col-lg-6">
+                 <a href="" target="_blank" class="btn btn-warning btn-block btn-sm"><i class="fa fa-cloud-download" aria-hidden="true"></i> Descargar layout SICOSS</a>
+             </div>
+            <div class="col-lg-3"></div>
+         </div>
+        <template slot="modal-footer" class="w-100">
+            <b-button variant="primary" size="sm" class="float-right" @click="$bvModal.hide('modal-download')">
+              Cerrar
+            </b-button>
+        </template>
+    </b-modal>
+  <br>
   <div class="row">
     <div class="col-lg-12">
       <h3 class="blue margin0">General</h3>
@@ -9,28 +25,28 @@
   <div class="row">
     <div class="col-md-4 col-lg-4">
       <label for="" class="font-weight-bold">Periodo</label>
-      <select name="" id="" class="form-control">
-        <option value="camping.id" v-for="camping in campings">{{camping | parserCamping}}</option>
+      <select name="" id="" class="form-control" v-model="periodSelected">
+        <option :value="index" v-for="(camping, index) in campings">{{camping | parserCamping}}</option>
       </select>
     </div>
     <div class="col-lg-3">
-      <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal-1>Procesar SICOSS</b-button>
+      <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" @click="processSicoss()">Procesar SICOSS</b-button>
       <!-- Modal -->
     </div>
   </div>
   <br class="clear">
   <br>
-  <div class="row" style="background-color: #fcf8e3">
+  <div class="row" style="background-color: #fcf8e3" v-if="campings.length">
     <div class="col-lg-3" style="color: #8a6d3b">
       <b>El archivo ya fue procesado:</b>
       Usuario:
-      <b>j.meneses</b>
+      <b>{{campings[periodSelected].usernameSicoss}}</b>
       <br>
       Fecha:
-      <b>23-Septiembre-2017 14:00 Hrs</b>
+      <b>{{campings[periodSelected].lastUpdated}}</b>
     </div>
     <div class="col-lg-3">
-        <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal-1>Volver a Procesar SICOSS</b-button>
+        <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal>Volver a Procesar SICOSS</b-button>
         <!-- Modal -->
     </div>
   </div>

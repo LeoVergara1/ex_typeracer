@@ -430,7 +430,7 @@ create or replace PACKAGE BODY        genpub.pc_pago_comisiones AS
 
 
     PROCEDURE pr_comisiones(p_fecha_pago_ini IN DATE, p_fecha_pago_fin IN DATE, p_campus IN VARCHAR2, out_comisiones out sys_refcursor) AS
-    v_consulta VARCHAR2(6000);
+    v_consulta VARCHAR2(20000);
 
 
 
@@ -460,12 +460,27 @@ create or replace PACKAGE BODY        genpub.pc_pago_comisiones AS
 																(SELECT distinct sgbstdn_rate_code
                                     FROM sgbstdn
                                    WHERE sgbstdn_pidm = outss.sgbstdn_pidm
-                                     AND sgbstdn_term_code_eff = sovlcur_term_code) tipo_pago
+                                     AND sgbstdn_term_code_eff = sovlcur_term_code) tipo_pago,
+                                    (select spr_out.SPRIDEN_ID 
+                                            from spriden spr_out
+                                                where spr_out.spriden_create_date = ( select max(spr_in.spriden_create_date)
+                                                    from spriden spr_in
+                                                        where spr_in.spriden_pidm = spr_out.spriden_pidm)
+                                                        and spr_out.spriden_pidm = sorainf_arol_pidm
+                                                        and ROWNUM = 1) ad_promotor,
+                                    (select spr_out.SPRIDEN_ID 
+                                            from spriden spr_out
+                                                where spr_out.spriden_create_date = ( select max(spr_in.spriden_create_date)
+                                                    from spriden spr_in
+                                                        where spr_in.spriden_pidm = spr_out.spriden_pidm)
+                                                        and spr_out.spriden_pidm = alias_t.pidm
+                                                        and ROWNUM = 1) ad_coordinador
                           FROM sgbstdn outss
                           JOIN srbrecr srb on sgbstdn_pidm = srb.srbrecr_pidm and srbrecr_term_code = sgbstdn_term_code_eff
                           JOIN sorainf on srb.srbrecr_pidm = sorainf_pidm and srb.srbrecr_admin_seqno = sorainf_seqno and srb.srbrecr_term_code = sorainf_term_code
                           JOIN sovarol on sorainf_arol_pidm = sovarol_pidm and sorainf_radm_code = sovarol_radm_code
                           JOIN sovlcur on sgbstdn_pidm = sovlcur_pidm
+                          left join pgocomis.asociacion_promotor alias_t on id_promotor = sovarol_id and relacion_activa = ''Y''
                           WHERE srb.srbrecr_admin_seqno = (SELECT MAX(b.srbrecr_admin_seqno) FROM srbrecr b
                                                            WHERE b.srbrecr_pidm = srb.srbrecr_pidm AND b.srbrecr_term_code = srb.srbrecr_term_code )
                            AND sovlcur_key_seqno = 99
