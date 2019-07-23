@@ -12,6 +12,7 @@ import mx.edu.ebc.comisiones.comision.domain.Sicoss
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationCrescentRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
+import java.time.LocalDate
 
 @Service
 class SicossServiceImpl implements SicossService {
@@ -37,9 +38,33 @@ class SicossServiceImpl implements SicossService {
     List<Sicoss> listSicoss = []
     listAuthorizationComission.each(){ commission ->
       if(commission.idCoordinador){
-        listSicoss << new Sicoss(claveEmployee: commission.adCoordinador.replace("AD", ""), dateMovenment: new Date("${currentDate.month+1}/01/${currentDate.year+1900}"))
+        listSicoss << new Sicoss(
+          claveEmployee: commission.adCoordinador.replace("AD", ""),
+          dateMovenment: new Date("${currentDate.month+1}/01/${currentDate.year+1900}"),
+          typePaysheet: "1",
+          clavePaysheet: "0",
+          concept: "422",
+          reference1: "0",
+          reference2: "0",
+          dataPayhseet: "0",
+          salary: "0",
+          importe: 2,
+          payPeriod:  calculateQuincena(LocalDate.now()).toString()
+          )
       }
-      listSicoss << new Sicoss(claveEmployee: commission.adPromotor.replace("AD", ""),  dateMovenment: new Date("${currentDate.month+1}/01/${currentDate.year+1900}"))
+      listSicoss << new Sicoss(
+        claveEmployee: commission.adPromotor.replace("AD", ""),  
+        typePaysheet: "1",
+        clavePaysheet: "0",
+        concept: "422",
+        dateMovenment: new Date("${currentDate.month+1}/01/${currentDate.year+1900}"),
+        reference1: "0",
+        reference2: "0",
+        dataPayhseet: "0",
+        salary: "0",
+        importe: 2,
+        payPeriod:  "calculateQuincena(LocalDate.now()).toString()"
+        )
     }
     listSicoss
   }
@@ -61,5 +86,13 @@ class SicossServiceImpl implements SicossService {
       }
     }
     listSicoss
+  }
+
+  def calculateQuincena(LocalDate currenDate){
+    int month = currenDate.getMonthValue()
+    int day = currenDate.getDayOfMonth()
+    if(day <= 15)
+      return (month * 2) - 1
+    (month * 2)
   }
 }

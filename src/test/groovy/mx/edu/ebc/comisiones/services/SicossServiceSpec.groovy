@@ -13,6 +13,8 @@ import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.comision.domain.Campaign
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationCrescent
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
+import spock.lang.Unroll
+import java.time.LocalDate
 
 @SpringBootTest
 @ContextConfiguration
@@ -66,6 +68,20 @@ class SicossServiceSpec extends Specification{
     then:
       duplicates.size() == 22
       validation[0].dateMovenment != validation[1].dateMovenment
+  }
+
+	@Unroll
+  def "calculate quincena from date"(){
+    given: "A date"
+      LocalDate date = _currentDate
+    when: ""
+      def result = sicossService.calculateQuincena(date)
+    then:
+      result == _result 
+    where:
+    _currentDate                  || _result
+    LocalDate.now()               || 14
+    LocalDate.parse("2007-12-03") || 23
   }
 
   List<AuthorizationComission> getListAuthorizationComission(){
