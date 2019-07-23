@@ -36,20 +36,25 @@
   </div>
   <br class="clear">
   <br>
-  <div class="row" style="background-color: #fcf8e3" v-if="campings.length">
-    <div class="col-lg-3" style="color: #8a6d3b">
-      <b>El archivo ya fue procesado:</b>
-      Usuario:
-      <b>{{campings[periodSelected].usernameSicoss}}</b>
-      <br>
-      Fecha:
-      <b>{{campings[periodSelected].lastUpdated}}</b>
-    </div>
-    <div class="col-lg-3">
-        <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal>Volver a Procesar SICOSS</b-button>
-        <!-- Modal -->
+  <div v-if="campings.length">
+    <div class="row" style="background-color: #fcf8e3" v-show="campings[periodSelected].usernameSicoss">
+      <div class="col-lg-4" style="color: #8a6d3b">
+        <b>El archivo ya fue procesado:</b>
+        <label for="">
+         Usuario:
+        <b>{{campings[periodSelected].usernameSicoss}}</b>
+        </label>
+        <br>
+        Fecha:
+        <b>{{campings[periodSelected].lastUpdated | parserDate}}</b>
+      </div>
+      <div class="col-lg-3">
+          <b-button style="margin-top:35px;" class="btn btn-sm btn-success btn-block" v-b-modal.modal>Volver a Procesar SICOSS</b-button>
+          <!-- Modal -->
+      </div>
     </div>
   </div>
+
 </div>
   </div>
 <div th:fragment="js">
