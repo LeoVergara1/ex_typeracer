@@ -7,7 +7,7 @@ var app = new Vue({
       months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 			weekDays: ["Lun", "Mar", "Mier", "Jue", "Vie", "Sab", "Dom"],
 			campusSelected: "CMX"
-    },
+		},
     loader:{
       color: '#0b93d1',
       height: '15px',
@@ -114,6 +114,11 @@ var app = new Vue({
 	filters: {
 		removeExtendTime(time) {
 			return time.replace(/T+(\w|:|.)+/, "")
+		},
+		parserDate(time){
+			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' , hour12: true, hourCycle: 'h12', hour: 'numeric'};
+			time = new Date(time)
+			return time.toLocaleDateString('es-ES', options)
 		}
 	},
 	components: {
