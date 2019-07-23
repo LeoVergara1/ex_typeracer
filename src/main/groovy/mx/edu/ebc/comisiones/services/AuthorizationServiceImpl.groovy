@@ -96,7 +96,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	def getAllAuthorizationsCommisionsWithStructureToReport(String status, Date initDateFrom, Date finDateFrom, String campus){
 		List<AuthorizationComission> authorizations = []
 		if(campus == "TODOS"){
-			authorizations = findAllAuthorizationByStatus(status, initDateFrom, finDateFrom)
+			authorizations = authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(status, initDateFrom, finDateFrom)
 		}
 		else {
 			authorizations = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(status, campus, initDateFrom, finDateFrom)
