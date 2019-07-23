@@ -48,8 +48,24 @@ class SicossServiceSpec extends Specification{
       def result = sicossService.separetePromoterAndCoordinater(listAuthorizationComission)
       println result.dump()
     then:
-      result.size() > 100
+      result.size() == 20
+  }
 
+  def "when there duplicate then plus one day"(){
+    given: "Authorizations commisssion"
+      List<AuthorizationComission> listAuthorizationComission = getListAuthorizationComission()
+      listAuthorizationComission << new AuthorizationComission(idCoordinador: "M0020323", 
+      fechaAutorizado: new Date(),
+      idPromotor: "M001030",
+      adPromotor: "AD8721",
+      adCoordinador: "AD9829")
+    when: "Plus day to promoter"
+      def result = sicossService.separetePromoterAndCoordinater(listAuthorizationComission)
+      def duplicates = sicossService.plusOneDayThanMoreClavesSames(result)
+      def validation = duplicates.findAll(){ it.claveEmployee == "8721"}
+    then:
+      duplicates.size() == 22
+      validation[0].dateMovenment != validation[1].dateMovenment
   }
 
   List<AuthorizationComission> getListAuthorizationComission(){
@@ -57,8 +73,8 @@ class SicossServiceSpec extends Specification{
       new AuthorizationComission(idCoordinador: "M00203${it}", 
       fechaAutorizado: new Date(), 
       idPromotor: "M00103${it}",
-      adPromotor: "AD872",
-      adCoordinador: "AD9829")
+      adPromotor: "AD872${it}",
+      adCoordinador: "AD9829${it}")
     }
   }
 
