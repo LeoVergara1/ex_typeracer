@@ -60,7 +60,10 @@ class SicossServiceSpec extends Specification{
       fechaAutorizado: new Date(),
       idPromotor: "M001030",
       adPromotor: "AD8721",
-      adCoordinador: "AD9829")
+      adCoordinador: "AD9829",
+      comision: "2",
+      comisionCoordinador: 32
+      )
     when: "Plus day to promoter"
       def result = sicossService.separetePromoterAndCoordinater(listAuthorizationComission)
       def duplicates = sicossService.plusOneDayThanMoreClavesSames(result)
@@ -90,7 +93,10 @@ class SicossServiceSpec extends Specification{
       fechaAutorizado: new Date(), 
       idPromotor: "M00103${it}",
       adPromotor: "AD872${it}",
-      adCoordinador: "AD9829${it}")
+      adCoordinador: "AD9829${it}",
+      comision: "2",
+      comisionCoordinador: 32
+      )
     }
   }
 

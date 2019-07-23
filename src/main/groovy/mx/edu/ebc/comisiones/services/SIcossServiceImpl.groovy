@@ -38,6 +38,7 @@ class SicossServiceImpl implements SicossService {
     List<Sicoss> listSicoss = []
     listAuthorizationComission.each(){ commission ->
       if(commission.idCoordinador){
+        println commission.dump()
         listSicoss << new Sicoss(
           claveEmployee: commission.adCoordinador.replace("AD", ""),
           dateMovenment: new Date("${currentDate.month+1}/01/${currentDate.year+1900}"),
@@ -48,7 +49,7 @@ class SicossServiceImpl implements SicossService {
           reference2: "0",
           dataPayhseet: "0",
           salary: "0",
-          importe: 2,
+          importe: commission.comisionCoordinador,
           payPeriod:  calculateQuincena(LocalDate.now()).toString()
           )
       }
@@ -62,7 +63,7 @@ class SicossServiceImpl implements SicossService {
         reference2: "0",
         dataPayhseet: "0",
         salary: "0",
-        importe: 2,
+        importe: commission.comision.toFloat(),
         payPeriod:  "calculateQuincena(LocalDate.now()).toString()"
         )
     }
