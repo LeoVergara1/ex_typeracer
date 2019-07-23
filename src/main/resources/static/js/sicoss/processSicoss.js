@@ -86,6 +86,11 @@ var app = new Vue({
     },
     parserCamping(camping){
       return `${camping.name} ${camping.initDate.replace(/T+(\w|:|.)+/, "")} - ${camping.endDate.replace(/T+(\w|:|.)+/, "")}`
-    }
+    },
+    parserDate(time){
+		let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' , hour12: true, hourCycle: 'h12', hour: 'numeric'}
+			time = new Date(time)
+			return time.toLocaleDateString('es-ES', options)
+		}
   }
 })
