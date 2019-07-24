@@ -2,7 +2,7 @@ const app = new Vue({
   el: '#app',
   data: {
 		message: 'Hello Vue!',
-		typeReport: "General",
+		typeReport: "Detallado",
     username: "",
     person: Object,
     headerBgVariant: "white",
@@ -79,7 +79,7 @@ const app = new Vue({
       //add Worksheet to Workbook
       //Workbook contains one or more worksheets
       //XLSX.utils.book_append_sheet(wb, animalWS, 'animals')
-      let lisToExcel = (this.searchData.typeReport == 'General') ? this.prepareJSONtoExcel(this.commissionsToTable) : this.prepareJSONtoExcelGroup(this.groups)
+      let lisToExcel = (this.searchData.typeReport == 'Detallado') ? this.prepareJSONtoExcel(this.commissionsToTable) : this.prepareJSONtoExcelGroup(this.groups)
       const workSheet = XLSX.utils.json_to_sheet(lisToExcel, {
         origin: "A10",
         Header: ['Column 1', 'Column 2', 'Column 3'],
@@ -151,7 +151,7 @@ const app = new Vue({
   filters: {
     percentDiscount(alumno){
       let percent = alumno.totalDescuentos * 100
-      return (percent/alumno.valorContratoReal.toFixed(3))
+      return (percent/alumno.valorContratoReal).toFixed(3)
     },
 		getDescriptionToRol: function (value){
 			let map = {
@@ -166,6 +166,8 @@ const app = new Vue({
 			return map[value] ? map[value] : value
     },
     removeExtendTime(time) {
+      if(!time)
+        return time
 			return time.replace(/T+(\w|:|.)+/, "")
 		}
   }
