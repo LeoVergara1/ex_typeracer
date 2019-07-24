@@ -138,8 +138,6 @@ class AuthorizationController {
   Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
     if(data.typeComission == "Corrientes"){
 		  def list = authorizationService.getCommissionsByStatus(data)
-      println "********"
-      println list
 		  def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
 		  return [response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
     }
