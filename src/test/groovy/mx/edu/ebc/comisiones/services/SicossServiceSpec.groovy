@@ -87,6 +87,26 @@ class SicossServiceSpec extends Specification{
     LocalDate.parse("2007-12-03") || 23
   }
 
+  def "Save list of sicoss"(){
+    given: "A list with calculations"
+      List<AuthorizationComission> listAuthorizationComission = getListAuthorizationComission()
+      listAuthorizationComission << new AuthorizationComission(idCoordinador: "M0020323", 
+      fechaAutorizado: new Date(),
+      idPromotor: "M001030",
+      adPromotor: "AD8721",
+      adCoordinador: "AD9829",
+      comision: "2",
+      comisionCoordinador: 32
+      )
+      when:
+        def result = sicossService.separetePromoterAndCoordinater(listAuthorizationComission)
+        def duplicates = sicossService.plusOneDayThanMoreClavesSames(result)
+        sicossService.saveSicossList(duplicates)
+      then:
+        duplicates
+
+  }
+
   List<AuthorizationComission> getListAuthorizationComission(){
     (1..10).collect(){
       new AuthorizationComission(idCoordinador: "M00203${it}", 
