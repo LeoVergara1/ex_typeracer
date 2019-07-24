@@ -12,6 +12,7 @@ import mx.edu.ebc.comisiones.comision.domain.Sicoss
 import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationCrescentRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
+import mx.edu.ebc.comisiones.comision.repo.SicossRepository
 import java.time.LocalDate
 
 @Service
@@ -21,6 +22,8 @@ class SicossServiceImpl implements SicossService {
   AuthorizationRepository authorizationRepository
   @Autowired
   AuthorizationCrescentRepository authorizationCrescentRepository
+  @Autowired
+  SicossRepository sicossRepository
 
   Map getCommissionNormalAndCrecients(Campaign campaign){
     [
@@ -29,8 +32,10 @@ class SicossServiceImpl implements SicossService {
     ]
   }
 
-  List<Sicoss> covertCommissiosNormaToSicoss(List<AuthorizationComission> listAuthorizationComission){
-
+  List<Sicoss> covertCommissiosNormaToSicoss(Map mapWithListCommissions){
+    def listComissionsToSicoss = mapWithListCommissions.commissionsCrecent + mapWithListCommissions.commissionsNormal
+    listComissionsToSicoss = separetePromoterAndCoordinater(listComissionsToSicoss) 
+    plusOneDayThanMoreClavesSames(listComissionsToSicoss)
   }
 
   List<Sicoss> separetePromoterAndCoordinater(def listAuthorizationComission){
@@ -40,7 +45,7 @@ class SicossServiceImpl implements SicossService {
       if(commission.idCoordinador){
         println commission.dump()
         listSicoss << new Sicoss(
-          claveEmployee: commission.adCoordinador.replace("AD", ""),
+          claveEmployee: commission.adCoordinador?.replace("AD", ""),
           dateMovenment: new Date("${currentDate.month+1}/01/${currentDate.year+1900}"),
           typePaysheet: "1",
           clavePaysheet: "0",
@@ -50,11 +55,12 @@ class SicossServiceImpl implements SicossService {
           dataPayhseet: "0",
           salary: "0",
           importe: commission.comisionCoordinador,
-          payPeriod:  calculateQuincena(LocalDate.now()).toString()
+          payPeriod:  calculateQuincena(LocalDate.now()).toString(),
+          typeSicoss: (commission.class == AuthorizationComission) ? "CORRIENTE" : "CRECIENTE"
           )
       }
       listSicoss << new Sicoss(
-        claveEmployee: commission.adPromotor.replace("AD", ""),  
+        claveEmployee: commission.adPromotor?.replace("AD", ""),
         typePaysheet: "1",
         clavePaysheet: "0",
         concept: "422",
@@ -64,7 +70,8 @@ class SicossServiceImpl implements SicossService {
         dataPayhseet: "0",
         salary: "0",
         importe: commission.comision.toFloat(),
-        payPeriod:  "calculateQuincena(LocalDate.now()).toString()"
+        payPeriod:  calculateQuincena(LocalDate.now()).toString(),
+        typeSicoss: (commission.class == AuthorizationComission) ? "CORRIENTE" : "CRECIENTE"
         )
     }
     listSicoss
@@ -95,5 +102,12 @@ class SicossServiceImpl implements SicossService {
     if(day <= 15)
       return (month * 2) - 1
     (month * 2)
+  }
+
+  def saveSicossList(List<Sicoss> sicossList){
+    sicossRepository.deleteAll()
+    sicossList.each(){ sicoss ->
+      sicossRepository.save(sicoss)
+    }
   }
 }
