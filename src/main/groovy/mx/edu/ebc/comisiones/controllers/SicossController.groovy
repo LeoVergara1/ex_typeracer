@@ -12,6 +12,7 @@ import mx.edu.ebc.comisiones.services.AuthorizationService
 import mx.edu.ebc.comisiones.services.PromoterService
 import mx.edu.ebc.comisiones.services.SicossService
 import mx.edu.ebc.comisiones.comision.domain.Campaign;
+import mx.edu.ebc.comisiones.comision.domain.Sicoss;
 import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
@@ -80,9 +81,11 @@ class SicossController {
 		String username = request.getUserPrincipal().getUserDetails().username
 		camping.statusSicoss = "SEND"
 		camping.usernameSicoss = username
+		def mapSicoss = sicossService.getCommissionNormalAndCrecients(camping)
+		List<Sicoss> listSicoss = sicossService.covertCommissiosNormaToSicoss(mapSicoss) 
+		sicossService.saveSicossList(listSicoss)
 		campaignRepository.save(camping)
-		println camping
-		[response: 200]
+		[response: 200, listSicoss: listSicoss]
 	}
 
 }
