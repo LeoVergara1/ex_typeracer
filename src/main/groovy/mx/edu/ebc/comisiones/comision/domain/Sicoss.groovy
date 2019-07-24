@@ -13,9 +13,9 @@ class Sicoss {
 	@Column(name = "CLAVE_EMPLOYEE")
 	String claveEmployee
 	@Column(name="DATE_CREATED")
-	Date dateCreated
+	Date dateCreated = new Date()
 	@Column(name="LAST_UPDATED")
-	Date lastUpdated
+	Date lastUpdated = new Date()
   @Column(name = "TYPE_PAYSHEET")
   String typePaysheet
   @Column(name = "CLAVE_PAYSHEET")
