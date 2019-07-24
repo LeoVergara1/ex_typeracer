@@ -14,7 +14,7 @@ Vue.component('template-comission-search', {
     return {
 			allCampuses: false,
 			searchData: {
-				typeReport: "General",
+				typeReport: "Detallado",
 				selectFin: this.date.selectFin,
 				selectInit: this.date.selectInit,
 				campus: "CMX",
