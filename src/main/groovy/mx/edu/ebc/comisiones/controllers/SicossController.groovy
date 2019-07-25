@@ -81,8 +81,9 @@ class SicossController {
 		String username = request.getUserPrincipal().getUserDetails().username
 		camping.statusSicoss = "SEND"
 		camping.usernameSicoss = username
+		camping.lastUpdated = new Date()
 		def mapSicoss = sicossService.getCommissionNormalAndCrecients(camping)
-		List<Sicoss> listSicoss = sicossService.covertCommissiosNormaToSicoss(mapSicoss) 
+		List<Sicoss> listSicoss = sicossService.covertCommissiosNormaToSicoss(mapSicoss)
 		sicossService.saveSicossList(listSicoss)
 		campaignRepository.save(camping)
 		[response: 200, listSicoss: listSicoss]
