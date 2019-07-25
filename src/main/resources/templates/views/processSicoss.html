@@ -1,11 +1,17 @@
 <div th:fragment="processSicoss"  id="app" class="display_current">
+    <div class="loading" v-if="loader.loading" style="height: 505%;"></div>
+  <ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
+  <vue-snotify></vue-snotify>
   	<b-modal id="modal-download" title="Archivo sicoss">
         <h1 class="margin0 text-success text-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i></h1>
         <h4 class="text-center">Periodo: <span class="text-success">Septiembre (1-09-2017 al 30-09-2017)</span></h4>
         <div class="row">
             <div class="col-lg-3"></div>
              <div class="col-lg-6">
-                 <a href="" target="_blank" class="btn btn-warning btn-block btn-sm"><i class="fa fa-cloud-download" aria-hidden="true"></i> Descargar layout SICOSS</a>
+                 <button :disable="waitingExcel" @click="generateExcel" class="btn btn-warning btn-block btn-sm">
+                   <i class="fa fa-cloud-download" aria-hidden="true" v-if="!waitingExcel"></i>
+                   <i class="fa fa-refresh fa-spin" v-else></i>
+                   Descargar layout SICOSS</button>
              </div>
             <div class="col-lg-3"></div>
          </div>
