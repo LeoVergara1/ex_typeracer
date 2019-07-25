@@ -22,6 +22,8 @@ var app = new Vue({
       loading: false,
       size: "95px",
     },
+    listSicoss: [],
+    waitingExcel: false,
   },
   computed: {
 
@@ -50,14 +52,56 @@ var app = new Vue({
   },
   methods:{
     processSicoss(){
+      this.loader.loading = true
       this.$http.post(`/sicoss/porcossSicoss`, this.campings[this.periodSelected]).then(response => {
         console.log(response.body);
         this.loader.loading = false
+        this.listSicoss = response.body.listSicoss
         this.$bvModal.show('modal-download')
       }, response => {
         console.log(response)
       })
-    }
+    },
+    generateExcel(){
+      this.waitingExcel = true
+			console.log("Inicia Construcción Excel")
+      const ws_data = [
+        ["CLAVE EMPLEADO", "TIPO DE NÓMINA", "CLAVE NÓMINA",	"CONCEPTO",	"FECHA DE MOVIMIENTO",	"DEPARTAMENTO",	"REFERENCA 2",	"DATO",	"IMPORTE",	"SALDO",	"NÓMINA ABIERTA"],
+			];
+			var wb = XLSX.utils.book_new()
+			const workSheet = XLSX.utils.json_to_sheet(this.builtDataToExcel(this.listSicoss), {
+        origin: "A2",
+        Header: ['Column 1', 'Column 2', 'Column 3'],
+        SkpHeader: true // skip the title line above
+			})
+			XLSX.utils.sheet_add_aoa(workSheet, ws_data, {
+        Origin: 'A1'// Add content from A1
+      });
+      XLSX.utils.book_append_sheet(wb, workSheet, 'comisiones')
+      XLSX.writeFile(wb, 'sicoss.xlsx')
+      this.waitingExcel = false
+      console.log("Termina Construcción Excel")
+		},
+    builtDataToExcel(array){
+      let dataToExcel = []
+      array.forEach(element => {
+       json = {
+        "TR_NUMERO": element.claveEmployee ? element.claveEmployee : 0,
+        "NOMI_TIPONOMINA": element.typePaysheet,
+        "NOMI_CLAVE": element.clavePaysheet,
+        "NOMI_CONCEPTO": element.concept,
+        "NOMI_FECHA": element.dateMovenment,
+        "NOMI_REFERENCIA": element.reference1,
+        "NOMI_REFERENCIA2": element.reference2,
+        "NOMI_DATO": element.dataPayhseet,
+        "NOMI_IMPORTE": element.importe,
+				"NOMI_SALDO": element.salary,
+				"NOMINA_ABIERTA": element.typePaysheet
+       }
+      dataToExcel.push(json)
+      });
+      return dataToExcel
+		}
   },
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
