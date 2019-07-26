@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext
 import mx.edu.ebc.comisiones.comision.repo.AdminDeComisionesRepository
 import mx.edu.ebc.comisiones.comision.repo.CampaignRepository
 import mx.edu.ebc.comisiones.seguridad.repo.CampusRepository
+import mx.edu.ebc.comisiones.comision.repo.SicossRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,6 +32,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PathVariable
 import mx.edu.ebc.comisiones.comision.domain.Promoter
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat
 
 @RequestMapping("/sicoss")
 @Controller
@@ -44,6 +46,8 @@ class SicossController {
 	SicossService sicossService
 	@Autowired
 	CampaignRepository campaignRepository
+	@Autowired
+	SicossRepository sicossRepository
 
 	@GetMapping("/")
 	@ResponseBody
@@ -77,8 +81,10 @@ class SicossController {
 
 	@GetMapping("/employee/{clave}")
 	@ResponseBody
-	List<Sicoss> employee(@PathVariable String name, @RequestParam String foo){
-		campaignRepository.findAllByStatus("ACTIVE")
+	List<Sicoss> employee(@PathVariable String clave, @RequestParam String initDate, @RequestParam String endDate){
+    Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
+    Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(endDate)
+		List<Sicoss> listSicoss = sicossRepository.findAllByClaveEmployeeAndDateMovenmentBetween(clave, initDateFrom, finDateFrom) 
 	}
 
 	@PostMapping("/porcossSicoss")
