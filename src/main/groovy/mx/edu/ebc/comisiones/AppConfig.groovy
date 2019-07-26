@@ -18,6 +18,7 @@ class AppConfig extends WebMvcConfigurerAdapter {
       .addPathPatterns("/authorization/")
       .addPathPatterns("/authorization/query")
       .addPathPatterns("/sicoss/")
-      .addPathPatterns("/sicoss/process");
+      .addPathPatterns("/sicoss/process")
+      .addPathPatterns("/sicoss/queryProcess");
    }
 }
