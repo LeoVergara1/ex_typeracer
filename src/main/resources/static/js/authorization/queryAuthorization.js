@@ -169,6 +169,9 @@ const app = new Vue({
       if(!time)
         return time
 			return time.replace(/T+(\w|:|.)+/, "")
-		}
+    },
+    filterStatus(status){
+      return "POR AUTORIZAR"
+    }
   }
 })

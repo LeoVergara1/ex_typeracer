@@ -63,7 +63,7 @@
 										{{alumno.autorizadoDirector}}
 									</span>
 									<span v-else	class="badge badge-warning">
-										{{alumno.autorizadoDirector}}
+										{{alumno.autorizadoDirector | filterStatus}}
 									</span>
 								</td>
 						</tr>
