@@ -45,7 +45,7 @@
 						                        <label for="" v-if="!element.editable">
                                                 {{element.campaign.initDate | removeExtendTime}}
                                                 </label>
-						                        <date-pick v-else v-model="element.campaign.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
+						                        <date-pick v-else v-model="element.campaign.initDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
                                             </td>
                                             <td>
 						                        <label for="" v-if="!element.editable">
