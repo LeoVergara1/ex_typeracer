@@ -88,7 +88,7 @@ class AdministrationServiceImpl implements AdministrationService {
     	person = personService.setCampuses(person)
     }
     [person:person,
-    	mapRol: rolesRepository.findAllByNidRolPortal("1430"),
+    	mapRol: rolesRepository.findAllByNidRolPortal("1429"),
      	managerRoleId: managerRoleId]
 	}
 
