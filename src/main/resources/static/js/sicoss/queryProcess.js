@@ -5,9 +5,11 @@ var app = new Vue({
     username: document.getElementsByName("_username")[0].content,
     campuses: Object,
     campusSelected: "CMX",
-    date:{
+    query:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
       selectFin: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
+    },
+    date:{
       months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
       weekDays: ["Lun", "Mar", "Mier", "Jue", "Vie", "Sab", "Dom"]
     },
@@ -39,7 +41,17 @@ var app = new Vue({
     })
   },
   methods:{
-
+    getCommissionsToEmployee(){
+      this.$http.get(`/sicoss/employee/${this.query.clave}/`, {params: {foo: 'bar'}}).then(response => {
+        console.log(response.body);
+        this.campuses = response.body.campus
+        this.person = response.body.person.person
+        this.loader.loading = false
+      }, response => {
+        console.log("Fail")
+        console.log(response)
+      }) 
+    }
   },
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {

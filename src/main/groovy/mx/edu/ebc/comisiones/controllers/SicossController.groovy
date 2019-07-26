@@ -75,6 +75,12 @@ class SicossController {
 		campaignRepository.findAllByStatus("ACTIVE")
 	}
 
+	@GetMapping("/employee/{clave}")
+	@ResponseBody
+	List<Sicoss> employee(@PathVariable String name, @RequestParam String foo){
+		campaignRepository.findAllByStatus("ACTIVE")
+	}
+
 	@PostMapping("/porcossSicoss")
 	@ResponseBody
 	Map processSicoss(HttpServletRequest request, @RequestBody Campaign camping){
