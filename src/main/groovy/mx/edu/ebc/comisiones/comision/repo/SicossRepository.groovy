@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.Query
 
 @Repository
 interface SicossRepository extends JpaRepository<Sicoss, Integer> {
+  List<Sicoss> findAllByClaveEmployeeAndDateMovenmentBetween(String claveEmployee, Date initDate, Date endDate)
 }
