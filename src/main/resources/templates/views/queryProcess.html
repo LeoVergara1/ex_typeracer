@@ -1,5 +1,27 @@
 <div th:fragment="queryProcess" id="app" class="display_current">
-  <br>
+    <div class="loading" v-if="loader.loading" style="height: 505%;"></div>
+    <ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
+    <vue-snotify></vue-snotify>
+      <b-modal id="modal-download" title="Archivo sicoss">
+          <h1 class="margin0 text-success text-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i></h1>
+          <h4 class="text-center">Periodo: <span class="text-success">({{query.selectInit}} al {{query.selectFin}})</span></h4>
+          <div class="row">
+              <div class="col-lg-3"></div>
+               <div class="col-lg-6">
+                   <button :disable="waitingExcel" @click="generateExcel" class="btn btn-warning btn-block btn-sm">
+                     <i class="fa fa-cloud-download" aria-hidden="true" v-if="!waitingExcel"></i>
+                     <i class="fa fa-refresh fa-spin" v-else></i>
+                     Descargar layout SICOSS</button>
+               </div>
+              <div class="col-lg-3"></div>
+           </div>
+          <template slot="modal-footer" class="w-100">
+              <b-button variant="primary" size="sm" class="float-right" @click="$bvModal.hide('modal-download')">
+                Cerrar
+              </b-button>
+          </template>
+      </b-modal>
+    <br>
   <div class="row">
     <div class="col-lg-12">
       <h3 class="blue margin0">General</h3>
@@ -25,13 +47,6 @@
     </div>
     <br class="clear">
     <br>
-    <div class="col-lg-12 bg-warning text-warning" style="padding:10px;">
-      <div class="row">
-        <div class="col-lg-3">
-          <b>El archivo no ha sido procesado.</b>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 <div th:fragment="js">
