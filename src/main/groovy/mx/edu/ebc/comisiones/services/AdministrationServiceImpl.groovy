@@ -138,8 +138,8 @@ class AdministrationServiceImpl implements AdministrationService {
 			name: trimester.name,
 			clave: trimester.clave,
 			status: "created",
-			endDate: new SimpleDateFormat("dd/MM/yyyy").parse(trimester.dateInit),
-			initDate: new SimpleDateFormat("dd/MM/yyyy").parse(trimester.dateEnd),
+			endDate: new SimpleDateFormat("dd/MM/yyyy").parse(trimester.dateEnd),
+			initDate: new SimpleDateFormat("dd/MM/yyyy").parse(trimester.dateInit),
 			year: trimester.year,
 			period: trimester.period.toInteger(),
 			username: trimester.username
