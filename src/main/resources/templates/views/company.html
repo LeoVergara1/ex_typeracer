@@ -146,7 +146,7 @@
 						<date-pick v-else v-model="element.trimester.endDate" :months="date.months" :weekdays="date.weekDays" :format="'YYYY-MM-DD'"></date-pick>
 					</td>
 					<td>
-						<button v-if="element.trimester.goals.length == 0" @click="deleteById(trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+						<button v-if="element.trimester.goals.length == 0" @click="deleteById(element.trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 						<span v-else class="label label-warning">Trimestre con comisiones activas</span>
 					</td>
 					<td v-if="dateExpires(element.trimester.endDate)">
