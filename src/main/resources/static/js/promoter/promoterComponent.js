@@ -45,7 +45,7 @@ Vue.component('template-promoter', {
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="association in listAssociation">
+								<tr v-for="association in listAssociation" v-if="association.hasOwnProperty('idPromoter')">
 									<th scope="row">{{association.promoterName}}</th>
 									<td>{{association.idPromoter}}</td>
 									<td>{{association.jobPromoter}}</td>
