@@ -59,6 +59,11 @@ Vue.component('template-register', {
 			}
 		}
 	},
+	mounted(){
+		this.$root.$on('set_false_register',(valid) => {
+			this.response.register = valid
+		})
+	},
 	methods: {
 		deleteRol: function() {
 			console.log("Deleting role")

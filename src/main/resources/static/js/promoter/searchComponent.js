@@ -21,6 +21,7 @@ Vue.component('template-search', {
 	},
 	methods: {
 		association: function(){
+			this.$root.$emit('set_false_register', false)
 			this.loader.loading = true
 			this.$http.post('/administration/search/association', this.searchData ).then(response => {
 				this.loader.loading = false
