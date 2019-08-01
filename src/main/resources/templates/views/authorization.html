@@ -6,7 +6,7 @@
 			<textarea type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment" class="form-control" rows="5"></textarea>
 			<template slot="modal-footer" class="w-100">
 					<b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal()">
-						Confirmar	
+						Confirmar
 					</b-button>
 			</template>
 	</b-modal>
@@ -40,9 +40,9 @@
 				<date-pick v-model="date.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
 			</div>
 			<div class="col-md-2 col-lg-2">
-				<label for="exampleInputName2">Periodo</label> 
+				<label for="exampleInputName2">Periodo</label>
 				<select name="" id="" class="form-control" v-model="period_banner">
-					<option value="20">20</option> 
+					<option value="20">20</option>
 					<option value="40">40</option>
 				</select>
 			</div>
@@ -73,7 +73,7 @@
 		<div class="col-md-2 col-lg-2" v-if="alumns.length">
 			<div style="border:1px solid silver; padding:5px; background-color: #d9edf7 !important"
 				class="bg-info text-info text-center">
-				<h5 class="margin0">Ingresos</h5>
+				<h5 class="margin0">Por inscritos</h5>
 				<h4 class="">{{alumns.length}}</h4>
 			</div>
 		</div>
@@ -125,7 +125,7 @@
 													</div>
 													<div class="col-md-3 col-lg-3">
 															<div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
-																	<h6 class="margin0">Ingresos</h6>
+																	<h6 class="margin0">Por inscritos</h6>
 																	<h5 class="">{{key.length}}</h5>
 															</div>
 													</div>
@@ -164,7 +164,7 @@
 												<td>{{alumno | percentDiscount}}%</td>
 												<td>${{alumno.valorContratoReal}}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
-												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index, '')">Rechazar</button></td>
+												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index)">Rechazar</button></td>
 
 										</tr>
 									</tbody></table>
@@ -214,7 +214,7 @@
 												</div>
 												<div class="col-md-3 col-lg-3">
 														<div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
-																<h6 class="margin0">Ingresos</h6>
+																<h6 class="margin0">Por inscritos</h6>
 																<h5 class="">{{key.length}}</h5>
 														</div>
 												</div>
