@@ -81,7 +81,6 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	}
 
 	def findAllAuthorizationByStatus(String status, String campus, Date initDateFrom, Date finDateFrom){
-		println status
 		if(campus == "TODOS")
 			return authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(status, initDateFrom, finDateFrom)
 		authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(status, campus,initDateFrom, finDateFrom)
@@ -111,7 +110,6 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	}
 
 	List<AuthorizationCrescent> getCommissionsCrecentByStatus(data){
-		println data
 		if(data.status == "POR_AUTORIZAR")
 			return filterToAuthorizationsCrecents(data)
 		if(data.status == "AUTORIZADO" || data.status == "RECHAZADA")

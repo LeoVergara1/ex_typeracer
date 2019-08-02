@@ -80,7 +80,6 @@ class AuthorizationController {
   @ResponseBody
   Map getCalculation(@RequestBody Map data) {
     logger.info "Calculado comisiones corrientes"
-    println data
 		Map calculationWithComissions = authorizationService.getCalculation(data.campus, data.initDate, data.finDate)
     List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
     if(trimester.size() > 1){
@@ -116,7 +115,6 @@ class AuthorizationController {
   @ResponseBody
   Map denegateComissions(HttpServletRequest request, @RequestBody AuthorizationComission authorizationComission) {
 		String username = request.getUserPrincipal().getUserDetails().username
-    println authorizationComission.dump()
     authorizationComission.dateCreated = new Date()
     authorizationComission.lastUpdated = new Date()
     authorizationComission.user = username
