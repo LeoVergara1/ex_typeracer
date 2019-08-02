@@ -172,6 +172,10 @@ const app = new Vue({
     },
     filterStatus(status){
       return "POR AUTORIZAR"
+    },
+    removeDecimal(number){
+      console.log(number)
+      return Number(number).toFixed(2)
     }
   }
 })

@@ -44,7 +44,7 @@
 					 </tr>
 						<tr v-for="(alumno, index) in commissionsToTable">
 								<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
-								<td>{{alumno.comision}}</td>
+								<td>{{alumno.comision | removeDecimal }}</td>
 								<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
 								<td>{{alumno.comisionCoordinador}}</td>
 								<td>{{alumno.periodo}}</td>

@@ -230,6 +230,10 @@ var app = new Vue({
         return "-"
       }
       return percent
+    },
+    removeDecimal(number){
+      console.log(number)
+      return Number(number).toFixed(2)
     }
   }
 })

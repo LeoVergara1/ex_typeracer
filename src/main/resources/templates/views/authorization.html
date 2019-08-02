@@ -153,7 +153,7 @@
 									 </tr>
 										<tr v-for="(alumno, index) in alumns">
 												<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
-												<td>{{alumno.comision.toFixed(2)}}</td>
+												<td>{{alumno.comision | removeDecimal}}</td>
 												<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
 												<td>{{alumno.comisionCoordinador}}</td>
 												<td>{{alumno.periodo}}</td>
@@ -240,7 +240,7 @@
 								 </tr>
 									<tr v-for="(alumno, index) in authorizationsCrecent">
 											<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
-											<td>{{alumno.comision.toFixed(2)}}</td>
+											<td>{{alumno.comision | removeDecimal}}</td>
 											<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
 											<td>{{alumno.comisionCoordinador}}</td>
 											<td>{{alumno.periodo}}</td>
