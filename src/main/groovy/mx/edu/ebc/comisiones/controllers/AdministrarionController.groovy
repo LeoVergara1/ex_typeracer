@@ -59,6 +59,10 @@ class AdministrarionController {
 	PromoterService promoterService
 	@Value('#{${campus}}')
 	Map<String, String> campus
+  @Value('${promoterRoleId}')
+  String promoterRoleId
+  @Value('${managerRoleID}')
+  String managerRoleID
 	@Autowired
 	UserDetailsService userDetailsService
 	@Autowired
@@ -100,6 +104,8 @@ class AdministrarionController {
   ModelAndView association() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("content", "association");
+		model.addObject("promoterRoleId", promoterRoleId);
+		model.addObject("managerRoleID", managerRoleID);
 		model.addObject("listAssociation", administrationService.findAllPromoters())
 		return model
   }

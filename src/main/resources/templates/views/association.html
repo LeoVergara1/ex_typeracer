@@ -7,6 +7,8 @@
 		</div>
 	</div>
 	<hr>
+	<input type="hidden" th:value="${managerRoleID}" id="managerRoleID">
+	<input type="hidden" th:value="${promoterRoleId}" id="promoterRoleId">
 <div id="app">
 	<pulse-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></pulse-loader>
 	<vue-snotify></vue-snotify	>

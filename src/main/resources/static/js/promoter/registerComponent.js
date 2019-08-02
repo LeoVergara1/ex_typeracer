@@ -9,6 +9,8 @@ Vue.component('template-register', {
     return {
 			campusSelected: {},
 			roleCode: 557,
+			promoterRoleId: document.getElementById("promoterRoleId").value,
+			managerRoleID: document.getElementById("managerRoleID").value,
 			alert: {
 				message: "",
 				user: false,
@@ -145,7 +147,7 @@ Vue.component('template-register', {
 			</select>
 		</div>
 		</div>
-		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == 684 || register.roleCode == 680">
+		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == promoterRoleId || register.roleCode == managerRoleID">
 			<label for="recrCodeInput">Código de Promotor</label>
 			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="register.rcreCode">
 		</div>
@@ -180,7 +182,7 @@ Vue.component('template-register', {
 						-->
 						<div class="btn-group" role="group" aria-label="Basic example">
 								<button type="button" class="btn btn-danger" @click="deleteRol()"><i class="fa fa-times" aria-hidden="true"></i>Eliminar</button>
-								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].id == 680"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
+								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].id == managerRoleID"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
 						</div>
 					</td>
 				</tr>
