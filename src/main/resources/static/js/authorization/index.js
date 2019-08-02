@@ -224,6 +224,12 @@ var app = new Vue({
     percentDiscount(alumno){
       let percent = alumno.totalDescuentos * 100
       return (percent/alumno.valorContratoReal.toFixed(3))
+    },
+    validPercent(percent){
+      if(!percent){
+        return "-"
+      }
+      return percent
     }
   }
 })

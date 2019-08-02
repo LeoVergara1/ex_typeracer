@@ -73,7 +73,7 @@
 		<div class="col-md-2 col-lg-2" v-if="alumns.length">
 			<div style="border:1px solid silver; padding:5px; background-color: #d9edf7 !important"
 				class="bg-info text-info text-center">
-				<h5 class="margin0">Por inscritos</h5>
+				<h5 class="margin0">Inscritos</h5>
 				<h4 class="">{{alumns.length}}</h4>
 			</div>
 		</div>
@@ -125,7 +125,7 @@
 													</div>
 													<div class="col-md-3 col-lg-3">
 															<div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
-																	<h6 class="margin0">Por inscritos</h6>
+																	<h6 class="margin0">Inscritos</h6>
 																	<h5 class="">{{key.length}}</h5>
 															</div>
 													</div>
@@ -153,14 +153,14 @@
 									 </tr>
 										<tr v-for="(alumno, index) in alumns">
 												<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
-												<td>{{alumno.comision}}</td>
+												<td>{{alumno.comision.toFixed(2)}}</td>
 												<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
 												<td>{{alumno.comisionCoordinador}}</td>
 												<td>{{alumno.periodo}}</td>
 												<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
 												<td>{{alumno.fechaDePago}}</td>
 												<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-												<td>{{alumno.discountPercent}}</td>
+												<td>{{alumno.discountPercent | validPercent }}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
 												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index)">Rechazar</button></td>
 
@@ -212,7 +212,7 @@
 												</div>
 												<div class="col-md-3 col-lg-3">
 														<div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
-																<h6 class="margin0">Por inscritos</h6>
+																<h6 class="margin0">Inscritos</h6>
 																<h5 class="">{{key.length}}</h5>
 														</div>
 												</div>
@@ -240,14 +240,14 @@
 								 </tr>
 									<tr v-for="(alumno, index) in authorizationsCrecent">
 											<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
-											<td>{{alumno.comision}}</td>
+											<td>{{alumno.comision.toFixed(2)}}</td>
 											<td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
 											<td>{{alumno.comisionCoordinador}}</td>
 											<td>{{alumno.periodo}}</td>
 											<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
 											<td>{{alumno.fechaDePago}}</td>
 											<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-											<td>{{alumno.discountPercent}}</td>
+											<td>{{alumno.discountPercent | validPercent }}</td>
 											<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorizationCrecent(alumno, $event)"></td>
 											<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateAuthorizationCrecent, index)">Rechazar</button></td>
 

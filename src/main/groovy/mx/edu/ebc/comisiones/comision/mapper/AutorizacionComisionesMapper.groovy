@@ -20,7 +20,8 @@ class AutorizacionComisionesMapper implements RowMapper<AutorizacionComisiones> 
 		autorizacionComisiones.setNombreAlumno(rs.getString("nombre_alumno"));
 		autorizacionComisiones.setPagoInicial(rs.getDouble("pago_inicial"));
 		autorizacionComisiones.setTotalDescuentos(rs.getDouble("total_descuentos"));
-		autorizacionComisiones.setComision(rs.getDouble("comision"));
+		//TODO: No sé porque el *2
+		autorizacionComisiones.setComision(rs.getDouble("comision") / 6 * 2);
 		autorizacionComisiones.setPeriodo(rs.getString("periodo"));
 		autorizacionComisiones.setFechaDePago(rs.getDate("fecha_de_pago"));
 		autorizacionComisiones.setIdCoordinador(rs.getString("id_coordinador"));
