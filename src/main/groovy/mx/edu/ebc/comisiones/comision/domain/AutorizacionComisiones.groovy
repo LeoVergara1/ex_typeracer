@@ -29,5 +29,6 @@ class AutorizacionComisiones {
   String comment
   String adCoordinador
   String adPromotor
+  String discountPercent
 
 	}

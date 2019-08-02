@@ -14,6 +14,7 @@ var app = new Vue({
     comissionsGroups: [],
     totalCommissionPromoter: 0,
     authorizationsCrecent: [],
+    authorizationComissionCorrientes: [],
     period_banner: 20,
     date:{
       selectInit: new Date().toLocaleString('es-ES', {year: 'numeric', month: '2-digit', day: 'numeric'}),
@@ -79,13 +80,22 @@ var app = new Vue({
     })
   },
   methods:{
-    calculateComissionByPromoter (commissions){
+    calculateComissionByPromoter (commissions, type){
       console.log(commissions)
+      if (type == "corriente") {
+        this.alumns = commissions
+      }
+      else { 
+        this.authorizationsCrecent = commissions
+      }
       let cost = 0
       commissions.forEach(element => {
          cost = Number(element.comision) + cost
       });
       this.totalCommissionPromoter =  cost.toFixed(2)
+    },
+    showAllCommissions(type){
+      this.alumns = (type == 'corriente') ? (this.authorizationComissionCorrientes) : this.authorizationsCrecent
     },
     setAuthorization(alumno, { target }){
       (target.checked) ? alumno.autorizadoDirector = "AUTORIZADO" : alumno.autorizadoDirector = "POR_AUTORIZAR"
@@ -180,6 +190,7 @@ var app = new Vue({
         console.log(response.body);
         this.loader.loading = false
         this.alumns = response.body.out_comisiones
+        this.authorizationComissionCorrientes = response.body.out_comisiones 
         this.comissionsGroups = response.body.comissionsGroups
         this.authorizationsCrecent = response.body.calculationCrecent
         this.authorizationsCrecentGroups = response.body.groupsCalculations

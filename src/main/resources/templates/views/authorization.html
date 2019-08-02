@@ -104,9 +104,9 @@
 					<div class="card-body">
 							<div class="col-md-12 col-lg-12">
 									<ul class="nav nav-tabs">
-										<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos">Todos</a></li>
+										<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos" @click="showAllCommissions('corriente')">Todos</a></li>
 										<li class="nav-item" v-for="(key, value) in comissionsGroups">
-											<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key)">{{key[0].nombrePromotor}}</a>
+											<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key, 'corriente')">{{key[0].nombrePromotor}}</a>
 										</li>
 									</ul>
 
@@ -142,13 +142,12 @@
 											 <th>Promotor</th>
 											 <th>Comisión promotor</th>
 											 <th>Coordinador</th>
-											 <th>Comisión jefe</th>
+											 <th>Comisión Coord</th>
 											 <th>Periodo de inscripción</th>
 											 <th>Alumno</th>
 											 <th>Fecha de Pago</th>
-											 <th>Valor de contrato</th>
+											 <th>Monto colegiatura inicial</th>
 											 <th>% Beneficios</th>
-											 <th>Valor real de contrato</th>
 											 <th>Registrar</th>
 											 <th>Denegar</th>
 									 </tr>
@@ -161,8 +160,7 @@
 												<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
 												<td>{{alumno.fechaDePago}}</td>
 												<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-												<td>{{alumno | percentDiscount}}%</td>
-												<td>${{alumno.valorContratoReal}}</td>
+												<td>{{alumno.discountPercent}}</td>
 												<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
 												<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index)">Rechazar</button></td>
 
@@ -193,9 +191,9 @@
 					<div class="card-body">
 						<div class="col-md-12 col-lg-12">
 								<ul class="nav nav-tabs">
-									<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos">Todos</a></li>
+									<li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos" @click="showAllCommissions('corriente')">Todos</a></li>
 									<li class="nav-item" v-for="(key, value) in authorizationsCrecentGroups">
-										<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key)">{{key[0].nombrePromotor}}</a>
+										<a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key, 'corriente')">{{key[0].nombrePromotor}}</a>
 									</li>
 								</ul>
 
@@ -231,13 +229,12 @@
 										 <th>Promotor</th>
 										 <th>Comisión promotor</th>
 										 <th>Coordinador</th>
-										 <th>Comisión jefe</th>
+										 <th>Comisión Coord</th>
 										 <th>Periodo de inscripción</th>
 										 <th>Alumno</th>
 										 <th>Fecha de Pago</th>
-										 <th>Valor de contrato</th>
+										 <th>Monto colegiatura inicial</th>
 										 <th>% Beneficios</th>
-										 <th>Valor real de contrato</th>
 										 <th>Registrar</th>
 										 <th>Denegar</th>
 								 </tr>
@@ -250,8 +247,7 @@
 											<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
 											<td>{{alumno.fechaDePago}}</td>
 											<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-											<td>{{alumno | percentDiscount}}%</td>
-											<td>${{alumno.valorContratoReal}}</td>
+											<td>{{alumno.discountPercent}}</td>
 											<td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorizationCrecent(alumno, $event)"></td>
 											<td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateAuthorizationCrecent, index)">Rechazar</button></td>
 

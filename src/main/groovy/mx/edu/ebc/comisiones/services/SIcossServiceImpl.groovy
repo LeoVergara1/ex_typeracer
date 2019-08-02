@@ -56,7 +56,9 @@ class SicossServiceImpl implements SicossService {
           salary: "0",
           importe: commission.comisionCoordinador,
           payPeriod:  calculateQuincena(LocalDate.now()).toString(),
-          typeSicoss: (commission.class == AuthorizationComission) ? "CORRIENTE" : "CRECIENTE"
+          typeSicoss: (commission.class == AuthorizationComission) ? "CORRIENTE" : "CRECIENTE",
+          campus: commission.campus,
+          dateAuthorized: commission.fechaAutorizado
           )
       }
       listSicoss << new Sicoss(
@@ -71,7 +73,9 @@ class SicossServiceImpl implements SicossService {
         salary: "0",
         importe: commission.comision.toFloat(),
         payPeriod:  calculateQuincena(LocalDate.now()).toString(),
-        typeSicoss: (commission.class == AuthorizationComission) ? "CORRIENTE" : "CRECIENTE"
+        typeSicoss: (commission.class == AuthorizationComission) ? "CORRIENTE" : "CRECIENTE",
+        campus: commission.campus,
+        dateAuthorized: commission.fechaAutorizado
         )
     }
     listSicoss

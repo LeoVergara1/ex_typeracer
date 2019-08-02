@@ -474,7 +474,15 @@ create or replace PACKAGE BODY        genpub.pc_pago_comisiones AS
                                                     from spriden spr_in
                                                         where spr_in.spriden_pidm = spr_out.spriden_pidm)
                                                         and spr_out.spriden_pidm = alias_t.pidm
-                                                        and ROWNUM = 1) ad_coordinador
+                                                        and ROWNUM = 1) ad_coordinador,
+                                                         ( select TO_CHAR(WM_CONCAT(tbbexpt_desc)) from (
+                       select tbbexpt_desc, tbbestu_exemption_priority, tbbestu_pidm, tbbexpt_term_code
+                         from tbbexpt
+                         join tbredet on tbbexpt_exemption_code = tbredet_exemption_code and tbbexpt_term_code = tbredet_term_code
+                         join tbbestu on tbbestu_exemption_code = tbredet_exemption_code and tbbestu_term_code = tbredet_term_code
+                        where substr(tbredet_detail_code,1,2) = ''VC''
+                     group by tbbexpt_desc, tbbestu_exemption_priority, tbbestu_pidm, tbbexpt_term_code
+                     order by tbbestu_exemption_priority asc) where tbbestu_pidm = sovlcur_pidm and tbbexpt_term_code = sovlcur_term_code) discount_percent
                           FROM sgbstdn outss
                           JOIN srbrecr srb on sgbstdn_pidm = srb.srbrecr_pidm and srbrecr_term_code = sgbstdn_term_code_eff
                           JOIN sorainf on srb.srbrecr_pidm = sorainf_pidm and srb.srbrecr_admin_seqno = sorainf_seqno and srb.srbrecr_term_code = sorainf_term_code

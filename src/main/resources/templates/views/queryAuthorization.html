@@ -32,14 +32,13 @@
 					 <tbody><tr>
 							 <th>Promotor</th>
 							 <th>Comisión promotor</th>
-							 <th>Jefe</th>
-							 <th>Comisión jefe</th>
+							 <th>Coordinador</th>
+							 <th>Comisión Coord</th>
 							 <th>Periodo de inscripción</th>
 							 <th>Alumno</th>
 							 <th>Fecha de Pago</th>
-							 <th>Valor de pago inicial</th>
+							 <th>Monto colegiatura inicial</th>
 							 <th>% Beneficios</th>
-							 <th>Valor real de contrato</th>
 							 <th>Fecha autorización</th>
 							 <th>Estatus</th>
 					 </tr>
@@ -52,8 +51,7 @@
 								<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
 								<td>{{alumno.fechaDePago}}</td>
 								<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
-								<td>{{alumno | percentDiscount}}%</td>
-								<td>${{alumno.valorContratoReal}}</td>
+								<td>{{alumno.discountPercent}}</td>
 								<td>{{alumno.fechaAutorizado | removeExtendTime}}</td>
 								<td>
 									<span v-if="alumno.autorizadoDirector == 'AUTORIZADO'" class="badge badge-success">

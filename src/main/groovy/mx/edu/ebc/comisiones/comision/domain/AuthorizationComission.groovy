@@ -59,6 +59,8 @@ class AuthorizationComission {
 	String adCoordinador
 	@Column(name="AD_PROMOTOR")
 	String adPromotor
+	@Column(name="DISCOUNT_PERCENT")
+	String discountPercent
 
 	AuthorizationComission(def json, username){
 		this.user = username
@@ -86,6 +88,7 @@ class AuthorizationComission {
 		this.adCoordinador = json.adCoordinador
 		this.adPromotor = json.adPromotor
 		this.pidm = json.pidm
+		this.discountPercent = json.discountPercent
 	}
 
 	AuthorizationComission(){}

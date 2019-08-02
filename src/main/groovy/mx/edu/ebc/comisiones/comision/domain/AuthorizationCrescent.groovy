@@ -59,5 +59,7 @@ class AuthorizationCrescent {
 	String adCoordinador
 	@Column(name="AD_PROMOTOR")
 	String adPromotor
+	@Column(name="DISCOUNT_PERCENT")
+	String discountPercent
 
 }
