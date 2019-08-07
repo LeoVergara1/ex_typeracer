@@ -87,8 +87,8 @@ class AuthorizationController {
       return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: false]
     }
     else if(trimester.size() == 0){
-      logger.error "La busqueda incluye más de un trimestre"
-      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: true]
+      logger.error "La busqueda no tiene trimestres"
+      return calculationWithComissions << [moreThanTwo: false, calculationCrecent: [], withoutTrimester: true]
     }
     logger.info "Calculado comisiones crecientes"
     def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(trimester.first(), data.campus)
