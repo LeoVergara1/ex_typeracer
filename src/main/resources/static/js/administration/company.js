@@ -98,7 +98,7 @@ var app = new Vue({
     },
     searhTrimester() {
       this.register = false
-      this.dataToSearch.clave = this.period + this.dataToSearch.claveWihtoutPeriod
+      this.dataToSearch.clave = this.dataToSearch.period + this.dataToSearch.claveWihtoutPeriod
       if(this.dataToSearch.claveWihtoutPeriod){
         this.findOne()
       }
