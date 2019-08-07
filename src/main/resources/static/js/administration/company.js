@@ -2,6 +2,14 @@ var app = new Vue({
   el: '#app',
   data: {
     person: Object,
+    notifyOptions: {
+      timeout: 9000,
+      showProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: true,
+      position: 'rightTop',
+      helperNotificationCycle: true
+    },
     headerBgVariant: "white",
     headerTextVariant: 'dark',
     promoters: Array,
@@ -65,12 +73,14 @@ var app = new Vue({
   },
   methods:{
     dateExpires(date){
+      console.log(date)
       let parserDate = date.replace(/T+(\w|:|.)+/, "")
       parserDate = new Date(parserDate.split("-"))
+      console.log(parserDate)
       return parserDate < new Date()
     },
     addTrimester() {
-      if(this.dataToSearch.name && this.dataToSearch.claveWihtoutPeriod){
+      if(this.dataToSearch.name && this.dataToSearch.claveWihtoutPeriod && this.dataToSearch.year && this.dataToSearch.period){
         this.loader.loading = true
         this.dataToSearch.clave = this.dataToSearch.period + this.dataToSearch.claveWihtoutPeriod
         this.$http.post('/administration/save/trimester', this.dataToSearch ).then( response =>{
