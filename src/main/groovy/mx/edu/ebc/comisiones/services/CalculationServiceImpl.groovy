@@ -104,12 +104,14 @@ class CalculationServiceImpl implements CalculationService {
 	}
 
 	double calculationComissionPromoter(double pagoInicial, float percentCommission){
-		(pagoInicial* (percentCommission/100)) 
+		double result = (pagoInicial* (percentCommission/100)) 
+		Math.round(result * 100) / 100
 	}
 
 	double calculationComissionCoordinater(double pagoInicial, float percentCommission){
 		double commissionPromoter = (pagoInicial* (percentCommission/100)) 
-		commissionPromoter * (adminDeComisionesRepository.findAll().first().comisionCoordinacion / 100)
+		double result =(commissionPromoter * (adminDeComisionesRepository.findAll().first().comisionCoordinacion / 100))
+		Math.round(result * 100) / 100
 	}
 
 }

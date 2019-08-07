@@ -243,6 +243,11 @@ var app = new Vue({
     },
     removeDecimal(number){
       return Number(number).toFixed(2)
-    }
+    },
+    removeExtendTime(time) {
+      if(!time)
+        return time
+			return time.replace(/T+(\w|:|.)+/, "")
+    },
   }
 })

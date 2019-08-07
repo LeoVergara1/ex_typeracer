@@ -94,7 +94,7 @@ var app = new Vue({
         "NOMI_REFERENCIA": element.reference1,
         "NOMI_REFERENCIA2": element.reference2,
         "NOMI_DATO": element.dataPayhseet,
-        "NOMI_IMPORTE": element.importe,
+        "NOMI_IMPORTE": Number(element.importe ).toFixed(2),
 				"NOMI_SALDO": element.salary,
 				"NOMINA_ABIERTA": element.typePaysheet
        }
