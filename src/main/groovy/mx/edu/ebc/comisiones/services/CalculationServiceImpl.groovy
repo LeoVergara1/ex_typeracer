@@ -85,7 +85,7 @@ class CalculationServiceImpl implements CalculationService {
   			nombreAlumno: authorization.nombreAlumno,
   			pagoInicial: authorization.pagoInicial,
   			totalDescuentos: authorization.totalDescuentos,
-  			comision: calculationComissionPromoter(authorization.valorContratoReal, goal.percentCommission),
+  			comision: calculationComissionPromoter(authorization.pagoInicial, goal.percentCommission),
   			periodo: authorization.periodo,
   			fechaDePago: authorization.fechaDePago,
   			autorizadoDirector: "CALCULADO",
@@ -93,7 +93,7 @@ class CalculationServiceImpl implements CalculationService {
   			lastUpdated: new Date(),
   			idCoordinador: authorization.idCoordinador,
   			nombreCoordinador: authorization.nombreCoordinador,
-  			comisionCoordinador: authorization.comisionCoordinador,
+  			comisionCoordinador: calculationComissionCoordinater(authorization.pagoInicial, goal.percentCommission),
   			fechaAutorizado: authorization.fechaAutorizado,
   			user: authorization.user,
   			tipoPago: authorization.tipoPago,
@@ -103,12 +103,12 @@ class CalculationServiceImpl implements CalculationService {
 		}
 	}
 
-	double calculationComissionPromoter(double valorContratoReal, float percentCommission){
-		(valorContratoReal* (percentCommission/100)) 
+	double calculationComissionPromoter(double pagoInicial, float percentCommission){
+		(pagoInicial* (percentCommission/100)) 
 	}
 
-	double calculationComissionCoordinater(double valorContratoReal, float percentCommission){
-		double commissionPromoter = (valorContratoReal* (percentCommission/100)) 
+	double calculationComissionCoordinater(double pagoInicial, float percentCommission){
+		double commissionPromoter = (pagoInicial* (percentCommission/100)) 
 		commissionPromoter * adminDeComisionesRepository.findAll().first().comisionCoordinacion 
 	}
 
