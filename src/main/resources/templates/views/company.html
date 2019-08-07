@@ -149,7 +149,7 @@
 						<button v-if="element.trimester.goals.length == 0" @click="deleteById(element.trimester.id)" class="btn btn-danger btn-xs btn-block"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 						<span v-else class="label label-warning">Trimestre con comisiones activas</span>
 					</td>
-					<td v-if="dateExpires(element.trimester.endDate)">
+					<td v-if="!dateExpires(element.trimester.endDate)">
 						<button v-if="element.editable" class="btn btn-primary btn-xs btn-block"  @click="element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Editar</button>
 						<button v-else class="btn btn-success btn-xs btn-block"  @click="updateTrimester($event,element.trimester); element.editable = !element.editable" ><i class="fa fa-plus" aria-hidden="true"></i> Guardar</button>
 					</td>
