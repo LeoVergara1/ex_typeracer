@@ -2,6 +2,14 @@ var app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!',
+    notifyOptions: {
+      timeout: 9000,
+      showProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: true,
+      position: 'rightTop',
+      helperNotificationCycle: true
+    },
     username: document.getElementsByName("_username")[0].content,
     person: Object,
     headerBgVariant: "white",
@@ -194,6 +202,8 @@ var app = new Vue({
         this.comissionsGroups = response.body.comissionsGroups
         this.authorizationsCrecent = response.body.calculationCrecent
         this.authorizationsCrecentGroups = response.body.groupsCalculations
+        if(response.body.withoutTrimester) { this.$snotify.warning("La busqueda no tiene trimestres", this.notifyOptions) }
+        if(response.body.moreThanTwo) { this.$snotify.warning("La busqueda incluye más de un trimestre", this.notifyOptions) }
       }, response => {
         console.log("Fail")
         console.log(response)
@@ -232,7 +242,6 @@ var app = new Vue({
       return percent
     },
     removeDecimal(number){
-      console.log(number)
       return Number(number).toFixed(2)
     }
   }
