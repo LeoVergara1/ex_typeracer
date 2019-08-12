@@ -18,7 +18,7 @@ pipeline{
     stage('Building JS'){
       when {
         expression {
-          env.BRANCH_NAME in ["master","QA"]
+          env.BRANCH_NAME in ["master","QA","PROD"]
         }
       }
       steps{
@@ -30,6 +30,11 @@ pipeline{
     }
 
     stage('Building Applications'){
+      when {
+        expression {
+          env.BRANCH_NAME in ["master","QA","PROD"]
+        }
+      }
       steps{
         sh 'gradle build -x test'
       }
@@ -39,7 +44,7 @@ pipeline{
     stage('Build image docker') {
       when {
         expression {
-          env.BRANCH_NAME in ["master","QA", "PROD"]
+          env.BRANCH_NAME in ["master","QA"]
         }
       }
       environment {
@@ -50,6 +55,24 @@ pipeline{
           docker.withTool('Docker') {
             docker.withRegistry('http://localhost:5000') {
               def customImage = docker.build("ebc/springboot/comisiones-li","--build-arg SPRING_ENV=${env.SPRING_ENV} --build-arg PATH_FOLDER=build/libs/ .")
+              customImage.push()
+            }
+          }
+        }
+      }
+    }
+
+    stage('Build image docker PROD') {
+      when {
+        expression {
+          env.BRANCH_NAME in ["PROD"]
+        }
+      }
+      steps{
+        script {
+          docker.withTool('Docker') {
+            docker.withRegistry('http://localhost:5000') {
+              def customImage = docker.build("ebc/springboot/comisiones-li","--build-arg SPRING_ENV=prod --build-arg PATH_FOLDER=build/libs/ .")
               customImage.push()
             }
           }
@@ -82,6 +105,28 @@ pipeline{
       }
       steps{
         sh "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${env.URL_SERVER} 'sh deploy_comisiones_li.sh comisiones-li 8107'"
+      }
+    }
+
+    stage('PROD ENVIRONMENT: Transfering sh'){
+      when {
+        expression {
+          env.BRANCH_NAME in ["PROD"]
+        }
+      }
+      steps{
+        sh "scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P 22222 deploy.sh COMPAW@172.31.0.26:~/deploy_comisiones_li.sh"
+      }
+    }
+
+    stage('PROD ENVIRONMENT:Deploying app'){
+      when {
+        expression {
+          env.BRANCH_NAME in ["PROD"]
+        }
+      }
+      steps{
+        sh "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 22222 COMPAW@172.31.0.26 'sh deploy_comisiones_li.sh comisiones-li 9040'"
       }
     }
   }
