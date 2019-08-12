@@ -119,11 +119,11 @@ class AdministrationServiceImpl implements AdministrationService {
 	def removePromoterFromProgram(Promoter promoter, ProgramManager program){
 		if(promoter.programManager?.id?.userName == program?.id?.userName){
 			promoter.programManager = null
-		promoter.idCoordinater = null
-		promoter.coordinaterName = null
-		promoter.relationActive = 'N'
-		promoter.apellidosCoordinater = null
-		promoter.claveCoordinater = null
+			promoter.idCoordinater = null
+			promoter.coordinaterName = null
+			promoter.relationActive = 'N'
+			promoter.apellidosCoordinater = null
+			promoter.claveCoordinater = null
 			promoterRepository.save(promoter)
 		}
 	}
