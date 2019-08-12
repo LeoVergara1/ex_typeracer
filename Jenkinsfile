@@ -29,6 +29,17 @@ pipeline{
       }
     }
 
+    stage('Transfering properties PROD'){
+      when {
+        expression {
+          env.BRANCH_NAME in ["PROD"]
+        }
+      }
+      steps{
+        sh "scp -P 22222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no COMPAW@172.31.0.26:/home/COMPAW/.properties-file/application-prod.properties src/main/resources/"
+      }
+    }
+
     stage('Building Applications'){
       when {
         expression {
