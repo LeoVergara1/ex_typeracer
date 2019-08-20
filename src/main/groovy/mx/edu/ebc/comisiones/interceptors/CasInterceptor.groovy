@@ -21,6 +21,8 @@ class CasInterceptor implements HandlerInterceptor {
 
   @Value('${url.apibannerseguridad}')
   String clientApiBannerSeguridad
+  @Value('${namePortal}')
+  String namePortal
   String roles = "v2/api/user/profile"
   String profiles = "v2/api/user/role"
   @Autowired
@@ -37,7 +39,7 @@ class CasInterceptor implements HandlerInterceptor {
   void addUserEbcTosession(String userName, def session){
     session.setAttribute("ebcUser", new EbcUser(
       username: userName,
-      profiles: personService.findPersonByUsernameAndPortalName(userName, "comisiones-li"),
+      profiles: personService.findPersonByUsernameAndPortalName(userName, namePortal),
       menus: personService.getMenusToPerson(userName)
     ))
   }

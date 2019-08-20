@@ -26,6 +26,8 @@ class PersonServiceImpl implements PersonService {
 		String managerRoleID
 		@Value('${promoterRoleId}')
 		String promoterRoleId
+    @Value('${namePortal}')
+    String namePortal
  		@Autowired
  		CampusService campusService
     @Autowired
@@ -131,7 +133,7 @@ class PersonServiceImpl implements PersonService {
 
   def getMenusToPerson(String userName){
     NetworkService.buildRequest(clientApiBannerSeguridad){
-      endpointUrl "/v2/api/user/profile/${userName}/comisiones-li"
+      endpointUrl "/v2/api/user/profile/${userName}/namePortal"
     }.execute()?.json?.accessProfile.collect(){ menu ->
       [
         shortName: menu.shortName,

@@ -1,6 +1,0 @@
-security:
-  cas:
-    server:
-      base-url: https://apr-test.ebc.edu.mx/casad
-      url:
-        logout: https://apr-test.ebc.edu.mx/casad/logout

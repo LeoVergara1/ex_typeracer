@@ -30,6 +30,10 @@ class AdministrationServiceImpl implements AdministrationService {
 	PersonRepository personRepository
 	@Value('${url.apibannercomisiones}')
 	String clientApiBannerComissions
+  @Value('${idRolPortal}')
+  String idRolPortal
+  @Value('${namePortal}')
+  String namePortal
 	@Value('${managerRoleID}')
 	String managerRoleId
 	@Value('#{${roles}}')
@@ -84,11 +88,11 @@ class AdministrationServiceImpl implements AdministrationService {
 	Map getPersonWithValidations(String username){
 			Person person = personService.findPersonByUsername(username)
     if(person.userName){
-    	person = personService.setProfile(person, "comisiones-li")
+    	person = personService.setProfile(person, namePortal)
     	person = personService.setCampuses(person)
     }
     [person:person,
-    	mapRol: rolesRepository.findAllByNidRolPortal("1429"),
+    	mapRol: rolesRepository.findAllByNidRolPortal(idRolPortal),
      	managerRoleId: managerRoleId]
 	}
 
