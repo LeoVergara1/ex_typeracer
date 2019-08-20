@@ -132,8 +132,9 @@ class PersonServiceImpl implements PersonService {
   }
 
   def getMenusToPerson(String userName){
+    def portal = namePortal
     NetworkService.buildRequest(clientApiBannerSeguridad){
-      endpointUrl "/v2/api/user/profile/${userName}/${delegate.namePortal}"
+      endpointUrl "/v2/api/user/profile/${userName}/${portal}"
     }.execute()?.json?.accessProfile.collect(){ menu ->
       [
         shortName: menu.shortName,
