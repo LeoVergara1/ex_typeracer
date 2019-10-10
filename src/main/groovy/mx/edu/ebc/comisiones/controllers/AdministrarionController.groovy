@@ -99,6 +99,17 @@ class AdministrarionController {
 		return model
   }
 
+  @RequestMapping("administration/register")
+  @ResponseBody
+  ModelAndView register() {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "register");
+		model.addObject("promoterRoleId", promoterRoleId);
+		model.addObject("managerRoleID", managerRoleID);
+		model.addObject("listAssociation", administrationService.findAllPromoters())
+		return model
+  }
+
   @RequestMapping("administration/association")
   @ResponseBody
   ModelAndView association() {
