@@ -1,0 +1,30 @@
+
+<div th:fragment="register">
+	<br>
+	<div class="row">
+		<div class="col-lg-12">
+			<h3 class="blue margin0">Registro de usuarios</h3>
+		</div>
+	</div>
+	<hr>
+	<input type="hidden" th:value="${managerRoleID}" id="managerRoleID">
+	<input type="hidden" th:value="${promoterRoleId}" id="promoterRoleId">
+<div id="app">
+	<pulse-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></pulse-loader>
+	<vue-snotify></vue-snotify	>
+	<div v-show="!loader.loading">
+		<template-search :notify-options="notifyOptions" :user="user" :loader="loader"></template-search>
+		<template-register :notify-options="notifyOptions" :user="user" :campus="campus" :loader="loader" v-if="user.person.userName"></template-register>
+	</div>
+<hr>
+	<template-promoter :campus="campus"></template-promoter>
+</div>
+
+</div>
+
+<div th:fragment="js">
+	<script src="/js/promoter/searchComponent.js"></script>
+	<script src="/js/promoter/promoterComponent.js"></script>
+	<script src="/js/promoter/registerComponent.js"></script>
+	<script src="/js/promoter/index.js"></script>
+</div>
