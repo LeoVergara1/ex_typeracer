@@ -126,8 +126,33 @@ Vue.component('template-register', {
 	},
 	template: `
 	<div class="row" v-if="alertData.user && !alertData.show && !response.register">
-		<div class="col">
-			<b-alert variant="warning" show>El usuario no esta dado de alta en la aplicación</b-alert>
+		<div class="col-lg-2">
+				<label for="selectCampus">Campus</label>
+				<div id="filter-campus">
+					<select v-model="register.campus" class="form-control">
+						<!-- inline object literal -->
+						<option v-for="(k, v) in campus.list" v-bind:value="v">
+							{{ k }}
+						</option>
+					</select>
+			</div>
+		</div>
+		<div class="col-lg-2">
+			<label for="selectRoles">Rol</label>
+			<div id="filter-roles">
+			<select class="form-control filtersRolAndCampus" v-model="register.roleCode">
+				<option v-for="rol in user.mapRol" v-bind:value="rol.nidRol">
+				{{ rol.descriptionRol | getDescriptionToRol }}
+			</option>
+			</select>
+		</div>
+		</div>
+		<div class="col-lg-2" id="recrCodeDiv" v-if="register.roleCode == promoterRoleId || register.roleCode == managerRoleID">
+			<label for="recrCodeInput">Código de Promotor</label>
+			<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="register.rcreCode">
+		</div>
+		<div class="col-md-2 col-lg-2">
+			<button id="saveRoleButton" style="margin-top:35px;" class="btn btn-sm btn-success btn-block" :disabled="disabledRegister" @click="saveRole()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrar</button>
 		</div>
 	</div>
 	<div class="row" v-else-if="!alertData.user && !alertData.show">
@@ -156,7 +181,7 @@ Vue.component('template-register', {
 							<button class="btn btn-danger btn-xs btn-block buttonTable" @click="deleteRol()" id="buttonTable"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 						-->
 						<div class="btn-group" role="group" aria-label="Basic example">
-								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].id == managerRoleID"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
+								<button type="button" class="btn btn-danger" @click="deleteRol()"><i class="fa fa-times" aria-hidden="true"></i>Eliminar</button>
 						</div>
 					</td>
 				</tr>

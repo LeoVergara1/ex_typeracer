@@ -17,12 +17,14 @@ import org.springframework.stereotype.Component;
 @Component
 class AutorizacionComisionesStoredProcedure extends StoredProcedure {
 
-	private static final String STORED_PROCEDURE_NAME = "genpub.pc_pago_comisiones.pr_comisiones";
+	private static final String STORED_PROCEDURE_NAME = "genpub.pc_comisiones_li.pr_comisiones";
 	private static final String CURSOR_NAME = "out_comisiones";
 
 	@Autowired
 	AutorizacionComisionesStoredProcedure(DataSource dataSource){
 		super(dataSource,STORED_PROCEDURE_NAME);
+		println dataSource.dump() 
+		println "*"*100
 		declareParameter(new SqlParameter("p_fecha_pago_ini", Types.DATE));
 		declareParameter(new SqlParameter("p_fecha_pago_fin", Types.DATE));
 		declareParameter(new SqlParameter("p_campus", Types.VARCHAR));
