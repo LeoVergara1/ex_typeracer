@@ -6,7 +6,7 @@ import javax.persistence.*
 @NamedStoredProcedureQueries([
     @NamedStoredProcedureQuery(
         name = "java_procedure_name",
-        procedureName = "genpub.pc_pago_comisiones.pr_comisiones",
+        procedureName = "genpub.pc_comisiones_li.pr_comisiones",
         parameters = [
           @StoredProcedureParameter(mode=ParameterMode.IN, name="p_fecha_pago_ini", type=Date.class),
           @StoredProcedureParameter(mode=ParameterMode.IN, name="p_fecha_pago_fin", type=Date.class),
