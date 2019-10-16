@@ -56,8 +56,21 @@ class CalculationServiceImpl implements CalculationService {
 		calculationByGoal(goal, campaign.initDate, campaign.endDate)
 	}
 
+	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsMarketing(Trimester trimester ,String campus){
+		Campaign campaign = getCampaignByTrimester(trimester)
+		Goal goal = trimester.goals.find(){ it.campus == campus }
+		authorizationCrescentRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, goal.campus, campaign.initDate, campaign.endDate)
+	}
+
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(Trimester trimester ,String campus){
 		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoals(trimester , campus) 
+		authorizationsToAuthorize.findAll(){
+			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
+		}
+	}
+
+	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(Trimester trimester ,String campus){
+		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoalsMarketing(trimester , campus) 
 		authorizationsToAuthorize.findAll(){
 			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
 		}
