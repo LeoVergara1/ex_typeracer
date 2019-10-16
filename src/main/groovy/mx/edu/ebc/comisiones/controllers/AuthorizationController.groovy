@@ -176,5 +176,13 @@ class AuthorizationController {
 		[response:200]
   }
 
+	@GetMapping("/marketing")
+  @ResponseBody
+  Map marketing(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "marketing");
+		//def list = adminDeComisionesRepository.findAll()
+		return model
+  }
 
 }
