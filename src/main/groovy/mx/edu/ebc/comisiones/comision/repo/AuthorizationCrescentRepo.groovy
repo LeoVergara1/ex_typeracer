@@ -11,5 +11,6 @@ interface AuthorizationCrescentRepository extends JpaRepository<AuthorizationCre
 	List<AuthorizationCrescent> findAllByAutorizadoDirector(String autorizadoDirector)
 	List<AuthorizationCrescent> findAllByAutorizadoDirectorAndFechaAutorizadoBetween(String autorizadoDirector, Date initDate, Date finDate)
 	List<AuthorizationCrescent> findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(String autorizadoDirector, String campus, Date initDate, Date finDate)
+	List<AuthorizationCrescent> findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(Boolean statusMarketing, String campus, Date initDate, Date finDate)
 	AuthorizationCrescent findByIdPromotorAndIdCoordinadorAndIdAlumno(String idPromoter, String idCoordinator, String idAlumno)
 }
