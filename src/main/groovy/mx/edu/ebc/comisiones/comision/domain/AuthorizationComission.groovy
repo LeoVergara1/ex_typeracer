@@ -50,7 +50,7 @@ class AuthorizationComission {
 	@Column(name="TIPO_PAGO")
  	String tipoPago;
 	@Column(name="VALOR_CONTRATO_REAL")
- 	double valorContratoReal;
+ 	double valorContratoReal = 0;
 	@Column(name="PIDM")
  	Long pidm;
 	@Column(name="COMMENTS")
@@ -61,6 +61,11 @@ class AuthorizationComission {
 	String adPromotor
 	@Column(name="DISCOUNT_PERCENT")
 	String discountPercent
+	@Column(name="USERNAME_MARKETING")
+	String usernameMarketing
+	@Column(name="STATUS_MARKETING")
+	Boolean statusMarketing
+
 
 	AuthorizationComission(def json, username){
 		this.user = username

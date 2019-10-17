@@ -1,0 +1,268 @@
+<div th:fragment="marketing">
+    <br>
+  
+    <div id="app" class="display_current">
+    <vue-snotify></vue-snotify	>
+    <b-modal id="modal-denegate" title="Motivo de rechazo">
+        <textarea type="text" name="" id="" v-model="authorizationToDenegate.authorization.comment" class="form-control" rows="5"></textarea>
+        <template slot="modal-footer" class="w-100">
+            <b-button variant="primary" size="sm" class="float-right" @click="executeDenegateFromModal()">
+              Confirmar
+            </b-button>
+        </template>
+    </b-modal>
+      <div class="loading" v-if="loader.loading"></div>
+      <ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="blue margin0">Autorización de comisiones mercadoctenia</h3>
+        </div>
+        <br class="clear">
+        <br>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <label for="selectCampus">Campus</label>
+          <div id="filter-campus">
+            <select v-model="campusSelected" class="form-control">
+              <!-- inline object literal -->
+              <option v-for="(k, v) in campuses" v-bind:value="v">
+                {{ k }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <label for="selectCampus">Fecha inicio</label>
+          <date-pick v-model="date.selectInit" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+        </div>
+        <div class="col-lg-2">
+          <label for="selectCampus">Fecha Fin</label>
+          <date-pick v-model="date.selectFin" :months="date.months" :weekdays="date.weekDays" :format="'DD/MM/YYYY'"></date-pick>
+        </div>
+        <div class="col-md-2 col-lg-2">
+          <label for="exampleInputName2">Periodo</label>
+          <select name="" id="" class="form-control" v-model="period_banner">
+            <option value="20">20</option>
+            <option value="40">40</option>
+          </select>
+        </div>
+        <div class="col-lg-2">
+          <button class="btn btn-primary mb-2" style="margin-top: 30px;" @click="getCalculationMarketing">Buscar</button>
+        </div>
+  
+      </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-6 col-lg-6" v-if="person.bannerName">
+        <h4 class="block orange"><i class="fa fa-user" aria-hidden="true"></i></h4>
+        <h4 class="block orange margin0">{{person.bannerName}}</h4>
+        <br>
+        <h4 class="block blue margin0">{{person.profiles[0].description | getDescriptionToRol}}</h4>
+        <br>
+        <h4 class="block margin0">{{person.campuses[0].description}}</h4>
+        <br>
+        <h4 class="block margin0 orange">Periodo: {{period}}</h4>
+      </div>
+      <div class="col-md-2 col-lg-2" v-if="alumns.length">
+        <div style="border:1px solid silver; padding:5px; background-color: #dff0d8 !important"
+          class="bg-success text-success text-center">
+          <h5 class="margin0">Comisión a pagar</h5>
+          <h4 class="">$ {{totalCommission}}</h4>
+        </div>
+      </div>
+      <div class="col-md-2 col-lg-2" v-if="alumns.length">
+        <div style="border:1px solid silver; padding:5px; background-color: #d9edf7 !important"
+          class="bg-info text-info text-center">
+          <h5 class="margin0">Inscritos</h5>
+          <h4 class="">{{alumns.length}}</h4>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-lg-12">
+      </div>
+    </div>
+    <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <div class="row">
+            <h5 class="col-10">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="transition: 0.5s ease-in-out;
+              text-decoration: none;
+              color: black;">
+                Corrientes
+              </button>
+            </h5>
+            <div class="col-2">
+                <button @click="sendAuthorizationMarketing()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check" aria-hidden="true"></i> Autorizar</button>
+            </div>
+            </div>
+          </div>
+  
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div class="col-md-12 col-lg-12">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos" @click="showAllCommissions('corriente')">Todos</a></li>
+                      <li class="nav-item" v-for="(key, value) in comissionsGroups">
+                        <a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key, 'corriente')">{{key[0].nombrePromotor}}</a>
+                      </li>
+                    </ul>
+  
+                    <div class="tab-content">
+                      <div id="todos" class="tab-pane fade in active">
+                      </div>
+                      <!--1-->
+                      <div :id="'promotor' + value" class="tab-pane fade" v-for="(key, value) in comissionsGroups">
+                        <div class="row">
+                           <br class="clear">
+                            <div class="col-md-3 col-lg-3">
+                                <div style="border: 1px solid silver; padding: 5px; background-color: rgb(223, 240, 216) !important;" class="bg-success text-success text-center">
+                                    <h6 class="margin0">Comisión a pagar</h6>
+                                    <h5 class="">$ {{totalCommissionPromoter}}</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3">
+                                <div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
+                                    <h6 class="margin0">Inscritos</h6>
+                                    <h5 class="">{{key.length}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <!--1-->
+                    </div>
+                </div>
+                <br class="clear">
+                <br>
+                <div class="col-md-12 col-lg-12">
+                    <table class="table table-bordered table-striped" style="font-size: 12px;">
+                     <tbody><tr>
+                         <th>Promotor</th>
+                         <th>Comisión promotor</th>
+                         <th>Coordinador</th>
+                         <th>Comisión Coord</th>
+                         <th>Periodo de inscripción</th>
+                         <th>Alumno</th>
+                         <th>Fecha de Pago</th>
+                         <th>Monto colegiatura inicial</th>
+                         <th>% Beneficios</th>
+                         <th>Registrar</th>
+                         <th>Denegar</th>
+                     </tr>
+                      <tr v-for="(alumno, index) in alumns">
+                          <td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
+                          <td>{{alumno.comision | removeDecimal}}</td>
+                          <td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
+                          <td>{{alumno.comisionCoordinador}}</td>
+                          <td>{{alumno.periodo}}</td>
+                          <td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
+                          <td>{{alumno.fechaDePago | removeExtendTime}}</td>
+                          <td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
+                          <td>{{alumno.discountPercent | validPercent }}</td>
+                          <td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorization(alumno, $event)"></td>
+                          <td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateComissions, index)">Rechazar</button></td>
+  
+                      </tr>
+                    </tbody></table>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <div class="row">
+              <h5 class="col-10">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                  aria-controls="collapseTwo" style="    transition: 0.5s ease-in-out;
+                      text-decoration: none;
+                      color: black;">
+                  Crecientes
+                </button>
+              </h5>
+              <div class="col-2">
+                <button @click="sendAuthorizationCrecentMarketing()" class="btn btn-success btn-block btn-sm"><i class="fa fa-check"
+                    aria-hidden="true"></i> Autorizar</button>
+              </div>
+            </div>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+              <div class="col-md-12 col-lg-12">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item"><a style="margin: 5px" data-toggle="tab" href="#todos" @click="showAllCommissions('corriente')">Todos</a></li>
+                    <li class="nav-item" v-for="(key, value) in authorizationsCrecentGroups">
+                      <a data-toggle="tab" style="margin: 5px" :href="'#promotor' + value" @click="calculateComissionByPromoter(key, 'corriente')">{{key[0].nombrePromotor}}</a>
+                    </li>
+                  </ul>
+  
+                  <div class="tab-content">
+                    <div id="todos" class="tab-pane fade in active">
+                    </div>
+                    <!--1-->
+                    <div :id="'promotor' + value" class="tab-pane fade" v-for="(key, value) in authorizationsCrecentGroups">
+                      <div class="row">
+                         <br class="clear">
+                          <div class="col-md-3 col-lg-3">
+                              <div style="border: 1px solid silver; padding: 5px; background-color: rgb(223, 240, 216) !important;" class="bg-success text-success text-center">
+                                  <h6 class="margin0">Comisión a pagar</h6>
+                                  <h5 class="">$ {{totalCommissionPromoter}}</h5>
+                              </div>
+                          </div>
+                          <div class="col-md-3 col-lg-3">
+                              <div style="border: 1px solid silver; padding: 5px; background-color: rgb(217, 237, 247) !important;" class="bg-info text-info text-center">
+                                  <h6 class="margin0">Inscritos</h6>
+                                  <h5 class="">{{key.length}}</h5>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <!--1-->
+                  </div>
+              </div>
+              <br class="clear">
+              <br>
+              <div class="col-md-12 col-lg-12">
+                  <table class="table table-bordered table-striped" style="font-size: 12px;">
+                   <tbody><tr>
+                       <th>Promotor</th>
+                       <th>Comisión promotor</th>
+                       <th>Coordinador</th>
+                       <th>Comisión Coord</th>
+                       <th>Periodo de inscripción</th>
+                       <th>Alumno</th>
+                       <th>Fecha de Pago</th>
+                       <th>Monto colegiatura inicial</th>
+                       <th>% Beneficios</th>
+                       <th>Registrar</th>
+                       <th>Denegar</th>
+                   </tr>
+                    <tr v-for="(alumno, index) in authorizationsCrecent">
+                        <td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
+                        <td>{{alumno.comision | removeDecimal}}</td>
+                        <td>{{alumno.nombreCoordinador}} - <b>{{alumno.idCoordinador}}</b></td>
+                        <td>{{alumno.comisionCoordinador}}</td>
+                        <td>{{alumno.periodo}}</td>
+                        <td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
+                        <td>{{alumno.fechaDePago | removeExtendTime}}</td>
+                        <td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a :href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" target="_blank" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
+                        <td>{{alumno.discountPercent | validPercent }}</td>
+                        <td class="text-center"> <input type="checkbox" class="check_element" @change="setAuthorizationCrecent(alumno, $event)"></td>
+                        <td><button class="btn btn-xs btn-block btn-danger" @click="showModalTooDenegate(alumno, denegateAuthorizationCrecent, index)">Rechazar</button></td>
+  
+                    </tr>
+                  </tbody></table>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
+    </div>
+  </div>
+  <div th:fragment="js">
+    <link rel="stylesheet" href="/css/authorization_style.css" />
+    <script src="/js/marketing/index.js"></script>
+  </div>

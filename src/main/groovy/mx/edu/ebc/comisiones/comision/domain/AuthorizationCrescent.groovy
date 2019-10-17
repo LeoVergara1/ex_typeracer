@@ -61,5 +61,9 @@ class AuthorizationCrescent {
 	String adPromotor
 	@Column(name="DISCOUNT_PERCENT")
 	String discountPercent
+	@Column(name="USERNAME_MARKETING")
+	String usernameMarketing
+	@Column(name="STATUS_MARKETING")
+	Boolean statusMarketing
 
 }

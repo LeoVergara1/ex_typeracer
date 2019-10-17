@@ -111,6 +111,22 @@ class AuthorizationController {
 		[response: 200]
   }
 
+	@PostMapping("/sendAuthorizationMarketing")
+  @ResponseBody
+  Map sendAuthorizationMarketing(HttpServletRequest request, @RequestBody List<AuthorizationComission> authorizationComission) {
+		String username = request.getUserPrincipal().getUserDetails().username
+		authorizationService.saveListAuthorizationMarketing(authorizationComission, username)
+		[response: 200]
+  }
+
+	@PostMapping("/sendAuthorizationCrecentMarketing")
+  @ResponseBody
+  Map sendAuthorizationCrecentMarketing(HttpServletRequest request, @RequestBody List<AuthorizationCrescent> authorizationCrescents) {
+		String username = request.getUserPrincipal().getUserDetails().username
+		authorizationService.saveListAuthorizationCrecentMarketing(authorizationCrescents, username)
+		[response: 200]
+  }
+
 	@PostMapping("/denegateComissions")
   @ResponseBody
   Map denegateComissions(HttpServletRequest request, @RequestBody AuthorizationComission authorizationComission) {
@@ -176,5 +192,32 @@ class AuthorizationController {
 		[response:200]
   }
 
+	@GetMapping("/marketing")
+  @ResponseBody
+  ModelAndView marketing(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "marketing");
+		//def list = adminDeComisionesRepository.findAll()
+		return model
+  }
+
+  	@PostMapping("/getCalculationMarketing")
+  @ResponseBody
+  Map getCalculationMarketing(@RequestBody Map data) {
+    logger.info "Calculado comisiones corrientes"
+		Map calculationWithComissions = authorizationService.getCalculationMarketing(data.campus, data.initDate, data.finDate)
+    List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
+    if(trimester.size() > 1){
+      logger.error "La busqueda incluye más de un trimestre"
+      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: false]
+    }
+    else if(trimester.size() == 0){
+      logger.error "La busqueda no tiene trimestres"
+      return calculationWithComissions << [moreThanTwo: false, calculationCrecent: [], withoutTrimester: true]
+    }
+    logger.info "Calculado comisiones crecientes"
+    def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(trimester.first(), data.campus)
+    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
+  }
 
 }
