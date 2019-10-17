@@ -27,8 +27,8 @@ class SicossServiceImpl implements SicossService {
 
   Map getCommissionNormalAndCrecients(Campaign campaign){
     [
-      commissionsNormal: authorizationRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate),
-      commissionsCrecent: authorizationCrescentRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween("AUTORIZADO", campaign.initDate, campaign.endDate)
+      commissionsNormal: authorizationRepository.findAllByStatusMarketingAndFechaAutorizadoBetween(true, campaign.initDate, campaign.endDate),
+      commissionsCrecent: authorizationCrescentRepository.findAllByStatusMarketingAndFechaAutorizadoBetween(true, campaign.initDate, campaign.endDate)
     ]
   }
 
