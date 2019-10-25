@@ -65,5 +65,9 @@ class AuthorizationCrescent {
 	String usernameMarketing
 	@Column(name="STATUS_MARKETING")
 	Boolean statusMarketing
+	@Column(name="USERNAME_RECTOR")
+	String usernameRector
+	@Column(name="STATUS_RECTOR")
+	Boolean statusRector
 
 }
