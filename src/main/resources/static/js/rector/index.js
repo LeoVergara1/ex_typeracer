@@ -93,7 +93,7 @@ var app = new Vue({
       if (type == "corriente") {
         this.alumns = commissions
       }
-      else { 
+      else {
         this.authorizationsCrecent = commissions
       }
       let cost = 0
@@ -106,11 +106,11 @@ var app = new Vue({
       this.alumns = (type == 'corriente') ? (this.authorizationComissionCorrientes) : this.authorizationsCrecent
     },
     setAuthorization(alumno, { target }){
-      (target.checked) ? alumno.statusMarketing = true : alumno.statusMarketing = false
+      (target.checked) ? alumno.statusRector = true : alumno.statusRector = false
       console.log(target.checked)
     },
     setAuthorizationCrecent(alumno, { target }){
-      (target.checked) ? alumno.statusMarketing = true: alumno.statusMarketing = false
+      (target.checked) ? alumno.statusRector = true: alumno.statusRector = false
       console.log(target.checked)
     },
     showModalTooDenegate(authorization, functionSend, index){
@@ -140,13 +140,13 @@ var app = new Vue({
         console.log(response)
       })
     },
-    sendAuthorizationMarketing(){
-      let listTosend = this.alumns.filter(alumno => alumno.statusMarketing == true)
+    sendAuthorizationRector(){
+      let listTosend = this.alumns.filter(alumno => alumno.statusRector == true)
       console.log(listTosend)
       this.loader.loading = true
-      this.$http.post(`/authorization/sendAuthorizationMarketing`, listTosend).then(response => {
+      this.$http.post(`/authorization/sendAuthorizationRector`, listTosend).then(response => {
         console.log(response.body);
-        this.alumns = this.alumns.filter(alumno => alumno.statusMarketing  != true)
+        this.alumns = this.alumns.filter(alumno => alumno.statusRector  != true)
         this.resetChecksBoxes()
         this.loader.loading = false
       }, response => {
@@ -154,13 +154,13 @@ var app = new Vue({
         console.log(response)
       })
     },
-    sendAuthorizationCrecentMarketing(){
-      let listTosend = this.authorizationsCrecent.filter(alumno => alumno.statusMarketing == true)
+    sendAuthorizationCrecentRector(){
+      let listTosend = this.authorizationsCrecent.filter(alumno => alumno.statusRector == true)
       console.log(listTosend)
       this.loader.loading = true
-      this.$http.post(`/authorization/sendAuthorizationCrecentMarketing`, listTosend).then(response => {
+      this.$http.post(`/authorization/sendAuthorizationCrecentRector`, listTosend).then(response => {
         console.log(response.body);
-        this.authorizationsCrecent = this.authorizationsCrecent.filter(alumno => alumno.statusMarketing != true)
+        this.authorizationsCrecent = this.authorizationsCrecent.filter(alumno => alumno.statusRector != true)
         this.resetChecksBoxes()
         this.loader.loading = false
       }, response => {
@@ -185,9 +185,9 @@ var app = new Vue({
         console.log(response)
       })
     },
-    getCalculationMarketing() {
+    getCalculationRector() {
       this.loader.loading = true
-      this.$http.post(`/authorization/getCalculationMarketing`, {
+      this.$http.post(`/authorization/getCalculationRector`, {
         campus: this.campusSelected,
         initDate: this.date.selectInit,
         finDate: this.date.selectFin,
@@ -196,7 +196,7 @@ var app = new Vue({
         console.log(response.body);
         this.loader.loading = false
         this.alumns = response.body.out_comisiones
-        this.authorizationComissionCorrientes = response.body.out_comisiones 
+        this.authorizationComissionCorrientes = response.body.out_comisiones
         this.comissionsGroups = response.body.comissionsGroups
         this.authorizationsCrecent = response.body.calculationCrecent
         this.authorizationsCrecentGroups = response.body.groupsCalculations
