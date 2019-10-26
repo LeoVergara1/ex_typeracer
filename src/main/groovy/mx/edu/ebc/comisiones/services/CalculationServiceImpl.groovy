@@ -62,29 +62,43 @@ class CalculationServiceImpl implements CalculationService {
 		authorizationCrescentRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, goal.campus, campaign.initDate, campaign.endDate)
 	}
 
+	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsRector(Trimester trimester ,String campus){
+		Campaign campaign = getCampaignByTrimester(trimester)
+		Goal goal = trimester.goals.find(){ it.campus == campus }
+		authorizationCrescentRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, goal.campus, campaign.initDate, campaign.endDate)
+	}
+
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(Trimester trimester ,String campus){
-		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoals(trimester , campus) 
+		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoals(trimester , campus)
 		authorizationsToAuthorize.findAll(){
 			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
 		}
 	}
 
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(Trimester trimester ,String campus){
-		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoalsMarketing(trimester , campus) 
+		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoalsMarketing(trimester , campus)
+		authorizationsToAuthorize.findAll(){
+			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
+		}
+	}
+
+	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToRector(Trimester trimester ,String campus){
+		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoalsRector(trimester , campus)
 		authorizationsToAuthorize.findAll(){
 			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
 		}
 	}
 
 
+
 	List<AuthorizationCrescent> calculationByGoal(Goal goal, Date initDate, Date endDate){
 		List<AuthorizationComission> authorizationsCommissions = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween("AUTORIZADO", goal.campus, initDate, endDate)
-		(authorizationsCommissions.size() >= goal.numRegisters) ? makingCalculations(authorizationsCommissions, goal) : [] 
+		(authorizationsCommissions.size() >= goal.numRegisters) ? makingCalculations(authorizationsCommissions, goal) : []
 	}
 	//TODO: Updating authorizations
 	List<AuthorizationCrescent> updatingStatusAuthorizations(List<AuthorizationCrescent> authorizationsCrecent, Date initDate, Date endDate, String campus){
 		List<AutorizacionComisiones> autorizacionComisiones = authorizationService.getCommissionsByDatesAndCampusFromBanner(campus, initDate, endDate)
-		authorizationsCrecent	
+		authorizationsCrecent
 	}
 
 	List<AuthorizationCrescent> makingCalculations(List<AuthorizationComission> authorizationsCommissions, goal){
@@ -112,17 +126,17 @@ class CalculationServiceImpl implements CalculationService {
   			tipoPago: authorization.tipoPago,
   			valorContratoReal: authorization.valorContratoReal,
   			pidm: authorization.pidm
-			) 
+			)
 		}
 	}
 
 	double calculationComissionPromoter(double pagoInicial, float percentCommission){
-		double result = (pagoInicial* (percentCommission/100)) 
+		double result = (pagoInicial* (percentCommission/100))
 		Math.round(result * 100) / 100
 	}
 
 	double calculationComissionCoordinater(double pagoInicial, float percentCommission){
-		double commissionPromoter = (pagoInicial* (percentCommission/100)) 
+		double commissionPromoter = (pagoInicial* (percentCommission/100))
 		double result =(commissionPromoter * (adminDeComisionesRepository.findAll().first().comisionEjecutivo / 100))
 		Math.round(result * 100) / 100
 	}
