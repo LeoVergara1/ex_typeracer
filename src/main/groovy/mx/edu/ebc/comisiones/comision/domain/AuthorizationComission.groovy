@@ -64,11 +64,11 @@ class AuthorizationComission {
 	@Column(name="USERNAME_MARKETING")
 	String usernameMarketing
 	@Column(name="STATUS_MARKETING")
-	Boolean statusMarketing
+	Boolean statusMarketing = 0
 	@Column(name="USERNAME_RECTOR")
 	String usernameRector
 	@Column(name="STATUS_RECTOR")
-	Boolean statusRector
+	Boolean statusRector = 0
 
 
 	AuthorizationComission(def json, username){
