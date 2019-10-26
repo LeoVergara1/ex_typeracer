@@ -247,7 +247,7 @@ class AuthorizationController {
   @ResponseBody
   Map getCalculationRector(@RequestBody Map data) {
     logger.info "Calculado comisiones corrientes"
-		Map calculationWithComissions = authorizationService.getCalculationMarketing(data.campus, data.initDate, data.finDate)
+		Map calculationWithComissions = authorizationService.getCalculationRector(data.campus, data.initDate, data.finDate)
     List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
     if(trimester.size() > 1){
       logger.error "La busqueda incluye más de un trimestre"
@@ -258,7 +258,7 @@ class AuthorizationController {
       return calculationWithComissions << [moreThanTwo: false, calculationCrecent: [], withoutTrimester: true]
     }
     logger.info "Calculado comisiones crecientes"
-    def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(trimester.first(), data.campus)
+    def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToRector(trimester.first(), data.campus)
     calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
   }
 
