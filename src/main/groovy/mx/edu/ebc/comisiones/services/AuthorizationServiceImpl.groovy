@@ -46,14 +46,14 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	def getCalculationMarketing(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(finDate)
-		def comissions = authorizationRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, campus, initDateFrom, finDateFrom)
+		def comissions = authorizationRepository.findAllByStatusMarketingAndStatusRectorAndCampusAndFechaAutorizadoBetween(false, true, campus, initDateFrom, finDateFrom)
 		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
 
 	def getCalculationRector(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(finDate)
-		def comissions = authorizationRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, campus, initDateFrom, finDateFrom)
+		def comissions = authorizationRepository.findAllByStatusMarketingAndStatusRectorAndCampusAndFechaAutorizadoBetween(false, false, campus, initDateFrom, finDateFrom)
 		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
 
