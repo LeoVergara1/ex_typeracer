@@ -46,7 +46,14 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	def getCalculationMarketing(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(finDate)
-		def comissions = authorizationRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, campus, initDateFrom, finDateFrom)
+		def comissions = authorizationRepository.findAllByStatusMarketingAndStatusRectorAndCampusAndFechaAutorizadoBetween(false, true, campus, initDateFrom, finDateFrom)
+		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
+	}
+
+	def getCalculationRector(String campus, String initDate, String finDate){
+    Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
+    Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(finDate)
+		def comissions = authorizationRepository.findAllByStatusMarketingAndStatusRectorAndCampusAndFechaAutorizadoBetween(false, false, campus, initDateFrom, finDateFrom)
 		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
 
@@ -57,10 +64,15 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	}
 
 	def saveListAuthorizationMarketing(List<AuthorizationComission> listToAuthorization, String username){
-		println "+"*100
-		println listToAuthorization.dump() 
 		listToAuthorization.each{ authorized ->
 			authorized.usernameMarketing = username
+			authorizationRepository.save(authorized)
+		}
+	}
+
+	def saveListAuthorizationRector(List<AuthorizationComission> listToAuthorization, String username){
+		listToAuthorization.each{ authorized ->
+			authorized.usernameRector = username
 			authorizationRepository.save(authorized)
 		}
 	}
@@ -75,6 +87,13 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	def saveListAuthorizationCrecentMarketing(List<AuthorizationCrescent> listToAuthorization, String username){
 		listToAuthorization.each{ authorized ->
 			authorized.usernameMarketing = username
+			authorizationRepository.save(authorized)
+		}
+	}
+
+	def saveListAuthorizationCrecentRector(List<AuthorizationCrescent> listToAuthorization, String username){
+		listToAuthorization.each{ authorized ->
+			authorized.usernameRector = username
 			authorizationRepository.save(authorized)
 		}
 	}
@@ -136,9 +155,9 @@ class AuthorizationServiceImpl implements AuthorizationService {
 		if(data.status == "POR_AUTORIZAR")
 			return filterToAuthorizationsCrecents(data)
 		if(data.status == "AUTORIZADO" || data.status == "RECHAZADA")
-			return findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data) 
+			return findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data)
 	}
-	
+
 	List<AuthorizationCrescent> filterToAuthorizationsCrecents(data){
     calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(data.trimester, data.campus)
 	}
@@ -147,9 +166,9 @@ class AuthorizationServiceImpl implements AuthorizationService {
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
 		if(data.campus == "TODOS"){
-			return authorizationCrescentRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(data.status, initDateFrom, finDateFrom) 
+			return authorizationCrescentRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(data.status, initDateFrom, finDateFrom)
 		}
-		authorizationCrescentRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data.status, data.campus, initDateFrom, finDateFrom) 
+		authorizationCrescentRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data.status, data.campus, initDateFrom, finDateFrom)
 	}
 
 }

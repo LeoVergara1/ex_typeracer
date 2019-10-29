@@ -127,6 +127,22 @@ class AuthorizationController {
 		[response: 200]
   }
 
+	@PostMapping("/sendAuthorizationRector")
+  @ResponseBody
+  Map sendAuthorizationRector(HttpServletRequest request, @RequestBody List<AuthorizationComission> authorizationComission) {
+		String username = request.getUserPrincipal().getUserDetails().username
+		authorizationService.saveListAuthorizationMarketing(authorizationComission, username)
+		[response: 200]
+  }
+
+	@PostMapping("/sendAuthorizationCrecentRector")
+  @ResponseBody
+  Map sendAuthorizationCrecentRector(HttpServletRequest request, @RequestBody List<AuthorizationCrescent> authorizationCrescents) {
+		String username = request.getUserPrincipal().getUserDetails().username
+		authorizationService.saveListAuthorizationCrecentMarketing(authorizationCrescents, username)
+		[response: 200]
+  }
+
 	@PostMapping("/denegateComissions")
   @ResponseBody
   Map denegateComissions(HttpServletRequest request, @RequestBody AuthorizationComission authorizationComission) {
@@ -192,16 +208,23 @@ class AuthorizationController {
 		[response:200]
   }
 
-	@GetMapping("/marketing")
+	@GetMapping("/rector")
   @ResponseBody
   ModelAndView marketing(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("index");
-		model.addObject("content", "marketing");
-		//def list = adminDeComisionesRepository.findAll()
+		model.addObject("content", "rector");
 		return model
   }
 
-  	@PostMapping("/getCalculationMarketing")
+	@GetMapping("/marketing")
+  @ResponseBody
+  ModelAndView rector(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("content", "marketing");
+		return model
+  }
+
+  @PostMapping("/getCalculationMarketing")
   @ResponseBody
   Map getCalculationMarketing(@RequestBody Map data) {
     logger.info "Calculado comisiones corrientes"
@@ -217,6 +240,25 @@ class AuthorizationController {
     }
     logger.info "Calculado comisiones crecientes"
     def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(trimester.first(), data.campus)
+    calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
+  }
+
+  @PostMapping("/getCalculationRector")
+  @ResponseBody
+  Map getCalculationRector(@RequestBody Map data) {
+    logger.info "Calculado comisiones corrientes"
+		Map calculationWithComissions = authorizationService.getCalculationRector(data.campus, data.initDate, data.finDate)
+    List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.initDate, data.finDate)
+    if(trimester.size() > 1){
+      logger.error "La busqueda incluye más de un trimestre"
+      return calculationWithComissions << [moreThanTwo: true, calculationCrecent: [], withoutTrimester: false]
+    }
+    else if(trimester.size() == 0){
+      logger.error "La busqueda no tiene trimestres"
+      return calculationWithComissions << [moreThanTwo: false, calculationCrecent: [], withoutTrimester: true]
+    }
+    logger.info "Calculado comisiones crecientes"
+    def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToRector(trimester.first(), data.campus)
     calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
   }
 
