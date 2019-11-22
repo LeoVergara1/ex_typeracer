@@ -47,6 +47,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(finDate)
 		def comissions = authorizationRepository.findAllByStatusMarketingAndStatusRectorAndCampusAndFechaAutorizadoBetween(false, true, campus, initDateFrom, finDateFrom)
+		comissions = removeAuthorizationsDenegates(comissions)
 		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
 
@@ -54,6 +55,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(finDate)
 		def comissions = authorizationRepository.findAllByStatusMarketingAndStatusRectorAndCampusAndFechaAutorizadoBetween(false, false, campus, initDateFrom, finDateFrom)
+		comissions = removeAuthorizationsDenegates(comissions)
 		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
 
@@ -169,6 +171,10 @@ class AuthorizationServiceImpl implements AuthorizationService {
 			return authorizationCrescentRepository.findAllByAutorizadoDirectorAndFechaAutorizadoBetween(data.status, initDateFrom, finDateFrom)
 		}
 		authorizationCrescentRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data.status, data.campus, initDateFrom, finDateFrom)
+	}
+
+	def removeAuthorizationsDenegates(def list){
+		list.findAll(){ it.autorizadoDirector != "RECHAZADA" }
 	}
 
 }
