@@ -40,7 +40,10 @@
 							 <th>Monto colegiatura inicial</th>
 							 <th>% Beneficios</th>
 							 <th>Fecha autorización</th>
-							 <th>Estatus</th>
+							 <th>Registro</th>
+							 <th>Rector</th>
+							 <th>Marketing</th>
+
 					 </tr>
 						<tr v-for="(alumno, index) in commissionsToTable">
 								<td>{{alumno.nombrePromotor}} - <b>{{alumno.idPromotor}} </b></td>
@@ -54,16 +57,18 @@
 								<td>{{alumno.discountPercent}}</td>
 								<td>{{alumno.fechaAutorizado | removeExtendTime}}</td>
 								<td>
-									<span v-if="alumno.autorizadoDirector == 'AUTORIZADO'" class="badge badge-success">
-										{{alumno.autorizadoDirector}}
+									<span v-if="alumno.autorizadoDirector == 'AUTORIZADO'" class="badge badge-success" style="font-size: 7px;">
+										{{alumno.autorizadoDirector | filterStatus}}
 									</span>
-									<span v-else-if="alumno.autorizadoDirector == 'RECHAZADA'" class="badge badge-danger"  @click="show_comment(alumno.comment)">
-										{{alumno.autorizadoDirector}}
+									<span v-else-if="alumno.autorizadoDirector == 'RECHAZADA'" class="badge badge-danger"  @click="show_comment(alumno.comment)" style="font-size: 7px;">
+										{{alumno.autorizadoDirector | filterStatus}}
 									</span>
-									<span v-else	class="badge badge-warning">
+									<span v-else	class="badge badge-warning" style="font-size: 7px;">
 										{{alumno.autorizadoDirector | filterStatus}}
 									</span>
 								</td>
+								<td> <span class="badge badge-success" style="font-size: 7px;">{{alumno.statusRector | setTextToRector}}</span> </td>
+								<td> <span class="badge badge-success" style="font-size: 7px;">{{alumno.statusMarketing | setTextToMarketing}}</span></td>
 						</tr>
 					</tbody></table>
 			</div>

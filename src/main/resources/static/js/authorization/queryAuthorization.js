@@ -171,7 +171,20 @@ const app = new Vue({
 			return time.replace(/T+(\w|:|.)+/, "")
     },
     filterStatus(status){
+      if(status == "AUTORIZADO")
+        return "REGISTRADO"
+      return "POR REGISTRAR"
+    },
+    setTextToRector(status){
+      if(status == 1)
+        return "VALIDADO"
+      return "POR VALIDAR"
+    },
+    setTextToMarketing(status){
+      if(status == 1)
+        return "AUTORIZADO"
       return "POR AUTORIZAR"
+
     },
     removeDecimal(number){
       console.log(number)
