@@ -240,6 +240,7 @@ class AuthorizationController {
     }
     logger.info "Calculado comisiones crecientes"
     def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(trimester.first(), data.campus)
+    calculationCrecents = authorizationService.removeAuthorizationsDenegates(calculationCrecents)
     calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
   }
 
@@ -259,6 +260,7 @@ class AuthorizationController {
     }
     logger.info "Calculado comisiones crecientes"
     def calculationCrecents = calculationService.getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToRector(trimester.first(), data.campus)
+    calculationCrecents = authorizationService.removeAuthorizationsDenegates(calculationCrecents)
     calculationWithComissions << [moreThanTwo: false, withoutTrimester: false, calculationCrecent: calculationCrecents, groupsCalculations: calculationCrecents.groupBy({ it.idPromotor }) ]
   }
 
