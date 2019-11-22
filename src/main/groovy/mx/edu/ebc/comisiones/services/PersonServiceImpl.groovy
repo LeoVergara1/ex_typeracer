@@ -45,7 +45,7 @@ class PersonServiceImpl implements PersonService {
     Person.fromJsonObject(
       NetworkService.buildRequest(clientApiBannerComissions){
           endpointUrl "/v1/api/person/${username}"
-      }.execute().json
+      }.execute()?.json
     )
   }
 
