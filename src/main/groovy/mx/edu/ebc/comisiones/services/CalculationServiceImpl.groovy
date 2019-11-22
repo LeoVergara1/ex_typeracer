@@ -63,14 +63,13 @@ class CalculationServiceImpl implements CalculationService {
 	}
 
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsRector(Trimester trimester ,String campus){
+		def authorizationsList = []
 		Campaign campaign = getCampaignByTrimester(trimester)
 		Goal goal = trimester.goals.find(){ it.campus == campus }
 		if(campaign){
-		 authorizationCrescentRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, goal.campus, campaign.initDate, campaign.endDate)
+		 authorizationsList = authorizationCrescentRepository.findAllByStatusMarketingAndCampusAndFechaAutorizadoBetween(false, goal.campus, campaign.initDate, campaign.endDate)
 		}
-		else {
-			[]
-		}
+		authorizationsList
 	}
 
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorized(Trimester trimester ,String campus){
@@ -82,16 +81,12 @@ class CalculationServiceImpl implements CalculationService {
 
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToMarketing(Trimester trimester ,String campus){
 		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoalsMarketing(trimester , campus)
-		authorizationsToAuthorize.findAll(){
-			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
-		}
+		authorizationsToAuthorize
 	}
 
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoalsAndFilterAlreadyAuthorizedToRector(Trimester trimester ,String campus){
 		List<AuthorizationCrescent> authorizationsToAuthorize = getAuthorizationsCrescentcalculationByGoalsRector(trimester , campus)
-		authorizationsToAuthorize.findAll(){
-			!(authorizationCrescentRepository.findByIdPromotorAndIdCoordinadorAndIdAlumno(it.idPromotor, it.idCoordinador, it.idAlumno))
-		}
+		authorizationsToAuthorize
 	}
 
 
