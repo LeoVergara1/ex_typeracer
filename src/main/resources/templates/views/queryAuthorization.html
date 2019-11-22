@@ -52,7 +52,7 @@
 								<td>{{alumno.comisionCoordinador}}</td>
 								<td>{{alumno.periodo}}</td>
 								<td>{{alumno.nombreAlumno}} - <b>{{alumno.idAlumno}}</b></td>
-								<td>{{alumno.fechaDePago}}</td>
+								<td>{{alumno.fechaDePago | removeExtendTime}}</td>
 								<td class="text-center"><span class="block">$ {{alumno.pagoInicial}}</span> <a href="'https://ssb8.ebc.edu.mx/prod/bvskmctx.P_DispViewAcct?p_pidm='+alumno.pidm" class=""><br class="clear"><span style="font-size:1.2em;"><i class="fa fa-file-text-o" aria-hidden="true"></i></span></a></td>
 								<td>{{alumno.discountPercent}}</td>
 								<td>{{alumno.fechaAutorizado | removeExtendTime}}</td>
