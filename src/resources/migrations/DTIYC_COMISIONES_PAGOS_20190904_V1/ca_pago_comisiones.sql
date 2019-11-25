@@ -605,3 +605,5 @@ create or replace PACKAGE BODY        genpub.pc_pago_comisiones AS
 
 END pc_pago_comisiones;
 /
+GRANT EXECUTE ON GENPUB.PC_COMISIONES_LI TO COMISIONLI;
+/
