@@ -32,7 +32,7 @@ class UserCampusServiceSpec extends Specification{
 			String campusCode = "CMX"
 			Long pidm = 289
 		when: "Is created"
-			def result = userCampusService.created(campusCode, username, pidm)
+			def result = userCampusService.created(campusCode, username, pidm, "Rodrigo", "Role Descriptio")
 		then: "created"
 			assert result
 	}
