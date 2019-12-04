@@ -41,6 +41,8 @@ import mx.edu.ebc.cas.util.pojo.UserProfile
 import mx.edu.ebc.comisiones.comision.domain.Goal
 import mx.edu.ebc.comisiones.comision.domain.Trimester
 import mx.edu.ebc.comisiones.comision.domain.Campaign
+import mx.edu.ebc.comisiones.comision.repo.UserCampusRepository
+import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 
 @Controller
 class AdministrarionController {
@@ -54,7 +56,13 @@ class AdministrarionController {
 	@Autowired
 	CampusRepository campusRepository
 	@Autowired
+	UserCampusRepository userCampusRepository
+	@Autowired
+  RolesRepository rolesRepository
+	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
+  @Value('${idRolPortal}')
+  String idRolPortal
 	@Autowired
 	PromoterService promoterService
 	@Value('#{${campus}}')
@@ -157,6 +165,17 @@ class AdministrarionController {
 		Map data = [
 			campus: campus,
 			listAssociation: administrationService.findAllPromoters()
+		]
+		return data
+  }
+
+  @RequestMapping("administration/data/registers")
+  @ResponseBody
+  Map getInfoRegisters() {
+		Map data = [
+			campus: campus,
+			listAssociation: userCampusRepository.findAll(),
+			roles: rolesRepository.findAllByNidRolPortal(idRolPortal)
 		]
 		return data
   }
