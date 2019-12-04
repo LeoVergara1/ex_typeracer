@@ -12,6 +12,10 @@ class UserCampus {
   Date dateCreated
   @Column(name = 'LAST_UPDATED')
   Date lastUpdated
+  @Column(name = 'ROLE_DESCRIPTION')
+  String roleDescription 
+  @Column(name = 'NAME_LONG')
+  String nameLong
 
   @Override
   String toString(){
