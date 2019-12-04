@@ -18,7 +18,7 @@ class UserCampusServiceImpl implements UserCampusService{
 	@Autowired
 	UserCampusRepository userCampusRepository
 
-	UserCampus created(String campusCode, String userName, Long pidm) {
+	UserCampus created(String campusCode, String userName, Long pidm, String nameLong, String roleDescription) {
 		logger.debug("CREANDO USUARIO")
     UserCampusComposite pk = new UserCampusComposite(
             campusCode: campusCode,
@@ -28,7 +28,9 @@ class UserCampusServiceImpl implements UserCampusService{
 		UserCampus userCampus = new UserCampus(
                             userCampusPK: pk,
                             dateCreated: new Date(),
-                            lastUpdated: new Date()
+                            lastUpdated: new Date(),
+                            nameLong: nameLong,
+                            roleDescription: roleDescription
                            )
 		userCampusRepository.save(userCampus)
 	}
