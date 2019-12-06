@@ -208,10 +208,13 @@ class AdministrarionController {
   Map updateCampusAndRolToPerson(@RequestBody Map data){
     logger.info "Actualizar Campus y rol de una persona"
 		println data
-    def result = administrationService.deleteCampusAndRolToPerson(data.userName, data.campusCode, data.roleId[0].nidRol)
+    def result = administrationService.deleteCampusAndRolToPerson(data.username, data.campus, data.idRol[0].nidRol.toString())
     logger.info "Campus y rol de una persona borrado para actualizar"
-		//result = administrationService.saveRolAndCampus(data.userName, user.campus, user.roleCode.toString(), user.rcreCode)
-		[response: "Listo"]
+		if(result.statusRole == 200){
+			def resultSave = administrationService.saveRolAndCampus(data.username, data.newCampus, data.newRole.toString(), data.rcreCode)
+			return [result: 200]
+		}
+		[result: 500]
   }
 
 	@PostMapping("administration/saveRolToPerson")
