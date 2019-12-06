@@ -38,6 +38,11 @@ var app = new Vue({
       console.log(numero)
     }
   },
+  mounted() {
+    this.$root.$on('recived_campus_list',(campus) => {
+			this.campus.list = campus
+		})
+  },
   components: {
     PulseLoader: VueSpinner.PulseLoader
   }
