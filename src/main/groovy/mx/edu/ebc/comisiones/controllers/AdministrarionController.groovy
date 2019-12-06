@@ -202,6 +202,14 @@ class AdministrarionController {
     logger.info "Eliminar Campus y rol de una persona"
     def result = administrationService.deleteCampusAndRolToPerson(data.person.userName, data.person.campuses[0].campusCode, data.person.profiles[0].id.toString())
   }
+
+	@PostMapping("administration/deleteFromTable/roleAndCampus")
+	@ResponseBody
+  Map deleteFromtableCampusAndRolToPerson(@RequestBody Map data){
+    logger.info "Eliminar Campus y rol de una persona"
+		println data
+    def result = administrationService.deleteCampusAndRolToPerson(data.username, data.campus, data.idRol[0].nidRol.toString())
+  }
 	
 	@PostMapping("administration/updating/roleAndCampus")
 	@ResponseBody
