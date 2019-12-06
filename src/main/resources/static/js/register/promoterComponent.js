@@ -45,11 +45,56 @@ Vue.component('template-promoter', {
 		getDescriptionToDivision: function (value){
 			return this.campus[value] ? this.campus[value] : value
 		},
+		validateDelete: function (register) {
+      this.$snotify.confirm('¿Eliminar usuario?', 'Advertencia', {
+        timeout: 10000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          {
+            text: 'Si', action: (notification) => {
+              this.deleteRol(register)
+              this.$snotify.remove(notification.id)
+            }
+          },
+          { text: 'No', action: (notification) => this.$snotify.remove(notification.id) }
+        ]
+			})
+		},
+		deleteRol: function(register) {
+			console.log("Deleting role")
+			let rolId = this.roles.filter(rol => rol.descriptionRol == register.roleDescription)
+			this.$http.post('/administration/deleteFromTable/roleAndCampus', {
+				username: register.userCampusPK.userName,
+				campus:  register.userCampusPK.campusCode,
+				idRol: rolId
+				}).then(response => {
+				console.log("Response ")
+				console.log(response)
+				console.log(response.body.statusRole)
+				this.validatingSatatusResponse("Borrado Exitoso", response.body.statusRole)
+				}, response => {
+					console.log(response)
+			})
+			return false
+		},
+		validatingSatatusResponse: function(message, response) {
+			let map = {
+				200: () => {this.$snotify.info(message, this.notifyOptions)},
+				201: () => {this.$snotify.info(message, this.notifyOptions)},
+				400: () => {this.$snotify.info("Hubo Un error en el proceso", this.notifyOptions); this.user.person.userName = null},
+				404: () => {this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions); this.user.person.userName = null},
+				401: () => {this.$snotify.error("El usuario no cumple la precondición en Banner para este rol", this.notifyOptions); this.user.person.userName = null}
+			}
+			map[response]()
+		},
 		updatedRegister: function(){
 			let that = this
 			console.log(that.userModal.roleDescription)
 			let rolId = this.roles.filter(rol => rol.descriptionRol == that.userModal.roleDescription)
-			this.$http.post('/administration/updating/roleAndCampus', {username: this.userModal.userCampusPK.userName, 
+			this.$http.post('/administration/updating/roleAndCampus', {
+				username: this.userModal.userCampusPK.userName, 
 				campus:  this.userModal.userCampusPK.campusCode,
 				idRol: rolId,
 				newCampus: this.newCampus,
@@ -190,7 +235,7 @@ Vue.component('template-promoter', {
 							<th>
 									<div class="btn-group" role="group" aria-label="Basic example">
 											<button class="btn btn-success btn-xs" @click="setUserToEdit(register)"><i class="fa fa-minus" aria-hidden="true"></i> Editar</button>
-											<button class="btn btn-danger btn-xs" ><i class="fa fa-plus" aria-hidden="true"></i> Eliminar</button>
+											<button class="btn btn-danger btn-xs" @click="validateDelete(register)" ><i class="fa fa-plus" aria-hidden="true"></i> Eliminar</button>
 									</div>
 							</th>
 						</tr>
