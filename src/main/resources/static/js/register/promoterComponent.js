@@ -20,23 +20,23 @@ Vue.component('template-promoter', {
 	},
 	created: function (){
 		console.log("Instancia creada de componente")
-		this.$http.get('/administration/data/registers').then(response => {
-			this.someData = response.body;
-			console.log(response.body);
-			this.campus = response.body.campus 
-			this.$root.$emit('recived_campus_list',  response.body.campus )
-			this.roles = response.body.roles
-			this.listAssociation = response.body.listAssociation
-			console.log(response)
-			console.log("regreso")
-		}, response => {
-			console.log("regreso mal")
-			console.log(response)
-		});
+		this.getAssociation()
 	},
 	methods: {
 		getAssociation: function(){
-
+			this.$http.get('/administration/data/registers').then(response => {
+				this.someData = response.body;
+				console.log(response.body);
+				this.campus = response.body.campus 
+				this.$root.$emit('recived_campus_list',  response.body.campus )
+				this.roles = response.body.roles
+				this.listAssociation = response.body.listAssociation
+				console.log(response)
+				console.log("regreso")
+			}, response => {
+				console.log("regreso mal")
+				console.log(response)
+			});
 		},
 		setUserToEdit(register){
 			this.userModal = register
@@ -74,6 +74,7 @@ Vue.component('template-promoter', {
 				console.log(response)
 				console.log(response.body.statusRole)
 				this.validatingSatatusResponse("Borrado Exitoso", response.body.statusRole)
+				this.getAssociation()
 				}, response => {
 					console.log(response)
 			})
@@ -107,6 +108,7 @@ Vue.component('template-promoter', {
 				if(response.body.result == 200){
 					this.$snotify.info("Actualizado Exitoso", this.notifyOptions)
 					this.$bvModal.hide('modal-edit')
+					this.getAssociation()
 				}
 				else{
 					this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions)
@@ -120,7 +122,9 @@ Vue.component('template-promoter', {
 		}
 	},
 	mounted(){
-
+		this.$root.$on('update_table',() => {
+			this.getAssociation()
+		})
 	},
 	filters: {
 		getDescriptionToRol: function (value){
