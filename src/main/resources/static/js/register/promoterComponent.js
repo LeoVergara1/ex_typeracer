@@ -1,5 +1,6 @@
 Vue.component('template-promoter', {
 	props: {
+
 	},
   data: function () {
     return {
@@ -7,6 +8,11 @@ Vue.component('template-promoter', {
 			listAssociation: [],
 			roles: {},
 			campus: {},
+			newCampus: "Todas",
+			newRole: "Todas",
+			promoterRoleId: document.getElementById("promoterRoleId").value,
+			managerRoleID: document.getElementById("managerRoleID").value,
+			rcreCode: "",
 			userModal: {
 				userCampusPK: {}
 			}
@@ -18,6 +24,7 @@ Vue.component('template-promoter', {
 			this.someData = response.body;
 			console.log(response.body);
 			this.campus = response.body.campus 
+			this.$root.$emit('recived_campus_list',  response.body.campus )
 			this.roles = response.body.roles
 			this.listAssociation = response.body.listAssociation
 			console.log(response)
@@ -38,6 +45,27 @@ Vue.component('template-promoter', {
 		getDescriptionToDivision: function (value){
 			return this.campus[value] ? this.campus[value] : value
 		},
+		updatedRegister: function(){
+			let that = this
+			console.log(that.userModal.roleDescription)
+			let rolId = this.roles.filter(rol => rol.descriptionRol == that.userModal.roleDescription)
+			this.$http.post('/administration/updating/roleAndCampus', {usernanme: this.userModal.userCampusPK.userName, 
+				campus:  this.userModal.userCampusPK.campusCode,
+				idRol: rolId,
+				newCampus: this.newCampus,
+				newRole: this.newRole,
+				rcreCode: this.rcreCode
+			} ).then(response => {
+				console.log("Response ")
+				console.log(response)
+				console.log(response.body.statusRole)
+				//this.validatingSatatusResponse("Borrado Exitoso", response.body.statusRole)
+				}, response => {
+			})
+		}
+	},
+	mounted(){
+
 	},
 	filters: {
 		getDescriptionToRol: function (value){
@@ -62,9 +90,9 @@ Vue.component('template-promoter', {
 					</div>
 				</div>
 				<div class="row">
-						<div class="col-lg-6">
+						<div class="col">
 								<label for="selectCampus" class="font-weight-bold">Campus</label>
-								<div id="filter-campus"><select class="form-control">
+								<div id="filter-campus"><select class="form-control" v-model="newCampus">
 										<option value=""> Todas </option>
 										<option v-for="(k, v) in campus" v-bind:value="v">
 											{{ k }}
@@ -72,8 +100,8 @@ Vue.component('template-promoter', {
 									</select>
 								</div>
 							</div>
-							<div class="col-lg-6"><label for="selectRoles" class="font-weight-bold">Rol</label>
-								<div id="filter-roles"><select class="form-control filtersRolAndCampus">
+							<div class="col"><label for="selectRoles" class="font-weight-bold">Rol</label>
+								<div id="filter-roles"><select class="form-control filtersRolAndCampus"  v-model="newRole">
 										<option value="0"> Todas </option>
 										<option v-for="rol in roles" v-bind:value="rol.nidRol">
 												{{ rol.descriptionRol | getDescriptionToRol }}
@@ -81,8 +109,15 @@ Vue.component('template-promoter', {
 									</select>
 								</div>
 							</div>
+							<div class="col" id="recrCodeDiv" v-if="newRole == promoterRoleId || newRole == managerRoleID">
+									<label for="recrCodeInput">Código de Promotor</label>
+									<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="rcreCode">
+							</div>
 				</div>
 				<template slot="modal-footer" class="w-100">
+							<b-button variant="warning" size="sm" class="float-right" @click="updatedRegister">
+								Actualizar
+								</b-button>
 							<b-button variant="primary" size="sm" class="float-right" @click="$bvModal.hide('modal-edit')">
 									Cerrar
 								</b-button>
