@@ -41,6 +41,8 @@ import mx.edu.ebc.cas.util.pojo.UserProfile
 import mx.edu.ebc.comisiones.comision.domain.Goal
 import mx.edu.ebc.comisiones.comision.domain.Trimester
 import mx.edu.ebc.comisiones.comision.domain.Campaign
+import mx.edu.ebc.comisiones.comision.repo.UserCampusRepository
+import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 
 @Controller
 class AdministrarionController {
@@ -54,7 +56,13 @@ class AdministrarionController {
 	@Autowired
 	CampusRepository campusRepository
 	@Autowired
+	UserCampusRepository userCampusRepository
+	@Autowired
+  RolesRepository rolesRepository
+	@Autowired
 	AdminDeComisionesRepository adminDeComisionesRepository
+  @Value('${idRolPortal}')
+  String idRolPortal
 	@Autowired
 	PromoterService promoterService
 	@Value('#{${campus}}')
@@ -161,6 +169,17 @@ class AdministrarionController {
 		return data
   }
 
+  @RequestMapping("administration/data/registers")
+  @ResponseBody
+  Map getInfoRegisters() {
+		Map data = [
+			campus: campus,
+			listAssociation: userCampusRepository.findAll(),
+			roles: rolesRepository.findAllByNidRolPortal(idRolPortal)
+		]
+		return data
+  }
+
 	//@RequestMapping(path = "administration/search/association", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PostMapping("administration/search/association")
   @ResponseBody
@@ -184,9 +203,32 @@ class AdministrarionController {
     def result = administrationService.deleteCampusAndRolToPerson(data.person.userName, data.person.campuses[0].campusCode, data.person.profiles[0].id.toString())
   }
 
+	@PostMapping("administration/deleteFromTable/roleAndCampus")
+	@ResponseBody
+  Map deleteFromtableCampusAndRolToPerson(@RequestBody Map data){
+    logger.info "Eliminar Campus y rol de una persona"
+		println data
+    def result = administrationService.deleteCampusAndRolToPerson(data.username, data.campus, data.idRol[0].nidRol.toString())
+  }
+	
+	@PostMapping("administration/updating/roleAndCampus")
+	@ResponseBody
+  Map updateCampusAndRolToPerson(@RequestBody Map data){
+    logger.info "Actualizar Campus y rol de una persona"
+		println data
+    def result = administrationService.deleteCampusAndRolToPerson(data.username, data.campus, data.idRol[0].nidRol.toString())
+    logger.info "Campus y rol de una persona borrado para actualizar"
+		if(result.statusRole == 200){
+			def resultSave = administrationService.saveRolAndCampus(data.username, data.newCampus, data.newRole.toString(), data.rcreCode)
+			return [result: 200]
+		}
+		[result: 500]
+  }
+
 	@PostMapping("administration/saveRolToPerson")
 	@ResponseBody
   Map saveRolToPerson(@RequestBody Map user){
+    logger.info "Add rol and campus to user"
 		def result = administrationService.saveRolAndCampus(user.person.userName, user.campus, user.roleCode.toString(), user.rcreCode)
 	 [result: result]
   }

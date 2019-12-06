@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 import wslite.json.JSONObject
 import mx.edu.ebc.comisiones.network.NetworkService
 import mx.edu.ebc.comisiones.network.HTTPMethod
+import mx.edu.ebc.comisiones.seguridad.repo.RolesRepository
 
 @Service
 class PersonServiceImpl implements PersonService {
@@ -28,6 +29,8 @@ class PersonServiceImpl implements PersonService {
 		String promoterRoleId
     @Value('${namePortal}')
     String namePortal
+    @Value('${idRolPortal}')
+    String idRolPortal
  		@Autowired
  		CampusService campusService
     @Autowired
@@ -40,6 +43,8 @@ class PersonServiceImpl implements PersonService {
     PromoterService promoterService
     @Autowired
     UserCampusService userCampusService
+    @Autowired
+    RolesRepository rolesRepository
 
   Person findPersonByUsername(String username) {
     Person.fromJsonObject(
@@ -65,6 +70,7 @@ class PersonServiceImpl implements PersonService {
   @Override
   def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode){
     recrCode = recrCode.toUpperCase()
+    def roles = rolesRepository.findAllByNidRolPortal(idRolPortal)
     logger.info "Inicia Proceso para asignar el rol"
     Person person = findPersonByUsername(username)
     Long roleId = Long.valueOf(roleCode)
@@ -81,7 +87,7 @@ class PersonServiceImpl implements PersonService {
     }
     Boolean securityRoleAssignment = securityApiService.saveRoleforUser(username,roleId)
     if (securityRoleAssignment){
-      def userCampus = userCampusService.created(codeCampus, username, person.pidm)
+      def userCampus = userCampusService.created(codeCampus, username, person.pidm, person.firstName, roles.find(){ it.nidRol == roleCode.toInteger() }.descriptionRol )
       if (userCampus) {
         if (roleCode == managerRoleID)
           managerService.createManager(username, person.pidm, recrCode)
