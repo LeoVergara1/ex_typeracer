@@ -1,6 +1,6 @@
 Vue.component('template-promoter', {
 	props: {
-
+		notifyOptions: Object,
 	},
   data: function () {
     return {
@@ -49,7 +49,7 @@ Vue.component('template-promoter', {
 			let that = this
 			console.log(that.userModal.roleDescription)
 			let rolId = this.roles.filter(rol => rol.descriptionRol == that.userModal.roleDescription)
-			this.$http.post('/administration/updating/roleAndCampus', {usernanme: this.userModal.userCampusPK.userName, 
+			this.$http.post('/administration/updating/roleAndCampus', {username: this.userModal.userCampusPK.userName, 
 				campus:  this.userModal.userCampusPK.campusCode,
 				idRol: rolId,
 				newCampus: this.newCampus,
@@ -58,9 +58,19 @@ Vue.component('template-promoter', {
 			} ).then(response => {
 				console.log("Response ")
 				console.log(response)
-				console.log(response.body.statusRole)
+				console.log(response.body.result)
+				if(response.body.result == 200){
+					this.$snotify.info("Actualizado Exitoso", this.notifyOptions)
+					this.$bvModal.hide('modal-edit')
+				}
+				else{
+					this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions)
+					this.$bvModal.hide('modal-edit')
+				}
 				//this.validatingSatatusResponse("Borrado Exitoso", response.body.statusRole)
 				}, response => {
+					this.$bvModal.hide('modal-edit')
+					this.$snotify.error("Hubo Un error en el proceso", this.notifyOptions)
 			})
 		}
 	},
@@ -110,7 +120,7 @@ Vue.component('template-promoter', {
 								</div>
 							</div>
 							<div class="col" id="recrCodeDiv" v-if="newRole == promoterRoleId || newRole == managerRoleID">
-									<label for="recrCodeInput">Código de Promotor</label>
+									<label for="recrCodeInput">Cod. Promotor</label>
 									<input type="text" class="form-control" id="recrCode" style="text-transform:uppercase" maxlength="4" v-model="rcreCode">
 							</div>
 				</div>
