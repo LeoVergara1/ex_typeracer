@@ -13,6 +13,10 @@ Vue.component('template-promoter', {
 			promoterRoleId: document.getElementById("promoterRoleId").value,
 			managerRoleID: document.getElementById("managerRoleID").value,
 			rcreCode: "",
+			filterCampus: "0",
+			filterRol: "0",
+			listAssociationBackout: [],
+			userFilter: "",
 			userModal: {
 				userCampusPK: {}
 			}
@@ -31,6 +35,7 @@ Vue.component('template-promoter', {
 				this.$root.$emit('recived_campus_list',  response.body.campus )
 				this.roles = response.body.roles
 				this.listAssociation = response.body.listAssociation
+				this.listAssociationBackout = Object.assign(response.body.listAssociation)
 				console.log(response)
 				console.log("regreso")
 			}, response => {
@@ -61,6 +66,30 @@ Vue.component('template-promoter', {
           { text: 'No', action: (notification) => this.$snotify.remove(notification.id) }
         ]
 			})
+		},
+		filterRegisters: function() {
+			console.log()
+			this.listAssociation = Object.assign(this.listAssociationBackout)
+			if(this.userFilter){
+				this.listAssociation = this.listAssociation.filter(register => register.userCampusPK.userName == this.userFilter )
+			}
+			else if(this.filterCampus.length > 1){
+				console.log("Entro")
+				console.log(this.filterCampus)
+				console.log(this.filterRol)
+				if(this.filterRol.length > 1){
+					this.listAssociation = this.listAssociation.filter(register => register.roleDescription == this.filterRol  && register.userCampusPK.campusCode == this.filterCampus)
+				}
+				else {
+					console.log("Aqui")
+					this.listAssociation = this.listAssociation.filter(register => register.userCampusPK.campusCode == this.filterCampus )
+				}
+			}
+			else if(this.filterRol.length > 1){
+				console.log("Segundo if")
+					this.listAssociation = this.listAssociation.filter(register => register.roleDescription == this.filterRol )
+			}
+			//let rolId = this.roles.filter(rol => rol.descriptionRol == that.userModal.roleDescription)
 		},
 		deleteRol: function(register) {
 			console.log("Deleting role")
@@ -129,13 +158,13 @@ Vue.component('template-promoter', {
 	filters: {
 		getDescriptionToRol: function (value){
 			let map = {
-				"DIR_CAMPUS": "Director de campus",
-				"ADMIN_JP": "Administrador",
-				"COORD_MERCADOTECNIA_CORP": "Coordinador",
-				"NOMINA_ADMIN_SICOSS": "Sicoss de nomina",
-				"JEFE_PROMOCION": "Jefe de promoción",
-				"Promotor": "Promotor",
-				"PROMOCIÓN": "Promoción"
+				"Jefe_Promoción_LI": " Jefe de Promoción",
+				"Coord_Mercadotecnia_LI": "Coordinador de Mercadotecnía",
+				"Jefe_Mercadotecnia_LI": "Jefe de Mercadotecnía",
+				"Dir_División_LI": "Director de división",
+				"Administrador_SICOSS": "Administrador Sicoss",
+				"Coord_inteligencia_merc": "Coordinador de inteligencia",
+				"Dir_Campus_LI": "Director de Campus"
 			}
 			return map[value] ? map[value] : value
 		},
@@ -152,7 +181,7 @@ Vue.component('template-promoter', {
 						<div class="col">
 								<label for="selectCampus" class="font-weight-bold">Campus</label>
 								<div id="filter-campus"><select class="form-control" v-model="newCampus">
-										<option value=""> Todas </option>
+										<option value="0"> Todas </option>
 										<option v-for="(k, v) in campus" v-bind:value="v">
 											{{ k }}
 										</option>
@@ -191,12 +220,12 @@ Vue.component('template-promoter', {
 		<div class="row">
 			<div id="recrCodeDiv" class="col-lg-2">
 				<label for="recrCodeInput" class="font-weight-bold">Usuario</label>
-				<input type="text" id="usernameId" placeholder="Usuario" class="form-control">
+				<input type="text" id="usernameId" placeholder="Usuario" class="form-control" v-model="userFilter">
 			</div>
 			<div class="col-lg-2">
 				<label for="selectCampus" class="font-weight-bold">Campus</label>
-				<div id="filter-campus"><select class="form-control">
-						<option value=""> Todas </option>
+				<div id="filter-campus"><select class="form-control" v-model="filterCampus">
+						<option value="0"> Todas </option>
 						<option v-for="(k, v) in campus" v-bind:value="v">
 							{{ k }}
 						</option>
@@ -204,15 +233,15 @@ Vue.component('template-promoter', {
 				</div>
 			</div>
 			<div class="col-lg-2"><label for="selectRoles" class="font-weight-bold">Rol</label>
-				<div id="filter-roles"><select class="form-control filtersRolAndCampus">
+				<div id="filter-roles"><select class="form-control filtersRolAndCampus" v-model="filterRol">
 						<option value="0"> Todas </option>
-						<option v-for="rol in roles" v-bind:value="rol.nidRol">
+						<option v-for="rol in roles" v-bind:value="rol.descriptionRol">
 								{{ rol.descriptionRol | getDescriptionToRol }}
 							</option>
 					</select>
 				</div>
 			</div>
-			<div class="col-auto"><button class="btn btn-primary " style="margin-top: 32px;"><i aria-hidden="true"
+			<div class="col-auto"><button class="btn btn-primary " style="margin-top: 32px;" @click="filterRegisters()"><i aria-hidden="true"
 						class="fa fa-search"></i>
 					Buscar</button>
 				</div>
@@ -235,7 +264,7 @@ Vue.component('template-promoter', {
 							<th scope="row">{{register.nameLong}}</th>
 							<td>{{register.userCampusPK.userName}}</td>
 							<td>{{getDescriptionToDivision(register.userCampusPK.campusCode)}}</td>
-							<td>{{register.roleDescription}}</td>
+							<td>{{register.roleDescription | getDescriptionToRol}}</td>
 							<th>
 									<div class="btn-group" role="group" aria-label="Basic example">
 											<button class="btn btn-success btn-xs" @click="setUserToEdit(register)"><i class="fa fa-minus" aria-hidden="true"></i> Editar</button>

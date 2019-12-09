@@ -74,6 +74,7 @@ Vue.component('template-register', {
 				console.log("Response ")
 				console.log(response)
 				console.log(response.body.statusRole)
+				this.$root.$emit('update_table')
 				this.validatingSatatusResponse("Borrado Exitoso", response.body.statusRole)
 				this.loader.loading = false
 				this.user.person.userName = null
@@ -104,6 +105,7 @@ Vue.component('template-register', {
 				console.log("Response ")
 				console.log(response)
 				this.validatingSatatusResponse("Guardado Exitoso", response.body.result.statusRole)
+				this.$root.$emit('update_table')
 				this.loader.loading = false
 				this.response.register = true
 				}, response => {
