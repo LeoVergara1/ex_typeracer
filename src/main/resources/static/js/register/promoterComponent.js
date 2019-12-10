@@ -266,7 +266,7 @@ Vue.component('template-promoter', {
 							<td>{{getDescriptionToDivision(register.userCampusPK.campusCode)}}</td>
 							<td>{{register.roleDescription | getDescriptionToRol}}</td>
 							<th>
-									<div class="btn-group" role="group" aria-label="Basic example">
+									<div class="" role="group" aria-label="Basic example2">
 											<button class="btn btn-success btn-xs" @click="setUserToEdit(register)"><i class="fa fa-minus" aria-hidden="true"></i> Editar</button>
 											<button class="btn btn-danger btn-xs" @click="validateDelete(register)" ><i class="fa fa-plus" aria-hidden="true"></i> Eliminar</button>
 									</div>
