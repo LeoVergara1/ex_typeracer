@@ -8,8 +8,8 @@ Vue.component('template-promoter', {
 			listAssociation: [],
 			roles: {},
 			campus: {},
-			newCampus: "Todas",
-			newRole: "Todas",
+			newCampus: "",
+			newRole: "",
 			promoterRoleId: document.getElementById("promoterRoleId").value,
 			managerRoleID: document.getElementById("managerRoleID").value,
 			rcreCode: "",
@@ -181,7 +181,6 @@ Vue.component('template-promoter', {
 						<div class="col">
 								<label for="selectCampus" class="font-weight-bold">Campus</label>
 								<div id="filter-campus"><select class="form-control" v-model="newCampus">
-										<option value="0"> Todas </option>
 										<option v-for="(k, v) in campus" v-bind:value="v">
 											{{ k }}
 										</option>
@@ -190,7 +189,6 @@ Vue.component('template-promoter', {
 							</div>
 							<div class="col"><label for="selectRoles" class="font-weight-bold">Rol</label>
 								<div id="filter-roles"><select class="form-control filtersRolAndCampus"  v-model="newRole">
-										<option value="0"> Todas </option>
 										<option v-for="rol in roles" v-bind:value="rol.nidRol">
 												{{ rol.descriptionRol | getDescriptionToRol }}
 											</option>
@@ -225,7 +223,7 @@ Vue.component('template-promoter', {
 			<div class="col-lg-2">
 				<label for="selectCampus" class="font-weight-bold">Campus</label>
 				<div id="filter-campus"><select class="form-control" v-model="filterCampus">
-						<option value="0"> Todas </option>
+						<option value="0"> Todos </option>
 						<option v-for="(k, v) in campus" v-bind:value="v">
 							{{ k }}
 						</option>
@@ -234,7 +232,7 @@ Vue.component('template-promoter', {
 			</div>
 			<div class="col-lg-2"><label for="selectRoles" class="font-weight-bold">Rol</label>
 				<div id="filter-roles"><select class="form-control filtersRolAndCampus" v-model="filterRol">
-						<option value="0"> Todas </option>
+						<option value="0"> Todos </option>
 						<option v-for="rol in roles" v-bind:value="rol.descriptionRol">
 								{{ rol.descriptionRol | getDescriptionToRol }}
 							</option>
@@ -266,7 +264,7 @@ Vue.component('template-promoter', {
 							<td>{{getDescriptionToDivision(register.userCampusPK.campusCode)}}</td>
 							<td>{{register.roleDescription | getDescriptionToRol}}</td>
 							<th>
-									<div class="btn-group" role="group" aria-label="Basic example">
+									<div class="" role="group" aria-label="Basic example2">
 											<button class="btn btn-success btn-xs" @click="setUserToEdit(register)"><i class="fa fa-minus" aria-hidden="true"></i> Editar</button>
 											<button class="btn btn-danger btn-xs" @click="validateDelete(register)" ><i class="fa fa-plus" aria-hidden="true"></i> Eliminar</button>
 									</div>
