@@ -167,9 +167,11 @@ class AuthorizationController {
   @ResponseBody
   Map queryAuthorizationSearchCommissions(@RequestBody Map data) {
     if(data.typeComission == "Corrientes"){
+      logger.info "Obteniendo comisiones corrientes"
 		  def list = authorizationService.getCommissionsByStatus(data)
+      logger.info "Agrupando comisiones corrientes"
 		  def groups = authorizationService.structureGrups(list.groupBy({ it.idPromotor }))
-		  return [response:200, commissions: authorizationService.getCommissionsByStatus(data), groups: groups]
+		  return [response:200, commissions: list, groups: groups]
     }
     List<Trimester> trimester = trimesterService.findByInitDateGreaterThanAndEndDateLessThan(data.selectInit, data.selectFin)
     if(trimester.size() > 1){
