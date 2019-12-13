@@ -22,6 +22,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.github.groovy-wslite:groovy-wslite:1.1.2'
 	compile group: 'org.codehaus.groovy', name: 'groovy-json', version: '2.5.7'
 	implementation group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
