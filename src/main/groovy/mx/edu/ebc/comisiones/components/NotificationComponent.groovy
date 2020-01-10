@@ -1,5 +1,4 @@
 //package mx.edu.ebc.comisiones.components
-
 //import org.springframework.stereotype.Component
 //import org.springframework.beans.factory.annotation.Autowired
 //import org.springframework.beans.factory.annotation.Value
