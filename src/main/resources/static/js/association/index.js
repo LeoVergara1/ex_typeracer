@@ -21,6 +21,8 @@ var app = new Vue({
   computed: {
   },
   created: function() {
+    let container = document.getElementById("app")
+    container.classList.remove("display_current")
     this.loader.loading = true
     this.$http.post('/administration/search/association', {user: this.username}).then(response => {
       console.log(response.body);
