@@ -171,7 +171,7 @@ Vue.component('template-promoter', {
 	},
 	template: `
 	<div>
-			<b-modal id="modal-edit" title="Eiditar usuario">
+			<b-modal id="modal-edit" title="Editar usuario">
 				<div class="row">
 					<div class="col">
 						<h4>Username: {{userModal.userCampusPK.userName }}</h4>

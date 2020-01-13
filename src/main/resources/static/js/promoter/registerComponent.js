@@ -156,7 +156,7 @@ Vue.component('template-register', {
 							<button class="btn btn-danger btn-xs btn-block buttonTable" @click="deleteRol()" id="buttonTable"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 						-->
 						<div class="btn-group" role="group" aria-label="Basic example">
-								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].id == managerRoleID"><i class="fa fa-plus" aria-hidden="true"></i>Associar</a>
+								<a class="btn btn-success btn-xs" :href="'association/	' + user.person.userName" v-if="user.person.profiles[0].id == managerRoleID"><i class="fa fa-plus" aria-hidden="true"></i>Asociar</a>
 						</div>
 					</td>
 				</tr>
