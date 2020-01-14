@@ -4,7 +4,7 @@
   <vue-snotify></vue-snotify>
   	<b-modal id="modal-download" title="Archivo sicoss">
         <h1 class="margin0 text-success text-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i></h1>
-        <h4 class="text-center">Periodo: <span class="text-success">Septiembre (1-09-2017 al 30-09-2017)</span></h4>
+        <h4 class="text-center">Periodo: <span class="text-success" v-if="campings.length">{{campings[periodSelected] | parserCamping}}</span></h4>
         <div class="row">
             <div class="col-lg-3"></div>
              <div class="col-lg-6">
