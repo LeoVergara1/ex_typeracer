@@ -1,4 +1,4 @@
-<div th:fragment="registerAssociation" class="display_current">
+<div th:fragment="registerAssociation">
 	<br>
 	<input type="hidden" id="username" th:value="${username}">
 	<div class="row">
@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	<hr>
-	<div id="app">
+	<div id="app"  class="display_current">
 		<div class="loading" v-if="loader.loading"></div>
 		<ring-loader :loading="loader.loading" :color="loader.color" :size="loader.size" class="custom-spinner"></ring-loader>
 		<div class="row">
