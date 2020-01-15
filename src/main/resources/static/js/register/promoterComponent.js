@@ -159,8 +159,8 @@ Vue.component('template-promoter', {
 		getDescriptionToRol: function (value){
 			let map = {
 				"Jefe_Promoción_LI": " Jefe de Promoción",
-				"Coord_Mercadotecnia_LI": "Coordinador de Mercadotecnía",
-				"Jefe_Mercadotecnia_LI": "Jefe de Mercadotecnía",
+				"Coord_Mercadotecnia_LI": "Coordinador de Mercadotecnia",
+				"Jefe_Mercadotecnia_LI": "Jefe de Mercadotecnia",
 				"Dir_División_LI": "Director de división",
 				"Administrador_SICOSS": "Administrador Sicoss",
 				"Coord_inteligencia_merc": "Coordinador de inteligencia",
