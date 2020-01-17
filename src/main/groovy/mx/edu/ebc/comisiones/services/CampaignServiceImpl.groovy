@@ -47,4 +47,16 @@ class CampaignServiceImpl implements CampaignService {
 		campaigns.collect{ [campaign: it, editable: false]}
 	}
 
+	Campaign checkActiveBeforeSave(Campaign campaign){
+		Date currentDate = new Date()
+		if(campaign.initDate <= currentDate && campaign.endDate >= currentDate){
+			println("Active")
+			campaign.status = "ACTIVE"
+		}
+		else {
+			campaign.status = "INACTIVE"
+		}
+		campaign
+	}
+
 }
