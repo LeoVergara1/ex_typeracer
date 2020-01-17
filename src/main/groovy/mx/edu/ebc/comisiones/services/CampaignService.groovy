@@ -4,4 +4,5 @@ import mx.edu.ebc.comisiones.comision.domain.Campaign
 
 interface CampaignService {
 	List<Campaign> getALlCampaningsByYearAndCreateIfNotExist(String year)
+	Campaign checkActiveBeforeSave(Campaign campaing)
 }

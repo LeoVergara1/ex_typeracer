@@ -319,6 +319,7 @@ class AdministrarionController {
 	@PostMapping("administration/update/campaign")
 	@ResponseBody
   Map updateCampaign(@RequestBody Campaign campaign){
+		campaign = campaignService.checkActiveBeforeSave(campaign)
 		[result: campaignRepository.save(campaign)]
   }
 
