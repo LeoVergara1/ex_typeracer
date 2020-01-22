@@ -162,9 +162,29 @@ class AdministrarionController {
   @RequestMapping("administration/data/association")
   @ResponseBody
   Map getInfoAssociation() {
+		def list =  administrationService.findAllPromoters()
+		def mapAssociation = list.collect(){
+			[
+				idCoordinater: it.idCoordinater,
+				coordinaterName: it.coordinaterName,
+				apellidosCoordinater: it.apellidosCoordinater,
+				claveCoordinater: it.claveCoordinater,
+				campusCode: it.campusCode,
+				campusDesc: it.campusDesc,
+				idPromoter: it.idPromoter,
+				promoterName: it.promoterName,
+				apellidosPromoter: it.apellidosPromoter,
+				clavePromoter: it.clavePromoter,
+				jobPromoter: it.jobPromoter,
+				relationActive: it.relationActive,
+				user: it.user,
+				lastUpdated: it.lastUpdated,
+				programManager: it.programManager
+			]
+		}
 		Map data = [
 			campus: campus,
-			listAssociation: administrationService.findAllPromoters()
+			listAssociation: mapAssociation
 		]
 		return data
   }
