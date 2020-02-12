@@ -179,7 +179,7 @@ class AuthorizationController {
       return [response: 404, commissions: [], groups: []]
     }
     else if(trimester.size() == 0){
-      logger.error "La busqueda incluye más de un trimestre"
+      logger.error "La busqueda no tiene trimestres"
       return [response: 404, commissions: [], groups: []]
     }
     data << [trimester: trimester.first()]

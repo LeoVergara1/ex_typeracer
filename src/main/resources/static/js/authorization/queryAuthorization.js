@@ -105,6 +105,7 @@ const app = new Vue({
         "Comisión": element.comision,
         "ID Coordinador": element.idCoordinador,
         "Nombre Coordinador": element.nombreCoordinador,
+        "Comisión Coordinador": element.comisionCoordinador,
         "Período": element.periodo,
         "Fecha Pago": element.fechaDePago
        }
