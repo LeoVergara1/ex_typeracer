@@ -154,6 +154,9 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	}
 
 	List<AuthorizationCrescent> getCommissionsCrecentByStatus(data){
+		println "++++"
+		println data.dump()
+		println "++++"
 		if(data.status == "POR_AUTORIZAR")
 			return filterToAuthorizationsCrecents(data)
 		if(data.status == "AUTORIZADO" || data.status == "RECHAZADA")
@@ -165,6 +168,8 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	}
 
 	List<AuthorizationCrescent> findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween(data){
+		println data.dump()
+		println "BISQUEDA GENERAL"
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectInit)
     Date finDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(data.selectFin)
 		if(data.campus == "TODOS"){

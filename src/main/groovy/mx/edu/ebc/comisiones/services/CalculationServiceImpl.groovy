@@ -53,6 +53,9 @@ class CalculationServiceImpl implements CalculationService {
 	List<AuthorizationCrescent> getAuthorizationsCrescentcalculationByGoals(Trimester trimester ,String campus){
 		Campaign campaign = getCampaignByTrimester(trimester)
 		Goal goal = trimester.goals.find(){ it.campus == campus}
+		println goal.dump()
+		println trimester?.dump()
+		println campaign?.dump()
 		calculationByGoal(goal, campaign.initDate, campaign.endDate)
 	}
 
@@ -92,6 +95,7 @@ class CalculationServiceImpl implements CalculationService {
 
 
 	List<AuthorizationCrescent> calculationByGoal(Goal goal, Date initDate, Date endDate){
+		println "LLega aquí"
 		List<AuthorizationComission> authorizationsCommissions = authorizationRepository.findAllByAutorizadoDirectorAndCampusAndFechaAutorizadoBetween("AUTORIZADO", goal.campus, initDate, endDate)
 		(authorizationsCommissions.size() >= goal.numRegisters) ? makingCalculations(authorizationsCommissions, goal) : []
 	}
