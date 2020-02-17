@@ -12,6 +12,10 @@ class AdminDeComisiones {
 	Integer comisionCoordinacion
 	@Column(name = "COMISION_EJECUTIVO")
 	Integer comisionEjecutivo
+	@Column(name = "COMISION_COORDINACION_FOURTY")
+	Integer comisionCoordinacionFourty
+	@Column(name = "COMISION_EJECUTIVO_FOURTY")
+	Integer comisionEjecutivoFourty
 	@Column(name = "CAMPUS_CODE")
 	String campusCode
 	@Column(name = "CAMPUS_DESC")
