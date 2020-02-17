@@ -8,7 +8,7 @@ interface AdministrationService {
 	List<AdminDeComisiones> findAllComission()
 	List<Promoter> findAllPromoters()
 	AdminDeComisiones updateCuotaFijaToComission(String id, String cuotaFija)
-	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion)
+	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion, String comisionCoordinacionFourty, String comisionEjecutivoFourty)
 	Person findPerson(String user)
 	Map getPersonWithValidations(String username)
 	def saveRolAndCampus(String username, String codeCampus, String roleCode, String recrCode)
