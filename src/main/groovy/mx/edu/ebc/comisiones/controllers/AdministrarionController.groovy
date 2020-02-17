@@ -99,10 +99,13 @@ class AdministrarionController {
   @ResponseBody
   ModelAndView administrationShow(Principal principal) {
 		ModelAndView model = new ModelAndView("index");
+		def comisionesList = administrationService.findAllComission()	
 		model.addObject("content", "show");
-		model.addObject("comisionesList", administrationService.findAllComission());
-		model.addObject("comissionEjecutiva", administrationService.findAllComission().first().comisionEjecutivo);
-		model.addObject("comissionCordinacion", administrationService.findAllComission().first().comisionCoordinacion);
+		model.addObject("comisionesList", comisionesList);
+		model.addObject("comissionEjecutiva", comisionesList.first().comisionEjecutivo);
+		model.addObject("comissionCordinacion", comisionesList.first().comisionCoordinacion);
+		model.addObject("comisionEjecutivoFourty", comisionesList.first().comisionEjecutivoFourty);
+		model.addObject("comisionCoordinacionFourty", comisionesList.first().comisionCoordinacionFourty);
 		model.addObject("message", "Hola mundo");
 		return model
   }
@@ -148,8 +151,9 @@ class AdministrarionController {
 
 	@GetMapping("administration/updateComission")
   @ResponseBody
-  RedirectView updateComission(@RequestParam(name = "comissionEjecutiva") String comissionEjecutiva, @RequestParam(name = "comissionCordinacion") String comissionCordinacion) {
-		administrationService.updateComissions(comissionEjecutiva, comissionCordinacion)
+  RedirectView updateComission(@RequestParam(name = "comissionEjecutiva") String comissionEjecutiva, @RequestParam(name = "comissionCordinacion") String comissionCordinacion, @RequestParam(name = "comisionCoordinacionFourty") String comisionCoordinacionFourty,
+	@RequestParam(name = "comisionEjecutivoFourty") String comisionEjecutivoFourty) {
+		administrationService.updateComissions(comissionEjecutiva, comissionCordinacion, comisionCoordinacionFourty, comisionEjecutivoFourty)
 		return new RedirectView("/administration/show");
   }
 
