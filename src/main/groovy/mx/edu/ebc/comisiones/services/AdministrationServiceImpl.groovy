@@ -70,11 +70,13 @@ class AdministrationServiceImpl implements AdministrationService {
 	}
 
 	@Override
-	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion){
+	List<AdminDeComisiones> updateComissions(String comissionEjecutiva, String comissionCordinacion, String comisionCoordinacionFourty, String comisionEjecutivoFourty){
 		List<AdminDeComisiones> adminDeComisionesList = adminDeComisionesRepository.findAll()
 		adminDeComisionesList.each{ admin ->
 			admin.comisionCoordinacion = comissionCordinacion.toInteger()
 			admin.comisionEjecutivo = comissionEjecutiva.toInteger()
+			admin.comisionCoordinacionFourty = comisionCoordinacionFourty.toInteger()
+			admin.comisionEjecutivoFourty = comisionEjecutivoFourty.toInteger()
 			adminDeComisionesRepository.save(admin)
 		}
 	}

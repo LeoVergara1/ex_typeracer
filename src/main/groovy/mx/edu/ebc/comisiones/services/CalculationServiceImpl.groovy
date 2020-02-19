@@ -116,7 +116,7 @@ class CalculationServiceImpl implements CalculationService {
   			nombreAlumno: authorization.nombreAlumno,
   			pagoInicial: authorization.pagoInicial,
   			totalDescuentos: authorization.totalDescuentos,
-  			comision: calculationComissionPromoter(authorization.pagoInicial.toDouble(), goal.percentCommission),
+  			comision: calculationComissionPromoter(authorization.pagoInicial.toDouble(), knowPerdiodToCommission(goal, authorization)),
   			periodo: authorization.periodo,
   			fechaDePago: authorization.fechaDePago,
   			autorizadoDirector: "CALCULADO",
@@ -124,7 +124,7 @@ class CalculationServiceImpl implements CalculationService {
   			lastUpdated: new Date(),
   			idCoordinador: authorization.idCoordinador,
   			nombreCoordinador: authorization.nombreCoordinador,
-  			comisionCoordinador: calculationComissionCoordinater(authorization.pagoInicial.toDouble(), goal.percentCommission),
+  			comisionCoordinador: calculationComissionCoordinater(authorization.pagoInicial.toDouble(), knowPerdiodToCommission(goal, authorization)),
   			fechaAutorizado: authorization.fechaAutorizado,
   			user: authorization.user,
   			tipoPago: authorization.tipoPago,
@@ -143,6 +143,12 @@ class CalculationServiceImpl implements CalculationService {
 		double commissionPromoter = (pagoInicial* (percentCommission/100))
 		double result =(commissionPromoter * (adminDeComisionesRepository.findAll().first().comisionEjecutivo / 100))
 		Math.round(result * 100) / 100
+	}
+
+	float knowPerdiodToCommission(Goal goal, def authorization){
+		if(authorization.periodo.reverse().take(2).reverse() == "40")
+			return goal.percentCommissionFourty
+		return goal.percentCommission
 	}
 
 }

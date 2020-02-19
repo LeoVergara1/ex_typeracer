@@ -1,26 +1,29 @@
 //package mx.edu.ebc.comisiones.components
-//import org.springframework.stereotype.Component
-//import org.springframework.beans.factory.annotation.Autowired
-//import org.springframework.beans.factory.annotation.Value
-//import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.mail.javamail.JavaMailSender;
-//import org.slf4j.Logger
-//import org.slf4j.LoggerFactory
 
-//@Component
-//class NotificationComponent {
+import org.springframework.stereotype.Component
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.mail.SimpleMailMessage
+import org.springframework.mail.javamail.JavaMailSender
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-	//Logger logger = LoggerFactory.getLogger(NotificationComponent.class)
+@Component
+class NotificationComponent {
 
-  //@Autowired
-  //private JavaMailSender javaMailSender;
+  Logger logger = LoggerFactory.getLogger(NotificationComponent.class)
 
-  //def sendNotification(String username){
-    //logger.info "Send Email Notification"
-    //SimpleMailMessage msg = new SimpleMailMessage();
-    //msg.setTo("brandon@makingdevs.com")
-    //msg.setSubject("Testing from Spring Boot")
-    //msg.setText("Hello World \n Spring Boot Email")
-    //javaMailSender.send(msg)
-  //}
-//}
+  @Autowired
+  private JavaMailSender javaMailSender;
+
+  def sendNotification(String username){
+    logger.info "Sending Email Notification"
+    SimpleMailMessage msg = new SimpleMailMessage();
+    msg.setFrom("brandon@makingdevs.com")
+    msg.setTo(username)
+    msg.setSubject("Binvenido a la aplicación")
+    msg.setText("Hola muchas gracias por hacer el registro con nosotros\n Saludos")
+    javaMailSender.send(msg)
+    logger.info "Sent Email Notification"
+  }
+}
