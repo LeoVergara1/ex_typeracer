@@ -35,8 +35,8 @@ class NotificationComponentSpec extends Specification{
   def "Spect 001 Send Notification"() {
     given:
       String username = "brandon@makingdevs.com"
+      def listCommissions = createAuthorizations()
     when:
-    println notificationComponent
       def send = notificationComponent.sendNotificationRegisters()
     then:
       assert notificationComponent
@@ -45,7 +45,6 @@ class NotificationComponentSpec extends Specification{
   def "Spect 002 build message"(){
     given: 
       def listCommission = createAuthorizations()
-      println listCommission.dump()
     when:
       def message = notificationComponent.buildMessageWithComisssions(listCommission)
     then:

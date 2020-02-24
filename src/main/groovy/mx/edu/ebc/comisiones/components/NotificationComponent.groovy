@@ -34,13 +34,13 @@ class NotificationComponent {
     logger.info "Sent Email Notification"
   }
 
-  def sendNotificationRegisters(){
+  def sendNotificationRegisters(def listCommissions){
     logger.info "Sending Email Notification"
     SimpleMailMessage msg = new SimpleMailMessage();
     msg.setFrom(mailFrom)
     msg.setTo(mailCoordinator)
     msg.setSubject("Registro de Comisiones")
-    msg.setText("Han habido cambios")
+    msg.setText("Se han registrado las siguientes notificaciones\n" + buildMessageWithComisssions(listCommissions))
     javaMailSender.send(msg)
     logger.info "Sent Email Notification"
   }
