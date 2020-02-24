@@ -13,6 +13,7 @@ import mx.edu.ebc.comisiones.comision.repo.AuthorizationRepository
 import mx.edu.ebc.comisiones.comision.repo.AuthorizationCrescentRepository
 import mx.edu.ebc.comisiones.comision.repo.PromoterRepository
 import java.text.SimpleDateFormat
+import mx.edu.ebc.comisiones.components.NotificationComponent
 
 @Service
 class AuthorizationServiceImpl implements AuthorizationService {
@@ -29,6 +30,8 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	TrimesterService trimesterService
 	@Autowired
 	CalculationService calculationService
+	@Autowired
+	NotificationComponent notificationComponent
 
 	def getCalculation(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
@@ -63,6 +66,7 @@ class AuthorizationServiceImpl implements AuthorizationService {
 		listToAuthorization.each{ authorized ->
 			authorizationRepository.save(new AuthorizationComission(authorized, username))
 		}
+		notificationComponent.sendNotificationRegisters(listToAuthorization)
 	}
 
 	def saveListAuthorizationMarketing(List<AuthorizationComission> listToAuthorization, String username){
