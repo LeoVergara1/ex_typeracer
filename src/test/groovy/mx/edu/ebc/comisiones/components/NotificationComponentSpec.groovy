@@ -15,6 +15,7 @@ import spock.lang.Specification
 import spock.lang.Ignore
 import spock.lang.Unroll
 import org.springframework.transaction.annotation.Transactional
+import mx.edu.ebc.comisiones.comision.domain.AuthorizationComission
 
 @SpringBootTest
 @ContextConfiguration
@@ -34,12 +35,26 @@ class NotificationComponentSpec extends Specification{
   def "Spect 001 Send Notification"() {
     given:
       String username = "brandon@makingdevs.com"
+      def listCommissions = createAuthorizations()
     when:
-    println notificationComponent
-    def send = notificationComponent.sendNotification(username)
+      def send = notificationComponent.sendNotificationRegisters()
     then:
-    assert notificationComponent
+      assert notificationComponent
   }
 
+  def "Spect 002 build message"(){
+    given: 
+      def listCommission = createAuthorizations()
+    when:
+      def message = notificationComponent.buildMessageWithComisssions(listCommission)
+    then:
+      assert message
+  }
+
+  def createAuthorizations(){
+    (1..10).collect{
+      new AuthorizationComission(campus: "QRO", idAlumno: "M00000000", nombreAlumno: "NOMBRE ALUMNO JAJA", comision: "${it}")
+    }
+  }
 
 }
