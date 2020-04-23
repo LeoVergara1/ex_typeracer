@@ -32,6 +32,8 @@ class AuthorizationServiceImpl implements AuthorizationService {
 	CalculationService calculationService
 	@Autowired
 	NotificationComponent notificationComponent
+	@Autowired
+	PromoterService promoterService
 
 	def getCalculation(String campus, String initDate, String finDate){
     Date initDateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(initDate)
@@ -42,6 +44,8 @@ class AuthorizationServiceImpl implements AuthorizationService {
       p_campus: campus
     ]
 		def comissions = filterAuthorizations(params)
+		def listPromoters = promoterService.createListOfEnrollmentPromoterByCampus(campus)
+		comissions = comissions.findAll(){ comision -> listPromoters.contains(comision.idPromotor)}
 
 		[out_comisiones: comissions, comissionsGroups: comissions.groupBy({ it.idPromotor })]
 	}
