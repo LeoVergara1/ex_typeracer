@@ -11,4 +11,5 @@ interface PromoterService {
   Boolean isRecruiterCodeAlreadyInUse(String recrCode)
   Boolean isAPromoterSavedWithRecrCode(String recrCode)
   List<Map> getCoordinates()
+  def createListOfEnrollmentPromoterByCampus(String campusCode)
 }
