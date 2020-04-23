@@ -14,7 +14,7 @@ import mx.edu.ebc.comisiones.pojos.Person
 
 @SpringBootTest
 @ContextConfiguration
-@TestPropertySource("classpath:application-dev.properties")
+@TestPropertySource("classpath:application-qa.properties")
 class PromoterServiceSpec extends Specification{
 
 	@Autowired
@@ -71,5 +71,17 @@ class PromoterServiceSpec extends Specification{
 		then: "created"
 			assert result
 	}
+
+	@Transactional
+	def "Get list of enrollment from promoters bt campus code"(){
+		given: "User Campus to create promoter"
+			String campusCode = "TOL"
+		when: "was get data"
+			def list = promoterService.createListOfEnrollmentPromoterByCampus(campusCode)
+			println "Lista de promotores"
+			println list
+		then: "created"
+			assert false
+	}	
 
 }

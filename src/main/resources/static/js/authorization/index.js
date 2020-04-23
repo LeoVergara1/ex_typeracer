@@ -44,7 +44,8 @@ var app = new Vue({
       send: {},
       indexList: ""
     },
-    authorizationsCrecentGroups: []
+    authorizationsCrecentGroups: [],
+    campusesWithFilter: {}
   },
   computed: {
     totalCommission() {
@@ -82,6 +83,12 @@ var app = new Vue({
       this.campuses = response.body.campus
       this.person = response.body.person.person
       this.loader.loading = false
+      if(this.person.profiles[0].id == response.body.directorRoleID){
+        this.person.campuses.forEach( (e) => { this.campusesWithFilter[e.campusCode] = this.campuses[e.campusCode]})
+      }
+      else {
+        this.campusesWithFilter = this.campuses
+      }
     }, response => {
       console.log("Fail")
       console.log(response)
@@ -221,7 +228,7 @@ var app = new Vue({
   filters: {
 		getDescriptionToRol: function (value){
 			let map = {
-				"DIR_CAMPUS": "Director de campus",
+				"Dir_Campus_LI": "Director de campus",
 				"ADMIN_JP": "Administrador",
 				"COORD_MERCADOTECNIA_CORP": "Coordinador",
 				"NOMINA_ADMIN_SICOSS": "Sicoss de nomina",

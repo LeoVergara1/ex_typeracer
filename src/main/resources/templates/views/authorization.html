@@ -26,7 +26,7 @@
 				<div id="filter-campus">
 					<select v-model="campusSelected" class="form-control">
 						<!-- inline object literal -->
-						<option v-for="(k, v) in campuses" v-bind:value="v">
+						<option v-for="(k, v) in campusesWithFilter" v-bind:value="v">
 							{{ k }}
 						</option>
 					</select>

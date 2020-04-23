@@ -59,6 +59,8 @@ class AuthorizationController {
   AuthorizationRepository authorizationRepository
   @Autowired
   AuthorizationCrescentRepository authorizationCrescentRepository
+  @Value('${directorRoleID}')
+  String directorRoleID
 
   @RequestMapping("/")
   @ResponseBody
@@ -73,7 +75,7 @@ class AuthorizationController {
   @ResponseBody
   Map campueses(HttpServletRequest request) {
 		String username = request.getUserPrincipal().getUserDetails().username
-		return [campus: campus, person: administrationService.getPersonWithValidations(username)];
+		return [campus: campus, person: administrationService.getPersonWithValidations(username), directorRoleID: directorRoleID];
   }
 
 	@PostMapping("/getCalculation")
