@@ -150,4 +150,9 @@ class PromoterServiceImpl implements PromoterService{
     listCampus?.collect(){ [code: it.userCampusPK.campusCode, description: campus["${it.userCampusPK.campusCode}"]]}
   }
 
+  def createListOfEnrollmentPromoterByCampus(String campusCode){
+    List<Promoter> promoters = promoterRepository.findAllByCampusCode(campusCode)
+    promoters?.collect(){ promoter -> promoter.idPromoter }
+  }
+
 }
